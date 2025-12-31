@@ -1,0 +1,10 @@
+{
+  "test": "003-memory-inactive-agents",
+  "url": "https://kraliki.verduona.dev/memory",
+  "timestamp": "2025-12-25T12:17:03.172659",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/kraliki/e2e-tests/playwright-results//003-memory-inactive-agents.png",
+  "page_title": "Darwin2 Dashboard",
+  "errors": []
+}

@@ -1,0 +1,32 @@
+{
+  "id": "calls",
+  "name": "Calls",
+  "version": "0.1.0",
+  "summary": "Simple call operations UI over headless Voice by Kraliki.",
+  "roles": ["admin", "operator", "viewer"],
+  "ui_modules": [
+    "overview",
+    "active-calls",
+    "campaign-queue",
+    "handoff-panel",
+    "audit-timeline"
+  ],
+  "mcp": {
+    "required_endpoints": [
+      "voice.calls.start",
+      "voice.calls.stop",
+      "voice.calls.status",
+      "swarm.audit.query"
+    ]
+  },
+  "metrics": [
+    "calls_completed",
+    "handoffs_requested",
+    "avg_call_duration"
+  ],
+  "events": [
+    "template.action.triggered",
+    "template.handoff.requested",
+    "template.audit.updated"
+  ]
+}

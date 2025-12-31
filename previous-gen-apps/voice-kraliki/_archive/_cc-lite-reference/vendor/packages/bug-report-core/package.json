@@ -1,0 +1,29 @@
+{
+  "name": "@stack-2025/bug-report-core",
+  "version": "1.0.0",
+  "description": "Core bug reporting functionality with Linear integration for Stack 2025",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@linear/sdk": "^15.0.0",
+    "@unified/ui-core": "file:../ui-core",
+    "axios": "^1.7.2",
+    "lucide-react": "^0.309.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.17",
+    "typescript": "^5.5.0",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

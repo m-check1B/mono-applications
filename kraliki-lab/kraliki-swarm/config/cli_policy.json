@@ -1,0 +1,26 @@
+{
+  "_description": "CLI availability policy for Kraliki swarm. Dashboard can toggle these.",
+  "_updated": "2025-12-30",
+  "clis": {
+    "opencode": {
+      "enabled": true,
+      "reason": "Enabled via dashboard",
+      "priority": 1
+    },
+    "gemini": {
+      "enabled": false,
+      "reason": "Disabled via dashboard",
+      "priority": 2
+    },
+    "codex": {
+      "enabled": false,
+      "reason": "Disabled via dashboard",
+      "priority": 3
+    },
+    "claude": {
+      "enabled": false,
+      "reason": "Disabled via dashboard",
+      "priority": 4
+    }
+  }
+}

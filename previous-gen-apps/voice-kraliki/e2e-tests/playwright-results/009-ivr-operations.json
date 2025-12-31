@@ -1,0 +1,14 @@
+{
+  "test": "009-ivr-operations",
+  "url": "https://cc.verduona.dev/operations/ivr",
+  "timestamp": "2025-12-25T12:17:51.268563",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/cc-lite-2026/e2e-tests/playwright-results//009-ivr-operations.png",
+  "page_title": "Operator Demo - CC-Lite Voice Calling Platform",
+  "errors": [
+    "Failed to fetch",
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+  ]
+}

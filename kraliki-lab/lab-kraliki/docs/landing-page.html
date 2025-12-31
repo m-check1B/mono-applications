@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lab by Kraliki - Pre-configured multi-AI orchestration stack. 16× productivity. €299-499/month. Instant Stripe checkout. Your AI subscriptions are ingredients. This is kitchen.">
+    <meta name="keywords" content="AI orchestration, multi-AI, productivity, automation, Claude, Gemini, AI consultancy, Stripe checkout">
+    <title>Lab by Kraliki - 16× Productivity, Packaged</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-void: #050505;
+            --color-concrete: #F0F0F0;
+            --color-terminal-green: #33FF00;
+            --color-system-red: #FF3333;
+            --color-cyan-data: #00FFFF;
+            --color-border-dark: #1a1a1a;
+            --color-border-light: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--color-void);
+            color: var(--color-concrete);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Archivo Black', 'Impact', 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .brutal-btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 2px solid var(--color-terminal-green);
+            background-color: transparent;
+            color: var(--color-terminal-green);
+            cursor: pointer;
+            box-shadow: 4px 4px 0px 0px var(--color-terminal-green);
+            transition: all 0ms;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .brutal-btn:hover {
+            background-color: var(--color-terminal-green);
+            color: var(--color-void);
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px var(--color-terminal-green);
+        }
+
+        .brutal-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: none;
+        }
+
+        .brutal-btn-primary {
+            border-color: var(--color-concrete);
+            color: var(--color-concrete);
+            box-shadow: 4px 4px 0px 0px var(--color-concrete);
+        }
+
+        .brutal-btn-primary:hover {
+            background-color: var(--color-concrete);
+            color: var(--color-void);
+            box-shadow: 2px 2px 0px 0px var(--color-concrete);
+        }
+
+        .brutal-card {
+            background-color: var(--color-void);
+            border: 2px solid var(--color-border-light);
+            padding: 32px;
+            box-shadow: 4px 4px 0px 0px var(--color-border-light);
+        }
+
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-terminal-green), transparent);
+            animation: scan 3s linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .terminal-text {
+            color: var(--color-terminal-green);
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px var(--color-terminal-green); }
+            50% { box-shadow: 0 0 20px var(--color-terminal-green), 0 0 30px var(--color-terminal-green); }
+        }
+
+        header {
+            padding: 24px 0;
+            border-bottom: 2px solid var(--color-border-dark);
+            position: sticky;
+            top: 0;
+            background-color: var(--color-void);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 24px;
+            text-transform: uppercase;
+            color: var(--color-terminal-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-concrete);
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0ms;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-terminal-green);
+        }
+
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 72px);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--color-concrete);
+        }
+
+        .hero h1 .highlight {
+            color: var(--color-terminal-green);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #888;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .section {
+            padding: 100px 0;
+            border-bottom: 2px solid var(--color-border-dark);
+        }
+
+        .section h2 {
+            font-size: clamp(28px, 4vw, 48px);
+            margin-bottom: 16px;
+            color: var(--color-terminal-green);
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 48px;
+        }
+
+        .problem-section {
+            background: linear-gradient(180deg, var(--color-void) 0%, #0a0a0a 100%);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .problem-item {
+            padding: 32px;
+            border: 2px solid var(--color-system-red);
+            box-shadow: 4px 4px 0px 0px var(--color-system-red);
+        }
+
+        .problem-item h3 {
+            color: var(--color-system-red);
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .problem-item p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .solution-section {
+            background-color: #0a0a0a;
+        }
+
+        .diagram {
+            background-color: var(--color-void);
+            border: 2px solid var(--color-terminal-green);
+            padding: 48px;
+            margin-top: 48px;
+            box-shadow: 4px 4px 0px 0px var(--color-terminal-green);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .diagram-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            border-bottom: 1px solid var(--color-border-dark);
+        }
+
+        .diagram-row:last-child {
+            border-bottom: none;
+        }
+
+        .diagram-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        .diagram-value {
+            color: var(--color-cyan-data);
+            font-size: 14px;
+        }
+
+        .proof-section {
+            background: linear-gradient(180deg, #0a0a0a 0%, var(--color-void) 100%);
+        }
+
+        .comparison-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .comparison-card {
+            padding: 40px;
+        }
+
+        .comparison-card.traditional {
+            border-color: var(--color-system-red);
+            box-shadow: 4px 4px 0px 0px var(--color-system-red);
+        }
+
+        .comparison-card.magic-box {
+            border-color: var(--color-terminal-green);
+            box-shadow: 4px 4px 0px 0px var(--color-terminal-green);
+            background: linear-gradient(135deg, rgba(51, 255, 0, 0.05) 0%, transparent 100%);
+        }
+
+        .comparison-card h3 {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .comparison-card.traditional h3 {
+            color: var(--color-system-red);
+        }
+
+        .comparison-card.magic-box h3 {
+            color: var(--color-terminal-green);
+        }
+
+        .comparison-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-border-dark);
+            font-size: 14px;
+        }
+
+        .comparison-item:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-item span:first-child {
+            color: #888;
+        }
+
+        .comparison-item span:last-child {
+            color: var(--color-concrete);
+            font-weight: 700;
+        }
+
+        .features-section {
+            background-color: var(--color-void);
+        }
+
+        .feature-list {
+            margin-top: 48px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 24px;
+            border: 1px solid var(--color-border-dark);
+            margin-bottom: 16px;
+        }
+
+        .feature-icon {
+            color: var(--color-terminal-green);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .feature-content h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--color-concrete);
+        }
+
+        .feature-content p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .pricing-section {
+            background: linear-gradient(180deg, var(--color-void) 0%, #0a0a0a 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .pricing-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--color-terminal-green);
+            box-shadow: 4px 4px 0px 0px var(--color-terminal-green);
+            background: linear-gradient(135deg, rgba(51, 255, 0, 0.05) 0%, transparent 100%);
+            position: relative;
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-terminal-green);
+            color: var(--color-void);
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--color-concrete);
+        }
+
+        .pricing-card.featured h3 {
+            color: var(--color-terminal-green);
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            font-family: 'Archivo Black', sans-serif;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price .setup {
+            font-size: 16px;
+            color: #888;
+        }
+
+        .pricing-price .monthly {
+            font-size: 18px;
+            color: var(--color-terminal-green);
+        }
+
+        .pricing-description {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--color-border-dark);
+        }
+
+        .pricing-features {
+            list-style: none;
+            flex-grow: 1;
+            margin-bottom: 24px;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-border-dark);
+            font-size: 14px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: '>';
+            color: var(--color-terminal-green);
+            font-weight: 700;
+        }
+
+        .comparison-text {
+            margin-top: 48px;
+            padding: 32px;
+            border: 2px solid var(--color-border-dark);
+            background-color: rgba(51, 255, 0, 0.02);
+        }
+
+        .comparison-text p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .comparison-text .highlight {
+            color: var(--color-terminal-green);
+            font-weight: 700;
+        }
+
+        .faq-section {
+            background-color: var(--color-void);
+        }
+
+        .faq-item {
+            margin-bottom: 24px;
+        }
+
+        .faq-question {
+            padding: 24px;
+            border: 2px solid var(--color-border-light);
+            background-color: rgba(51, 255, 0, 0.02);
+            cursor: pointer;
+            transition: all 0ms;
+        }
+
+        .faq-question:hover {
+            border-color: var(--color-terminal-green);
+            box-shadow: 4px 4px 0px 0px var(--color-terminal-green);
+        }
+
+        .faq-question h4 {
+            font-size: 16px;
+            color: var(--color-concrete);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-question h4::before {
+            content: 'Q:';
+            color: var(--color-terminal-green);
+            font-weight: 700;
+        }
+
+        .faq-answer {
+            padding: 24px;
+            border: 2px solid var(--color-border-dark);
+            border-top: none;
+            margin-top: -2px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .cta-section {
+            background: linear-gradient(180deg, var(--color-void) 0%, #0a0a0a 100%);
+            text-align: center;
+            border-bottom: none;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(28px, 4vw, 48px);
+            margin-bottom: 16px;
+            color: var(--color-concrete);
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .beta-info {
+            margin-top: 48px;
+            padding: 32px;
+            border: 2px solid var(--color-terminal-green);
+            background: rgba(51, 255, 0, 0.05);
+            display: inline-block;
+            text-align: left;
+        }
+
+        .beta-info p {
+            font-size: 14px;
+            color: var(--color-concrete);
+            margin-bottom: 12px;
+        }
+
+        .beta-info p:last-child {
+            margin-bottom: 0;
+        }
+
+        .beta-info strong {
+            color: var(--color-terminal-green);
+        }
+
+        footer {
+            padding: 64px 0 32px;
+            border-top: 2px solid var(--color-border-dark);
+            background-color: var(--color-void);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-column h5 {
+            font-size: 16px;
+            margin-bottom: 24px;
+            color: var(--color-concrete);
+            text-transform: uppercase;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0ms;
+        }
+
+        .footer-column a:hover {
+            color: var(--color-terminal-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--color-border-dark);
+            color: #888;
+            font-size: 12px;
+        }
+
+        .footer-bottom a {
+            color: var(--color-terminal-green);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .comparison-table {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scan-line"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Lab by Kraliki<span class="terminal-text">_</span></div>
+                <ul class="nav-links">
+                    <li><a href="#problem">Problem</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#proof">Proof</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder_lab_by_kraliki_pro" class="brutal-btn brutal-btn-primary">Subscribe</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Stop cooking with a <span class="highlight">campfire</span>.<br>Get a <span class="highlight">kitchen</span>.</h1>
+            <p>16× productivity. Same ingredients. Better equipment.<br>Lab by Kraliki is a pre-configured multi-AI orchestration stack. Your AI subscriptions are ingredients. This is the kitchen.</p>
+            <div class="hero-ctas">
+                    <a href="https://buy.stripe.com/placeholder_lab_by_kraliki_pro" class="brutal-btn brutal-btn-primary pulse-glow">Subscribe via Stripe</a>
+                <a href="#proof" class="brutal-btn">See Proof</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section problem-section" id="problem">
+        <div class="container">
+            <h2>The AI Productivity Lie</h2>
+            <p class="section-subtitle">Everyone promises 10× productivity with AI. Here's the truth.</p>
+            
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <h3>ChatGPT alone?</h3>
+                    <p>2× at best. You're just prompting, not orchestrating.</p>
+                </div>
+                <div class="problem-item">
+                    <h3>GitHub Copilot?</h3>
+                    <p>1.5× for specific tasks. Great for code, not for systems.</p>
+                </div>
+                <div class="problem-item">
+                    <h3>"Prompt engineering"?</h3>
+                    <p>Marginally better than nothing. The problem isn't the AI. It's how you're using it.</p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 48px; text-align: center; font-size: 20px; color: var(--color-concrete);">
+                You're using a <span class="terminal-text">campfire</span> when you need a <span class="terminal-text">kitchen</span>.
+                <br><br>
+                <span style="font-size: 14px; color: #888;">Prices starting at €299/month. Cancel anytime. <a href="#pricing" style="color: var(--color-terminal-green);">View pricing →</a></span>
+            </p>
+        </div>
+    </section>
+
+    <section class="section solution-section" id="solution">
+        <div class="container">
+            <h2>Orchestration, Not Prompting</h2>
+            <p class="section-subtitle">We don't teach you to write better prompts. We give you a system where multiple AIs work as a team.</p>
+            
+            <div class="diagram">
+                <div class="diagram-row">
+                    <span class="diagram-label">Orchestrator (Claude)</span>
+                    <span class="diagram-value">Strategy, Context, Quality</span>
+                </div>
+                <div class="diagram-row">
+                    <span class="diagram-label">Workers</span>
+                    <span class="diagram-value">Gemini → Frontend/Research | Codex → Backend/Audit</span>
+                </div>
+                <div class="diagram-row">
+                    <span class="diagram-label">Memory (mgrep)</span>
+                    <span class="diagram-value">Everything Remembers</span>
+                </div>
+                <div class="diagram-row">
+                    <span class="diagram-label">Result</span>
+                    <span class="diagram-value" style="color: var(--color-terminal-green);">16× Output. Documented. Day 1.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section proof-section" id="proof">
+        <div class="container">
+            <h2>16× on Day One</h2>
+            <p class="section-subtitle">December 2, 2025 — First Production Run</p>
+            
+            <div class="comparison-table">
+                <div class="brutal-card comparison-card traditional">
+                    <h3>Traditional Approach</h3>
+                    <div class="comparison-item">
+                        <span>Output</span>
+                        <span>1 marketing site</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Time</span>
+                        <span>6-8 hours</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Features</span>
+                        <span>Basic</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Team</span>
+                        <span>4 people</span>
+                    </div>
+                </div>
+                
+                <div class="brutal-card comparison-card magic-box featured">
+                    <h3>Lab by Kraliki</h3>
+                    <div class="comparison-item">
+                        <span>Output</span>
+                        <span>4 complete sites</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Time</span>
+                        <span>7 hours</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Features</span>
+                        <span>Full (i18n, dark mode, responsive)</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Team</span>
+                        <span class="terminal-text">1 person steering</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 48px; text-align: center; font-size: 18px; color: #888;">
+                The methodology works. The results are documented.
+            </p>
+        </div>
+    </section>
+
+    <section class="section features-section" id="features">
+        <div class="container">
+            <h2>Your Lab by Kraliki</h2>
+            <p class="section-subtitle">Pre-configured Hetzner VM. Setup time: &lt;1 hour. Time to first output: &lt;15 minutes.</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <span class="feature-icon">&gt;</span>
+                    <div class="feature-content">
+                        <h4>Pre-configured Hetzner VM (EU or US)</h4>
+                        <p>Production-ready infrastructure with all dependencies installed and configured.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">&gt;</span>
+                    <div class="feature-content">
+                        <h4>CLIProxyAPI (Unified AI Gateway)</h4>
+                        <p>Route tasks to Claude, Gemini, or Codex based on strengths. No lock-in.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">&gt;</span>
+                    <div class="feature-content">
+                        <h4>Claude Code (Orchestrator)</h4>
+                        <p>Strategy, context management, and quality control. The conductor of your AI orchestra.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">&gt;</span>
+                    <div class="feature-content">
+                        <h4>Gemini CLI (Frontend/Research)</h4>
+                        <p>Web development, research, and creative tasks. Fast and capable.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">&gt;</span>
+                    <div class="feature-content">
+                        <h4>Codex CLI (Backend/Audit)</h4>
+                        <p>Code review, backend development, and quality assurance. Meticulous and thorough.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">&gt;</span>
+                    <div class="feature-content">
+                        <h4>mgrep (Semantic Memory)</h4>
+                        <p>Everything your AIs do, they remember. Context-aware search across all outputs.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">&gt;</span>
+                    <div class="feature-content">
+                        <h4>Prompt Library (Polished)</h4>
+                        <p>Industry-tested prompts for common tasks. Start from proven patterns.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">&gt;</span>
+                    <div class="feature-content">
+                        <h4>Pattern Library (Proven Workflows)</h4>
+                        <p>Battle-tested automation patterns: Research Agents, Perpetual Duo, Parallel Execution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section pricing-section" id="pricing">
+        <div class="container">
+            <h2>Simple Pricing</h2>
+            <p class="section-subtitle">Productized consultancy, not SaaS subscription. You're buying methodology and expertise.</p>
+            
+            <div class="pricing-grid">
+                <div class="brutal-card pricing-card">
+                    <h3>Starter</h3>
+                    <div class="pricing-price">
+                        <span class="setup">€299</span><br>
+                        <span class="monthly">/month</span>
+                    </div>
+                    <p class="pricing-description">For freelancers. Self-serve setup.</p>
+                    <ul class="pricing-features">
+                        <li>Pre-configured Hetzner VM</li>
+                        <li>CLIProxyAPI (unified gateway)</li>
+                        <li>Claude Code + Gemini + Codex</li>
+                        <li>mgrep semantic search</li>
+                        <li>Prompt library access</li>
+                        <li>Basic documentation</li>
+                        <li>Community support</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/placeholder_lab_by_kraliki_starter" class="brutal-btn">Subscribe via Stripe</a>
+                </div>
+                
+                <div class="brutal-card pricing-card featured">
+                    <h3>Pro</h3>
+                    <div class="pricing-price">
+                        <span class="setup">€499</span><br>
+                        <span class="monthly">/month</span>
+                    </div>
+                    <p class="pricing-description">For agencies. Custom setup included.</p>
+                    <ul class="pricing-features">
+                        <li>Everything in Starter</li>
+                        <li>Custom domain configuration</li>
+                        <li>Pattern library (proven workflows)</li>
+                        <li>Priority email support</li>
+                        <li>Monthly pattern updates</li>
+                        <li>Onboarding documentation</li>
+                        <li>Upgrade path to Enterprise</li>
+                    </ul>
+                <a href="https://buy.stripe.com/placeholder_lab_by_kraliki_pro" class="brutal-btn brutal-btn-primary pulse-glow">Subscribe via Stripe</a>
+                </div>
+                
+                <div class="brutal-card pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="pricing-price">
+                        <span class="setup">€10,000</span><br>
+                        <span class="monthly">/year</span>
+                    </div>
+                    <p class="pricing-description">For large companies. Full customization.</p>
+                    <ul class="pricing-features">
+                        <li>Everything in Pro</li>
+                        <li>Custom integrations</li>
+                        <li>Dedicated support</li>
+                        <li>On-site training</li>
+                        <li>SLA guarantees</li>
+                        <li>White-label options</li>
+                        <li>Custom development</li>
+                    </ul>
+                    <a href="mailto:hello@verduona.com?subject=Magic%20Box%20Enterprise" class="brutal-btn">Contact Sales</a>
+                </div>
+            </div>
+            
+            <div class="comparison-text">
+                <p>Compare to:</p>
+                <p><span class="highlight">€3,000/mo</span> → Junior developer</p>
+                <p><span class="highlight">€5,000/mo</span> → Agency retainer</p>
+                <p><span class="highlight">€15,000/mo</span> → Small team</p>
+                <p><span class="highlight">€499/mo</span> → Lab by Kraliki Pro</p>
+                <p style="margin-top: 16px;">If it delivers 17% of a junior dev's output, you're already ahead.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section faq-section" id="faq">
+        <div class="container">
+            <h2>FAQ</h2>
+            <p class="section-subtitle">Common questions about Lab by Kraliki.</p>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Do I need to know how to code?</h4>
+                </div>
+                <div class="faq-answer">
+                    No. Lab by Kraliki works with natural language. But coding skills help you get more out of it. We provide training for non-technical users during onboarding.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Can I use my existing AI subscriptions?</h4>
+                </div>
+                <div class="faq-answer">
+                    Yes. Bring your own API keys for Claude, GPT, Gemini. Or we can provide unified billing (coming Q1 2026). CLIProxyAPI routes tasks to the best model for each job.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What happens if I cancel?</h4>
+                </div>
+                <div class="faq-answer">
+                    Export everything. Your patterns, your memory, your work. We don't hold data hostage. Your VM stays yours. We just stop providing updates and support.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Is this secure?</h4>
+                </div>
+                <div class="faq-answer">
+                    Your VM is isolated. Your data stays on your VM. We don't see your prompts, outputs, or API usage. Self-hosted semantic search means no third-party data sharing.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What support do I get?</h4>
+                </div>
+                <div class="faq-answer">
+                    Documentation, video tutorials, async support. Pro tier includes priority email support and monthly pattern updates. Enterprise includes dedicated onboarding and SLA guarantees.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What's included in the 4hr onboarding?</h4>
+                </div>
+                <div class="faq-answer">
+                    We customize Lab by Kraliki to your domain (company type, goals, workflows), index your existing documents in mgrep, run the first planning session to prove the system works, and train your team on usage.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section" id="cta">
+        <div class="container">
+            <h2>Ready to Multiply?</h2>
+            <p>Start in 15 minutes. Cancel anytime. No lock-in.</p>
+
+            <div class="hero-ctas">
+                <a href="https://buy.stripe.com/placeholder_lab_by_kraliki_pro" class="brutal-btn brutal-btn-primary pulse-glow" style="font-size: 16px;">Subscribe via Stripe</a>
+                <a href="mailto:hello@verduona.com?subject=Magic%20Box%20Demo%20Request" class="brutal-btn" style="font-size: 16px;">Book a Demo</a>
+            </div>
+
+            <div class="beta-info">
+                <p><strong>Instant Setup:</strong></p>
+                <p>→ <strong>Pre-configured VM</strong> ready in &lt;1 hour</p>
+                <p>→ <strong>First output</strong> in &lt;15 minutes</p>
+                <p>→ <strong>Cancel anytime</strong> - export your data</p>
+                <p>→ <strong>Bring your own</strong> API keys or use ours</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h5>Product</h5>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#proof">Proof</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="mailto:hello@verduona.com">Contact</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Connect</h5>
+                    <ul>
+                        <li><a href="https://linkedin.com/company/verduona">LinkedIn</a></li>
+                        <li><a href="https://twitter.com/verduona">Twitter</a></li>
+                        <li><a href="https://github.com/verduona">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Verduona. Lab by Kraliki is a productized AI consultancy.</p>
+                <p>Built with <a href="#">Style 2026</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

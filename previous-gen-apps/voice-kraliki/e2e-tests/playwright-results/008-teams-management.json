@@ -1,0 +1,13 @@
+{
+  "test": "008-teams-management",
+  "url": "https://cc.verduona.dev/teams",
+  "timestamp": "2025-12-25T12:17:47.715035",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/cc-lite-2026/e2e-tests/playwright-results//008-teams-management.png",
+  "page_title": "Operator Demo - CC-Lite Voice Calling Platform",
+  "errors": [
+    "Failed to load resource: the server responded with a status of 404 ()",
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+  ]
+}

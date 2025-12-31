@@ -1,0 +1,215 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Voice by Kraliki Production Dashboard",
+    "tags": ["cc-lite", "production", "monitoring"],
+    "timezone": "UTC",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Application Response Time",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "P95 Response Time"
+          },
+          {
+            "expr": "histogram_quantile(0.50, rate(http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "P50 Response Time"
+          }
+        ],
+        "yAxis": {
+          "label": "Response Time (seconds)"
+        }
+      },
+      {
+        "id": 2,
+        "title": "Request Rate",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "Requests per second"
+          }
+        ],
+        "yAxis": {
+          "label": "Requests/sec"
+        }
+      },
+      {
+        "id": 3,
+        "title": "Error Rate",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{status=~\"5..\"}[5m]) / rate(http_requests_total[5m]) * 100",
+            "legendFormat": "Error Rate %"
+          }
+        ],
+        "yAxis": {
+          "label": "Error Rate (%)"
+        }
+      },
+      {
+        "id": 4,
+        "title": "Active Connections",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "nodejs_active_connections_total",
+            "legendFormat": "Active Connections"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 1000,
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": 0},
+                {"color": "yellow", "value": 700},
+                {"color": "red", "value": 900}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "Memory Usage",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "process_resident_memory_bytes / 1024 / 1024",
+            "legendFormat": "Memory Usage (MB)"
+          }
+        ],
+        "yAxis": {
+          "label": "Memory (MB)"
+        }
+      },
+      {
+        "id": 6,
+        "title": "CPU Usage",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "100 - (avg by(instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
+            "legendFormat": "CPU Usage %"
+          }
+        ],
+        "yAxis": {
+          "label": "CPU Usage (%)"
+        }
+      },
+      {
+        "id": 7,
+        "title": "Database Connections",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "pg_stat_database_numbackends",
+            "legendFormat": "Active Connections"
+          }
+        ],
+        "yAxis": {
+          "label": "Connections"
+        }
+      },
+      {
+        "id": 8,
+        "title": "Redis Memory Usage",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "redis_memory_used_bytes / 1024 / 1024",
+            "legendFormat": "Redis Memory (MB)"
+          }
+        ],
+        "yAxis": {
+          "label": "Memory (MB)"
+        }
+      },
+      {
+        "id": 9,
+        "title": "WebSocket Connections",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "websocket_active_connections",
+            "legendFormat": "Active WebSockets"
+          }
+        ],
+        "yAxis": {
+          "label": "Connections"
+        }
+      },
+      {
+        "id": 10,
+        "title": "AI Response Time",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(ai_response_duration_seconds_bucket[5m]))",
+            "legendFormat": "AI Response P95"
+          },
+          {
+            "expr": "histogram_quantile(0.50, rate(ai_response_duration_seconds_bucket[5m]))",
+            "legendFormat": "AI Response P50"
+          }
+        ],
+        "yAxis": {
+          "label": "Response Time (seconds)"
+        }
+      },
+      {
+        "id": 11,
+        "title": "Call Volume",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(calls_total[5m])",
+            "legendFormat": "Calls per minute"
+          }
+        ],
+        "yAxis": {
+          "label": "Calls/min"
+        }
+      },
+      {
+        "id": 12,
+        "title": "System Health",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up",
+            "legendFormat": "System Status"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {"options": {"0": {"text": "Down"}}, "type": "value"},
+              {"options": {"1": {"text": "Up"}}, "type": "value"}
+            ],
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": 0},
+                {"color": "green", "value": 1}
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "10s",
+    "templating": {
+      "list": []
+    }
+  }
+}

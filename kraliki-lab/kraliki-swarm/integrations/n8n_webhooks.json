@@ -1,0 +1,6 @@
+{
+  "task-complete": "http://127.0.0.1:5678/webhook-test/darwin-task-complete",
+  "task-started": "http://127.0.0.1:5678/webhook-test/darwin-task-started",
+  "alert": "http://127.0.0.1:5678/webhook-test/darwin-alert",
+  "points-awarded": "http://127.0.0.1:5678/webhook-test/darwin-points"
+}

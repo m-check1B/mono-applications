@@ -1,0 +1,63 @@
+{
+  "id": "industry-tracks",
+  "title": "Industry-Specific AI Training",
+  "description": "Tailored AI training for your industry with sector-specific use cases, compliance requirements, and workflows. Apply AI Academy skills to real-world scenarios in your field.",
+  "category": "specialization",
+  "level": "intermediate",
+  "duration": "4 hours per track",
+  "price": 79,
+  "currency": "EUR",
+  "prerequisites": ["ai-fundamentals"],
+  "tags": ["industry", "specialization", "sector", "practical"],
+  "instructor": "AI Academy Team",
+  "lessons": [
+    {
+      "id": "01-overview",
+      "title": "Industry Tracks Overview",
+      "file": "01-overview.md",
+      "duration": 10
+    },
+    {
+      "id": "02-finance",
+      "title": "Finance & Banking Track",
+      "file": "02-finance.md",
+      "duration": 60
+    },
+    {
+      "id": "03-healthcare",
+      "title": "Healthcare & Life Sciences Track",
+      "file": "03-healthcare.md",
+      "duration": 60
+    },
+    {
+      "id": "04-manufacturing",
+      "title": "Manufacturing & Logistics Track",
+      "file": "04-manufacturing.md",
+      "duration": 60
+    },
+    {
+      "id": "05-professional-services",
+      "title": "Professional Services Track",
+      "file": "05-professional-services.md",
+      "duration": 60
+    },
+    {
+      "id": "06-retail",
+      "title": "Retail & E-commerce Track",
+      "file": "06-retail.md",
+      "duration": 60
+    }
+  ],
+  "outcomes": [
+    "Apply AI skills to industry-specific use cases",
+    "Navigate sector compliance and regulatory requirements",
+    "Build role-specific prompt libraries",
+    "Configure workflows for your industry systems",
+    "Implement proven ROI use cases"
+  ],
+  "certification": {
+    "available": true,
+    "name": "AI Academy - Industry Specialist",
+    "validity": "2 years"
+  }
+}

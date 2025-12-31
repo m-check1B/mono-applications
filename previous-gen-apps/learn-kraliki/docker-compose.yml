@@ -1,0 +1,135 @@
+# Learn by Kraliki - Docker Compose
+# SECURITY: All ports bind to 127.0.0.1 only (dev server on internet)
+
+networks:
+  websites_default:
+    external: true
+  learn-network:
+    driver: bridge
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: learn-kraliki-backend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8030:8030"
+    environment:
+      - DEBUG=false
+      - HOST=0.0.0.0
+      - PORT=8030
+      - DATABASE_URL=postgresql+asyncpg://learn:learn@db:5432/learn
+      - CONTENT_DIR=/app/content
+    volumes:
+      - ./content:/app/content:ro
+    depends_on:
+      - db
+    networks:
+      - websites_default
+      - learn-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=websites_default"
+      # Production API routes (learn.kraliki.com)
+      - "traefik.http.routers.learn-api.rule=Host(`learn.kraliki.com`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.learn-api.entrypoints=websecure"
+      - "traefik.http.routers.learn-api.tls=true"
+      - "traefik.http.routers.learn-api.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.learn-api.priority=100"
+      # Production Docs/OpenAPI routes
+      - "traefik.http.routers.learn-docs.rule=Host(`learn.kraliki.com`) && PathPrefix(`/docs`)"
+      - "traefik.http.routers.learn-docs.entrypoints=websecure"
+      - "traefik.http.routers.learn-docs.tls=true"
+      - "traefik.http.routers.learn-docs.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.learn-docs.priority=100"
+      - "traefik.http.routers.learn-openapi.rule=Host(`learn.kraliki.com`) && PathPrefix(`/openapi.json`)"
+      - "traefik.http.routers.learn-openapi.entrypoints=websecure"
+      - "traefik.http.routers.learn-openapi.tls=true"
+      - "traefik.http.routers.learn-openapi.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.learn-openapi.priority=100"
+      # Production Health route
+      - "traefik.http.routers.learn-health.rule=Host(`learn.kraliki.com`) && PathPrefix(`/health`)"
+      - "traefik.http.routers.learn-health.entrypoints=websecure"
+      - "traefik.http.routers.learn-health.tls=true"
+      - "traefik.http.routers.learn-health.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.learn-health.priority=100"
+      # Beta API routes (learn.verduona.dev)
+      - "traefik.http.routers.learn-api-beta.rule=Host(`learn.verduona.dev`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.learn-api-beta.entrypoints=websecure"
+      - "traefik.http.routers.learn-api-beta.tls=true"
+      - "traefik.http.routers.learn-api-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.learn-api-beta.priority=100"
+      # Beta Docs/OpenAPI routes
+      - "traefik.http.routers.learn-docs-beta.rule=Host(`learn.verduona.dev`) && PathPrefix(`/docs`)"
+      - "traefik.http.routers.learn-docs-beta.entrypoints=websecure"
+      - "traefik.http.routers.learn-docs-beta.tls=true"
+      - "traefik.http.routers.learn-docs-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.learn-docs-beta.priority=100"
+      - "traefik.http.routers.learn-openapi-beta.rule=Host(`learn.verduona.dev`) && PathPrefix(`/openapi.json`)"
+      - "traefik.http.routers.learn-openapi-beta.entrypoints=websecure"
+      - "traefik.http.routers.learn-openapi-beta.tls=true"
+      - "traefik.http.routers.learn-openapi-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.learn-openapi-beta.priority=100"
+      # Beta Health route
+      - "traefik.http.routers.learn-health-beta.rule=Host(`learn.verduona.dev`) && PathPrefix(`/health`)"
+      - "traefik.http.routers.learn-health-beta.entrypoints=websecure"
+      - "traefik.http.routers.learn-health-beta.tls=true"
+      - "traefik.http.routers.learn-health-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.learn-health-beta.priority=100"
+      - "traefik.http.services.learn-backend.loadbalancer.server.port=8030"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: learn-kraliki-frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5176:5176"
+    environment:
+      - VITE_API_URL=http://localhost:8030
+    depends_on:
+      - backend
+    networks:
+      - websites_default
+    labels:
+      - "traefik.enable=true"
+      # Production (learn.kraliki.com)
+      - "traefik.http.routers.learn-frontend.rule=Host(`learn.kraliki.com`)"
+      - "traefik.http.routers.learn-frontend.entrypoints=websecure"
+      - "traefik.http.routers.learn-frontend.tls=true"
+      - "traefik.http.routers.learn-frontend.tls.certresolver=letsencrypt"
+      # Production HTTP redirect
+      - "traefik.http.routers.learn-frontend-http.rule=Host(`learn.kraliki.com`)"
+      - "traefik.http.routers.learn-frontend-http.entrypoints=web"
+      - "traefik.http.routers.learn-frontend-http.middlewares=redirect-to-https@docker"
+      # Beta (learn.verduona.dev)
+      - "traefik.http.routers.learn-frontend-beta.rule=Host(`learn.verduona.dev`)"
+      - "traefik.http.routers.learn-frontend-beta.entrypoints=websecure"
+      - "traefik.http.routers.learn-frontend-beta.tls=true"
+      - "traefik.http.routers.learn-frontend-beta.tls.certresolver=letsencrypt"
+      # Beta HTTP redirect
+      - "traefik.http.routers.learn-frontend-beta-http.rule=Host(`learn.verduona.dev`)"
+      - "traefik.http.routers.learn-frontend-beta-http.entrypoints=web"
+      - "traefik.http.routers.learn-frontend-beta-http.middlewares=redirect-to-https@docker"
+      - "traefik.http.services.learn-frontend.loadbalancer.server.port=5176"
+
+  db:
+    image: postgres:16-alpine
+    container_name: learn-kraliki-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=learn
+      - POSTGRES_PASSWORD=learn
+      - POSTGRES_DB=learn
+    volumes:
+      - learn-db-data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5436:5432"
+    networks:
+      - learn-network
+
+volumes:
+  learn-db-data:

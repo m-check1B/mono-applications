@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "name": "Verduona Internal",
+  "description": "Scope configuration for Verduona's internal Kraliki deployment",
+  "scopes": {
+    "brain": {
+      "path": "/home/adminmatej/github/brain-2026",
+      "description": "Strategic planning and AI coordination",
+      "subpaths": {
+        "planning": "ai-planning",
+        "master": "ai-planning/master.json"
+      }
+    },
+    "blockers": {
+      "path": "/home/adminmatej/github/ai-automation/humans-work-needed",
+      "description": "Human work queue and blockers",
+      "subpaths": {
+        "queue": "QUEUE_STATUS.md"
+      }
+    },
+    "apps": {
+      "path": "/home/adminmatej/github/applications",
+      "description": "Application codebases"
+    },
+    "websites": {
+      "path": "/home/adminmatej/github/websites",
+      "description": "Marketing and product websites"
+    },
+    "marketing": {
+      "path": "/home/adminmatej/github/marketing-2026",
+      "description": "Marketing campaigns and content"
+    },
+    "business": {
+      "path": "/home/adminmatej/github/verduona-business",
+      "description": "Business strategy and financials"
+    },
+    "kraliki": {
+      "path": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm",
+      "description": "Kraliki system itself",
+      "subpaths": {
+        "arena": "arena",
+        "genomes": "genomes",
+        "agents": "agents",
+        "logs": "logs"
+      }
+    }
+  },
+  "storage": {
+    "type": "local",
+    "base": "/home/adminmatej/github"
+  },
+  "created": "2025-12-25",
+  "lastModified": "2025-12-27"
+}

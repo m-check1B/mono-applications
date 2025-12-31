@@ -1,0 +1,167 @@
+version: '3.8'
+
+services:
+  # Development Backend with hot reload
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: operator-demo-backend-dev
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      # Mount source code for hot reload
+      - ./backend/app:/app/app:ro
+      - ./backend/.env:/app/.env:ro
+      - ./backend/keys:/app/keys
+    environment:
+      # Application config
+      APP_NAME: ${APP_NAME:-Operator Demo Backend}
+      VERSION: ${VERSION:-0.1.0}
+      ENVIRONMENT: development
+
+      # Server config
+      HOST: 0.0.0.0
+      PORT: 8000
+      DEBUG: true
+
+      # CORS - allow frontend to access backend
+      CORS_ORIGINS: '["http://localhost:3000", "http://localhost:5173", "http://frontend:5173"]'
+
+      # Security (dev keys)
+      SECRET_KEY: ${SECRET_KEY:-dev-secret-key-not-for-production}
+      JWT_EXPIRATION_MINUTES: 1440
+      JWT_KEYS_DIR: /app/keys
+      AUTH_COOKIE_NAME: ${AUTH_COOKIE_NAME:-auth_token}
+      REFRESH_COOKIE_NAME: ${REFRESH_COOKIE_NAME:-refresh_token}
+      AUTH_COOKIE_DOMAIN: ${AUTH_COOKIE_DOMAIN:-}
+      AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-false}
+      AUTH_COOKIE_SAMESITE: ${AUTH_COOKIE_SAMESITE:-lax}
+      AUTH_COOKIE_PATH: ${AUTH_COOKIE_PATH:-/}
+
+      # Database (if using PostgreSQL)
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/operator_demo}
+
+      # Redis (if using)
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+
+      # AI Provider API Keys
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      DEEPGRAM_API_KEY: ${DEEPGRAM_API_KEY:-}
+
+      # Telephony Provider Credentials
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID:-}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
+      TELNYX_API_KEY: ${TELNYX_API_KEY:-}
+      TELNYX_PUBLIC_KEY: ${TELNYX_PUBLIC_KEY:-}
+
+      # Logging
+      LOG_LEVEL: DEBUG
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - operator-network
+
+  # Development Frontend with hot reload
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: operator-demo-frontend-dev
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    volumes:
+      # Mount source code for hot reload
+      - ./frontend/src:/app/src:ro
+      - ./frontend/static:/app/static:ro
+      - ./frontend/svelte.config.js:/app/svelte.config.js:ro
+      - ./frontend/vite.config.ts:/app/vite.config.ts:ro
+      - ./frontend/tsconfig.json:/app/tsconfig.json:ro
+      - ./frontend/.env:/app/.env:ro
+    environment:
+      NODE_ENV: development
+      PORT: 5173
+      # Backend API URLs
+      PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL:-http://backend:8000}
+      PUBLIC_EXTERNAL_API_BASE_URL: ${PUBLIC_EXTERNAL_API_BASE_URL:-http://localhost:8000}
+      PRIVATE_API_BASE_URL: ${PRIVATE_API_BASE_URL:-http://backend:8000}
+      VITE_WS_URL: ${VITE_WS_URL:-ws://localhost:8000}
+    depends_on:
+      - backend
+    networks:
+      - operator-network
+
+  # PostgreSQL database for session persistence
+  postgres:
+    image: postgres:16-alpine
+    container_name: operator-demo-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: operator_demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - operator-network
+
+  # Redis for caching and pub/sub
+  redis:
+    image: redis:7-alpine
+    container_name: operator-demo-redis-dev
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_dev_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - operator-network
+
+  # Qdrant vector database
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: operator-demo-qdrant-dev
+    restart: unless-stopped
+    ports:
+      - "${QDRANT_PORT:-6333}:6333"
+      - "${QDRANT_GRPC_PORT:-6334}:6334"
+    volumes:
+      - qdrant_dev_storage:/qdrant/storage
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:6333/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - operator-network
+
+networks:
+  operator-network:
+    driver: bridge
+
+volumes:
+  postgres_dev_data:
+    driver: local
+  redis_dev_data:
+    driver: local
+  qdrant_dev_storage:
+    driver: local

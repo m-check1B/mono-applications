@@ -1,0 +1,25 @@
+{
+  "name": "@stack-2025/polar-core",
+  "version": "1.0.0",
+  "description": "Polar payment processing for Stack 2025 applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@polar-sh/sdk": "^0.13.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

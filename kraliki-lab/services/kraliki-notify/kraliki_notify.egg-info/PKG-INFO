@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: kraliki-notify
+Version: 0.1.0
+Summary: Telegram bot for swarm notifications and monitoring
+Requires-Python: >=3.10
+Requires-Dist: aiogram>=3.0.0
+Requires-Dist: pydantic-settings>=2.0.0
+Requires-Dist: apscheduler>=3.10.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: uvicorn>=0.22.0
+Requires-Dist: aiofiles>=23.0.0
+Requires-Dist: anthropic>=0.40.0
+Requires-Dist: httpx>=0.27.0

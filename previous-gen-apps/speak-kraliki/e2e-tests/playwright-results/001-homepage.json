@@ -1,0 +1,12 @@
+{
+  "test": "001-homepage",
+  "url": "https://vop.verduona.dev",
+  "timestamp": "2025-12-25T12:16:50.632473",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/voice-of-people/e2e-tests/playwright-results//001-homepage.png",
+  "page_title": "VOICE OF PEOPLE - AI Voice Employee Intelligence",
+  "errors": [
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+  ]
+}

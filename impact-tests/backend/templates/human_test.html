@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Human AI Readiness Test{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>Human AI Readiness Test</h1>
+  <p>
+    5–10 minute test for individuals (students, knowledge workers). Rate each
+    statement from <strong>1 (not true at all)</strong> to
+    <strong>5 (completely true)</strong>.
+  </p>
+</div>
+
+<form method="post" class="card">
+  <h2>1. About You</h2>
+  <div class="field">
+    <label for="name">Name *</label>
+    <input id="name" name="name" type="text" required />
+  </div>
+  <div class="field">
+    <label for="email">Email *</label>
+    <input id="email" name="email" type="email" required />
+  </div>
+  <div class="field">
+    <label for="country">Country</label>
+    <input id="country" name="country" type="text" />
+  </div>
+  <div class="field">
+    <label for="city">City</label>
+    <input id="city" name="city" type="text" />
+  </div>
+  <div class="field">
+    <label for="role">Current role or “Student”</label>
+    <input id="role" name="role" type="text" />
+  </div>
+  <div class="field">
+    <label for="languages">Languages (comma separated, e.g. CZ, EN)</label>
+    <input id="languages" name="languages" type="text" />
+  </div>
+
+  <h2>2. Interests</h2>
+  <div class="field">
+    <label>Which paths are you interested in?</label>
+    <div>
+      <label><input type="checkbox" name="interest_operations" /> Operations</label>
+      <label><input type="checkbox" name="interest_sales" /> Sales</label>
+      <label><input type="checkbox" name="interest_marketing" />
+        Marketing</label
+      >
+      <label><input type="checkbox" name="interest_tech" /> Tech/Dev</label>
+      <label><input type="checkbox" name="interest_other" /> Other</label>
+    </div>
+  </div>
+
+  <h2>3. AI Usage Today</h2>
+  {% for idx, text in [
+    (1, "I use tools like ChatGPT, Claude, Perplexity, Gemini at least a few times per week."),
+    (2, "I can usually get useful results from AI by adjusting my prompts."),
+    (3, "I have used AI to speed up or improve my work/study tasks.")
+  ] %}
+  <div class="question">
+    <p>Q{{ idx }}. {{ text }}</p>
+    <div class="scale">
+      {% for i in range(1, 6) %}
+      <label>
+        <input type="radio" name="hq{{ idx }}" value="{{ i }}" required />
+        {{ i }}
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <h2>4. Tools &amp; Workflows</h2>
+  {% for idx, text in [
+    (4, "I feel comfortable learning and using new SaaS tools on my own."),
+    (5, "I have built, or could build, simple automations (no-code tools, scripts, or integrations)."),
+    (6, "I can document a workflow so another person can follow it."),
+    (7, "I can explain to someone non‑technical how a tool or process works.")
+  ] %}
+  <div class="question">
+    <p>Q{{ idx }}. {{ text }}</p>
+    <div class="scale">
+      {% for i in range(1, 6) %}
+      <label>
+        <input type="radio" name="hq{{ idx }}" value="{{ i }}" required />
+        {{ i }}
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <h2>5. Communication &amp; Sales Orientation</h2>
+  {% for idx, text in [
+    (8, "I feel comfortable communicating with customers or stakeholders via email or chat."),
+    (9, "I am okay with hearing “no” and trying again in sales or outreach."),
+    (10, "I enjoy understanding business problems and proposing solutions, not just doing tasks.")
+  ] %}
+  <div class="question">
+    <p>Q{{ idx }}. {{ text }}</p>
+    <div class="scale">
+      {% for i in range(1, 6) %}
+      <label>
+        <input type="radio" name="hq{{ idx }}" value="{{ i }}" required />
+        {{ i }}
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="field">
+    <label>
+      <input type="checkbox" name="consent_marketing" required />
+      I agree to be contacted about training, opportunities or roles based on my
+      answers.
+    </label>
+  </div>
+
+  <button type="submit" class="btn-primary">See my readiness score</button>
+</form>
+{% endblock %}
+

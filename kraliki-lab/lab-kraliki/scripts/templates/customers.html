@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - Lab by Kraliki Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117; color: #c9d1d9; line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; border-bottom: 1px solid #30363d; margin-bottom: 30px;
+        }
+        h1 { color: #58a6ff; font-size: 24px; }
+        nav a {
+            color: #8b949e; text-decoration: none; margin-left: 20px; font-size: 14px;
+        }
+        nav a:hover { color: #58a6ff; }
+        .customer-card {
+            background: #161b22; border: 1px solid #30363d;
+            border-radius: 8px; padding: 20px; margin-bottom: 20px;
+        }
+        .customer-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #21262d;
+        }
+        .customer-id { font-size: 18px; font-weight: 600; color: #58a6ff; }
+        .vm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; margin-bottom: 15px; }
+        .vm-item {
+            background: #0d1117; border: 1px solid #30363d;
+            padding: 12px; border-radius: 6px; font-size: 13px;
+        }
+        .vm-item a { color: #58a6ff; text-decoration: none; }
+        .ticket-list { margin-top: 15px; }
+        .ticket-item {
+            background: #0d1117; border-left: 3px solid #30363d;
+            padding: 10px; margin-bottom: 8px; border-radius: 4px; font-size: 13px;
+        }
+        .ticket-item.priority-high { border-left-color: #f85149; }
+        .ticket-item.priority-medium { border-left-color: #d29922; }
+        .ticket-item.priority-low { border-left-color: #3fb950; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Customers ({{ customers|length }})</h1>
+            <nav>
+                <a href="/">Dashboard</a>
+                <a href="/vms">VMs</a>
+                <a href="/alerts">Alerts</a>
+                <a href="/tickets">Tickets</a>
+            </nav>
+        </header>
+
+        {% for customer in customers %}
+        <div class="customer-card">
+            <div class="customer-header">
+                <div class="customer-id">{{ customer.id }}</div>
+                <div>
+                    <span>{{ customer.vms|length }} VMs</span>
+                    <span style="margin-left: 15px;">{{ customer.tickets|length }} Open Tickets</span>
+                </div>
+            </div>
+
+            <div class="vm-list">
+                {% for vm in customer.vms %}
+                <div class="vm-item">
+                    <a href="/vms/{{ vm.vm_id }}">{{ vm.vm_id }}</a>
+                    <br>
+                    <span style="color: #8b949e;">{{ vm.status }} | {{ vm.health }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if customer.tickets %}
+            <div class="ticket-list">
+                <div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">Open Tickets:</div>
+                {% for ticket in customer.tickets %}
+                <div class="ticket-item priority-{{ ticket.priority }}">
+                    <strong>#{{ ticket.id }}</strong>: {{ ticket.subject }}
+                    <span style="float: right; color: #8b949e;">{{ ticket.timestamp.strftime('%m-%d') }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

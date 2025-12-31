@@ -1,0 +1,10 @@
+{
+  "test": "beta-jobs",
+  "url": "https://beta.kraliki.com/jobs",
+  "timestamp": "2025-12-30T02:31:10.998090",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/e2e-tests/playwright-results/beta-jobs.png",
+  "page_title": "Kraliki Swarm",
+  "errors": []
+}

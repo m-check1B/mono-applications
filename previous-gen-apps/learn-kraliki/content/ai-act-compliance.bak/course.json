@@ -1,0 +1,74 @@
+{
+  "slug": "ai-act-compliance",
+  "title": "AI Act Compliance Workshop",
+  "description": "Practical AI Act compliance training for SMEs and mid-market companies. Understand your obligations, implement compliant AI systems, and avoid hefty fines. Includes SenseIt audit integration and ongoing advisory support.",
+  "level": "intermediate",
+  "duration_minutes": 480,
+  "is_free": false,
+  "price_eur": 1500,
+  "course_type": "workshop",
+  "is_corporate": true,
+  "workshop_days": 2,
+  "max_participants": 15,
+  "includes_in_person": true,
+  "includes_consultation": true,
+  "consultation_hours": 4,
+  "lessons": [
+    "01-introduction.md",
+    "02-risk-categories.md",
+    "03-compliance-timeline.md",
+    "04-prohibited-ai.md",
+    "05-high-risk-requirements.md",
+    "06-transparency-obligations.md",
+    "07-assessment-methodology.md",
+    "08-senseit-integration.md",
+    "09-compliance-checklist.md",
+    "10-documentation.md",
+    "11-governance-framework.md",
+    "12-ongoing-monitoring.md",
+    "13-practical-examples.md",
+    "14-workshop-exercise.md",
+    "15-action-plan.md",
+    "16-support-resources.md"
+  ],
+  "author": "Verduona Compliance Team",
+  "tags": ["compliance", "ai-act", "corporate", "workshop", "b2b", "regulatory"],
+  "learning_outcomes": [
+    "Understand EU AI Act requirements and risk categories",
+    "Classify your AI systems correctly (prohibited, high-risk, limited, minimal)",
+    "Implement required controls for high-risk AI systems",
+    "Create and maintain compliance documentation",
+    "Integrate SenseIt audits for automated verification",
+    "Build a sustainable AI governance framework",
+    "Avoid non-compliance fines (up to €30M or 6% revenue)"
+  ],
+  "target_audience": [
+    "SME business leaders adopting AI",
+    "Mid-market companies with AI initiatives",
+    "Product teams developing AI-powered products",
+    "Compliance and legal teams",
+    "CTOs and technical decision makers"
+  ],
+  "pricing_tiers": {
+    "basic": {
+      "name": "Basic Workshop",
+      "price_eur": 1500,
+      "description": "2-day virtual workshop for up to 10 participants",
+      "includes": ["Workshop materials", "Compliance checklist", "Certificate"]
+    },
+    "standard": {
+      "name": "Standard Package",
+      "price_eur": 2500,
+      "description": "2-day in-person workshop + 2 hours consultation",
+      "includes": ["All basic features", "In-person delivery", "2 hours follow-up consultation", "SenseIt audit setup"]
+    },
+    "premium": {
+      "name": "Premium Package",
+      "price_eur": 3000,
+      "description": "2-day in-person workshop + 4 hours ongoing advisory",
+      "includes": ["All standard features", "4 hours monthly advisory (3 months)", "Custom compliance roadmap", "Priority support"]
+    }
+  },
+  "certification": "EU AI Act Compliance Certificate",
+  "next_course": null
+}

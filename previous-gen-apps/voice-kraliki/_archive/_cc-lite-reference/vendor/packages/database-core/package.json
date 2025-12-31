@@ -1,0 +1,22 @@
+{
+  "name": "@unified/database-core",
+  "version": "0.0.1",
+  "description": "Central database schemas and migrations",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./prisma": "./src/prisma.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@prisma/client": ">=5.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "@prisma/client": "^5.0.0"
+  }
+}

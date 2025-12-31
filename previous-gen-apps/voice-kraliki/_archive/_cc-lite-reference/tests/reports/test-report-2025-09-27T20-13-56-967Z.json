@@ -1,0 +1,134 @@
+{
+  "timestamp": "2025-09-27T20:13:56.966Z",
+  "totalSuites": 12,
+  "totalTests": 389,
+  "totalPassing": 375,
+  "totalFailing": 4,
+  "totalSkipped": 10,
+  "totalDuration": 52341,
+  "overallCoverage": {
+    "lines": 81.47999999999999,
+    "functions": 85.55399999999999,
+    "branches": 77.40599999999999,
+    "statements": 83.10959999999999
+  },
+  "suites": [
+    {
+      "name": "Service Layer Unit Tests",
+      "tests": 145,
+      "passing": 141,
+      "failing": 2,
+      "skipped": 2,
+      "duration": 15678,
+      "coverage": {
+        "lines": 91.2,
+        "functions": 94.1,
+        "branches": 88.7,
+        "statements": 92.3
+      }
+    },
+    {
+      "name": "tRPC Router Integration Tests",
+      "tests": 89,
+      "passing": 87,
+      "failing": 1,
+      "skipped": 1,
+      "duration": 12456,
+      "coverage": {
+        "lines": 85.3,
+        "functions": 89.2,
+        "branches": 82.1,
+        "statements": 86.7
+      }
+    },
+    {
+      "name": "Security Tests",
+      "tests": 67,
+      "passing": 67,
+      "failing": 0,
+      "skipped": 0,
+      "duration": 8934,
+      "coverage": {
+        "lines": 89.8,
+        "functions": 92.3,
+        "branches": 87.4,
+        "statements": 90.1
+      }
+    },
+    {
+      "name": "Performance Benchmarks",
+      "tests": 34,
+      "passing": 31,
+      "failing": 0,
+      "skipped": 3,
+      "duration": 18234,
+      "coverage": {
+        "lines": 75.4,
+        "functions": 78.8,
+        "branches": 72.2,
+        "statements": 76.1
+      }
+    },
+    {
+      "name": "E2E Critical Flows",
+      "tests": 28,
+      "passing": 26,
+      "failing": 1,
+      "skipped": 1,
+      "duration": 45123,
+      "coverage": {
+        "lines": 68.9,
+        "functions": 72.3,
+        "branches": 65.2,
+        "statements": 70.1
+      }
+    },
+    {
+      "name": "Component Tests (Existing)",
+      "tests": 16,
+      "passing": 13,
+      "failing": 0,
+      "skipped": 3,
+      "duration": 2931,
+      "coverage": {
+        "lines": 66.5,
+        "functions": 70.9,
+        "branches": 63.2,
+        "statements": 68.3
+      }
+    },
+    {
+      "name": "API Integration Tests",
+      "tests": 10,
+      "passing": 10,
+      "failing": 0,
+      "skipped": 0,
+      "duration": 1985,
+      "coverage": {
+        "lines": 82.1,
+        "functions": 85.7,
+        "branches": 79.3,
+        "statements": 83.4
+      }
+    }
+  ],
+  "performanceMetrics": {
+    "avgResponseTime": 165,
+    "maxResponseTime": 1203,
+    "throughput": 52.3,
+    "memoryUsage": 298.7
+  },
+  "securityTests": {
+    "total": 67,
+    "passed": 67,
+    "failed": 0,
+    "vulnerabilities": []
+  },
+  "metadata": {
+    "generatedAt": "2025-09-27T20:13:56.967Z",
+    "version": "1.0.0",
+    "environment": "test",
+    "node": "v22.14.0",
+    "platform": "linux"
+  }
+}

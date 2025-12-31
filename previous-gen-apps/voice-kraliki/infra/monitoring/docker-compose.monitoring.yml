@@ -1,0 +1,103 @@
+# Monitoring Stack for CC-Lite / Voice by Kraliki
+# Usage: docker compose -f docker-compose.monitoring.yml up -d
+#
+# SECURITY: All services bind to 127.0.0.1 only (localhost access via SSH tunnel)
+# See /github/CLAUDE.md for security guidelines
+#
+version: "3.8"
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: cc-lite-prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--web.enable-lifecycle"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+    ports:
+      - "127.0.0.1:9090:9090"  # SECURITY: localhost only
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./rules:/etc/prometheus/rules:ro
+      - prometheus_data:/prometheus
+    networks:
+      - monitoring
+    labels:
+      - "com.kraliki.service=prometheus"
+      - "com.kraliki.product=cc-lite"
+
+  alertmanager:
+    image: prom/alertmanager:v0.26.0
+    container_name: cc-lite-alertmanager
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+    ports:
+      - "127.0.0.1:9093:9093"  # SECURITY: localhost only
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager_data:/alertmanager
+    networks:
+      - monitoring
+    labels:
+      - "com.kraliki.service=alertmanager"
+      - "com.kraliki.product=cc-lite"
+
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: cc-lite-grafana
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3000"  # SECURITY: localhost only (3001 to avoid frontend conflict)
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=http://localhost:3001
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana-dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./grafana-provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+    labels:
+      - "com.kraliki.service=grafana"
+      - "com.kraliki.product=cc-lite"
+
+  node-exporter:
+    image: prom/node-exporter:v1.7.0
+    container_name: cc-lite-node-exporter
+    restart: unless-stopped
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--path.rootfs=/rootfs"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+    ports:
+      - "127.0.0.1:9100:9100"  # SECURITY: localhost only
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    networks:
+      - monitoring
+    labels:
+      - "com.kraliki.service=node-exporter"
+      - "com.kraliki.product=cc-lite"
+
+volumes:
+  prometheus_data:
+  alertmanager_data:
+  grafana_data:
+
+networks:
+  monitoring:
+    driver: bridge

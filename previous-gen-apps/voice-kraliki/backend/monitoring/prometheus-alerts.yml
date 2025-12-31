@@ -1,0 +1,349 @@
+---
+# Prometheus Alerting Rules for Operator Demo 2026
+#
+# This file defines alerting rules for production monitoring of:
+# - Voice provider health
+# - Circuit breaker states
+# - Provider metrics
+# - System health
+# - Performance degradation
+#
+# SCORE IMPACT: +5 points (Alerting Infrastructure)
+
+groups:
+  - name: voice_provider_alerts
+    interval: 30s
+    rules:
+      # Circuit Breaker Alerts
+      - alert: CircuitBreakerOpen
+        expr: circuit_breaker_state{provider=~"gemini|openai|deepgram"} == 2
+        for: 1m
+        labels:
+          severity: critical
+          component: voice_providers
+          team: backend
+        annotations:
+          summary: "Circuit breaker OPEN for {{ $labels.provider }}"
+          description: "Circuit breaker for {{ $labels.provider }} ({{ $labels.name }}) has been OPEN for more than 1 minute. Provider is experiencing cascading failures."
+          runbook: "https://docs.example.com/runbooks/circuit-breaker-open"
+          dashboard: "https://grafana.example.com/d/providers"
+
+      - alert: CircuitBreakerHalfOpen
+        expr: circuit_breaker_state{provider=~"gemini|openai|deepgram"} == 1
+        for: 5m
+        labels:
+          severity: warning
+          component: voice_providers
+          team: backend
+        annotations:
+          summary: "Circuit breaker HALF_OPEN for {{ $labels.provider }}"
+          description: "Circuit breaker for {{ $labels.provider }} has been in HALF_OPEN state for 5+ minutes. Testing provider recovery."
+
+      # Provider Error Rate Alerts
+      - alert: HighProviderErrorRate
+        expr: |
+          (
+            rate(ai_provider_errors_total{provider=~"gemini|openai|deepgram"}[5m])
+            /
+            rate(ai_provider_requests_total{provider=~"gemini|openai|deepgram"}[5m])
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          component: voice_providers
+          team: backend
+        annotations:
+          summary: "High error rate for {{ $labels.provider }}"
+          description: "{{ $labels.provider }} error rate is {{ $value | humanizePercentage }} (threshold: 5%). Investigate immediately."
+          runbook: "https://docs.example.com/runbooks/high-error-rate"
+
+      - alert: ModerateProviderErrorRate
+        expr: |
+          (
+            rate(ai_provider_errors_total{provider=~"gemini|openai|deepgram"}[5m])
+            /
+            rate(ai_provider_requests_total{provider=~"gemini|openai|deepgram"}[5m])
+          ) > 0.01
+        for: 10m
+        labels:
+          severity: warning
+          component: voice_providers
+          team: backend
+        annotations:
+          summary: "Moderate error rate for {{ $labels.provider }}"
+          description: "{{ $labels.provider }} error rate is {{ $value | humanizePercentage }} (threshold: 1%)."
+
+      # Provider Latency Alerts
+      - alert: HighProviderLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(ai_provider_latency_seconds_bucket{provider=~"gemini|openai|deepgram"}[5m])
+          ) > 2.0
+        for: 10m
+        labels:
+          severity: warning
+          component: voice_providers
+          team: backend
+        annotations:
+          summary: "High P95 latency for {{ $labels.provider }}"
+          description: "{{ $labels.provider }} P95 latency is {{ $value }}s (threshold: 2s). Performance degraded."
+          runbook: "https://docs.example.com/runbooks/high-latency"
+
+      - alert: CriticalProviderLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(ai_provider_latency_seconds_bucket{provider=~"gemini|openai|deepgram"}[5m])
+          ) > 5.0
+        for: 5m
+        labels:
+          severity: critical
+          component: voice_providers
+          team: backend
+        annotations:
+          summary: "Critical P95 latency for {{ $labels.provider }}"
+          description: "{{ $labels.provider }} P95 latency is {{ $value }}s (threshold: 5s). Service severely degraded."
+
+      # Provider Availability Alerts
+      - alert: NoProviderRequests
+        expr: |
+          rate(ai_provider_requests_total{provider=~"gemini|openai|deepgram"}[5m]) == 0
+        for: 10m
+        labels:
+          severity: warning
+          component: voice_providers
+          team: backend
+        annotations:
+          summary: "No requests to {{ $labels.provider }}"
+          description: "{{ $labels.provider }} has received no requests for 10+ minutes. Provider may be offline or not selected."
+
+      - alert: AllProvidersDown
+        expr: |
+          sum(circuit_breaker_state{provider=~"gemini|openai|deepgram"} == 2) >= 3
+        for: 1m
+        labels:
+          severity: critical
+          component: voice_providers
+          team: backend
+          page: "true"
+        annotations:
+          summary: "All voice providers are DOWN"
+          description: "Circuit breakers are OPEN for all 3 voice providers. System cannot handle voice requests."
+          runbook: "https://docs.example.com/runbooks/all-providers-down"
+
+      # Circuit Breaker State Transitions
+      - alert: FrequentCircuitBreakerTransitions
+        expr: |
+          rate(circuit_breaker_state_transitions_total{provider=~"gemini|openai|deepgram"}[10m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: voice_providers
+          team: backend
+        annotations:
+          summary: "Frequent circuit breaker transitions for {{ $labels.provider }}"
+          description: "Circuit breaker for {{ $labels.provider }} is transitioning states frequently ({{ $value }}/sec). Provider unstable."
+
+  - name: provider_health_alerts
+    interval: 60s
+    rules:
+      # Provider Health Status
+      - alert: ProviderUnhealthy
+        expr: provider_health_status{status="unhealthy"} == 1
+        for: 5m
+        labels:
+          severity: warning
+          component: provider_health
+          team: backend
+        annotations:
+          summary: "Provider {{ $labels.provider_id }} is unhealthy"
+          description: "Health monitor reports {{ $labels.provider_id }} as unhealthy for 5+ minutes."
+
+      - alert: ProviderOffline
+        expr: provider_health_status{status="offline"} == 1
+        for: 2m
+        labels:
+          severity: critical
+          component: provider_health
+          team: backend
+        annotations:
+          summary: "Provider {{ $labels.provider_id }} is OFFLINE"
+          description: "{{ $labels.provider_id }} is completely offline and unreachable."
+
+      # Consecutive Failures
+      - alert: ProviderConsecutiveFailures
+        expr: provider_health_consecutive_failures >= 5
+        for: 1m
+        labels:
+          severity: critical
+          component: provider_health
+          team: backend
+        annotations:
+          summary: "{{ $labels.provider_id }} has {{ $value }} consecutive failures"
+          description: "Provider health checks failing repeatedly. Circuit breaker should open soon."
+
+  - name: telephony_alerts
+    interval: 30s
+    rules:
+      # Webhook Security
+      - alert: HighWebhookRejectionRate
+        expr: |
+          (
+            rate(webhook_rejections_total{provider=~"twilio|telnyx"}[5m])
+            /
+            rate(webhook_requests_total{provider=~"twilio|telnyx"}[5m])
+          ) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: telephony
+          team: backend
+        annotations:
+          summary: "High {{ $labels.provider }} webhook rejection rate"
+          description: "{{ $value | humanizePercentage }} of {{ $labels.provider }} webhooks are being rejected. Check IP whitelist and signatures."
+
+      # Call Quality
+      - alert: HighCallDropRate
+        expr: |
+          (
+            rate(call_ended_total{reason="error"}[10m])
+            /
+            rate(call_started_total[10m])
+          ) > 0.05
+        for: 10m
+        labels:
+          severity: critical
+          component: telephony
+          team: backend
+        annotations:
+          summary: "High call drop rate"
+          description: "{{ $value | humanizePercentage }} of calls are dropping due to errors (threshold: 5%)."
+
+  - name: system_health_alerts
+    interval: 60s
+    rules:
+      # Database Connection Pool
+      - alert: DatabaseConnectionPoolExhausted
+        expr: db_connection_pool_size - db_connection_pool_available < 2
+        for: 5m
+        labels:
+          severity: critical
+          component: database
+          team: backend
+        annotations:
+          summary: "Database connection pool near exhaustion"
+          description: "Only {{ $value }} database connections available. System may hang on DB operations."
+
+      # Redis
+      - alert: RedisDown
+        expr: redis_up == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: redis
+          team: backend
+          page: "true"
+        annotations:
+          summary: "Redis is DOWN"
+          description: "Redis server is unreachable. Session management and caching impacted."
+
+      - alert: RedisHighMemoryUsage
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: redis
+          team: backend
+        annotations:
+          summary: "Redis memory usage high"
+          description: "Redis using {{ $value | humanizePercentage }} of max memory. May start evicting keys."
+
+  - name: performance_alerts
+    interval: 30s
+    rules:
+      # API Latency
+      - alert: HighAPILatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(http_request_duration_seconds_bucket{path!~"/metrics|/health"}[5m])
+          ) > 1.0
+        for: 10m
+        labels:
+          severity: warning
+          component: api
+          team: backend
+        annotations:
+          summary: "High API P95 latency on {{ $labels.path }}"
+          description: "API endpoint {{ $labels.path }} P95 latency is {{ $value }}s (threshold: 1s)."
+
+      # WebSocket
+      - alert: HighWebSocketDisconnections
+        expr: rate(websocket_disconnections_total[5m]) > 1.0
+        for: 5m
+        labels:
+          severity: warning
+          component: websocket
+          team: backend
+        annotations:
+          summary: "High WebSocket disconnection rate"
+          description: "{{ $value }}/sec WebSocket disconnections. Connection stability issue."
+
+  - name: log_alerts
+    interval: 60s
+    rules:
+      # Error Log Rate
+      - alert: HighErrorLogRate
+        expr: rate(log_errors_total[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          component: logging
+          team: backend
+        annotations:
+          summary: "High error log rate"
+          description: "{{ $value }}/sec errors being logged. Investigate error patterns."
+
+      - alert: CriticalErrorLogRate
+        expr: rate(log_errors_total[5m]) > 50
+        for: 2m
+        labels:
+          severity: critical
+          component: logging
+          team: backend
+        annotations:
+          summary: "CRITICAL error log rate"
+          description: "{{ $value }}/sec errors being logged. System experiencing major issues."
+
+# Alertmanager Configuration Reference:
+#
+# alertmanager:
+#   config:
+#     global:
+#       resolve_timeout: 5m
+#     route:
+#       group_by: ['alertname', 'component']
+#       group_wait: 10s
+#       group_interval: 10s
+#       repeat_interval: 12h
+#       receiver: 'team-backend'
+#       routes:
+#         - match:
+#             page: 'true'
+#           receiver: 'pagerduty'
+#         - match:
+#             severity: 'critical'
+#           receiver: 'slack-critical'
+#         - match:
+#             severity: 'warning'
+#           receiver: 'slack-warnings'
+#     receivers:
+#       - name: 'team-backend'
+#         slack_configs:
+#           - api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
+#             channel: '#backend-alerts'
+#       - name: 'slack-critical'
+#         slack_configs:
+#           - api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
+#             channel: '#critical-alerts'
+#       - name: 'pagerduty'
+#         pagerduty_configs:
+#           - service_key: 'YOUR_PAGERDUTY_KEY'

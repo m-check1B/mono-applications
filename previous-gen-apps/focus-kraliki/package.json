@@ -1,0 +1,64 @@
+{
+  "name": "@ocelot-apps/focus-kraliki",
+  "version": "2.1.0",
+  "description": "Planning module for Ocelot Platform - tasks, projects, and shadow AI",
+  "type": "module",
+  "private": false,
+  "main": "dist/module.js",
+  "types": "dist/module.d.ts",
+  "exports": {
+    ".": {
+      "import": "./module/index.js",
+      "types": "./dist/module.d.ts"
+    },
+    "./backend": {
+      "import": "./backend/app/module.py"
+    },
+    "./events": {
+      "import": "./backend/app/core/events.py"
+    },
+    "./components": {
+      "import": "./frontend/src/lib/components/index.ts"
+    },
+    "./standalone": "./module/standalone.js"
+  },
+  "files": [
+    "module",
+    "vendor",
+    "frontend",
+    "backend/app",
+    "backend/alembic",
+    "backend/ocelot_apps",
+    "backend/init.sql",
+    "backend/requirements.txt",
+    "backend/start.sh",
+    "docs",
+    "scripts",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "cd frontend && pnpm dev",
+    "build": "cd frontend && pnpm build",
+    "check": "cd frontend && pnpm check",
+    "lint": "cd frontend && pnpm check",
+    "test": "./scripts/test.sh",
+    "test:e2e": "cd tests && npx playwright test",
+    "test:e2e:ui": "cd tests && npx playwright test --ui",
+    "test:e2e:focus-kraliki": "cd tests && npx playwright test e2e/focus-kraliki/",
+    "start": "./scripts/start.sh"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  },
+  "keywords": [
+    "focus",
+    "planning",
+    "ocelot"
+  ],
+  "license": "Proprietary",
+  "author": "Ocelot Intelligence",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
+}

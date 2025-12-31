@@ -1,0 +1,22 @@
+{
+  "name": "speak-kraliki-e2e-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "End-to-end tests for Speak by Kraliki application",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:landing": "playwright test landing-page.spec.ts",
+    "test:survey": "playwright test survey-creation.spec.ts",
+    "test:employee": "playwright test employee-access.spec.ts",
+    "report": "playwright show-report",
+    "install-browsers": "playwright install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}

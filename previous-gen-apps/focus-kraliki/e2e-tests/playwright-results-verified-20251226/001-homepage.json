@@ -1,0 +1,12 @@
+{
+  "test": "001-homepage",
+  "url": "https://focus.verduona.dev",
+  "timestamp": "2025-12-26T14:33:29.963906",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/focus-kraliki/e2e-tests/playwright-results-verified-20251226//001-homepage.png",
+  "page_title": "",
+  "errors": [
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+  ]
+}

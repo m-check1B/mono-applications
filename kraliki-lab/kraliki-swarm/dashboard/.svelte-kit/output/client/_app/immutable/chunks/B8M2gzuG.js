@@ -1,0 +1,1 @@
+import{v as u,w as o,H as _,h as t,x as g,C as p,y as i,z as l,A as d,B as v}from"./CHIrzwsT.js";function E(n,r){let s=null,y=t;var a;if(t){s=v;for(var e=g(document.head);e!==null&&(e.nodeType!==p||e.data!==n);)e=i(e);if(e===null)l(!1);else{var f=i(e);e.remove(),d(f)}}t||(a=document.head.appendChild(u()));try{o(()=>r(a),_)}finally{y&&(l(!0),d(s))}}export{E as h};

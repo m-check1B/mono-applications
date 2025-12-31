@@ -1,0 +1,62 @@
+# Kraliki Swarm Dashboard
+# External URL: kraliki.verduona.dev
+# Internal port: 8099 (via PM2) or 3000 (via Docker)
+#
+# Usage:
+#   docker compose up -d --build
+#   docker compose logs -f
+#   docker compose down
+#
+# Note: Currently running via PM2 at 127.0.0.1:8099
+# This compose file is for production deployment via Traefik
+
+networks:
+  websites_default:
+    external: true
+
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kraliki-swarm-dashboard
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      # Data paths (mapped to container paths)
+      DARWIN2_DATA_PATH: /data/darwin2
+      GITHUB_PATH: /data/github
+      # Focus by Kraliki integration (Docker networking)
+      FOCUS_URL: http://focus-kraliki-backend:3017
+      # Legacy support (FOCUS_LITE_URL deprecated, use FOCUS_URL)
+      # Auth configuration (Zitadel)
+      ZITADEL_DOMAIN: ${ZITADEL_DOMAIN:-identity.verduona.dev}
+      ZITADEL_CLIENT_ID: ${ZITADEL_CLIENT_ID:-}
+      ZITADEL_CLIENT_SECRET: ${ZITADEL_CLIENT_SECRET:-}
+      PUBLIC_URL: https://kraliki.verduona.dev
+    volumes:
+      # Mount data directories for reading stats
+      - /home/adminmatej/github/ai-automation/darwin2:/data/darwin2:ro
+      - /home/adminmatej/github:/data/github:ro
+    labels:
+      - "traefik.enable=true"
+      # HTTPS route
+      - "traefik.http.routers.swarm-dashboard.rule=Host(`kraliki.verduona.dev`)"
+      - "traefik.http.routers.swarm-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.swarm-dashboard.tls=true"
+      - "traefik.http.routers.swarm-dashboard.tls.certresolver=letsencrypt"
+      # HTTP redirect
+      - "traefik.http.routers.swarm-dashboard-http.rule=Host(`kraliki.verduona.dev`)"
+      - "traefik.http.routers.swarm-dashboard-http.entrypoints=web"
+      - "traefik.http.routers.swarm-dashboard-http.middlewares=redirect-to-https"
+      # Service port
+      - "traefik.http.services.swarm-dashboard.loadbalancer.server.port=3000"
+    networks:
+      - websites_default
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s

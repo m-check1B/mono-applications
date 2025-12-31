@@ -1,0 +1,12 @@
+{
+  "test": "003-registration-flow",
+  "url": "https://focus.verduona.dev/register",
+  "timestamp": "2025-12-26T09:20:56.151113",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/focus-lite/e2e-tests/playwright-results-20251226//003-registration-flow.png",
+  "page_title": "",
+  "errors": [
+    "Connecting to 'https://analytics.verduona.com/api/event' violates the following Content Security Policy directive: \"connect-src 'self'\". The action has been blocked."
+  ]
+}

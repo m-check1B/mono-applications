@@ -1,0 +1,10 @@
+{
+  "test": "beta-recall",
+  "url": "https://beta.kraliki.com/recall",
+  "timestamp": "2025-12-30T02:30:50.606185",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/e2e-tests/playwright-results/beta-recall.png",
+  "page_title": "Kraliki Swarm",
+  "errors": []
+}

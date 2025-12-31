@@ -1,0 +1,21 @@
+{
+	"campaigns_title": "Campaigns",
+	"campaigns_subtitle": "Manage and monitor call campaigns",
+	"create_campaign": "Create Campaign",
+	"campaign_name": "Campaign Name",
+	"campaign_type": "Campaign Type",
+	"start_date": "Start Date",
+	"end_date": "End Date",
+	"total_contacts": "Total Contacts",
+	"calls_made": "Calls Made",
+	"success_rate": "Success Rate",
+	"conversion_rate": "Conversion Rate",
+	"active_campaigns": "Active Campaigns",
+	"paused_campaigns": "Paused",
+	"completed_campaigns": "Completed",
+	"script": "Script",
+	"schedule": "Schedule",
+	"contacts": "Contacts",
+	"statistics": "Statistics",
+	"performance": "Performance"
+}

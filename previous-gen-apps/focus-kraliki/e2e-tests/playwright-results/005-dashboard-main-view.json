@@ -1,0 +1,14 @@
+{
+  "test": "005-dashboard-main-view",
+  "url": "https://focus.verduona.dev/dashboard",
+  "timestamp": "2025-12-25T12:17:17.539024",
+  "status": "FAIL",
+  "details": "HTTP 500",
+  "screenshot": "/home/adminmatej/github/applications/focus-lite/e2e-tests/playwright-results//005-dashboard-main-view.png",
+  "page_title": "",
+  "errors": [
+    "Internal Error",
+    "Failed to load resource: the server responded with a status of 500 ()",
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+  ]
+}

@@ -1,0 +1,459 @@
+name: 🚀 Production Deployment - Truth-Driven
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+      skip_tests:
+        description: 'Skip tests (emergency deployment only)'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
+
+jobs:
+  pre-deployment-validation:
+    name: 🔍 Pre-Deployment Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    outputs:
+      truth-score: ${{ steps.truth-score.outputs.score }}
+      deploy-ready: ${{ steps.validation.outputs.ready }}
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🏗️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🔧 Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🛡️ Security audit
+        run: pnpm audit --prod --audit-level moderate
+        continue-on-error: true
+
+      - name: 📝 TypeScript check
+        run: pnpm typecheck
+
+      - name: 🧪 Run tests
+        if: ${{ !inputs.skip_tests }}
+        run: |
+          pnpm test
+          pnpm test:security
+
+      - name: 🏗️ Production build
+        run: NODE_ENV=production pnpm build
+
+      - name: 📊 Calculate Truth Score
+        id: truth-score
+        run: |
+          SCORE=$(pnpm truth-score:json | jq '.totalScore // 0')
+          echo "score=$SCORE" >> $GITHUB_OUTPUT
+          echo "Truth Score: $SCORE%"
+          if [ "$SCORE" -lt 75 ]; then
+            echo "❌ Truth Score too low: $SCORE% (minimum: 75%)"
+            exit 1
+          fi
+
+      - name: ✅ Pre-deployment validation
+        id: validation
+        run: |
+          chmod +x scripts/pre-deploy-check.sh
+          if ./scripts/pre-deploy-check.sh; then
+            echo "ready=true" >> $GITHUB_OUTPUT
+            echo "✅ Pre-deployment validation passed"
+          else
+            echo "ready=false" >> $GITHUB_OUTPUT
+            echo "❌ Pre-deployment validation failed"
+            exit 1
+          fi
+
+      - name: 📊 Upload validation artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: validation-results
+          path: |
+            logs/
+            truth-score*.json
+            coverage/
+          retention-days: 30
+
+  security-scan:
+    name: 🛡️ Security Scanning
+    runs-on: ubuntu-latest
+    needs: pre-deployment-validation
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Run CodeQL Analysis
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+          queries: security-and-quality
+
+      - name: 🏗️ Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: 📊 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+      - name: 🔐 Check for secrets
+        run: |
+          echo "Checking for hardcoded secrets..."
+          if grep -r "CHANGE_ME" . --exclude-dir=node_modules --exclude-dir=.git; then
+            echo "❌ Found placeholder secrets - fix before deployment"
+            exit 1
+          fi
+          echo "✅ No placeholder secrets found"
+
+      - name: 🧪 Container security scan
+        run: |
+          # Install Trivy
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install trivy
+
+          # Build test image
+          docker build -t voice-kraliki:security-test .
+
+          # Scan for vulnerabilities
+          trivy image --severity HIGH,CRITICAL --exit-code 1 voice-kraliki:security-test
+
+  build-and-push:
+    name: 🐳 Build & Push Container
+    runs-on: ubuntu-latest
+    needs: [pre-deployment-validation, security-scan]
+    timeout-minutes: 20
+
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+      image-digest: ${{ steps.build.outputs.digest }}
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔐 Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: 📝 Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ secrets.DOCKER_USERNAME }}/voice-kraliki
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: 🏗️ Build and push
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NODE_ENV=production
+            BUILD_DATE=${{ github.event.head_commit.timestamp }}
+            VCS_REF=${{ github.sha }}
+
+      - name: 📊 Image analysis
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+            wagoodman/dive:latest ${{ steps.meta.outputs.tags }} \
+            --ci --lowestEfficiency=0.9
+
+  deploy-production:
+    name: 🚀 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [pre-deployment-validation, security-scan, build-and-push]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
+    timeout-minutes: 15
+    environment:
+      name: production
+      url: https://voice-kraliki.your-domain.com
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup deployment context
+        run: |
+          echo "DEPLOYMENT_ID=${{ github.run_id }}-${{ github.run_number }}" >> $GITHUB_ENV
+          echo "IMAGE_TAG=${{ needs.build-and-push.outputs.image-tag }}" >> $GITHUB_ENV
+
+      - name: 🚀 Deploy to production server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_PORT || 22 }}
+          script_stop: true
+          script: |
+            set -e
+
+            echo "🚀 Starting deployment: ${{ env.DEPLOYMENT_ID }}"
+
+            # Navigate to application directory
+            cd /opt/voice-kraliki
+
+            # Pull latest configuration
+            git pull origin main
+
+            # Update environment variables
+            cp .env.production.template .env.production
+
+            # Set production secrets (from server environment)
+            sed -i "s/CHANGE_ME_JWT_SECRET/$PRODUCTION_JWT_SECRET/g" .env.production
+            sed -i "s/CHANGE_ME_DB_PASSWORD/$PRODUCTION_DB_PASSWORD/g" .env.production
+            sed -i "s/CHANGE_ME_REDIS_PASSWORD/$PRODUCTION_REDIS_PASSWORD/g" .env.production
+
+            # Update docker compose with new image
+            sed -i "s|image:.*voice-kraliki.*|image: ${{ env.IMAGE_TAG }}|g" infra/docker/production.yml
+
+            # Create backup
+            echo "📦 Creating backup..."
+            ./scripts/backup.sh
+
+            # Enable maintenance mode
+            touch /tmp/maintenance
+
+            # Deploy with zero-downtime
+            echo "🐳 Deploying containers..."
+            docker compose -f infra/docker/production.yml pull
+            docker compose -f infra/docker/production.yml up -d --remove-orphans
+
+            # Wait for services to be ready
+            echo "⏳ Waiting for services..."
+            sleep 30
+
+            # Run health checks
+            ./scripts/post-deploy-validate.sh
+
+            # Disable maintenance mode
+            rm -f /tmp/maintenance
+
+            echo "✅ Deployment completed successfully"
+
+      - name: 🏥 Post-deployment health check
+        run: |
+          # Wait for deployment to settle
+          sleep 60
+
+          # Run comprehensive health checks
+          curl -f https://voice-kraliki.your-domain.com/health || exit 1
+          curl -f https://voice-kraliki.your-domain.com/api/health || exit 1
+
+          echo "✅ Health checks passed"
+
+      - name: 📊 Post-deployment metrics
+        run: |
+          # Verify Truth Score maintained
+          ssh ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }} \
+            'cd /opt/voice-kraliki && pnpm truth-score:json' > post-deploy-truth.json
+
+          SCORE=$(jq '.totalScore // 0' post-deploy-truth.json)
+          echo "Post-deployment Truth Score: $SCORE%"
+
+          if [ "$SCORE" -lt 75 ]; then
+            echo "❌ Truth Score degraded: $SCORE%"
+            exit 1
+          fi
+
+      - name: 📢 Notify deployment success
+        uses: 8398a7/action-slack@v3
+        if: success()
+        with:
+          status: success
+          channel: '#deployments'
+          text: |
+            🚀 Voice by Kraliki Production Deployment Successful
+
+            📊 Truth Score: ${{ needs.pre-deployment-validation.outputs.truth-score }}%
+            🐳 Image: ${{ needs.build-and-push.outputs.image-tag }}
+            📅 Deployed: ${{ github.event.head_commit.timestamp }}
+            👤 By: ${{ github.actor }}
+
+            ✅ Sacred Codex Compliant
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+  rollback:
+    name: 🔄 Rollback on Failure
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    timeout-minutes: 10
+
+    steps:
+      - name: 🔄 Execute rollback
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          script: |
+            cd /opt/voice-kraliki
+            echo "🔄 Initiating emergency rollback..."
+
+            # Restore from latest backup
+            ./scripts/rollback-deploy.sh --confirm
+
+            # Verify rollback
+            ./scripts/post-deploy-validate.sh --rollback-verify
+
+            echo "✅ Rollback completed"
+
+      - name: 📢 Notify rollback
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          channel: '#alerts'
+          text: |
+            🚨 Voice by Kraliki Production Deployment Failed - Rollback Executed
+
+            📅 Failed at: ${{ github.event.head_commit.timestamp }}
+            👤 Initiated by: ${{ github.actor }}
+            🔄 Rollback status: Completed
+
+            🔍 Check logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+  post-deployment-monitoring:
+    name: 📊 Post-Deployment Monitoring
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: success()
+    timeout-minutes: 30
+
+    steps:
+      - name: 📊 Extended monitoring
+        run: |
+          echo "Starting 30-minute extended monitoring..."
+
+          # Monitor for 30 minutes with 2-minute intervals
+          for i in {1..15}; do
+            echo "Health check $i/15..."
+
+            # Check main health endpoint
+            if ! curl -f -s https://voice-kraliki.your-domain.com/health; then
+              echo "❌ Health check failed at iteration $i"
+              exit 1
+            fi
+
+            # Check API health
+            if ! curl -f -s https://voice-kraliki.your-domain.com/api/health; then
+              echo "❌ API health check failed at iteration $i"
+              exit 1
+            fi
+
+            # Check response time
+            RESPONSE_TIME=$(curl -w "%{time_total}" -o /dev/null -s https://voice-kraliki.your-domain.com/api/dashboard)
+            if (( $(echo "$RESPONSE_TIME > 2.0" | bc -l) )); then
+              echo "⚠️ Slow response time: ${RESPONSE_TIME}s"
+            fi
+
+            echo "✅ Health check $i passed (${RESPONSE_TIME}s)"
+            sleep 120
+          done
+
+          echo "✅ Extended monitoring completed successfully"
+
+      - name: 📈 Final deployment report
+        run: |
+          cat << EOF > deployment-report.md
+          # 🚀 Voice by Kraliki Production Deployment Report
+
+          **Deployment ID**: ${{ github.run_id }}-${{ github.run_number }}
+          **Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Deployed by**: ${{ github.actor }}
+          **Commit**: ${{ github.sha }}
+
+          ## ✅ Validation Results
+          - Truth Score: ${{ needs.pre-deployment-validation.outputs.truth-score }}%
+          - Security Scan: ✅ Passed
+          - Pre-deployment Checks: ✅ Passed
+          - Health Checks: ✅ Passed
+          - Extended Monitoring: ✅ Passed
+
+          ## 🐳 Container Details
+          - Image: ${{ needs.build-and-push.outputs.image-tag }}
+          - Digest: ${{ needs.build-and-push.outputs.image-digest }}
+
+          ## 🕊️ Sacred Codex Compliance
+          - Code without tests is a lie: ✅ All tests passing
+          - What is not measured is not real: ✅ Metrics collection active
+          - Follow the path of every request: ✅ Tracing implemented
+          - State without persistence is amnesia: ✅ Database persistent
+          - Failure without recovery is death: ✅ Circuit breakers active
+          - Claims without proof are deception: ✅ All claims verified
+
+          **Status**: 🟢 DEPLOYMENT SUCCESSFUL
+          EOF
+
+          echo "Deployment report generated"
+
+      - name: 📊 Upload deployment artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-report-${{ github.run_id }}
+          path: |
+            deployment-report.md
+            post-deploy-truth.json
+          retention-days: 90

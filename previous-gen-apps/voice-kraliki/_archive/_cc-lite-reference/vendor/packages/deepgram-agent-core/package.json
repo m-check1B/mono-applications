@@ -1,0 +1,47 @@
+{
+  "name": "@stack-2025/deepgram-agent-core",
+  "version": "1.0.0",
+  "description": "Deepgram Voice Agent API integration for Stack 2025 - Complete voice-to-voice conversations with built-in LLM orchestration",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@deepgram/sdk": "^3.9.0",
+    "ws": "^8.18.0",
+    "eventemitter3": "^5.0.1",
+    "zod": "^3.24.1",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/ws": "^8.5.10",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "keywords": [
+    "deepgram",
+    "voice-agent",
+    "speech-to-text",
+    "text-to-speech",
+    "llm",
+    "conversation",
+    "real-time",
+    "ai-agent",
+    "voice-to-voice",
+    "stack-2025"
+  ],
+  "author": "Stack 2025",
+  "license": "MIT"
+}

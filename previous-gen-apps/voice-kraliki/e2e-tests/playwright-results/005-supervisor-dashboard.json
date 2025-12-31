@@ -1,0 +1,15 @@
+{
+  "test": "005-supervisor-dashboard",
+  "url": "https://cc.verduona.dev/supervisor/dashboard",
+  "timestamp": "2025-12-25T12:17:27.064015",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/cc-lite-2026/e2e-tests/playwright-results//005-supervisor-dashboard.png",
+  "page_title": "Operator Demo - CC-Lite Voice Calling Platform",
+  "errors": [
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+    "Failed to load resource: the server responded with a status of 401 ()",
+    "Failed to load resource: the server responded with a status of 401 ()",
+    "Failed to load resource: the server responded with a status of 401 ()"
+  ]
+}

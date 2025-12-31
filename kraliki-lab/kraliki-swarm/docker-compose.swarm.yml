@@ -1,0 +1,117 @@
+# Secure Kraliki Swarm CLI Container
+# Isolated environment for autonomous agents
+
+version: '3.8'
+
+services:
+  swarm-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile.swarm
+    image: kraliki-swarm-cli:latest
+    container_name: kraliki-swarm-cli
+    
+    # Security: Network isolation
+    network_mode: bridge
+    networks:
+      - swarm-network
+    
+    # Security: Non-privileged
+    privileged: false
+    
+    # Security: No Docker socket access
+    # No /var/run/docker.sock mounted
+    
+    # Security: Read-only root filesystem
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    
+    # Security: Drop all capabilities
+    cap_drop:
+      - ALL
+    
+    # Security: No extra capabilities
+    cap_add: []
+    
+    # Security: seccomp profile (restrict syscalls)
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:seccomp-profile.json
+    
+    # Security: Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    
+    # Security: Restart policy
+    restart: unless-stopped
+    
+    # Security: Environment variables (secrets passed here, not file mounts)
+    env_file:
+      - .env.swarm
+    
+    # Security: Volume mounts - ONLY what's needed
+    volumes:
+      # Code workspace (read-only)
+      - /home/adminmatej/github/applications/kraliki-lab/kraliki-swarm:/workspace:ro
+      
+      # Work/output directories (read-write, isolated)
+      - /home/adminmatej/github/ai-automation:/workspace/ai-automation:rw
+      - /home/adminmatej/github/brain-2026:/workspace/brain-2026:rw
+      - /home/adminmatej/github/marketing-2026:/workspace/marketing-2026:rw
+      - /home/adminmatej/github/infra:/workspace/infra:rw
+      
+      # Data directories (read-write)
+      - swarm-data:/workspace/data
+      - swarm-arena:/workspace/arena
+      - swarm-logs:/workspace/logs
+      - /home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/data:/workspace/data-host:rw
+      - /home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/arena:/workspace/arena-host:rw
+    
+    # Security: NO SSH access, no .ssh mount
+    # Security: NO production certificates
+    # Security: NO /etc, /var, or system directory mounts
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Labels
+    labels:
+      - "com.kraliki.description=Secure swarm CLI container"
+      - "com.kraliki.isolation=high"
+
+# Isolated network for swarm
+networks:
+  swarm-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# Named volumes for data persistence
+volumes:
+  swarm-data:
+    driver: local
+  swarm-arena:
+    driver: local
+  swarm-logs:
+    driver: local

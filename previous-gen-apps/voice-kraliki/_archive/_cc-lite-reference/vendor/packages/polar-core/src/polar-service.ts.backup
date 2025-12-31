@@ -1,0 +1,541 @@
+import { Polar } from '@polar-sh/sdk'
+import {
+  PolarCustomer,
+  CheckoutSessionOptions,
+  CustomerPortalOptions,
+  RefundOptions,
+  PolarProduct,
+  PolarSubscription,
+  SubscriptionTier,
+} from './types'
+import {
+  createCustomerSchema,
+  updateCustomerSchema,
+  createOrderSchema,
+  createCheckoutSessionSchema,
+  customerPortalSchema,
+  createRefundSchema,
+} from './schemas'
+import { MockPolarService } from './mock-polar-service'
+
+/**
+ * Core Polar service for Stack 2025 applications
+ * Provides payment processing, subscriptions, and customer management
+ */
+export class PolarService {
+  private polar: Polar | any
+  private webhookSecret?: string
+  private mockService?: MockPolarService
+  private isMockMode: boolean
+
+  constructor(accessToken: string, webhookSecret?: string) {
+    // Check for mock mode
+    this.isMockMode = process.env.PAYMENT_MOCK_MODE === 'true' || 
+                      accessToken === 'polar_mock' || 
+                      accessToken.includes('mock');
+    
+    if (this.isMockMode) {
+      // Use mock service for testing
+      this.mockService = new MockPolarService();
+      this.polar = this.mockService; // Use mock service directly
+      console.log('🎭 Polar running in MOCK mode for testing');
+    } else {
+      if (!accessToken) {
+        throw new Error('Polar access token is required')
+      }
+      
+      this.polar = new Polar({
+        accessToken,
+        server: 'production' // or 'sandbox' for testing
+      });
+    }
+    this.webhookSecret = webhookSecret;
+  }
+
+  /**
+   * Create a new Polar customer
+   */
+  async createCustomer(data: {
+    email: string
+    name?: string
+    avatar_url?: string
+    metadata?: Record<string, any>
+  }): Promise<PolarCustomer> {
+    if (this.isMockMode && this.mockService) {
+      const mockCustomer = await this.mockService.createCustomer(data);
+      return {
+        id: mockCustomer.id,
+        customerId: mockCustomer.id,
+        email: mockCustomer.email,
+        name: mockCustomer.name,
+        avatar_url: mockCustomer.avatar_url,
+        metadata: mockCustomer.metadata,
+        createdAt: mockCustomer.created_at,
+        updatedAt: mockCustomer.created_at
+      };
+    }
+    
+    const validated = createCustomerSchema.parse(data);
+    
+    try {
+      // In real Polar API, customers are created automatically during checkout
+      // For now, we'll create a placeholder implementation
+      
+      // This would use actual Polar API:
+      // const response = await this.polar.customers.create(validated);
+      
+      // Placeholder implementation
+      const customerId = `cus_polar_${Date.now()}`;
+      return {
+        id: customerId,
+        customerId,
+        email: validated.email,
+        name: validated.name,
+        avatar_url: validated.avatar_url,
+        metadata: validated.metadata || {},
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+    } catch (error) {
+      throw new Error(`Failed to create Polar customer: ${error}`);
+    }
+  }
+
+  /**
+   * Get customer by ID
+   */
+  async getCustomer(customerId: string): Promise<PolarCustomer | null> {
+    if (this.isMockMode && this.mockService) {
+      const mockCustomer = await this.mockService.getCustomer(customerId);
+      if (!mockCustomer) return null;
+      
+      return {
+        id: mockCustomer.id,
+        customerId: mockCustomer.id,
+        email: mockCustomer.email,
+        name: mockCustomer.name,
+        avatar_url: mockCustomer.avatar_url,
+        metadata: mockCustomer.metadata,
+        createdAt: mockCustomer.created_at,
+        updatedAt: mockCustomer.created_at
+      };
+    }
+    
+    try {
+      // This would use actual Polar API:
+      // const response = await this.polar.customers.get(customerId);
+      
+      // Placeholder - return null (customer not found)
+      return null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  /**
+   * Update customer
+   */
+  async updateCustomer(
+    customerId: string,
+    data: {
+      email?: string
+      name?: string
+      avatar_url?: string
+      metadata?: Record<string, any>
+    }
+  ): Promise<PolarCustomer | null> {
+    if (this.isMockMode && this.mockService) {
+      const mockCustomer = await this.mockService.updateCustomer(customerId, data);
+      if (!mockCustomer) return null;
+      
+      return {
+        id: mockCustomer.id,
+        customerId: mockCustomer.id,
+        email: mockCustomer.email,
+        name: mockCustomer.name,
+        avatar_url: mockCustomer.avatar_url,
+        metadata: mockCustomer.metadata,
+        createdAt: mockCustomer.created_at,
+        updatedAt: mockCustomer.created_at
+      };
+    }
+    
+    const validated = updateCustomerSchema.parse(data);
+    
+    try {
+      const response = await this.polar.customersUpdate({
+        id: customerId,
+        customerUpdate: validated
+      });
+      
+      return {
+        id: response.data.id,
+        customerId: response.data.id,
+        email: response.data.email,
+        name: response.data.name,
+        avatar_url: response.data.avatar_url,
+        metadata: response.data.metadata || {},
+        createdAt: new Date(response.data.created_at),
+        updatedAt: new Date(response.data.modified_at || response.data.created_at)
+      };
+    } catch (error) {
+      throw new Error(`Failed to update Polar customer: ${error}`);
+    }
+  }
+
+  /**
+   * Create checkout session (Polar's main payment flow)
+   */
+  async createCheckoutSession(
+    options: CheckoutSessionOptions
+  ): Promise<{ url: string; id: string }> {
+    if (this.isMockMode && this.mockService) {
+      const mockSession = await this.mockService.createCheckoutSession({
+        customer_id: options.customerId,
+        email: options.email,
+        product_id: options.productId,
+        success_url: options.successUrl,
+        cancel_url: options.cancelUrl,
+        metadata: options.metadata,
+        trial_days: options.trialDays,
+        discount_id: options.discountId
+      });
+      
+      return {
+        url: mockSession.url,
+        id: mockSession.id
+      };
+    }
+    
+    const validated = createCheckoutSessionSchema.parse(options);
+    
+    try {
+      const response = await this.polar.checkoutsCreate({
+        checkoutCreate: {
+          product_id: validated.productId,
+          success_url: validated.successUrl,
+          cancel_url: validated.cancelUrl,
+          customer_email: validated.email,
+          customer_id: validated.customerId,
+          metadata: validated.metadata,
+          allow_discount_codes: validated.allowPromotionCodes,
+          // Polar handles trials differently - usually configured at product level
+        }
+      });
+      
+      return {
+        url: response.data.url,
+        id: response.data.id
+      };
+    } catch (error) {
+      throw new Error(`Failed to create Polar checkout session: ${error}`);
+    }
+  }
+
+  /**
+   * Get customer portal URL (Polar's customer management)
+   */
+  async createPortalSession(
+    options: CustomerPortalOptions
+  ): Promise<{ url: string; id: string }> {
+    if (this.isMockMode && this.mockService) {
+      const portalUrl = await this.mockService.getCustomerPortalUrl(
+        options.customerId, 
+        options.returnUrl
+      );
+      
+      return {
+        url: portalUrl,
+        id: `portal_mock_${Date.now()}`
+      };
+    }
+    
+    const validated = customerPortalSchema.parse(options);
+    
+    try {
+      // Polar doesn't have a dedicated portal API like Stripe
+      // Instead, customers manage subscriptions through the main Polar interface
+      // We'll redirect to their subscription management page
+      const portalUrl = `https://polar.sh/customer/subscriptions?customer_id=${validated.customerId}&return_url=${encodeURIComponent(validated.returnUrl)}`;
+      
+      return {
+        url: portalUrl,
+        id: `portal_${Date.now()}`
+      };
+    } catch (error) {
+      throw new Error(`Failed to create Polar portal session: ${error}`);
+    }
+  }
+
+  /**
+   * List subscriptions for a customer
+   */
+  async listSubscriptions(
+    customerId: string
+  ): Promise<PolarSubscription[]> {
+    if (this.isMockMode && this.mockService) {
+      const mockSubscriptions = await this.mockService.listCustomerSubscriptions(customerId);
+      
+      return mockSubscriptions.map(sub => ({
+        id: sub.id,
+        subscriptionId: sub.id,
+        customerId: sub.customer_id,
+        tier: SubscriptionTier.STANDARD, // Map from product metadata
+        status: sub.status,
+        currentPeriodStart: sub.current_period_start,
+        currentPeriodEnd: sub.current_period_end,
+        cancelAtPeriodEnd: sub.cancel_at_period_end,
+        trialStart: sub.trial_start,
+        trialEnd: sub.trial_end,
+        metadata: sub.metadata,
+        createdAt: sub.current_period_start, // Mock created date
+        updatedAt: sub.current_period_start
+      }));
+    }
+    
+    try {
+      const response = await this.polar.subscriptionsList({
+        customer_id: customerId,
+        limit: 100
+      });
+      
+      return response.data.items?.map(sub => ({
+        id: sub.id,
+        subscriptionId: sub.id,
+        customerId: sub.customer_id,
+        tier: SubscriptionTier.STANDARD, // Extract from product metadata
+        status: sub.status,
+        currentPeriodStart: new Date(sub.current_period_start),
+        currentPeriodEnd: new Date(sub.current_period_end),
+        cancelAtPeriodEnd: sub.cancel_at_period_end || false,
+        trialStart: sub.trial_start ? new Date(sub.trial_start) : undefined,
+        trialEnd: sub.trial_end ? new Date(sub.trial_end) : undefined,
+        metadata: sub.metadata,
+        createdAt: new Date(sub.created_at),
+        updatedAt: new Date(sub.modified_at || sub.created_at)
+      })) || [];
+    } catch (error) {
+      throw new Error(`Failed to list Polar subscriptions: ${error}`);
+    }
+  }
+
+  /**
+   * Cancel subscription
+   */
+  async cancelSubscription(
+    subscriptionId: string,
+    immediately = false
+  ): Promise<PolarSubscription | null> {
+    if (this.isMockMode && this.mockService) {
+      const mockSubscription = await this.mockService.cancelSubscription(subscriptionId, immediately);
+      if (!mockSubscription) return null;
+      
+      return {
+        id: mockSubscription.id,
+        subscriptionId: mockSubscription.id,
+        customerId: mockSubscription.customer_id,
+        tier: SubscriptionTier.STANDARD,
+        status: mockSubscription.status,
+        currentPeriodStart: mockSubscription.current_period_start,
+        currentPeriodEnd: mockSubscription.current_period_end,
+        cancelAtPeriodEnd: mockSubscription.cancel_at_period_end,
+        trialStart: mockSubscription.trial_start,
+        trialEnd: mockSubscription.trial_end,
+        metadata: mockSubscription.metadata,
+        createdAt: mockSubscription.current_period_start,
+        updatedAt: mockSubscription.current_period_start
+      };
+    }
+    
+    try {
+      const response = await this.polar.subscriptionsCancel({
+        id: subscriptionId,
+        subscriptionCancel: {
+          cancel_at_period_end: !immediately
+        }
+      });
+      
+      return {
+        id: response.data.id,
+        subscriptionId: response.data.id,
+        customerId: response.data.customer_id,
+        tier: SubscriptionTier.STANDARD,
+        status: response.data.status,
+        currentPeriodStart: new Date(response.data.current_period_start),
+        currentPeriodEnd: new Date(response.data.current_period_end),
+        cancelAtPeriodEnd: response.data.cancel_at_period_end || false,
+        trialStart: response.data.trial_start ? new Date(response.data.trial_start) : undefined,
+        trialEnd: response.data.trial_end ? new Date(response.data.trial_end) : undefined,
+        metadata: response.data.metadata,
+        createdAt: new Date(response.data.created_at),
+        updatedAt: new Date(response.data.modified_at || response.data.created_at)
+      };
+    } catch (error) {
+      throw new Error(`Failed to cancel Polar subscription: ${error}`);
+    }
+  }
+
+  /**
+   * Resume subscription (remove cancellation)
+   */
+  async resumeSubscription(
+    subscriptionId: string
+  ): Promise<PolarSubscription | null> {
+    if (this.isMockMode && this.mockService) {
+      const mockSubscription = await this.mockService.resumeSubscription(subscriptionId);
+      if (!mockSubscription) return null;
+      
+      return {
+        id: mockSubscription.id,
+        subscriptionId: mockSubscription.id,
+        customerId: mockSubscription.customer_id,
+        tier: SubscriptionTier.STANDARD,
+        status: mockSubscription.status,
+        currentPeriodStart: mockSubscription.current_period_start,
+        currentPeriodEnd: mockSubscription.current_period_end,
+        cancelAtPeriodEnd: mockSubscription.cancel_at_period_end,
+        trialStart: mockSubscription.trial_start,
+        trialEnd: mockSubscription.trial_end,
+        metadata: mockSubscription.metadata,
+        createdAt: mockSubscription.current_period_start,
+        updatedAt: mockSubscription.current_period_start
+      };
+    }
+    
+    try {
+      // Polar doesn't have a direct "resume" - we update to remove cancellation
+      const response = await this.polar.subscriptionsUpdate({
+        id: subscriptionId,
+        subscriptionUpdate: {
+          cancel_at_period_end: false
+        }
+      });
+      
+      return {
+        id: response.data.id,
+        subscriptionId: response.data.id,
+        customerId: response.data.customer_id,
+        tier: SubscriptionTier.STANDARD,
+        status: response.data.status,
+        currentPeriodStart: new Date(response.data.current_period_start),
+        currentPeriodEnd: new Date(response.data.current_period_end),
+        cancelAtPeriodEnd: response.data.cancel_at_period_end || false,
+        trialStart: response.data.trial_start ? new Date(response.data.trial_start) : undefined,
+        trialEnd: response.data.trial_end ? new Date(response.data.trial_end) : undefined,
+        metadata: response.data.metadata,
+        createdAt: new Date(response.data.created_at),
+        updatedAt: new Date(response.data.modified_at || response.data.created_at)
+      };
+    } catch (error) {
+      throw new Error(`Failed to resume Polar subscription: ${error}`);
+    }
+  }
+
+  /**
+   * Get subscription status for a customer
+   */
+  async getSubscriptionStatus(customerId: string): Promise<{
+    active: boolean;
+    tier: string | null;
+    currentPeriodEnd: Date | null;
+    trialEnd: Date | null;
+    cancelAtPeriodEnd: boolean;
+  }> {
+    if (this.isMockMode && this.mockService) {
+      return await this.mockService.getSubscriptionStatus(customerId);
+    }
+    
+    try {
+      const subscriptions = await this.listSubscriptions(customerId);
+      const activeSubscription = subscriptions.find(sub => 
+        sub.status === 'active' || sub.status === 'trialing'
+      );
+      
+      if (!activeSubscription) {
+        return {
+          active: false,
+          tier: null,
+          currentPeriodEnd: null,
+          trialEnd: null,
+          cancelAtPeriodEnd: false
+        };
+      }
+      
+      return {
+        active: true,
+        tier: activeSubscription.tier,
+        currentPeriodEnd: activeSubscription.currentPeriodEnd,
+        trialEnd: activeSubscription.trialEnd || null,
+        cancelAtPeriodEnd: activeSubscription.cancelAtPeriodEnd
+      };
+    } catch (error) {
+      throw new Error(`Failed to get Polar subscription status: ${error}`);
+    }
+  }
+
+  /**
+   * Verify webhook signature and construct event
+   */
+  async constructWebhookEvent(
+    payload: string | Buffer,
+    signature: string,
+    secret?: string
+  ): Promise<any> {
+    if (this.isMockMode && this.mockService) {
+      return await this.mockService.constructWebhookEvent(
+        payload.toString(),
+        signature,
+        secret || 'mock_secret'
+      );
+    }
+    
+    const webhookSecret = secret || this.webhookSecret;
+    if (!webhookSecret) {
+      throw new Error('Webhook secret not configured');
+    }
+
+    try {
+      // Polar webhook verification would go here
+      // For now, we'll parse the payload directly
+      const event = JSON.parse(payload.toString());
+      
+      // Basic validation
+      if (!event.type || !event.data) {
+        throw new Error('Invalid webhook payload');
+      }
+      
+      return event;
+    } catch (error) {
+      throw new Error(`Failed to construct Polar webhook event: ${error}`);
+    }
+  }
+
+  /**
+   * Create a refund (Note: Polar handles refunds differently)
+   */
+  async createRefund(options: RefundOptions): Promise<any> {
+    const validated = createRefundSchema.parse(options);
+    
+    if (this.isMockMode) {
+      return {
+        id: `ref_polar_mock_${Date.now()}`,
+        payment_id: validated.paymentId,
+        amount: validated.amount,
+        reason: validated.reason,
+        status: 'succeeded',
+        created_at: new Date().toISOString()
+      };
+    }
+    
+    // Polar doesn't have a direct refund API like Stripe
+    // Refunds are typically handled through their dashboard or by contacting support
+    throw new Error('Refunds must be processed through Polar dashboard or support');
+  }
+
+  /**
+   * Get Polar API instance for advanced operations
+   */
+  getPolarInstance(): Polar {
+    return this.polar;
+  }
+}

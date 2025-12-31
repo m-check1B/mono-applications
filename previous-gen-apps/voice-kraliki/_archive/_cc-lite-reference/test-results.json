@@ -1,0 +1,159 @@
+{
+  "config": {
+    "configFile": "/home/adminmatej/github/apps/cc-lite/playwright.config.ts",
+    "rootDir": "/home/adminmatej/github/apps/cc-lite/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/adminmatej/github/apps/cc-lite/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/adminmatej/github/apps/cc-lite/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/adminmatej/github/apps/cc-lite/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/adminmatej/github/apps/cc-lite/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/adminmatej/github/apps/cc-lite/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/adminmatej/github/apps/cc-lite/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/adminmatej/github/apps/cc-lite/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/home/adminmatej/github/apps/cc-lite/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/adminmatej/github/apps/cc-lite/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/home/adminmatej/github/apps/cc-lite/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.1",
+    "workers": 10,
+    "webServer": {
+      "command": "pnpm dev",
+      "url": "http://127.0.0.1:3007",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /home/adminmatej/github/apps/cc-lite/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:667:9"
+    },
+    {
+      "message": "ReferenceError: describe is not defined",
+      "stack": "ReferenceError: describe is not defined\n    at /home/adminmatej/github/apps/cc-lite/tests/e2e/monitoring-dashboard.spec.ts:55:3\n    at /home/adminmatej/github/apps/cc-lite/tests/e2e/monitoring-dashboard.spec.ts:21:6",
+      "location": {
+        "file": "/home/adminmatej/github/apps/cc-lite/tests/e2e/monitoring-dashboard.spec.ts",
+        "column": 3,
+        "line": 55
+      },
+      "snippet": "\u001b[90m   at \u001b[39mmonitoring-dashboard.spec.ts:55\n\n  53 |   });\n  54 |\n> 55 |   describe('Dashboard Component Rendering', () => {\n     |   ^\n  56 |     test('should render all main dashboard components', async () => {\n  57 |       await supervisorPage.goto(`${BASE_URL}/supervisor`);\n  58 |"
+    },
+    {
+      "message": "ReferenceError: describe is not defined",
+      "stack": "ReferenceError: describe is not defined\n    at /home/adminmatej/github/apps/cc-lite/tests/e2e/multi-language-calls.spec.ts:56:3\n    at /home/adminmatej/github/apps/cc-lite/tests/e2e/multi-language-calls.spec.ts:34:6",
+      "location": {
+        "file": "/home/adminmatej/github/apps/cc-lite/tests/e2e/multi-language-calls.spec.ts",
+        "column": 3,
+        "line": 56
+      },
+      "snippet": "\u001b[90m   at \u001b[39mmulti-language-calls.spec.ts:56\n\n  54 |   });\n  55 |\n> 56 |   describe('Language Detection and Routing', () => {\n     |   ^\n  57 |     test('should detect customer language and route to appropriate agent', async () => {\n  58 |       // Login supervisor to monitor routing\n  59 |       await supervisorPage.goto(`${BASE_URL}/login`);"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /home/adminmatej/github/apps/cc-lite/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:667:9"
+    }
+  ],
+  "stats": {
+    "startTime": "2025-09-29T18:37:36.134Z",
+    "duration": 236.247,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

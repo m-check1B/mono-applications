@@ -1,0 +1,6 @@
+# Focus by Kraliki MCP Server dependencies
+mcp>=1.0.0
+httpx>=0.25.0
+starlette>=0.32.0
+uvicorn>=0.24.0
+aiofiles>=23.0.0

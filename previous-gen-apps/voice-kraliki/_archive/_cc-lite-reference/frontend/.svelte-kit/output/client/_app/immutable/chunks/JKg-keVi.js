@@ -1,0 +1,1 @@
+import{D as k,ai as t,k as b,af as h,aq as q}from"./BuVZNLKp.js";function u(r,i){return r===i||r?.[q]===i}function c(r={},i,f,S){return k(()=>{var a,s;return t(()=>{a=s,s=[],b(()=>{r!==f(...s)&&(i(r,...s),a&&u(f(...a),r)&&i(null,...a))})}),()=>{h(()=>{s&&u(f(...s),r)&&i(null,...s)})}}),r}export{c as b};

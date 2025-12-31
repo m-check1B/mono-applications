@@ -1,0 +1,31 @@
+{
+  "id": "knowledge",
+  "name": "Knowledge Capture",
+  "version": "0.1.0",
+  "summary": "Capture decisions, context, and evidence for B2B teams.",
+  "roles": ["admin", "operator", "viewer"],
+  "ui_modules": [
+    "overview",
+    "decision-intake",
+    "context-map",
+    "knowledge-base",
+    "audit-timeline"
+  ],
+  "mcp": {
+    "required_endpoints": [
+      "swarm.knowledge.read",
+      "swarm.knowledge.write",
+      "swarm.decisions.log",
+      "swarm.audit.query"
+    ]
+  },
+  "metrics": [
+    "decisions_logged",
+    "context_items_added",
+    "time_to_decision"
+  ],
+  "events": [
+    "template.decision.logged",
+    "template.audit.updated"
+  ]
+}

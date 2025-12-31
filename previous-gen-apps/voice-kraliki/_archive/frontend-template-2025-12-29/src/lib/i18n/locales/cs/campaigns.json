@@ -1,0 +1,21 @@
+{
+	"campaigns_title": "Kampaně",
+	"campaigns_subtitle": "Spravovat a monitorovat kampaně hovorů",
+	"create_campaign": "Vytvořit kampaň",
+	"campaign_name": "Název kampaně",
+	"campaign_type": "Typ kampaně",
+	"start_date": "Datum zahájení",
+	"end_date": "Datum ukončení",
+	"total_contacts": "Celkem kontaktů",
+	"calls_made": "Provedené hovory",
+	"success_rate": "Míra úspěšnosti",
+	"conversion_rate": "Míra konverze",
+	"active_campaigns": "Aktivní kampaně",
+	"paused_campaigns": "Pozastaveno",
+	"completed_campaigns": "Dokončeno",
+	"script": "Scénář",
+	"schedule": "Rozvrh",
+	"contacts": "Kontakty",
+	"statistics": "Statistiky",
+	"performance": "Výkon"
+}

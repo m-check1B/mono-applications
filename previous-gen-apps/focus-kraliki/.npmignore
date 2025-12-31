@@ -1,0 +1,18 @@
+# Exclude local environments and artifacts
+backend/.venv/
+backend/.coverage
+backend/.pytest_cache/
+frontend/node_modules/
+logs/
+playwright-report/
+tests/playwright.config.ts
+screenshots/
+test-results/
+tests/
+_*/
+-archive-*/
+.coding_agents_space/
+.swarm/
+.git/
+.gitignore
+**/.DS_Store

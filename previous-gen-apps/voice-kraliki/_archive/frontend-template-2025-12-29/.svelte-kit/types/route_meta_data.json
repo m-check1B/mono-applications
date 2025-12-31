@@ -1,0 +1,123 @@
+{
+	"/(protected)": [
+		"src/routes/+layout.ts"
+	],
+	"/": [
+		"src/routes/+page.ts",
+		"src/routes/+layout.ts",
+		"src/routes/+layout.ts"
+	],
+	"/about": [
+		"src/routes/about/+page.ts",
+		"src/routes/+layout.ts"
+	],
+	"/agents": [
+		"src/routes/+layout.ts"
+	],
+	"/agents/[id]": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/analytics": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/arena": [
+		"src/routes/+layout.ts"
+	],
+	"/auth/login": [
+		"src/routes/+layout.ts"
+	],
+	"/auth/register": [
+		"src/routes/+layout.ts"
+	],
+	"/auth/sso": [
+		"src/routes/auth/sso/+server.ts"
+	],
+	"/auth/sso/callback": [
+		"src/routes/auth/sso/callback/+server.ts"
+	],
+	"/(protected)/calls/agent": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/calls/incoming": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/calls/outbound": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/campaigns": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/chat": [
+		"src/routes/(protected)/chat/+page.ts",
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/companies": [
+		"src/routes/+layout.ts"
+	],
+	"/contact-lists/[id]": [
+		"src/routes/+layout.ts"
+	],
+	"/cross-tab-demo": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/dashboard": [
+		"src/routes/+layout.ts"
+	],
+	"/operations/ivr": [
+		"src/routes/+layout.ts"
+	],
+	"/operations/ivr/builder": [
+		"src/routes/+layout.ts"
+	],
+	"/operations/recordings": [
+		"src/routes/+layout.ts"
+	],
+	"/operations/routing": [
+		"src/routes/+layout.ts"
+	],
+	"/operations/routing/builder": [
+		"src/routes/+layout.ts"
+	],
+	"/operations/voicemail": [
+		"src/routes/+layout.ts"
+	],
+	"/privacy": [
+		"src/routes/+layout.ts"
+	],
+	"/responsive-test": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/scenarios": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/scenarios/builder": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/scenarios/practice": [
+		"src/routes/+layout.ts"
+	],
+	"/(protected)/settings": [
+		"src/routes/+layout.ts"
+	],
+	"/shifts": [
+		"src/routes/+layout.ts"
+	],
+	"/supervisor/active-calls": [
+		"src/routes/+layout.ts"
+	],
+	"/supervisor/dashboard": [
+		"src/routes/+layout.ts"
+	],
+	"/supervisor/queue": [
+		"src/routes/+layout.ts"
+	],
+	"/teams": [
+		"src/routes/+layout.ts"
+	],
+	"/teams/new": [
+		"src/routes/+layout.ts"
+	],
+	"/teams/[id]": [
+		"src/routes/+layout.ts"
+	]
+}

@@ -1,0 +1,245 @@
+// PM2 Configuration for CC-Light Production Deployment
+// =====================================================
+// Usage: pm2 start ecosystem.config.js --env production
+
+module.exports = {
+  apps: [
+    {
+      // Backend API Server
+      name: 'cc-light-backend',
+      script: 'pnpm',
+      args: 'start:server:production',
+      cwd: '/home/adminmatej/github/apps/cc-lite',
+      instances: 1, // Use fork mode for tsx
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '1G',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 3900
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 3900,
+        HOST: '127.0.0.1', // Security: Bind to localhost only
+        TELEPHONY_ENABLED: false,
+        TELEPHONY_PROVIDER: 'twilio',
+        OPENAI_LLM_MODEL: 'gpt-5',
+        OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
+        OPENROUTER_MODEL: process.env.OPENROUTER_MODEL || 'openrouter/openai/gpt-5',
+        OPENROUTER_BASE_URL: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
+        OPENROUTER_HTTP_REFERER: process.env.OPENROUTER_HTTP_REFERER || 'https://cc-lite.verduona.dev',
+        OPENROUTER_TITLE: process.env.OPENROUTER_TITLE || 'CC Light',
+        FRONTEND_URL: 'https://cc-lite.verduona.dev',
+        WEBHOOK_BASE_URL: 'https://cc-lite.verduona.dev',
+        
+        // Multi-Language Configuration
+        ENABLE_LANGUAGE_DETECTION: true,
+        DEFAULT_LANGUAGE: 'en',
+        SUPPORTED_LANGUAGES: 'en,es,cs',
+        LANGUAGE_AUTO_DETECTION_THRESHOLD: 0.85,
+        LANGUAGE_FALLBACK_ON_ERROR: true,
+        
+        // Czech Language Settings
+        CZECH_LANGUAGE_ENABLED: true,
+        CZECH_DEFAULT_DIALECT: 'cs-CZ',
+        CZECH_STT_MODEL: 'nova-2-general',
+        CZECH_TTS_PROVIDER: 'elevenlabs',
+        CZECH_VOICE_MODEL: 'kamila-cs',
+        CZECH_TTS_CACHE_ENABLED: true,
+        CZECH_TTS_MAX_CACHE_SIZE: 100,
+        
+        // Spanish Language Settings
+        SPANISH_LANGUAGE_ENABLED: true,
+        SPANISH_DEFAULT_DIALECT: 'es-ES',
+        SPANISH_STT_MODEL: 'nova-2-general',
+        SPANISH_TTS_PROVIDER: 'deepgram',
+        SPANISH_VOICE_MODEL: 'aura-2-nestor-es',
+        SPANISH_DEFAULT_ACCENT: 'es-ES',
+        SPANISH_FALLBACK_ACCENT: 'es-LA',
+        
+        // English Language Settings
+        ENGLISH_LANGUAGE_ENABLED: true,
+        ENGLISH_DEFAULT_DIALECT: 'en-US',
+        ENGLISH_STT_MODEL: 'nova-2-general',
+        ENGLISH_TTS_PROVIDER: 'deepgram',
+        ENGLISH_VOICE_MODEL: 'aura-2-luna-en',
+        
+        // Voice Routing & Performance
+        VOICE_ROUTING_ENABLED: true,
+        VOICE_ROUTING_CACHE_TTL: 7200,
+        VOICE_ROUTING_FALLBACK_ENABLED: true,
+        LANGUAGE_CACHE_ENABLED: true,
+        LANGUAGE_CACHE_TTL: 3600,
+        TTS_CACHE_ENABLED: true,
+        TTS_CACHE_MAX_SIZE: 500,
+        STT_CACHE_ENABLED: true,
+        STT_CACHE_TTL: 1800,
+        
+        // Performance Settings
+        NODE_OPTIONS: '--max-old-space-size=2048',
+        UV_THREADPOOL_SIZE: 16,
+        
+        // Security & Monitoring
+        LOG_LEVEL: 'warn',
+        LOG_FORMAT: 'json',
+        MONITORING_ENABLED: true,
+        HEALTH_CHECK_ENABLED: true,
+        METRICS_COLLECTION_ENABLED: true,
+        RATE_LIMIT_ENABLED: true,
+        RATE_LIMIT_WINDOW_MS: 900000,
+        RATE_LIMIT_MAX_REQUESTS: 50,
+        
+        // Bug Reporting (MANDATORY - Stack 2025)
+        APP_ENV: 'production'
+      },
+      error_file: '/var/log/cc-light/backend-error.log',
+      out_file: '/var/log/cc-light/backend-out.log',
+      merge_logs: true,
+      time: true,
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+      
+      // Auto-restart configuration
+      autorestart: true,
+      min_uptime: '10s',
+      max_restarts: 10,
+      
+      // Health check
+      health_check: {
+        interval: 30000,
+        timeout: 10000,
+        max_failures: 5
+      }
+    },
+    {
+      // Headless campaign worker (autonomous runs)
+      name: 'cc-light-campaign-worker',
+      script: 'pnpm',
+      args: 'tsx server/jobs/campaign-worker.ts',
+      cwd: '/home/adminmatej/github/apps/cc-lite',
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '300M',
+      env: {
+        NODE_ENV: 'development',
+        WORKER_HEARTBEAT_MS: 30000
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        WORKER_HEARTBEAT_MS: 60000,
+        HOST: '127.0.0.1'
+      },
+      error_file: '/var/log/cc-light/worker-error.log',
+      out_file: '/var/log/cc-light/worker-out.log',
+      merge_logs: true,
+      time: true,
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
+    
+    {
+      // Frontend Vite Server (for development/preview)
+      name: 'cc-light-frontend',
+      script: 'pnpm',
+      args: 'preview',
+      cwd: '/home/adminmatej/github/apps/cc-lite',
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '500M',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 5174
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 5174,
+        HOST: '127.0.0.1', // Security: Bind to localhost only
+        OPENAI_LLM_MODEL: 'gpt-5',
+        
+        // Frontend Multi-Language Support
+        VITE_DEFAULT_LANGUAGE: 'en',
+        VITE_SUPPORTED_LANGUAGES: 'en,es,cs',
+        VITE_ENABLE_LANGUAGE_DETECTION: true,
+        VITE_APP_ENV: 'production',
+        
+        // Performance Settings for Frontend
+        NODE_OPTIONS: '--max-old-space-size=1024'
+      },
+      error_file: '/var/log/cc-light/frontend-error.log',
+      out_file: '/var/log/cc-light/frontend-out.log',
+      merge_logs: true,
+      time: true,
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+      
+      // Auto-restart configuration
+      autorestart: true,
+      min_uptime: '10s',
+      max_restarts: 10
+    },
+    
+    {
+      // Database Backup Cron Job
+      name: 'cc-light-backup',
+      script: '/opt/cc-light/scripts/backup.sh',
+      instances: 1,
+      exec_mode: 'fork',
+      cron_restart: '0 2 * * *', // Daily at 2 AM
+      autorestart: false,
+      watch: false,
+      error_file: '/var/log/cc-light/backup-error.log',
+      out_file: '/var/log/cc-light/backup-out.log',
+      time: true,
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
+    
+    {
+      // Health Check Monitor
+      name: 'cc-light-monitor',
+      script: '/opt/cc-light/scripts/health-check.js',
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '200M',
+      env: {
+        CHECK_INTERVAL: 60000, // Check every minute
+        ALERT_EMAIL: 'admin@yourdomain.com',
+        SLACK_WEBHOOK: 'https://hooks.slack.com/services/YOUR/WEBHOOK/URL'
+      },
+      error_file: '/var/log/cc-light/monitor-error.log',
+      out_file: '/var/log/cc-light/monitor-out.log',
+      merge_logs: true,
+      time: true,
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    }
+  ],
+  
+  // Deploy configuration (optional)
+  deploy: {
+    production: {
+      user: 'deploy',
+      host: 'cc-light.yourdomain.com',
+      ref: 'origin/main',
+      repo: 'git@github.com:yourorg/cc-light.git',
+      path: '/opt/cc-light',
+      'pre-deploy-local': 'pnpm test',
+      'post-deploy': 'pnpm install --frozen-lockfile && pnpm build && pm2 reload ecosystem.config.js --env production',
+      'pre-setup': 'mkdir -p /var/log/cc-light /opt/cc-light',
+      env: {
+        NODE_ENV: 'production'
+      }
+    }
+  }
+};
+
+// PM2 Commands Reference:
+// =======================
+// Start all apps: pm2 start ecosystem.config.js --env production
+// Stop all apps: pm2 stop ecosystem.config.js
+// Restart all apps: pm2 restart ecosystem.config.js
+// Reload with zero downtime: pm2 reload ecosystem.config.js
+// View logs: pm2 logs
+// Monitor: pm2 monit
+// Save current process list: pm2 save
+// Auto-start on boot: pm2 startup
+// Delete all apps: pm2 delete ecosystem.config.js

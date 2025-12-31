@@ -1,0 +1,12 @@
+{
+	"/(auth)": [],
+	"/(app)": [],
+	"/": [],
+	"/(app)/admin": [],
+	"/(app)/admin/campaigns": [],
+	"/(app)/admin/users": [],
+	"/(auth)/login": [],
+	"/(app)/operator": [],
+	"/(app)/supervisor": [],
+	"/test": []
+}

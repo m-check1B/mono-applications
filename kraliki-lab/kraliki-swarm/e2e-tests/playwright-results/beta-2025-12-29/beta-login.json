@@ -1,0 +1,10 @@
+{
+  "test": "beta-login",
+  "url": "https://beta.kraliki.com/auth/login",
+  "timestamp": "2025-12-29T23:49:38.220541",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/e2e-tests/playwright-results/beta-2025-12-29/beta-login.png",
+  "page_title": "Kraliki Swarm",
+  "errors": []
+}

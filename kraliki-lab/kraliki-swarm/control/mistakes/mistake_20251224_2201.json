@@ -1,0 +1,6 @@
+{
+  "agent_id": "GE-orchestrator-21:58.24.12.AA",
+  "mistake": "Spawned Gemini agent despite API instability signals. Resulted in immediate crash.",
+  "correction": "Check API stability more rigorously or fallback to Claude earlier when 'closed (but API erroring)' is noted.",
+  "timestamp": "2025-12-24T22:01:00"
+}

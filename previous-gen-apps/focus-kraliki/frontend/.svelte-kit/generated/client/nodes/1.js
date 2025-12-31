@@ -1,0 +1,1 @@
+export { default as component } from "../../../../node_modules/.pnpm/@sveltejs+kit@2.49.2_@sveltejs+vite-plugin-svelte@5.1.1_svelte@5.46.0_vite@7.3.0_@types_21899d8f3e7823ce528f79a02629f9a0/node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte";

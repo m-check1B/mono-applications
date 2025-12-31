@@ -1,0 +1,195 @@
+{
+  "id": "healthcare-ai-track",
+  "slug": "ai-healthcare-professionals",
+  "title": "AI for Healthcare Professionals",
+  "subtitle": "HIPAA-Compliant AI Implementation for Clinical Excellence",
+  "version": "1.0",
+  "status": "development",
+  "industry": "healthcare",
+
+  "description": "A comprehensive training program designed for healthcare organizations implementing AI solutions. Covers HIPAA compliance, clinical decision support systems, patient data management, and responsible AI deployment in medical settings.",
+
+  "target_audience": [
+    "Healthcare IT professionals",
+    "Clinical informaticists",
+    "Medical directors and administrators",
+    "Data scientists in healthcare",
+    "Compliance officers",
+    "Nursing leadership",
+    "Radiology and pathology teams"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of healthcare operations",
+    "Familiarity with EHR/EMR systems",
+    "No prior AI experience required"
+  ],
+
+  "learning_objectives": [
+    "Understand AI capabilities and limitations in clinical settings while maintaining patient safety",
+    "Implement AI solutions that comply with HIPAA, GDPR, and healthcare-specific regulations",
+    "Evaluate and deploy clinical decision support systems with appropriate human oversight",
+    "Manage patient data privacy and security in AI-powered healthcare applications",
+    "Develop governance frameworks for responsible AI use in medical contexts"
+  ],
+
+  "modules": [
+    {
+      "id": "healthcare-m1",
+      "order": 1,
+      "title": "AI Foundations for Healthcare",
+      "description": "Understanding AI technology in the context of healthcare delivery and patient care",
+      "duration_hours": 6,
+      "lessons": [
+        "What is AI? Demystifying Machine Learning for Clinicians",
+        "Current AI Applications in Healthcare (Radiology, Pathology, EHR)",
+        "The Promise and Limitations of AI in Medicine",
+        "Case Studies: Successful AI Implementations in Hospitals"
+      ]
+    },
+    {
+      "id": "healthcare-m2",
+      "order": 2,
+      "title": "HIPAA and Healthcare AI Compliance",
+      "description": "Navigating regulatory requirements for AI systems handling protected health information",
+      "duration_hours": 8,
+      "lessons": [
+        "HIPAA Privacy Rule and AI: What You Need to Know",
+        "Security Rule Compliance for AI Systems",
+        "Business Associate Agreements for AI Vendors",
+        "De-identification Requirements for AI Training Data",
+        "FDA Guidance on AI/ML-Based Medical Devices",
+        "State-Level Healthcare AI Regulations"
+      ]
+    },
+    {
+      "id": "healthcare-m3",
+      "order": 3,
+      "title": "Clinical Decision Support Systems",
+      "description": "Implementing and managing AI-powered decision support tools",
+      "duration_hours": 8,
+      "lessons": [
+        "Types of Clinical Decision Support: Rules-Based vs. ML-Based",
+        "Evaluating CDS Effectiveness and Clinical Validity",
+        "Integration with EHR Workflows",
+        "Alert Fatigue and Optimization Strategies",
+        "Physician Override Protocols and Documentation"
+      ]
+    },
+    {
+      "id": "healthcare-m4",
+      "order": 4,
+      "title": "Patient Data and AI Ethics",
+      "description": "Ethical considerations and patient data management for AI applications",
+      "duration_hours": 6,
+      "lessons": [
+        "Patient Consent for AI-Assisted Care",
+        "Bias in Healthcare AI: Identification and Mitigation",
+        "Health Equity Considerations in AI Deployment",
+        "Transparency and Explainability Requirements"
+      ]
+    },
+    {
+      "id": "healthcare-m5",
+      "order": 5,
+      "title": "AI-Powered Diagnostics",
+      "description": "Understanding and implementing AI in diagnostic workflows",
+      "duration_hours": 6,
+      "lessons": [
+        "AI in Medical Imaging: Radiology, Pathology, Dermatology",
+        "Validation and Testing of Diagnostic AI",
+        "Workflow Integration and Radiologist Partnership",
+        "Quality Assurance for AI-Assisted Diagnoses"
+      ]
+    },
+    {
+      "id": "healthcare-m6",
+      "order": 6,
+      "title": "Implementation and Governance",
+      "description": "Practical deployment and ongoing management of healthcare AI",
+      "duration_hours": 6,
+      "lessons": [
+        "Building Your Healthcare AI Governance Committee",
+        "Vendor Evaluation and Selection Criteria",
+        "Pilot Program Design and Success Metrics",
+        "Continuous Monitoring and Model Maintenance",
+        "Staff Training and Change Management"
+      ]
+    }
+  ],
+
+  "duration": {
+    "total_hours": 40,
+    "recommended_weeks": 8,
+    "hours_per_week": 5
+  },
+
+  "format": {
+    "delivery": ["self-paced", "instructor-led", "blended"],
+    "content_types": ["video_lessons", "interactive_exercises", "case_studies", "assessments"],
+    "live_components": ["weekly_office_hours", "expert_panels", "peer_discussions"]
+  },
+
+  "certification": {
+    "name": "Certified Healthcare AI Professional (CHAIP)",
+    "requirements": [
+      "Complete all 6 modules with minimum 80% assessment score",
+      "Submit capstone project: AI Implementation Plan for Your Organization",
+      "Pass final comprehensive examination (100 questions, 70% minimum)",
+      "Complete 4 hours of hands-on lab exercises"
+    ],
+    "validity_years": 2,
+    "renewal": "20 continuing education hours or re-examination",
+    "digital_badge": true,
+    "verification_url": "learn.verduona.dev/verify"
+  },
+
+  "pricing": {
+    "tier": "Enterprise",
+    "individual_price_eur": 2500,
+    "corporate_per_seat_eur": 1800,
+    "minimum_corporate_seats": 10,
+    "includes": [
+      "Full course access for 12 months",
+      "All assessments and certification exam",
+      "Capstone project review and feedback",
+      "Digital certificate and badge",
+      "Access to healthcare AI community forum"
+    ]
+  },
+
+  "resources": {
+    "templates": [
+      "Healthcare AI Governance Charter Template",
+      "HIPAA AI Risk Assessment Checklist",
+      "CDS Implementation Checklist",
+      "AI Vendor Evaluation Scorecard"
+    ],
+    "tools": [
+      "Patient Data De-identification Guide",
+      "AI Bias Detection Framework for Healthcare",
+      "Clinical Workflow Integration Toolkit"
+    ]
+  },
+
+  "authors": [
+    {
+      "name": "AI Academy Team",
+      "role": "Content Development",
+      "organization": "Verduona"
+    }
+  ],
+
+  "tags": [
+    "healthcare",
+    "HIPAA",
+    "clinical-ai",
+    "patient-data",
+    "medical-devices",
+    "compliance",
+    "ethics"
+  ],
+
+  "created_date": "2025-12-28",
+  "last_updated": "2025-12-28"
+}

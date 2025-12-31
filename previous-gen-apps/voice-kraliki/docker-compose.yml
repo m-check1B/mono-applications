@@ -1,0 +1,270 @@
+# Voice by Kraliki - Docker Compose with Traefik Beta Integration
+# Beta URL: voice.verduona.dev
+# Production URL: voice.kraliki.com
+#
+# SSL/TLS: Handled by global Traefik with Let's Encrypt (automatic)
+# Security Headers: Applied via middleware labels on each service
+
+networks:
+  websites_default:
+    external: true
+  cc-internal:
+    driver: bridge
+
+services:
+  # PostgreSQL database for session persistence (optional)
+  postgres:
+    image: postgres:16-alpine
+    container_name: cc-lite-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: operator_demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cc-internal
+
+  # Redis for caching and pub/sub (optional)
+  # SECURITY: Redis is on internal network ONLY - port NOT exposed to host
+  redis:
+    image: redis:7-alpine
+    container_name: cc-lite-redis
+    restart: unless-stopped
+    command: >
+      redis-server
+      --appendonly yes
+      --requirepass ${REDIS_PASSWORD:-change-this-secure-redis-password-min-32-chars}
+      --rename-command FLUSHALL ""
+      --rename-command FLUSHDB ""
+      --rename-command KEYS ""
+      --rename-command CONFIG ""
+    # CRITICAL: No ports section - Redis NOT exposed to host (German authorities requirement)
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "${REDIS_PASSWORD:-change-this-secure-redis-password-min-32-chars}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cc-internal
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cc-lite-backend
+    restart: unless-stopped
+    environment:
+      # Application config
+      APP_NAME: ${APP_NAME:-Operator Demo Backend}
+      VERSION: ${VERSION:-0.1.0}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+
+      # Server config
+      HOST: 0.0.0.0
+      PORT: 8000
+      DEBUG: ${DEBUG:-false}
+      PUBLIC_URL: ${PUBLIC_URL:-}
+
+      # CORS - allow frontend to access backend
+      CORS_ORIGINS: '["http://localhost:3000", "http://localhost:5173", "http://frontend:3000", "https://voice.kraliki.com", "https://voice.verduona.dev"]'
+
+      # Security
+      SECRET_KEY: ${SECRET_KEY:-change-this-in-production}
+      JWT_EXPIRATION_MINUTES: ${JWT_EXPIRATION_MINUTES:-1440}
+      JWT_KEYS_DIR: ${JWT_KEYS_DIR:-/app/keys}
+      AUTH_COOKIE_NAME: ${AUTH_COOKIE_NAME:-auth_token}
+      REFRESH_COOKIE_NAME: ${REFRESH_COOKIE_NAME:-refresh_token}
+      AUTH_COOKIE_DOMAIN: ${AUTH_COOKIE_DOMAIN:-}
+      AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-false}
+      AUTH_COOKIE_SAMESITE: ${AUTH_COOKIE_SAMESITE:-lax}
+      AUTH_COOKIE_PATH: ${AUTH_COOKIE_PATH:-/}
+
+      # Database (if using PostgreSQL)
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/operator_demo}
+
+      # Redis (if using) - Must include password for security
+      REDIS_URL: ${REDIS_URL:-redis://:${REDIS_PASSWORD:-change-this-secure-redis-password-min-32-chars}@redis:6379/0}
+
+      # AI Provider API Keys
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      DEEPGRAM_API_KEY: ${DEEPGRAM_API_KEY:-}
+
+      # Telephony Provider Credentials
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID:-}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
+      TELNYX_API_KEY: ${TELNYX_API_KEY:-}
+      TELNYX_PUBLIC_KEY: ${TELNYX_PUBLIC_KEY:-}
+
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+
+      # Monitoring & Observability
+      SENTRY_DSN: ${SENTRY_DSN:-}
+      SENTRY_TRACES_SAMPLE_RATE: ${SENTRY_TRACES_SAMPLE_RATE:-0.1}
+      SENTRY_PROFILES_SAMPLE_RATE: ${SENTRY_PROFILES_SAMPLE_RATE:-0.1}
+      ENABLE_METRICS: ${ENABLE_METRICS:-true}
+      RELEASE_VERSION: ${RELEASE_VERSION:-2.0.0}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - websites_default
+      - cc-internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=websites_default"
+      # Security headers middleware (HSTS, X-Frame-Options, etc.)
+      - "traefik.http.middlewares.cc-security-headers.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.cc-security-headers.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.cc-security-headers.headers.stsPreload=true"
+      - "traefik.http.middlewares.cc-security-headers.headers.frameDeny=true"
+      - "traefik.http.middlewares.cc-security-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.cc-security-headers.headers.browserXssFilter=true"
+      - "traefik.http.middlewares.cc-security-headers.headers.referrerPolicy=strict-origin-when-cross-origin"
+      - "traefik.http.middlewares.cc-security-headers.headers.customResponseHeaders.X-Powered-By="
+      - "traefik.http.middlewares.cc-security-headers.headers.customResponseHeaders.Server="
+      # Production API routes (voice.kraliki.com)
+      - "traefik.http.routers.cc-api.rule=Host(`voice.kraliki.com`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.cc-api.entrypoints=websecure"
+      - "traefik.http.routers.cc-api.tls=true"
+      - "traefik.http.routers.cc-api.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cc-api.middlewares=cc-security-headers@docker"
+      - "traefik.http.routers.cc-api.priority=100"
+      # Production Docs route
+      - "traefik.http.routers.cc-docs.rule=Host(`voice.kraliki.com`) && PathPrefix(`/docs`)"
+      - "traefik.http.routers.cc-docs.entrypoints=websecure"
+      - "traefik.http.routers.cc-docs.tls=true"
+      - "traefik.http.routers.cc-docs.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cc-docs.middlewares=cc-security-headers@docker"
+      - "traefik.http.routers.cc-docs.priority=100"
+      # Production Health route
+      - "traefik.http.routers.cc-health.rule=Host(`voice.kraliki.com`) && PathPrefix(`/health`)"
+      - "traefik.http.routers.cc-health.entrypoints=websecure"
+      - "traefik.http.routers.cc-health.tls=true"
+      - "traefik.http.routers.cc-health.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cc-health.middlewares=cc-security-headers@docker"
+      - "traefik.http.routers.cc-health.priority=100"
+      # Beta API routes (voice.verduona.dev)
+      - "traefik.http.routers.cc-api-beta.rule=Host(`voice.verduona.dev`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.cc-api-beta.entrypoints=websecure"
+      - "traefik.http.routers.cc-api-beta.tls=true"
+      - "traefik.http.routers.cc-api-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cc-api-beta.middlewares=cc-security-headers@docker"
+      - "traefik.http.routers.cc-api-beta.priority=100"
+      # Beta Docs route
+      - "traefik.http.routers.cc-docs-beta.rule=Host(`voice.verduona.dev`) && PathPrefix(`/docs`)"
+      - "traefik.http.routers.cc-docs-beta.entrypoints=websecure"
+      - "traefik.http.routers.cc-docs-beta.tls=true"
+      - "traefik.http.routers.cc-docs-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cc-docs-beta.middlewares=cc-security-headers@docker"
+      - "traefik.http.routers.cc-docs-beta.priority=100"
+      # Beta Health route
+      - "traefik.http.routers.cc-health-beta.rule=Host(`voice.verduona.dev`) && PathPrefix(`/health`)"
+      - "traefik.http.routers.cc-health-beta.entrypoints=websecure"
+      - "traefik.http.routers.cc-health-beta.tls=true"
+      - "traefik.http.routers.cc-health-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cc-health-beta.middlewares=cc-security-headers@docker"
+      - "traefik.http.routers.cc-health-beta.priority=100"
+      - "traefik.http.services.cc-backend.loadbalancer.server.port=8000"
+
+  # SvelteKit Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL:-/api}
+        PRIVATE_API_BASE_URL: ${PRIVATE_API_BASE_URL:-http://backend:8000}
+        VITE_WS_URL: ${VITE_WS_URL:-backend:8000}
+    container_name: cc-lite-frontend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      # Backend API URLs
+      PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL:-/api}
+      PUBLIC_EXTERNAL_API_BASE_URL: ${PUBLIC_EXTERNAL_API_BASE_URL:-/api}
+      PRIVATE_API_BASE_URL: ${PRIVATE_API_BASE_URL:-http://backend:8000}
+      VITE_WS_URL: ${VITE_WS_URL:-ws://backend:8000}
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/', (r) => {process.exit(r.statusCode >= 200 && r.statusCode < 400 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - websites_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=websites_default"
+      # Production (voice.kraliki.com)
+      - "traefik.http.routers.cc-frontend.rule=Host(`voice.kraliki.com`)"
+      - "traefik.http.routers.cc-frontend.entrypoints=websecure"
+      - "traefik.http.routers.cc-frontend.tls=true"
+      - "traefik.http.routers.cc-frontend.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cc-frontend.middlewares=cc-security-headers@docker"
+      # Production HTTP redirect
+      - "traefik.http.routers.cc-frontend-http.rule=Host(`voice.kraliki.com`)"
+      - "traefik.http.routers.cc-frontend-http.entrypoints=web"
+      - "traefik.http.routers.cc-frontend-http.middlewares=redirect-to-https@docker"
+      # Beta (voice.verduona.dev)
+      - "traefik.http.routers.cc-frontend-beta.rule=Host(`voice.verduona.dev`)"
+      - "traefik.http.routers.cc-frontend-beta.entrypoints=websecure"
+      - "traefik.http.routers.cc-frontend-beta.tls=true"
+      - "traefik.http.routers.cc-frontend-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cc-frontend-beta.middlewares=cc-security-headers@docker"
+      # Beta HTTP redirect
+      - "traefik.http.routers.cc-frontend-beta-http.rule=Host(`voice.verduona.dev`)"
+      - "traefik.http.routers.cc-frontend-beta-http.entrypoints=web"
+      - "traefik.http.routers.cc-frontend-beta-http.middlewares=redirect-to-https@docker"
+      - "traefik.http.services.cc-frontend.loadbalancer.server.port=3000"
+
+  # Qdrant vector database (existing service)
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: cc-lite-qdrant
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${QDRANT_PORT:-6337}:6333"
+      - "127.0.0.1:${QDRANT_GRPC_PORT:-6338}:6334"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/localhost/6333 && echo -e \"GET / HTTP/1.0\\r\\n\\r\\n\" >&3 && head -1 <&3 | grep -q 200'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - cc-internal
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  qdrant_storage:
+    driver: local
+  jwt_keys:
+    driver: local

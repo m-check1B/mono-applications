@@ -1,0 +1,32 @@
+{
+  "id": "project-management",
+  "name": "Project Management",
+  "version": "0.1.0",
+  "summary": "Lightweight project execution over Swarm workflows.",
+  "roles": ["admin", "operator", "viewer"],
+  "ui_modules": [
+    "overview",
+    "project-board",
+    "decision-log",
+    "risk-register",
+    "audit-timeline"
+  ],
+  "mcp": {
+    "required_endpoints": [
+      "swarm.projects.read",
+      "swarm.projects.write",
+      "swarm.decisions.log",
+      "swarm.audit.query"
+    ]
+  },
+  "metrics": [
+    "projects_active",
+    "tasks_completed",
+    "decision_latency"
+  ],
+  "events": [
+    "template.action.triggered",
+    "template.decision.logged",
+    "template.audit.updated"
+  ]
+}

@@ -1,0 +1,1 @@
+import{z as t}from"./aQ_ifger.js";import{A as r}from"./XctAiTdr.js";function n(){const o=t(r);if(!o)throw new Error("AppConfig context is missing. Make sure you are inside the root layout.");return o}export{n as u};

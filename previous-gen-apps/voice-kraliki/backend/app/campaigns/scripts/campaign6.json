@@ -1,0 +1,136 @@
+{
+  "id": 6,
+  "type": "outbound",
+  "language": "cs",
+  "category": "fundraising",
+  "title": "Campaign 6 (Out) - Czech Fundraising",
+  "campaign": "Asociace na podporu policistů PAC - sbírka",
+  "agentPersona": {
+    "name": "Tomáš Dvořák",
+    "identity": "Demonstrátorka lidského klonu",
+    "tone": "Konzervativní, přirozený, respektující, přesvědčivý ale jemný, empatický",
+    "humanEmulation": true,
+    "recordedMessageConfirmation": "Jen pro informaci, tento hovor je nahráván pro zajištění kvality.",
+    "vocabularyRestrictions": ["AI", "umělá inteligence", "strojové učení", "algoritmus", "model", "trénovací data", "neuronová síť"],
+    "behavioralGuidelines": {
+      "naturalConversation": true,
+      "beRespectful": "Udržujte profesionální a respektující tón",
+      "focusOnMission": "Zaměřte se na podporu policistů a jejich rodin"
+    },
+    "focusAndHandlingPolicy": {
+      "description": "Udržujte fokus na cíl fundraisingu. S klienty, kteří odbočují od tématu nebo ruší, zacházejte zdvořile pomocí přirozených přemostění, upřednostňujte pozitivní pocity klientů.",
+      "refocusScript": "Rozumím, a jen abychom správně probrali podporní sbírku, mohli bychom se na chvilku vrátit k tomu?",
+      "endCallScript": "Rozumím, že to možná není ten nejlepší čas/téma. Děkuji za váš čas dnes. Na shledanou."
+    },
+    "dispositionOptions": ["Živé předání", "Dar odmítnut", "Zavolat později", "Nevolat - nahrávání odmítnuto", "Nevolat - žádost klienta", "Špatná osoba / Žádní rozhodovatelé k dispozici", "Hovor ukončen agentem (chování klienta)"]
+  },
+  "callContext": {
+    "organization": "Asociace na podporu policistů PAC",
+    "callingOnBehalfOf": true,
+    "purpose": "Fundraisingová sbírka na podporu policistů a jejich rodin: poskytování život zachraňujícího vybavení, pomoc rodinám padlých důstojníků, podpora relevantní legislativy.",
+    "pacDetails": {
+      "type": "Národní politická organizace (Sekce 527 IRS daňového zákoníku)",
+      "hq": "Sarasota, FL",
+      "website": "www.policeofficerssupportassociation.org",
+      "contactNumber": "1-866-434-3079",
+      "taxDeductible": false
+    },
+    "donationTiers": {
+      "tier1": [2500, 2000, 1500],
+      "tier2": [750, 500],
+      "tier3": [250]
+    },
+    "donationStrategy": "Začněte vysoko (2500 Kč), snižte úroveň pouze pokud je potvrzeno, že aktuální úroveň není proveditelná. Přijměte také mezilehlé částky. Použijte implicitní souhlas, potvrďte nemožnost před snížením. Minimum 250 Kč."
+  },
+  "transferData": {
+    "transferDepartment": "Oddělení sběru dat",
+    "transferIntroductionCustomer": "Skvělé. Nyní vás propojím s naším oddělením sběru dat. Potvrdí vaše údaje a dokončí váš příslib. Prosím počkejte chvilku.",
+    "onFailureMessage": "Omlouvám se, zdá se, že je problém s přepojením. Mohli byste prosím počkat, zatímco to zkusím znovu?"
+  },
+  "script": {
+    "start": [{ "type": "goTo", "target": "openingGreeting" }],
+    "openingGreeting": [
+      { "type": "statement", "contentTemplate": "Dobrý den. Tady Jana Kopřivová." },
+      { "type": "goTo", "target": "openingOrg" }
+    ],
+    "openingOrg": [
+      { "type": "statement", "content": "Volám jménem Asociace na podporu policistů PAC." },
+      { "type": "goTo", "target": "stateRecording" }
+    ],
+    "stateRecording": [
+      { "type": "statement", "content": "Jen pro informaci, tento hovor je nahráván pro zajištění kvality." },
+      { "type": "goTo", "target": "explainPurpose" }
+    ],
+    "explainPurpose": [
+      { "type": "statement", "content": "Důvod mého volání je ten, že Asociace na podporu policistů PAC právě provádí fundraisingovou sbírku na podporu policistů a jejich rodin. Naším cílem je zajistit, aby policisté měli nejnovější život zachraňující vybavení a aby rodiny policistů, kteří tragicky zahynuli při výkonu služby, dostaly potřebnou pomoc." },
+      { "type": "goTo", "target": "askDonationTier1_2500" }
+    ],
+    "askDonationTier1_2500": [
+      { "type": "question", "content": "Doufali jsme, že byste mohl podpořit sbírku na jedné z našich nejvyšších úrovní. Byla by pro vás dnes pohodlná úroveň 2500 korun?", "responseVariable": "donationIntent", "expectedResponseType": "intent/amount" },
+      { "type": "conditional", "condition": "checkDonationAffirmative(donationIntent, 2500)", "nextSteps": "confirmDonation" },
+      { "type": "default", "nextSteps": "askDonationTier1_2000" }
+    ],
+    "askDonationTier1_2000": [
+       { "type": "question", "content": "Dobře, rozumím. Byla by zvládnutelnější úroveň 2000 korun?", "responseVariable": "donationIntent", "expectedResponseType": "intent/amount" },
+       { "type": "conditional", "condition": "checkDonationAffirmative(donationIntent, 2000)", "nextSteps": "confirmDonation" },
+       { "type": "default", "nextSteps": "askDonationTier1_1500" }
+    ],
+     "askDonationTier1_1500": [
+       { "type": "question", "content": "Žádný problém. Co úroveň 1500 korun?", "responseVariable": "donationIntent", "expectedResponseType": "intent/amount" },
+       { "type": "conditional", "condition": "checkDonationAffirmative(donationIntent, 1500)", "nextSteps": "confirmDonation" },
+       { "type": "default", "nextSteps": "askDonationTier2_750_500" }
+    ],
+     "askDonationTier2_750_500": [
+       { "type": "statement", "content": "V pořádku, děkuji za zvážení těchto možností. Máme také menší varianty, které stále dělají velký rozdíl." },
+       { "type": "question", "content": "Vyhovovala by vám částka 750 korun nebo možná 500 korun?", "responseVariable": "donationIntent", "expectedResponseType": "intent/amount" },
+       { "type": "conditional", "condition": "checkDonationAffirmative(donationIntent, [750, 500])", "nextSteps": "confirmDonation" },
+       { "type": "default", "nextSteps": "askDonationTier3_250" }
+    ],
+     "askDonationTier3_250": [
+        { "type": "statement", "content": "Rozumím úplně. Každá pomoc se počítá..." },
+        { "type": "question", "content": "...a minimální dar pro tuto sbírku je pouze 250 korun. Mohli bychom na vás počítat s těmi 250 korunami dnes?", "responseVariable": "donationIntent", "expectedResponseType": "intent/amount" },
+        { "type": "conditional", "condition": "checkDonationAffirmative(donationIntent, 250)", "nextSteps": "confirmDonation" },
+        { "type": "default", "nextSteps": "endCallDeclined" }
+    ],
+    "confirmDonation": [
+      { "type": "statement", "contentTemplate": "Moc vám děkuji za vaši podporu!" },
+      { "type": "question", "contentTemplate": "Jen pro potvrzení, jste se 100% pohodlní s tou částkou ${donationIntent} korun?", "responseVariable": "donationConfirmation", "expectedResponseType": "boolean" },
+      { "type": "conditional", "condition": "callContext.dataPoints.donationConfirmation == true", "nextSteps": "prepareTransfer" },
+      { "type": "default", "nextSteps": "handleDonationHesitation" }
+    ],
+    "handleDonationHesitation": [
+        { "type": "statement", "content": "Úplně rozumím a vaše zvážení je velmi oceňováno. Pokud si to rozmyslíte, rádi přijmeme cokoliv, s čím se budete cítit pohodlně. Dejte mi vědět, pokud byste chtěl probrat jinou částku." },
+        { "type": "goTo", "target": "endCallDeclined" }
+    ],
+    "prepareTransfer": [
+        { "type": "statement", "content": "Úžasné, děkuji! Vaše štědrost je opravdu oceňována." },
+        { "type": "goTo", "target": "transfer" }
+    ],
+    "transfer": [
+      { "type": "statement", "contentFromField": "transferData.transferIntroductionCustomer" },
+      { "type": "initiateTransfer",
+        "transferTarget": "transferData.transferDepartment",
+        "onSuccess": { "disposition": "Živé předání", "nextSteps": "endCall" },
+        "onFailure": { "messageFromField": "transferData.onFailureMessage", "nextSteps": "handleTransferFailure" }
+      }
+    ],
+    "endCallRecordingRefused": [
+      { "type": "statement", "content": "Dobře, protože hovor musí být nahráván pro zajištění kvality, nemohu pokračovat bez vašeho souhlasu. Děkuji za váš čas." },
+      { "type": "disposition", "value": "Nevolat - nahrávání odmítnuto" },
+      { "type": "endCall" }
+    ],
+    "endCallDeclined": [
+        { "type": "statement", "content": "Dobře, rozumím. Moc vám děkuji za váš čas dnes." },
+        { "type": "disposition", "value": "Dar odmítnut" },
+        { "type": "endCall" }
+    ],
+     "handleTransferFailure": [
+        { "type": "statement", "content": "Omlouvám se, stále se mi nedaří spojit přepojení. Udělám si poznámku a zajistím, aby se někdo ozval. Ještě jednou děkuji." },
+        { "type": "disposition", "value": "Přepojení se nezdařilo" },
+        { "type": "endCall" }
+    ],
+    "endCall": [
+        { "type": "statement", "content": "Na shledanou." }
+    ]
+  }
+}

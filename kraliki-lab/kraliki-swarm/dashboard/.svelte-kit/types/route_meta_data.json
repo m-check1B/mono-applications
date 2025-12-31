@@ -1,0 +1,283 @@
+{
+	"/": [
+		"src/routes/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/agent-board": [
+		"src/routes/agent-board/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/agents": [
+		"src/routes/+layout.server.ts"
+	],
+	"/api/agents": [
+		"src/routes/api/agents/+server.ts"
+	],
+	"/api/brain": [
+		"src/routes/api/brain/+server.ts"
+	],
+	"/api/brain/strategy": [
+		"src/routes/api/brain/strategy/+server.ts"
+	],
+	"/api/circuit-breakers": [
+		"src/routes/api/circuit-breakers/+server.ts"
+	],
+	"/api/cli-policy": [
+		"src/routes/api/cli-policy/+server.ts"
+	],
+	"/api/comms": [
+		"src/routes/api/comms/+server.ts"
+	],
+	"/api/costs": [
+		"src/routes/api/costs/+server.ts"
+	],
+	"/api/crm": [
+		"src/routes/api/crm/+server.ts"
+	],
+	"/api/dashboard-redeploy": [
+		"src/routes/api/dashboard-redeploy/+server.ts"
+	],
+	"/api/genomes": [
+		"src/routes/api/genomes/+server.ts"
+	],
+	"/api/genomes/[name]": [
+		"src/routes/api/genomes/[name]/+server.ts"
+	],
+	"/api/health": [
+		"src/routes/api/health/+server.ts"
+	],
+	"/api/human-blockers": [
+		"src/routes/api/human-blockers/+server.ts"
+	],
+	"/api/insights": [
+		"src/routes/api/insights/+server.ts"
+	],
+	"/api/insights/boards": [
+		"src/routes/api/insights/boards/+server.ts"
+	],
+	"/api/insights/posts": [
+		"src/routes/api/insights/posts/+server.ts"
+	],
+	"/api/insights/posts/[boardId]": [
+		"src/routes/api/insights/posts/[boardId]/+server.ts"
+	],
+	"/api/insights/[...path]": [
+		"src/routes/api/insights/[...path]/+server.ts"
+	],
+	"/api/integrations": [
+		"src/routes/api/integrations/+server.ts"
+	],
+	"/api/integrations/focus": [
+		"src/routes/api/integrations/focus/+server.ts"
+	],
+	"/api/integrations/voice": [
+		"src/routes/api/integrations/voice/+server.ts"
+	],
+	"/api/jobs": [
+		"src/routes/api/jobs/+server.ts"
+	],
+	"/api/lab/alerts": [
+		"src/routes/api/lab/alerts/+server.ts"
+	],
+	"/api/lab/alerts/[id]/resolve": [
+		"src/routes/api/lab/alerts/[id]/resolve/+server.ts"
+	],
+	"/api/lab/customers": [
+		"src/routes/api/lab/customers/+server.ts"
+	],
+	"/api/lab/metrics/fleet": [
+		"src/routes/api/lab/metrics/fleet/+server.ts"
+	],
+	"/api/lab/vms": [
+		"src/routes/api/lab/vms/+server.ts"
+	],
+	"/api/lab/vms/[id]/rebuild": [
+		"src/routes/api/lab/vms/[id]/rebuild/+server.ts"
+	],
+	"/api/lab/vms/[id]/restart": [
+		"src/routes/api/lab/vms/[id]/restart/+server.ts"
+	],
+	"/api/leaderboard": [
+		"src/routes/api/leaderboard/+server.ts"
+	],
+	"/api/learn": [
+		"src/routes/api/learn/+server.ts"
+	],
+	"/api/memory": [
+		"src/routes/api/memory/+server.ts"
+	],
+	"/api/memory/consolidate": [
+		"src/routes/api/memory/consolidate/+server.ts"
+	],
+	"/api/pause-swarm": [
+		"src/routes/api/pause-swarm/+server.ts"
+	],
+	"/api/pipeline-policy": [
+		"src/routes/api/pipeline-policy/+server.ts"
+	],
+	"/api/power-swarm": [
+		"src/routes/api/power-swarm/+server.ts"
+	],
+	"/api/reach": [
+		"src/routes/api/reach/+server.ts"
+	],
+	"/api/reach/agents": [
+		"src/routes/api/reach/agents/+server.ts"
+	],
+	"/api/reach/campaigns": [
+		"src/routes/api/reach/campaigns/+server.ts"
+	],
+	"/api/reach/queue": [
+		"src/routes/api/reach/queue/+server.ts"
+	],
+	"/api/reset-soft": [
+		"src/routes/api/reset-soft/+server.ts"
+	],
+	"/api/reset": [
+		"src/routes/api/reset/+server.ts"
+	],
+	"/api/scopes": [
+		"src/routes/api/scopes/+server.ts"
+	],
+	"/api/spawn": [
+		"src/routes/api/spawn/+server.ts"
+	],
+	"/api/status": [
+		"src/routes/api/status/+server.ts"
+	],
+	"/api/traces": [
+		"src/routes/api/traces/+server.ts"
+	],
+	"/api/voice": [
+		"src/routes/api/voice/+server.ts"
+	],
+	"/api/voice/analytics": [
+		"src/routes/api/voice/analytics/+server.ts"
+	],
+	"/api/voice/campaigns": [
+		"src/routes/api/voice/campaigns/+server.ts"
+	],
+	"/api/voice/health": [
+		"src/routes/api/voice/health/+server.ts"
+	],
+	"/api/voice/providers": [
+		"src/routes/api/voice/providers/+server.ts"
+	],
+	"/api/voice/sessions": [
+		"src/routes/api/voice/sessions/+server.ts"
+	],
+	"/api/voice/teams": [
+		"src/routes/api/voice/teams/+server.ts"
+	],
+	"/api/vop": [
+		"src/routes/api/vop/+server.ts"
+	],
+	"/api/vop/conversations": [
+		"src/routes/api/vop/conversations/+server.ts"
+	],
+	"/api/vop/surveys": [
+		"src/routes/api/vop/surveys/+server.ts"
+	],
+	"/api/windmill/health": [
+		"src/routes/api/windmill/health/+server.ts"
+	],
+	"/apple-touch-icon-precomposed.png": [
+		"src/routes/apple-touch-icon-precomposed.png/+server.ts"
+	],
+	"/apple-touch-icon.png": [
+		"src/routes/apple-touch-icon.png/+server.ts"
+	],
+	"/apps": [
+		"src/routes/+layout.server.ts"
+	],
+	"/auth/callback": [
+		"src/routes/auth/callback/+server.ts"
+	],
+	"/auth/login": [
+		"src/routes/auth/login/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/auth/register": [
+		"src/routes/auth/register/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/auth/sso": [
+		"src/routes/auth/sso/+server.ts"
+	],
+	"/blackboard": [
+		"src/routes/blackboard/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/brain": [
+		"src/routes/+layout.server.ts"
+	],
+	"/comms": [
+		"src/routes/+layout.server.ts"
+	],
+	"/costs": [
+		"src/routes/+layout.server.ts"
+	],
+	"/crm": [
+		"src/routes/+layout.server.ts"
+	],
+	"/data": [
+		"src/routes/+layout.server.ts"
+	],
+	"/favicon.ico": [
+		"src/routes/favicon.ico/+server.ts"
+	],
+	"/genomes": [
+		"src/routes/+layout.server.ts"
+	],
+	"/health": [
+		"src/routes/+layout.server.ts",
+		"src/routes/health/+server.ts"
+	],
+	"/insights": [
+		"src/routes/+layout.server.ts"
+	],
+	"/jobs": [
+		"src/routes/+layout.server.ts"
+	],
+	"/lab": [
+		"src/routes/+layout.server.ts"
+	],
+	"/leaderboard": [
+		"src/routes/+layout.server.ts"
+	],
+	"/learn": [
+		"src/routes/+layout.server.ts"
+	],
+	"/linear": [
+		"src/routes/+layout.server.ts"
+	],
+	"/memory": [
+		"src/routes/memory/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/notebook": [
+		"src/routes/+layout.server.ts"
+	],
+	"/reach": [
+		"src/routes/+layout.server.ts"
+	],
+	"/recall": [
+		"src/routes/+layout.server.ts"
+	],
+	"/see": [
+		"src/routes/see/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/see/traces": [
+		"src/routes/+layout.server.ts"
+	],
+	"/settings": [
+		"src/routes/+layout.server.ts"
+	],
+	"/terminal": [
+		"src/routes/+layout.server.ts"
+	],
+	"/workflows": [
+		"src/routes/+layout.server.ts"
+	]
+}

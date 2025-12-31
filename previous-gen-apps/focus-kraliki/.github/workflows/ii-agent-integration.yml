@@ -1,0 +1,317 @@
+name: II-Agent Integration Tests
+
+# Track 1 - Platform Hardening: Critical Path CI Job
+# Tests full Focus by Kraliki ↔ II-Agent roundtrips
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'backend/**'
+      - 'ii-agent/**'
+      - '.github/workflows/ii-agent-integration.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'backend/**'
+      - 'ii-agent/**'
+      - '.github/workflows/ii-agent-integration.yml'
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: '3.11'
+  FORCE_COLOR: 1
+
+jobs:
+  ii-agent-integration-tests:
+    name: Focus ↔ II-Agent Integration Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: focus_kraliki_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/uv
+            backend/.venv
+            ii-agent/.venv
+          key: ${{ runner.os }}-python-${{ env.PYTHON_VERSION }}-${{ hashFiles('**/pyproject.toml', '**/uv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-python-${{ env.PYTHON_VERSION }}-
+
+      - name: Install Focus by Kraliki backend dependencies
+        run: |
+          cd backend
+          uv venv
+          source .venv/bin/activate
+          uv pip install -e ..
+          uv pip install -r requirements.txt
+
+      - name: Install II-Agent dependencies
+        run: |
+          cd ii-agent
+          uv venv
+          source .venv/bin/activate
+          uv pip install -e .
+
+      - name: Setup test environment
+        run: |
+          cd backend
+          cp .env.example .env
+          echo "DATABASE_URL=postgresql://postgres:testpassword@localhost:5432/focus_kraliki_test" >> .env
+          echo "REDIS_URL=redis://localhost:6379" >> .env
+          echo "NODE_ENV=test" >> .env
+          echo "JWT_SECRET=test-secret-key-for-ci" >> .env
+
+      - name: Run database migrations
+        run: |
+          cd backend
+          source .venv/bin/activate
+          alembic upgrade head
+        env:
+          DATABASE_URL: postgresql://postgres:testpassword@localhost:5432/focus_kraliki_test
+
+      - name: Run II-Agent roundtrip integration tests
+        run: |
+          cd backend
+          source .venv/bin/activate
+          pytest tests/integration/test_ii_agent_roundtrip.py -v --tb=short --cov=app --cov-report=term-missing --cov-report=xml
+        env:
+          DATABASE_URL: postgresql://postgres:testpassword@localhost:5432/focus_kraliki_test
+          REDIS_URL: redis://localhost:6379
+          NODE_ENV: test
+          PYTHONPATH: /home/runner/work/focus-kraliki/focus-kraliki
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./backend/coverage.xml
+          flags: ii-agent-integration
+          name: codecov-ii-agent-integration
+          fail_ci_if_error: false
+
+      - name: Run smoke test with II-Agent server
+        run: |
+          cd ii-agent
+          source .venv/bin/activate
+
+          # Start II-Agent server in background
+          python -m ii_agent.ws_server &
+          II_AGENT_PID=$!
+
+          # Wait for server to start
+          sleep 5
+
+          # Check if server is running
+          if kill -0 $II_AGENT_PID 2>/dev/null; then
+            echo "✅ II-Agent server started successfully"
+            kill $II_AGENT_PID
+          else
+            echo "❌ II-Agent server failed to start"
+            exit 1
+          fi
+        env:
+          FOCUS_API_BASE_URL: http://localhost:3017
+
+      - name: Generate integration test report
+        if: always()
+        run: |
+          echo "# II-Agent Integration Test Report" > integration-report.md
+          echo "" >> integration-report.md
+          echo "**Branch**: ${{ github.ref_name }}" >> integration-report.md
+          echo "**Commit**: ${{ github.sha }}" >> integration-report.md
+          echo "**Run ID**: ${{ github.run_id }}" >> integration-report.md
+          echo "" >> integration-report.md
+          echo "## Test Results" >> integration-report.md
+          echo "" >> integration-report.md
+
+          if [ -f "backend/coverage.xml" ]; then
+            echo "✅ Integration tests completed" >> integration-report.md
+            echo "" >> integration-report.md
+            echo "Coverage report generated successfully." >> integration-report.md
+          else
+            echo "❌ Integration tests failed" >> integration-report.md
+          fi
+
+          cat integration-report.md
+
+      - name: Upload integration test report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: ii-agent-integration-report-${{ github.run_number }}
+          path: integration-report.md
+          retention-days: 30
+
+  validate-focus-tools:
+    name: Validate Focus Tools Implementation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install II-Agent dependencies
+        run: |
+          cd ii-agent
+          uv venv
+          source .venv/bin/activate
+          uv pip install -e .
+
+      - name: Validate focus_tools.py syntax and imports
+        run: |
+          cd ii-agent
+          source .venv/bin/activate
+          python -c "from ii_agent.tools.focus_tools import create_focus_tools; print('✅ focus_tools imports successfully')"
+
+      - name: Check Focus Tools API compatibility
+        run: |
+          cd ii-agent
+          source .venv/bin/activate
+
+          # Verify all Focus tools are present
+          python -c "
+          from ii_agent.tools.focus_tools import create_focus_tools
+
+          tools = create_focus_tools('http://localhost:3017', 'test-token')
+          tool_names = [t.name for t in tools]
+
+          required_tools = [
+              'create_knowledge_item',
+              'update_knowledge_item',
+              'list_knowledge_items',
+              'create_task',
+              'update_task',
+              'list_tasks',
+              'create_or_get_project',
+              'focus_file_search_query'
+          ]
+
+          missing = [t for t in required_tools if t not in tool_names]
+
+          if missing:
+              print(f'❌ Missing tools: {missing}')
+              exit(1)
+          else:
+              print(f'✅ All {len(required_tools)} Focus tools present')
+              for name in tool_names:
+                  print(f'  - {name}')
+          "
+
+      - name: Verify Focus Tools endpoints match backend
+        run: |
+          echo "Checking endpoint compatibility..."
+
+          # Define expected endpoints
+          expected_endpoints=(
+            "/agent-tools/knowledge/create"
+            "/agent-tools/knowledge/{item_id}"
+            "/agent-tools/knowledge"
+            "/agent-tools/tasks"
+            "/agent-tools/tasks/{task_id}"
+            "/agent-tools/projects/create-or-get"
+            "/ai/file-search/query"
+          )
+
+          echo "Expected endpoints:"
+          for endpoint in "${expected_endpoints[@]}"; do
+            echo "  ✓ $endpoint"
+          done
+
+          # Check if backend router exists
+          if [ -f "backend/app/routers/agent_tools.py" ]; then
+            echo "✅ Backend agent_tools router exists"
+          else
+            echo "❌ Backend agent_tools router not found"
+            exit 1
+          fi
+
+  notify-integration-status:
+    name: Notify Integration Test Status
+    runs-on: ubuntu-latest
+    needs: [ii-agent-integration-tests, validate-focus-tools]
+    if: always()
+
+    steps:
+      - name: Generate status summary
+        run: |
+          echo "# Focus ↔ II-Agent Integration Status" > status-summary.md
+          echo "" >> status-summary.md
+          echo "**Workflow**: ${{ github.workflow }}" >> status-summary.md
+          echo "**Branch**: ${{ github.ref_name }}" >> status-summary.md
+          echo "**Commit**: ${{ github.sha }}" >> status-summary.md
+          echo "" >> status-summary.md
+          echo "## Results" >> status-summary.md
+          echo "" >> status-summary.md
+          echo "| Component | Status |" >> status-summary.md
+          echo "|-----------|--------|" >> status-summary.md
+          echo "| Integration Tests | ${{ needs.ii-agent-integration-tests.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> status-summary.md
+          echo "| Focus Tools Validation | ${{ needs.validate-focus-tools.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> status-summary.md
+          echo "" >> status-summary.md
+
+          if [[ "${{ needs.ii-agent-integration-tests.result }}" == "success" && "${{ needs.validate-focus-tools.result }}" == "success" ]]; then
+            echo "## ✅ Track 1 - Platform Hardening: COMPLETE" >> status-summary.md
+            echo "" >> status-summary.md
+            echo "All Focus ↔ II-Agent integration tests passing!" >> status-summary.md
+          else
+            echo "## ❌ Track 1 - Platform Hardening: NEEDS ATTENTION" >> status-summary.md
+            echo "" >> status-summary.md
+            echo "Some integration tests failed. Review logs above." >> status-summary.md
+          fi
+
+          cat status-summary.md
+
+      - name: Upload status summary
+        uses: actions/upload-artifact@v3
+        with:
+          name: integration-status-${{ github.run_number }}
+          path: status-summary.md
+          retention-days: 90

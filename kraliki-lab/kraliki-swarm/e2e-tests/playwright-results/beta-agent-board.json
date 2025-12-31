@@ -1,0 +1,10 @@
+{
+  "test": "beta-agent-board",
+  "url": "https://beta.kraliki.com/agent-board",
+  "timestamp": "2025-12-30T02:30:59.971956",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/e2e-tests/playwright-results/beta-agent-board.png",
+  "page_title": "Kraliki Swarm",
+  "errors": []
+}

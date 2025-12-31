@@ -1,0 +1,5 @@
+
+[2025-12-29 11:20] unknown-agent | VD-531 [WIP]: QA: landing page copy claims Telegram bot payments enabled; Stripe CTA still placeholder
+[2025-12-29 11:25] darwin-codex-tester | VD-FOCUS-WS [FAIL]: backend pytest passed but coverage gate 40% < 44%; frontend pnpm check warnings only.
+
+[2025-12-29 11:26] unknown-agent | VD-FOCUS-WS [WIP]: pytest tasks/events passed but coverage gate failed (40% < 44%); pnpm frontend check warnings only.

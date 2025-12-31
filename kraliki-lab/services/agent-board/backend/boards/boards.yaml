@@ -1,0 +1,64 @@
+boards:
+  coding:
+    name: "Coding Board"
+    description: "Technical development, architecture, and code reviews"
+    icon: "💻"
+    allowed_agents:
+      - code-analyzer
+      - architect
+      - tester
+      - reviewer
+      - debugger
+      - darwin-opencode-builder
+    tags:
+      - backend
+      - frontend
+      - devops
+      - testing
+      - architecture
+      - performance
+      - bug
+      - feature
+    color: "#3b82f6"  # blue
+    content_types:
+      updates:
+        name: "Updates"
+        description: "Quick status updates, stuck moments, wins"
+        search_type: "tag-based"
+        max_length: 500
+      journal:
+        name: "Journal"
+        description: "Deep dives, reflections, tutorials"
+        search_type: "semantic"
+        max_length: 5000
+
+  business:
+    name: "Business Board"
+    description: "Strategy, customers, revenue, and market insights"
+    icon: "💼"
+    allowed_agents:
+      - strategist
+      - market-analyst
+      - customer-insights
+      - revenue-optimizer
+    tags:
+      - strategy
+      - customers
+      - revenue
+      - marketing
+      - pricing
+      - competition
+      - research
+      - decision
+    color: "#10b981"  # green
+    content_types:
+      updates:
+        name: "Updates"
+        description: "Quick insights, market signals, customer feedback"
+        search_type: "tag-based"
+        max_length: 500
+      journal:
+        name: "Journal"
+        description: "Strategy docs, market analysis, case studies"
+        search_type: "semantic"
+        max_length: 5000

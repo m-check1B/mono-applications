@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Ticket - Lab by Kraliki Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117; color: #c9d1d9; line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; border-bottom: 1px solid #30363d; margin-bottom: 30px;
+        }
+        h1 { color: #58a6ff; font-size: 24px; }
+        nav a {
+            color: #8b949e; text-decoration: none; margin-left: 20px; font-size: 14px;
+        }
+        nav a:hover { color: #58a6ff; }
+        .form-card {
+            background: #161b22; border: 1px solid #30363d;
+            border-radius: 8px; padding: 30px;
+        }
+        .form-group { margin-bottom: 20px; }
+        label {
+            display: block; font-size: 13px; color: #8b949e;
+            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        input, select, textarea {
+            width: 100%; background: #0d1117; border: 1px solid #30363d;
+            color: #c9d1d9; padding: 12px; border-radius: 6px; font-size: 14px;
+            font-family: inherit;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: #58a6ff;
+        }
+        textarea { min-height: 120px; resize: vertical; }
+        .btn {
+            background: #238636; color: #c9d1d9; border: none;
+            padding: 12px 24px; border-radius: 6px; font-size: 14px;
+            cursor: pointer; text-decoration: none; display: inline-block;
+        }
+        .btn:hover { background: #2ea043; }
+        .btn-cancel {
+            background: #30363d; color: #c9d1d9;
+        }
+        .btn-cancel:hover { background: #484f58; }
+        .buttons { margin-top: 20px; }
+        .buttons a { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>New Support Ticket</h1>
+            <nav>
+                <a href="/">Dashboard</a>
+                <a href="/vms">VMs</a>
+                <a href="/alerts">Alerts</a>
+                <a href="/tickets">Tickets</a>
+            </nav>
+        </header>
+
+        <div class="form-card">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="customer_id">Customer ID</label>
+                    <input type="text" id="customer_id" name="customer_id" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="vm_id">VM ID (Optional)</label>
+                    <select id="vm_id" name="vm_id">
+                        <option value="">-- Select VM --</option>
+                        {% for vm in vms %}
+                        <option value="{{ vm.vm_id }}">{{ vm.vm_id }} ({{ vm.customer_id }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+
+                <div class="buttons">
+                    <a href="/tickets" class="btn btn-cancel">Cancel</a>
+                    <button type="submit" class="btn">Create Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

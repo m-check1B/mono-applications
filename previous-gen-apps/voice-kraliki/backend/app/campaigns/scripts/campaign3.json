@@ -1,0 +1,123 @@
+{
+  "id": 3,
+  "type": "outbound",
+  "language": "es",
+  "category": "insurance",
+  "title": "Campaign 3 (Out) - Spanish Insurance",
+  "campaign": "Spanish Insurance Sales - Outbound Calls",
+  "agentPersona": {
+    "name": "Diego Hernandez",
+    "role": "Agente de Seguros",
+    "company": "Seguros Verduona",
+    "experience": "5 años",
+    "personality": "Profesional, persuasivo y confiable. Habla español con acento neutro y se enfoca en soluciones.",
+    "expertise": [
+      "Seguros de auto",
+      "Seguros de hogar",
+      "Seguros de vida",
+      "Análisis de necesidades",
+      "Planes de pago flexibles"
+    ],
+    "communication_style": "Directo pero amigable, enfoca en beneficios y ahorros potenciales"
+  },
+  "customerData": {
+    "typical_customer_needs": ["protección familiar", "ahorro en primas", "cobertura completa", "servicio confiable"],
+    "common_objections": [
+      "Ya tengo seguro",
+      "Es muy caro",
+      "No necesito más cobertura",
+      "Necesito pensarlo"
+    ],
+    "target_demographics": {
+      "age_range": "25-65 años",
+      "income_level": "Medio a medio-alto",
+      "life_stage": "Familias, propietarios de casa, profesionales"
+    }
+  },
+  "script": {
+    "start": [{ "type": "goTo", "target": "opening" }],
+    "opening": [
+        { "type": "statement", "content": "¡Buenos días/tardes! Habla Diego Hernández de Seguros Verduona. ¿Cómo está usted hoy?" },
+        { "type": "statement", "content": "Le llamo porque estamos ofreciendo una evaluación gratuita de seguros para residentes de su área." },
+        { "type": "question", "content": "¿Tendría un momento para platicar sobre cómo podríamos ayudarle a ahorrar en sus seguros?", "responseVariable": "interestLevel" },
+        { "type": "conditional", "condition": "interestLevel.includes('no') || interestLevel.includes('ocupado')", "nextSteps": "handleNotInterested" },
+        { "type": "goTo", "target": "qualification" }
+    ],
+    "qualification": [
+        { "type": "statement", "content": "Excelente. Para poder ayudarle mejor, permítame hacerle algunas preguntas rápidas." },
+        { "type": "question", "content": "¿Me podría contar qué tipo de seguros tiene actualmente?", "responseVariable": "currentCoverage" },
+        { "type": "question", "content": "¿Está satisfecho con su seguro actual, o hay algo que le gustaría mejorar?", "responseVariable": "satisfaction" },
+        { "type": "question", "content": "¿Aproximadamente cuánto paga mensualmente por sus seguros? No se preocupe, es solo para darle una comparación.", "responseVariable": "currentCost" },
+        { "type": "goTo", "target": "valueProposition" }
+    ],
+    "valueProposition": [
+        { "type": "statement", "content": "Perfecto. Basándome en lo que me dice, creo que podemos ayudarle significativamente." },
+        { "type": "statement", "content": "Nuestros clientes típicamente ahorran entre 15-30% en sus primas manteniendo la misma cobertura o mejor." },
+        { "type": "statement", "content": "Además, ofrecemos coberturas que muchas compañías no incluyen, como asistencia en carretera las 24 horas y cobertura de gastos de alojamiento." },
+        { "type": "question", "content": "¿Le interesaría que le prepare una cotización personalizada sin compromiso?", "responseVariable": "quoteInterest" },
+        { "type": "conditional", "condition": "quoteInterest.includes('sí') || quoteInterest.includes('si') || quoteInterest.includes('interesa')", "nextSteps": "scheduleAppointment" },
+        { "type": "goTo", "target": "handleObjections" }
+    ],
+    "handleObjections": [
+        { "type": "statement", "content": "Entiendo perfectamente. Muchas personas tienen esa misma preocupación." },
+        { "type": "conditional", "condition": "quoteInterest.includes('tengo') || quoteInterest.includes('ya')", "nextSteps": "handleAlreadyInsured" },
+        { "type": "conditional", "condition": "quoteInterest.includes('caro') || quoteInterest.includes('dinero')", "nextSteps": "handleCostConcern" },
+        { "type": "goTo", "target": "handleGenericObjection" }
+    ],
+    "handleAlreadyInsured": [
+        { "type": "statement", "content": "Entiendo que ya tiene seguro, y eso habla bien de usted por ser responsable. Lo que ofrezco es una segunda opinión gratuita para asegurar que esté obteniendo el mejor valor." },
+        { "type": "question", "content": "¿No le parece que vale la pena verificar si puede ahorrar dinero sin perder cobertura?", "responseVariable": "secondOpinion" },
+        { "type": "conditional", "condition": "secondOpinion.includes('sí') || secondOpinion.includes('si')", "nextSteps": "scheduleAppointment" },
+        { "type": "goTo", "target": "offerInformation" }
+    ],
+    "handleCostConcern": [
+        { "type": "statement", "content": "Comprendo su preocupación sobre el costo. Por eso mismo queremos mostrarle cómo podemos reducir sus gastos sin sacrificar la protección que necesita." },
+        { "type": "statement", "content": "La evaluación es completamente gratuita y sin compromiso. Solo le tomará 15 minutos ver si puede ahorrar cientos de euros al año." },
+        { "type": "question", "content": "¿No cree que vale la pena esos 15 minutos si puede ahorrar dinero?", "responseVariable": "worthTime" },
+        { "type": "conditional", "condition": "worthTime.includes('sí') || worthTime.includes('si')", "nextSteps": "scheduleAppointment" },
+        { "type": "goTo", "target": "offerInformation" }
+    ],
+    "handleGenericObjection": [
+        { "type": "statement", "content": "Por supuesto, es una decisión importante y no quiero presionarle." },
+        { "type": "goTo", "target": "offerInformation" }
+    ],
+    "scheduleAppointment": [
+        { "type": "statement", "content": "¡Excelente! Me alegra poder ayudarle." },
+        { "type": "question", "content": "¿Le parece bien si programamos una cita de 15 minutos la próxima semana para hacer esa evaluación gratuita? ¿Prefiere mañana o tarde?", "responseVariable": "appointmentTime" },
+        { "type": "statement", "content": "Perfecto. Para preparar su cotización personalizada, necesito algunos datos básicos." },
+        { "type": "question", "content": "¿Me puede confirmar su dirección completa?", "responseVariable": "address" },
+        { "type": "goTo", "target": "confirmAppointment" }
+    ],
+    "confirmAppointment": [
+        { "type": "statement", "content": "Excelente. Tengo programada su cita. Le enviaré un email de confirmación con todos los detalles." },
+        { "type": "statement", "content": "Muchas gracias por su tiempo y espero poder ayudarle a ahorrar en sus seguros." },
+        { "type": "goTo", "target": "endCall" }
+    ],
+    "offerInformation": [
+        { "type": "question", "content": "¿Qué le parece si le envío información por email para que pueda revisarla sin presión? ¿Cuál es su correo electrónico?", "responseVariable": "email" },
+        { "type": "statement", "content": "Perfecto. Le enviaré la información hoy mismo, y si tiene alguna pregunta, no dude en contactarme." },
+        { "type": "goTo", "target": "endCall" }
+    ],
+    "handleNotInterested": [
+        { "type": "statement", "content": "Entiendo perfectamente. No quiero quitarle más tiempo." },
+        { "type": "statement", "content": "Si en el futuro le interesa revisar sus seguros, no dude en contactarnos. Que tenga un buen día." },
+        { "type": "goTo", "target": "endCall" }
+    ],
+    "endCall": [
+        { "type": "statement", "content": "Que tenga un excelente día. Hasta luego." }
+    ]
+  },
+  "transferData": {
+    "escalation_scenarios": {
+      "complex_needs": "Transferir a especialista en seguros comerciales",
+      "high_value_prospects": "Transferir a gerente de cuentas senior",
+      "complaints": "Transferir a supervisor de ventas",
+      "technical_questions": "Transferir a underwriter"
+    }
+  },
+  "compliance": {
+    "recording_notice": "Esta llamada puede ser grabada para fines de calidad y entrenamiento",
+    "opt_out_process": "Si prefiere no recibir más llamadas, puede pedirme que elimine su número de nuestra lista",
+    "privacy_policy": "Toda su información será manejada confidencialmente según nuestras políticas de privacidad"
+  }
+} 

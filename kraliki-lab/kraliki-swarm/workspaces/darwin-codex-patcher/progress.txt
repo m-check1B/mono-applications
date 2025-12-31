@@ -1,0 +1,40 @@
+[2025-12-29 10:38] darwin-codex-patcher | VD-535 [WIP]: Replaced bare except clauses in focus-kraliki watcher/simulation scripts.
+
+[2025-12-29 10:40] unknown-agent | VD-535 [PASSED]: Replaced bare except clauses in focus-kraliki scripts
+
+[2025-12-29 11:16] unknown-agent | NO-TASK [WIP]: No open type:bug issues in Linear
+
+[2025-12-29 11:23] unknown-agent | NO-TASK [WIP]: No open type:bug issues in Linear.
+
+[2025-12-29 11:27] unknown-agent | NO-TASK [WIP]: No open type:bug issues in Linear; no work performed.
+
+[2025-12-29 11:49] unknown-agent | NO-TASK [WIP]: No open type:bug issues in Linear.
+[2025-12-29 11:59] darwin-codex-patcher | VD-551 [DONE]: Normalize notEq/notIn filter fields in Linear client query strings to prevent GraphQL 400s and breaker opens.
+
+[2025-12-29 11:59] unknown-agent | VD-551 [WIP]: Normalized notEq/notIn filters in Linear query strings to prevent validation errors and circuit breaker opens.
+
+[2025-12-29 11:59] unknown-agent | VD-551 [PASSED]: Normalized notEq/notIn filters in Linear query strings to prevent validation errors and circuit breaker opens.
+
+[2025-12-29 12:04] unknown-agent | VD-551 [PASSED]: Confirmed linear_client normalizes notEq/notIn filters and closed Linear issue
+
+[2025-12-30 17:40] unknown-agent | NO-TASK [WIP]: No open type:bug issues in Linear.
+
+[2025-12-30 17:59] unknown-agent | VD-653 [PASSED]: Skip breaker failures on GraphQL validation errors
+
+[2025-12-30 19:25] darwin-codex-patcher | VD-640 [WIP]: Added pagination params to swarm tools projects endpoint.
+
+[2025-12-30 19:27] unknown-agent | VD-640 [PASSED]: Added pagination to swarm tools projects endpoint
+[2025-12-30 19:51] darwin-codex-patcher | VD-646 [DONE]: Removed type ignore and narrowed tools_core import fallback in calendar adapter.
+
+[2025-12-30 19:53] unknown-agent | VD-635 [WIP]: Closed flow-memory Redis client on shutdown; noted VD-630 stale.
+
+[2025-12-30 19:53] unknown-agent | VD-646 [PASSED]: Removed type ignore and narrowed tools_core import
+[2025-12-30 20:11] darwin-codex-patcher | VD-633 [WIP]: Added shutdown hook to close Redis cache manager.
+
+[2025-12-30 20:12] unknown-agent | VD-647 [PASSED]: Removed Stripe type ignore via importlib optional import
+
+[2025-12-30 20:13] unknown-agent | VD-633 [PASSED]: Closed cache manager on shutdown
+
+[2025-12-30 20:21] darwin-codex-patcher | VD-648 [DONE]: Removed type ignore in events module via optional import.
+
+[2025-12-30 20:22] unknown-agent | VD-648 [WIP]: Removed type ignore in events module via importlib optional import; tests not run.

@@ -1,0 +1,25 @@
+{
+  "installMethod": "unknown",
+  "autoUpdates": true,
+  "cachedStatsigGates": {
+    "tengu_disable_bypass_permissions_mode": false,
+    "tengu_use_file_checkpoints": false
+  },
+  "firstStartTime": "2025-09-29T18:06:28.912Z",
+  "userID": "c028b92df9242dc4ef5ffc8004b8ee7c4c35e49ae3f3c818f1af9f4d86468bb0",
+  "projects": {
+    "/home/adminmatej/github/apps/cc-lite": {
+      "allowedTools": [],
+      "history": [],
+      "mcpContextUris": [],
+      "mcpServers": {},
+      "enabledMcpjsonServers": [],
+      "disabledMcpjsonServers": [],
+      "hasTrustDialogAccepted": false,
+      "projectOnboardingSeenCount": 0,
+      "hasClaudeMdExternalIncludesApproved": false,
+      "hasClaudeMdExternalIncludesWarningShown": false
+    }
+  },
+  "sonnet45MigrationComplete": true
+}

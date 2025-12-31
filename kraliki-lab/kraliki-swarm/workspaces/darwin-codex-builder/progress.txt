@@ -1,0 +1,63 @@
+2025-12-28
+- Claimed VD-476. Added Focus Brain normalization on dashboard Focus page and added Focus Today card on overview with Brain pulse + naming link.
+
+[2025-12-28 16:28] unknown-agent | VD-476 [WIP]: Added Focus Brain normalization on Focus page and Focus Today pulse card on dashboard overview; added global brutal-btn small/outline styles.
+
+[2025-12-28 18:21] unknown-agent | VD-314 [PASSED]: Integrated Reality Check payment link into Sense landing pages
+
+[2025-12-28 18:48] unknown-agent | VD-254 [PASSED]: Hardened Cloudflare tunnel setup script
+
+[2025-12-29 09:50] darwin-codex-builder | self-healing reliability [WIP]: Centralized CLI policy + pause helpers; watchdogs/spawner now respect shared policy with auto re-enable.
+
+[2025-12-29 09:50] unknown-agent | self-healing-reliability [WIP]: Centralized CLI policy/pause helpers; watchdogs/spawner aligned with auto re-enable.
+
+
+[2025-12-29 10:32] unknown-agent | VD-385 [PASSED]: Added TL;DR analytics conversion metrics and dashboard cards
+
+[2025-12-29 10:44] darwin-codex-builder | VD-536 [PASSED]: Replaced ii-agent console logs with structured logger; updated frontend logger to use level-specific console methods.
+
+[2025-12-29 10:43] darwin-codex-builder | VD-534 [WIP]: Replaced N+1 resource_usage lookup in get_all_vms with single latest-usage query.
+
+[2025-12-29 10:43] unknown-agent | VD-536 [WIP]: Replaced ii-agent console logs with shared logger; switched frontend logger to level-specific console methods.
+
+[2025-12-29 10:44] unknown-agent | VD-534 [PASSED]: Optimized lab admin dashboard usage lookup by bulk fetching latest resource usage.
+
+[2025-12-29 10:52] unknown-agent | VD-537 [WIP]: Added voice-kraliki logger utility and replaced console logs in WebSocket/session/WebRTC services.
+
+[2025-12-29 10:52] unknown-agent | VD-537 [PASSED]: Added voice-kraliki logger utility and replaced console logs in WebSocket/session/WebRTC services.
+[2025-12-29 11:13] darwin-codex-builder | VD-531 [WIP]: Rebuilt Sense by Kraliki landing page HTML for sense.verduona.dev with Telegram bot links.
+[2025-12-29 11:13] darwin-codex-builder | VD-531 [PASSED]: Updated Sense by Kraliki landing page HTML and added Telegram bot links for sense.verduona.dev.
+[2025-12-29 11:19] darwin-codex-builder | VD-355 [WIP]: Populate Education landing page HTML from draft markdown.
+
+[2025-12-29 11:26] darwin-codex-builder | VD-533 [PASSED]: Added env generator script + setup/README updates to avoid hardcoded secrets in Speak by Kraliki.
+
+[2025-12-29 11:28] unknown-agent | VD-533 [PASSED]: Added env generator + setup/README updates for speak-kraliki secrets
+
+[2025-12-29 11:31] darwin-codex-builder | VD-355 [PASSED]: Aligned Brace the AI Impact landing page HTML with draft copy placeholders.
+
+[2025-12-29 11:30] darwin-codex-builder | VD-533 [PASSED]: Updated speak-kraliki env template and secrets docs to emphasize generated, non-hardcoded DB passwords.
+
+[2025-12-29 11:31] unknown-agent | VD-533 [WIP]: Updated speak-kraliki env template + secrets docs to emphasize generated, non-hardcoded DB passwords.
+
+[2025-12-29 11:31] unknown-agent | VD-533 [PASSED]: Updated speak-kraliki env template + secrets docs to emphasize generated, non-hardcoded DB passwords.
+
+[2025-12-29 11:32] darwin-codex-builder | VD-355 [PASSED]: Rebuilt infra/compose/main/index.html from education landing copy with updated sections, pricing, and CTAs.
+
+[2025-12-29 11:33] darwin-codex-builder | VD-355 [PASSED]: Aligned Brace the AI Impact landing page HTML with draft placeholders.
+[2025-12-29 11:41] darwin-codex-builder | VD-477 [PASSED]: Audited decision trace logging; reported gaps in auto-emission, trace aggregation, and outcome parsing with fixes.
+
+[2025-12-29 11:42] unknown-agent | VD-477 [WIP]: Decision trace logging audit complete; posted report to Linear with gaps and fixes; repaired blackboard.json.
+[2025-12-29 11:59] darwin-codex-builder | VD-551 [WIP]: Investigated Linear API circuit breaker failures; traced to GraphQL notEq comparator errors.
+[2025-12-29 11:59] darwin-codex-builder | VD-551 [PASSED]: Normalized Linear filter comparators in linear_client to prevent notEq GraphQL errors.
+
+[2025-12-29 12:00] darwin-codex-builder | VD-551 [PASSED]: Normalized Linear filter keys to avoid notEq GraphQL errors
+
+[2025-12-30 19:24] darwin-codex-builder | VD-655 [WIP]: Added stream:apps fallback ordering in orchestrator query scripts and updated orchestrator genomes.
+[2025-12-30 19:37] darwin-codex-builder | VD-655 [PASSED]: Added stream:apps fallback ordering in orchestrator query scripts + updated orchestrator genomes.
+
+[2025-12-30 19:39] unknown-agent | VD-655 [PASSED]: Added stream:apps fallback ordering in orchestrator query scripts + docs
+
+[2025-12-30 19:59] darwin-codex-builder | VD-651 [WIP]: Added shared error parsing for API client and voice transcription errors.
+[2025-12-30 20:01] darwin-codex-builder | VD-651 [PASSED]: Improved API client error parsing with shared helper and voice transcription error messaging.
+
+[2025-12-30 20:02] unknown-agent | VD-651 [PASSED]: Improved API client error parsing and voice transcription error messages

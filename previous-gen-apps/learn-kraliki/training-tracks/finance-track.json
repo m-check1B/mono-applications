@@ -1,0 +1,207 @@
+{
+  "id": "finance-ai-track",
+  "slug": "ai-financial-services",
+  "title": "AI in Financial Services",
+  "subtitle": "Fraud Detection, Risk Assessment, and Regulatory Compliance",
+  "version": "1.0",
+  "status": "development",
+  "industry": "finance",
+
+  "description": "Master AI implementation in financial services with focus on fraud detection, risk assessment, algorithmic compliance, and regulatory requirements. Designed for finance professionals navigating the intersection of AI innovation and strict regulatory oversight.",
+
+  "target_audience": [
+    "Financial analysts and data scientists",
+    "Risk management professionals",
+    "Compliance officers and auditors",
+    "Banking technology teams",
+    "Investment operations managers",
+    "Insurance underwriters",
+    "RegTech professionals"
+  ],
+
+  "prerequisites": [
+    "Working knowledge of financial services operations",
+    "Basic understanding of risk management concepts",
+    "Familiarity with financial regulations (helpful but not required)",
+    "No prior AI/ML experience required"
+  ],
+
+  "learning_objectives": [
+    "Design and implement AI-powered fraud detection systems with explainable outputs",
+    "Build compliant AI models for credit risk assessment and lending decisions",
+    "Navigate financial regulations (GDPR, AI Act, CCPA, Fair Lending) in AI deployments",
+    "Implement model governance frameworks meeting regulatory expectations",
+    "Assess and mitigate bias in financial AI applications"
+  ],
+
+  "modules": [
+    {
+      "id": "finance-m1",
+      "order": 1,
+      "title": "AI Fundamentals for Finance",
+      "description": "Understanding AI/ML technologies in financial services context",
+      "duration_hours": 5,
+      "lessons": [
+        "Machine Learning Basics for Financial Professionals",
+        "AI Applications Across Banking, Insurance, and Investments",
+        "The AI Advantage: Speed, Scale, and Pattern Recognition",
+        "Limitations and Risks: When AI Gets It Wrong in Finance"
+      ]
+    },
+    {
+      "id": "finance-m2",
+      "order": 2,
+      "title": "Fraud Detection and AML",
+      "description": "AI-powered fraud prevention and anti-money laundering systems",
+      "duration_hours": 7,
+      "lessons": [
+        "Traditional vs. AI-Based Fraud Detection",
+        "Real-Time Transaction Monitoring Systems",
+        "Network Analysis for Fraud Ring Detection",
+        "AML and Know Your Customer (KYC) AI Applications",
+        "False Positive Management and Alert Prioritization",
+        "Case Study: Major Bank Fraud Detection Implementation"
+      ]
+    },
+    {
+      "id": "finance-m3",
+      "order": 3,
+      "title": "Credit Risk and Lending AI",
+      "description": "Fair and compliant AI for credit decisions",
+      "duration_hours": 7,
+      "lessons": [
+        "AI in Credit Scoring: Beyond Traditional Models",
+        "Alternative Data Sources and Their Implications",
+        "Fair Lending Compliance: ECOA, Fair Housing Act",
+        "Adverse Action Notices and Model Explainability",
+        "Model Validation and Backtesting Requirements",
+        "Regulatory Expectations for Credit AI (OCC, Fed)"
+      ]
+    },
+    {
+      "id": "finance-m4",
+      "order": 4,
+      "title": "Regulatory Compliance Framework",
+      "description": "Meeting regulatory requirements for AI in finance",
+      "duration_hours": 6,
+      "lessons": [
+        "EU AI Act Impact on Financial Services",
+        "GDPR and Automated Decision-Making Rights",
+        "SR 11-7: Model Risk Management Guidance",
+        "SEC and FINRA AI Guidance for Investments",
+        "Insurance Regulatory Considerations",
+        "Cross-Border Compliance Challenges"
+      ]
+    },
+    {
+      "id": "finance-m5",
+      "order": 5,
+      "title": "Algorithmic Trading and Investment AI",
+      "description": "AI in investment management and trading operations",
+      "duration_hours": 5,
+      "lessons": [
+        "AI-Powered Trading Strategies and Market Making",
+        "Robo-Advisory and Wealth Management AI",
+        "Risk Monitoring and Portfolio Optimization",
+        "Market Manipulation Detection"
+      ]
+    },
+    {
+      "id": "finance-m6",
+      "order": 6,
+      "title": "Model Governance and Operations",
+      "description": "Enterprise governance framework for financial AI",
+      "duration_hours": 5,
+      "lessons": [
+        "Model Risk Management Framework Design",
+        "Model Inventory and Documentation Standards",
+        "Independent Model Validation Practices",
+        "Ongoing Monitoring and Model Decay Detection",
+        "Audit Trails and Regulatory Examination Prep"
+      ]
+    }
+  ],
+
+  "duration": {
+    "total_hours": 35,
+    "recommended_weeks": 7,
+    "hours_per_week": 5
+  },
+
+  "format": {
+    "delivery": ["self-paced", "instructor-led", "blended"],
+    "content_types": ["video_lessons", "interactive_exercises", "case_studies", "regulatory_deep_dives"],
+    "live_components": ["regulatory_update_sessions", "expert_panels", "peer_case_discussions"]
+  },
+
+  "certification": {
+    "name": "Certified Financial AI Professional (CFAIP)",
+    "requirements": [
+      "Complete all 6 modules with minimum 80% assessment score",
+      "Submit capstone project: AI Use Case with Compliance Documentation",
+      "Pass final comprehensive examination (80 questions, 75% minimum)",
+      "Complete model documentation exercise"
+    ],
+    "validity_years": 2,
+    "renewal": "24 continuing education hours including regulatory updates",
+    "digital_badge": true,
+    "verification_url": "learn.verduona.dev/verify"
+  },
+
+  "pricing": {
+    "tier": "Enterprise",
+    "individual_price_eur": 2800,
+    "corporate_per_seat_eur": 2000,
+    "minimum_corporate_seats": 10,
+    "includes": [
+      "Full course access for 12 months",
+      "All assessments and certification exam",
+      "Quarterly regulatory update webinars",
+      "Model documentation templates library",
+      "Access to financial AI professionals network"
+    ]
+  },
+
+  "resources": {
+    "templates": [
+      "AI Model Risk Assessment Template",
+      "Model Validation Documentation Framework",
+      "Fair Lending AI Audit Checklist",
+      "AI Vendor Due Diligence Questionnaire"
+    ],
+    "tools": [
+      "Credit Model Explainability Toolkit",
+      "Bias Testing Framework for Lending Models",
+      "Regulatory Change Tracker for AI"
+    ]
+  },
+
+  "regulatory_alignment": [
+    "EU AI Act - High-Risk AI Systems (Credit Scoring)",
+    "GDPR Article 22 - Automated Individual Decision-Making",
+    "OCC Supervisory Guidance on Model Risk Management",
+    "ECOA and Regulation B - Fair Lending",
+    "CCPA/CPRA - Consumer Rights for Automated Decisions"
+  ],
+
+  "authors": [
+    {
+      "name": "AI Academy Team",
+      "role": "Content Development",
+      "organization": "Verduona"
+    }
+  ],
+
+  "tags": [
+    "finance",
+    "fraud-detection",
+    "risk-assessment",
+    "compliance",
+    "credit-scoring",
+    "AML",
+    "model-governance"
+  ],
+
+  "created_date": "2025-12-28",
+  "last_updated": "2025-12-28"
+}

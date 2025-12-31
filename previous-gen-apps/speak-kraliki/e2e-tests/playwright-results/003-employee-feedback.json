@@ -1,0 +1,13 @@
+{
+  "test": "003-employee-feedback",
+  "url": "https://vop.verduona.dev/v/test-token-123",
+  "timestamp": "2025-12-25T12:17:01.950850",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/voice-of-people/e2e-tests/playwright-results//003-employee-feedback.png",
+  "page_title": "Voice of People - Check-in",
+  "errors": [
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ]
+}

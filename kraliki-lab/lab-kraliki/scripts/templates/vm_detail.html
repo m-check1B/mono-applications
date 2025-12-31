@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VM {{ vm.vm_id }} - Lab by Kraliki Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117; color: #c9d1d9; line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; border-bottom: 1px solid #30363d; margin-bottom: 30px;
+        }
+        h1 { color: #58a6ff; font-size: 24px; }
+        nav a {
+            color: #8b949e; text-decoration: none; margin-left: 20px; font-size: 14px;
+        }
+        nav a:hover { color: #58a6ff; }
+        .info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;
+            margin-bottom: 30px;
+        }
+        .info-card {
+            background: #161b22; border: 1px solid #30363d;
+            border-radius: 8px; padding: 20px;
+        }
+        .info-label {
+            font-size: 12px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .info-value {
+            font-size: 16px; font-weight: 600; color: #c9d1d9; margin-top: 5px;
+        }
+        table {
+            width: 100%; border-collapse: collapse; background: #161b22;
+            border: 1px solid #30363d; border-radius: 8px; overflow: hidden; margin-bottom: 20px;
+        }
+        th {
+            text-align: left; padding: 12px; font-size: 12px;
+            color: #8b949e; text-transform: uppercase; border-bottom: 1px solid #30363d;
+        }
+        td {
+            padding: 12px; font-size: 13px; border-bottom: 1px solid #21262d;
+        }
+        .section-title {
+            font-size: 16px; font-weight: 600; color: #c9d1d9;
+            margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #30363d;
+        }
+        .btn {
+            background: #238636; color: #c9d1d9; border: none;
+            padding: 8px 16px; border-radius: 6px; font-size: 13px;
+            cursor: pointer; text-decoration: none; display: inline-block; margin-right: 10px;
+        }
+        .btn:hover { background: #2ea043; }
+        .btn-danger { background: #8b0c0c; }
+        .btn-danger:hover { background: #da3633; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>VM: {{ vm.vm_id }}</h1>
+            <nav>
+                <a href="/">Dashboard</a>
+                <a href="/vms">VMs</a>
+                <a href="/customers">Customers</a>
+                <a href="/alerts">Alerts</a>
+                <a href="/tickets">Tickets</a>
+            </nav>
+        </header>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-label">Status</div>
+                <div class="info-value">{{ vm.status }}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">Health</div>
+                <div class="info-value">{{ vm.health }}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">Customer</div>
+                <div class="info-value">{{ vm.customer_id }}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">IP Address</div>
+                <div class="info-value">{{ vm.ip_address }}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">Version</div>
+                <div class="info-value">{{ vm.version }}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">Last Check</div>
+                <div class="info-value">{{ vm.last_check.strftime('%Y-%m-%d %H:%M:%S') if vm.last_check else 'N/A' }}</div>
+            </div>
+        </div>
+
+        <div class="section-title">Resource Usage</div>
+        <div class="info-grid" style="margin-bottom: 30px;">
+            <div class="info-card">
+                <div class="info-label">CPU Usage</div>
+                <div class="info-value">{{ "%.1f"|format(vm.cpu_percent) }}%</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">Memory Usage</div>
+                <div class="info-value">{{ "%.1f"|format(vm.memory_percent) }}%</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">Disk Usage</div>
+                <div class="info-value">{{ "%.1f"|format(vm.disk_gb) }}GB ({{ "%.0f"|format(vm.disk_percent) }}%)</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <div class="section-title">Actions</div>
+            <button class="btn" onclick="restartVM()">Restart VM</button>
+            <button class="btn btn-danger" onclick="rebuildVM()">Rebuild VM</button>
+        </div>
+
+        {% if alerts %}
+        <div class="section-title">Active Alerts ({{ alerts|length }})</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Type</th>
+                    <th>Severity</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in alerts %}
+                <tr>
+                    <td>{{ alert.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ alert.alert_type }}</td>
+                    <td>{{ alert.severity }}</td>
+                    <td>{{ alert.message }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if tickets %}
+        <div class="section-title">Support Tickets ({{ tickets|length }})</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Subject</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>#{{ ticket.id }}</td>
+                    <td>{{ ticket.subject }}</td>
+                    <td>{{ ticket.priority }}</td>
+                    <td>{{ ticket.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <script>
+        async function restartVM() {
+            if (!confirm('Restart VM {{ vm.vm_id }}?')) return;
+            try {
+                const res = await fetch(`/api/vms/{{ vm.vm_id }}/restart`, { method: 'POST' });
+                const data = await res.json();
+                alert(data.status === 'success' ? 'VM restart initiated' : `Error: ${data.message}`);
+                location.reload();
+            } catch (e) {
+                alert('Failed to restart VM');
+            }
+        }
+        async function rebuildVM() {
+            if (!confirm('Rebuild VM {{ vm.vm_id }}? This will destroy all data!')) return;
+            try {
+                const res = await fetch(`/api/vms/{{ vm.vm_id }}/rebuild`, { method: 'POST' });
+                const data = await res.json();
+                alert(data.status === 'pending' ? 'VM rebuild scheduled' : `Error: ${data.message}`);
+                location.reload();
+            } catch (e) {
+                alert('Failed to rebuild VM');
+            }
+        }
+        </script>
+    </div>
+</body>
+</html>

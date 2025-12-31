@@ -1,0 +1,10 @@
+{
+  "test": "004-brain-page",
+  "url": "https://kraliki.verduona.dev/brain",
+  "timestamp": "2025-12-25T12:17:14.997742",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/kraliki/e2e-tests/playwright-results//004-brain-page.png",
+  "page_title": "Darwin2 Dashboard",
+  "errors": []
+}

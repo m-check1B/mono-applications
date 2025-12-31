@@ -1,0 +1,1 @@
+import{f as r,a as t}from"../chunks/CZY_NlAX.js";import"../chunks/D1Luo-Nw.js";var o=r('<div class="page"><p>Redirecting to Agents...</p> <a href="/agents">Click here if not redirected</a></div>');function n(e){var a=o();t(e,a)}export{n as component};

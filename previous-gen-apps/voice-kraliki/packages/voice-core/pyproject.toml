@@ -1,0 +1,73 @@
+[project]
+name = "voice-core"
+version = "0.1.0"
+description = "Unified real-time voice provider abstraction for Voice by Kraliki core"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "Platform Team"}
+]
+keywords = ["voice", "realtime", "ai", "telephony", "telnyx", "twilio"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Communications :: Telephony",
+]
+
+dependencies = [
+    "pydantic>=2.0.0",
+    "websockets>=12.0",
+    "httpx>=0.25.0",
+    "audioop-lts>=0.2.1; python_version >= '3.13'",  # For audio format conversion
+]
+
+[project.optional-dependencies]
+openai = [
+    "openai>=1.0.0",
+]
+gemini = [
+    "google-genai>=1.0.0",  # Official unified SDK (replaces deprecated google-generativeai)
+]
+telephony = [
+    "telephony-core>=0.1.0",  # Telnyx, Twilio adapters
+]
+transcription = [
+    "transcription-core>=0.1.0",  # Deepgram transcription
+]
+all = [
+    "voice-core[openai,gemini,telephony,transcription]",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/m-check1B/voice-kraliki"
+Documentation = "https://github.com/m-check1B/voice-kraliki/tree/main/packages/voice-core"
+Repository = "https://github.com/m-check1B/voice-kraliki"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/voice_core"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

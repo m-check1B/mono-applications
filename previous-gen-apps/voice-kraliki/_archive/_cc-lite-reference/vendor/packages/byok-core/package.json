@@ -1,0 +1,30 @@
+{
+  "name": "@stack-2025/byok-core",
+  "version": "1.0.0",
+  "description": "Bring Your Own Keys (BYOK) implementation for Stack 2025",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "crypto-js": "^4.2.0",
+    "ioredis": "^5.3.2",
+    "openai": "^4.52.0",
+    "@google-cloud/aiplatform": "^3.15.0",
+    "@anthropic-ai/sdk": "^0.24.0",
+    "twilio": "^4.23.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0",
+    "@vitest/coverage-v8": "^1.6.0"
+  }
+}

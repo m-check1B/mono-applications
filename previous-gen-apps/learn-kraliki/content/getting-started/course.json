@@ -1,0 +1,41 @@
+{
+  "slug": "getting-started",
+  "title": "Getting Started with Kraliki",
+  "description": "Learn the basics of the Kraliki ecosystem. Understand how to use the dashboard, manage your team, and leverage AI agents. This is the free onboarding course for all new users.",
+  "level": "beginner",
+  "duration_minutes": 30,
+  "is_free": true,
+  "lessons": [
+    {
+      "id": "01-welcome",
+      "title": "Welcome to Kraliki",
+      "order": 1,
+      "module": 1,
+      "module_name": "Introduction"
+    },
+    {
+      "id": "02-dashboard-tour",
+      "title": "Dashboard Tour",
+      "order": 2,
+      "module": 1,
+      "module_name": "Introduction"
+    },
+    {
+      "id": "03-first-steps",
+      "title": "Your First Steps",
+      "order": 3,
+      "module": 1,
+      "module_name": "Introduction"
+    }
+  ],
+  "author": "Kraliki Team",
+  "tags": ["onboarding", "basics", "dashboard", "free"],
+  "learning_outcomes": [
+    "Navigate the Kraliki dashboard with confidence",
+    "Create tasks and manage Focus workflows",
+    "Set up Speak for team feedback",
+    "Enable and configure AI agents",
+    "Invite and manage team members"
+  ],
+  "next_course": "ai-fundamentals"
+}

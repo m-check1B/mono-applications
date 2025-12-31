@@ -1,0 +1,119 @@
+{
+  "slug": "ai-fundamentals",
+  "title": "AI Fundamentals: The New Reality",
+  "description": "From AI fear to AI literacy. Master the mindset, learn to speak machine, and apply AI to everyday tasks. This is Level 1 of the AI Academy - designed for beginners, students, parents, and non-technical professionals.",
+  "level": "beginner",
+  "duration_minutes": 120,
+  "is_free": false,
+  "price_eur": 49,
+  "lessons": [
+    {
+      "id": "01-the-black-box",
+      "title": "The Black Box Demystified",
+      "order": 1,
+      "module": 1,
+      "module_name": "The New Reality"
+    },
+    {
+      "id": "02-search-vs-reasoning",
+      "title": "Search vs Reasoning",
+      "order": 2,
+      "module": 1,
+      "module_name": "The New Reality"
+    },
+    {
+      "id": "03-overcoming-fear",
+      "title": "The Fear Factor",
+      "order": 3,
+      "module": 1,
+      "module_name": "The New Reality"
+    },
+    {
+      "id": "04-rtc-framework",
+      "title": "The RTC Framework",
+      "order": 4,
+      "module": 2,
+      "module_name": "Speaking Machine"
+    },
+    {
+      "id": "05-iteration-and-context",
+      "title": "Iteration and Context",
+      "order": 5,
+      "module": 2,
+      "module_name": "Speaking Machine"
+    },
+    {
+      "id": "06-exercise-perfect-prompt",
+      "title": "Exercise: Your Perfect Prompt",
+      "order": 6,
+      "module": 2,
+      "module_name": "Speaking Machine"
+    },
+    {
+      "id": "07-email-assistant",
+      "title": "The Email Assistant",
+      "order": 7,
+      "module": 3,
+      "module_name": "Everyday Magic"
+    },
+    {
+      "id": "08-knowledge-buffer",
+      "title": "The Knowledge Buffer",
+      "order": 8,
+      "module": 3,
+      "module_name": "Everyday Magic"
+    },
+    {
+      "id": "09-creative-spark",
+      "title": "Creative Spark",
+      "order": 9,
+      "module": 3,
+      "module_name": "Everyday Magic"
+    },
+    {
+      "id": "10-study-buddy",
+      "title": "Study Buddy",
+      "order": 10,
+      "module": 3,
+      "module_name": "Everyday Magic"
+    },
+    {
+      "id": "11-hallucinations",
+      "title": "Hallucinations: When AI Lies",
+      "order": 11,
+      "module": 4,
+      "module_name": "Safety First"
+    },
+    {
+      "id": "12-data-privacy",
+      "title": "Data Privacy: What Never to Upload",
+      "order": 12,
+      "module": 4,
+      "module_name": "Safety First"
+    },
+    {
+      "id": "13-final-assessment",
+      "title": "AI Literacy Quiz",
+      "order": 13,
+      "module": 4,
+      "module_name": "Safety First"
+    }
+  ],
+  "author": "AI Academy Team",
+  "tags": ["ai", "fundamentals", "academy", "L1", "beginner"],
+  "academy_level": "L1",
+  "preview_lessons": ["01-the-black-box", "02-search-vs-reasoning"],
+  "bonuses": [
+    "RTC Prompting Cheat Sheet (PDF)",
+    "Top 50 Everyday Magic Prompts",
+    "AI Safety Home Checklist",
+    "Video: Setting up your AI workspace"
+  ],
+  "learning_outcomes": [
+    "Understand what LLMs can and cannot do and why",
+    "Write clear prompts using the RTC framework",
+    "Apply AI to everyday tasks with reliable results",
+    "Recognize hallucinations and protect private data"
+  ],
+  "certification": "Digital AI Literacy Badge"
+}

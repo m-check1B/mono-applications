@@ -1,0 +1,33 @@
+# Stack 2026 - Python Backend (Production)
+# FastAPI + SQLAlchemy + PostgreSQL
+
+# Core
+fastapi>=0.121.0
+email-validator>=2.0.0
+uvicorn[standard]>=0.34.0
+python-dotenv>=1.0.0
+pydantic>=2.12.0
+pydantic-settings>=2.8.0
+
+# Database
+sqlalchemy>=2.0.44
+asyncpg>=0.30.0
+alembic>=1.15.0
+psycopg2-binary>=2.9.10
+
+# Auth
+pyjwt>=2.10.0
+cryptography>=44.0.0
+bcrypt>=4.3.0
+python-multipart>=0.0.20
+
+# AI & Voice
+google-generativeai>=0.8.0
+websockets>=14.0
+pynacl>=1.5.0  # SECURITY: Required for Telnyx Ed25519 webhook validation
+
+# Utilities
+httpx>=0.28.0
+resend>=2.5.0
+stripe>=11.0.0
+slowapi>=0.1.9

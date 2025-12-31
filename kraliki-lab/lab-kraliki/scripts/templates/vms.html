@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VM Fleet - Lab by Kraliki Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117; color: #c9d1d9; line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; border-bottom: 1px solid #30363d; margin-bottom: 30px;
+        }
+        h1 { color: #58a6ff; font-size: 24px; }
+        nav a {
+            color: #8b949e; text-decoration: none; margin-left: 20px; font-size: 14px;
+        }
+        nav a:hover { color: #58a6ff; }
+        table {
+            width: 100%; border-collapse: collapse; background: #161b22;
+            border: 1px solid #30363d; border-radius: 8px; overflow: hidden;
+        }
+        th {
+            text-align: left; padding: 12px; font-size: 12px;
+            color: #8b949e; text-transform: uppercase; border-bottom: 1px solid #30363d;
+        }
+        td {
+            padding: 12px; font-size: 13px; border-bottom: 1px solid #21262d;
+        }
+        .status-badge {
+            display: inline-block; padding: 2px 8px; border-radius: 12px;
+            font-size: 11px; font-weight: 600;
+        }
+        .status-healthy, .status-online { background: #238636; color: #3fb950; }
+        .status-warning { background: #9e6a03; color: #d29922; }
+        .status-error, .status-offline { background: #8b0c0c; color: #f85149; }
+        .btn {
+            background: #238636; color: #c9d1d9; border: none;
+            padding: 8px 16px; border-radius: 6px; font-size: 13px;
+            cursor: pointer; text-decoration: none; display: inline-block;
+        }
+        .btn:hover { background: #2ea043; }
+        .btn-danger { background: #8b0c0c; }
+        .btn-danger:hover { background: #da3633; }
+        .btn-sm { padding: 4px 8px; font-size: 11px; margin-left: 4px; }
+        a { color: #58a6ff; text-decoration: none; }
+        .alert-count { background: #f85149; color: white; padding: 2px 6px; border-radius: 10px; font-size: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>VM Fleet</h1>
+            <nav>
+                <a href="/">Dashboard</a>
+                <a href="/customers">Customers</a>
+                <a href="/alerts">Alerts</a>
+                <a href="/tickets">Tickets</a>
+            </nav>
+        </header>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>VM ID</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Health</th>
+                    <th>CPU</th>
+                    <th>Memory</th>
+                    <th>Disk</th>
+                    <th>Version</th>
+                    <th>IP Address</th>
+                    <th>Last Check</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vm in vms %}
+                <tr>
+                    <td>
+                        <a href="/vms/{{ vm.vm_id }}">{{ vm.vm_id }}</a>
+                        {% if vm.vm_id in alerts_by_vm and alerts_by_vm[vm.vm_id]|length > 0 %}
+                        <span class="alert-count">{{ alerts_by_vm[vm.vm_id]|length }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ vm.customer_id }}</td>
+                    <td>
+                        <span class="status-badge {% if vm.status == 'online' %}status-online{% elif vm.status == 'error' %}status-error{% else %}status-warning{% endif %}">
+                            {{ vm.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="status-badge {% if vm.health == 'healthy' %}status-healthy{% else %}status-warning{% endif %}">
+                            {{ vm.health }}
+                        </span>
+                    </td>
+                    <td>{{ "%.1f"|format(vm.cpu_percent) }}%</td>
+                    <td>{{ "%.1f"|format(vm.memory_percent) }}%</td>
+                    <td>{{ "%.1f"|format(vm.disk_gb) }}GB ({{ "%.0f"|format(vm.disk_percent) }}%)</td>
+                    <td>{{ vm.version }}</td>
+                    <td>{{ vm.ip_address }}</td>
+                    <td>{{ vm.last_check.strftime('%Y-%m-%d %H:%M') if vm.last_check else 'N/A' }}</td>
+                    <td>
+                        <button class="btn btn-sm" onclick="restartVM('{{ vm.vm_id }}')">Restart</button>
+                        <button class="btn btn-sm btn-danger" onclick="rebuildVM('{{ vm.vm_id }}')">Rebuild</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <script>
+        async function restartVM(vmId) {
+            if (!confirm(`Restart VM ${vmId}?`)) return;
+            try {
+                const res = await fetch(`/api/vms/${vmId}/restart`, { method: 'POST' });
+                const data = await res.json();
+                alert(data.status === 'success' ? 'VM restart initiated' : `Error: ${data.message}`);
+                location.reload();
+            } catch (e) {
+                alert('Failed to restart VM');
+            }
+        }
+        async function rebuildVM(vmId) {
+            if (!confirm(`Rebuild VM ${vmId}? This will destroy all data!`)) return;
+            try {
+                const res = await fetch(`/api/vms/${vmId}/rebuild`, { method: 'POST' });
+                const data = await res.json();
+                alert(data.status === 'pending' ? 'VM rebuild scheduled' : `Error: ${data.message}`);
+                location.reload();
+            } catch (e) {
+                alert('Failed to rebuild VM');
+            }
+        }
+        </script>
+    </div>
+</body>
+</html>

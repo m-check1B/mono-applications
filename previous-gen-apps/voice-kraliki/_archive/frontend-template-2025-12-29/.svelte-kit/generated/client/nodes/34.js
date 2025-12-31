@@ -1,0 +1,1 @@
+export { default as component } from "../../../../src/routes/supervisor/dashboard/+page.svelte";

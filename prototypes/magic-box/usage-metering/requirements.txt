@@ -1,0 +1,2 @@
+# No external dependencies required - uses only Python stdlib
+# List is empty but kept for future extensions

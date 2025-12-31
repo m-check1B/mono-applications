@@ -1,0 +1,269 @@
+# Voice by Kraliki Prometheus Alert Rules
+# ===============================
+# Production monitoring and alerting
+
+groups:
+  - name: voice-kraliki-application
+    rules:
+      # Application Health
+      - alert: CCLiteAppDown
+        expr: up{job="voice-kraliki-app"} == 0
+        for: 30s
+        labels:
+          severity: critical
+          service: voice-kraliki-app
+        annotations:
+          summary: "Voice by Kraliki application is down"
+          description: "Voice by Kraliki application has been down for more than 30 seconds"
+
+      - alert: CCLiteHighErrorRate
+        expr: rate(http_requests_total{job="voice-kraliki-app",status=~"5.."}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          service: voice-kraliki-app
+        annotations:
+          summary: "High error rate in Voice by Kraliki application"
+          description: "Error rate is {{ $value }} errors per second"
+
+      - alert: CCLiteHighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="voice-kraliki-app"}[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+          service: voice-kraliki-app
+        annotations:
+          summary: "High response time in Voice by Kraliki application"
+          description: "95th percentile response time is {{ $value }}s"
+
+      # Memory and CPU
+      - alert: CCLiteHighMemoryUsage
+        expr: process_resident_memory_bytes{job="voice-kraliki-app"} / 1024 / 1024 > 1000
+        for: 5m
+        labels:
+          severity: warning
+          service: voice-kraliki-app
+        annotations:
+          summary: "High memory usage in Voice by Kraliki application"
+          description: "Memory usage is {{ $value }}MB"
+
+      - alert: CCLiteHighCPUUsage
+        expr: rate(process_cpu_seconds_total{job="voice-kraliki-app"}[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: voice-kraliki-app
+        annotations:
+          summary: "High CPU usage in Voice by Kraliki application"
+          description: "CPU usage is {{ $value }}%"
+
+  - name: voice-kraliki-database
+    rules:
+      # Database Health
+      - alert: CCLitePostgreSQLDown
+        expr: up{job="voice-kraliki-postgres"} == 0
+        for: 30s
+        labels:
+          severity: critical
+          service: postgresql
+        annotations:
+          summary: "PostgreSQL database is down"
+          description: "PostgreSQL database has been down for more than 30 seconds"
+
+      - alert: CCLitePostgreSQLTooManyConnections
+        expr: pg_stat_database_numbackends{job="voice-kraliki-postgres"} > 80
+        for: 2m
+        labels:
+          severity: warning
+          service: postgresql
+        annotations:
+          summary: "Too many PostgreSQL connections"
+          description: "PostgreSQL has {{ $value }} connections (threshold: 80)"
+
+      - alert: CCLitePostgreSQLHighQueryTime
+        expr: pg_stat_activity_max_tx_duration{job="voice-kraliki-postgres"} > 300
+        for: 5m
+        labels:
+          severity: warning
+          service: postgresql
+        annotations:
+          summary: "PostgreSQL long running queries"
+          description: "Longest transaction duration is {{ $value }}s"
+
+      - alert: CCLitePostgreSQLDeadlocks
+        expr: increase(pg_stat_database_deadlocks{job="voice-kraliki-postgres"}[1h]) > 5
+        for: 0s
+        labels:
+          severity: warning
+          service: postgresql
+        annotations:
+          summary: "PostgreSQL deadlocks detected"
+          description: "{{ $value }} deadlocks detected in the last hour"
+
+  - name: voice-kraliki-redis
+    rules:
+      # Redis Health
+      - alert: CCLiteRedisDown
+        expr: up{job="voice-kraliki-redis"} == 0
+        for: 30s
+        labels:
+          severity: critical
+          service: redis
+        annotations:
+          summary: "Redis cache is down"
+          description: "Redis cache has been down for more than 30 seconds"
+
+      - alert: CCLiteRedisHighMemoryUsage
+        expr: redis_memory_used_bytes{job="voice-kraliki-redis"} / redis_memory_max_bytes{job="voice-kraliki-redis"} * 100 > 90
+        for: 2m
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "Redis high memory usage"
+          description: "Redis memory usage is {{ $value }}%"
+
+      - alert: CCLiteRedisRejectedConnections
+        expr: increase(redis_rejected_connections_total{job="voice-kraliki-redis"}[1h]) > 0
+        for: 0s
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "Redis rejected connections"
+          description: "{{ $value }} connections rejected in the last hour"
+
+  - name: voice-kraliki-nginx
+    rules:
+      # Nginx Health
+      - alert: CCLiteNginxDown
+        expr: up{job="voice-kraliki-nginx"} == 0
+        for: 30s
+        labels:
+          severity: critical
+          service: nginx
+        annotations:
+          summary: "Nginx reverse proxy is down"
+          description: "Nginx has been down for more than 30 seconds"
+
+      - alert: CCLiteNginxHighErrorRate
+        expr: rate(nginx_http_requests_total{job="voice-kraliki-nginx",status=~"4..|5.."}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          service: nginx
+        annotations:
+          summary: "High error rate in Nginx"
+          description: "Error rate is {{ $value }} errors per second"
+
+  - name: voice-kraliki-business-metrics
+    rules:
+      # Business Logic Alerts
+      - alert: CCLiteHighCallFailureRate
+        expr: rate(cc_lite_calls_failed_total[5m]) / rate(cc_lite_calls_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          service: telephony
+        annotations:
+          summary: "High call failure rate"
+          description: "Call failure rate is {{ $value | humanizePercentage }}"
+
+      - alert: CCLiteNoActiveCalls
+        expr: cc_lite_active_calls == 0
+        for: 30m
+        labels:
+          severity: info
+          service: telephony
+        annotations:
+          summary: "No active calls for extended period"
+          description: "No active calls detected for 30 minutes"
+
+      - alert: CCLiteHighQueueWaitTime
+        expr: histogram_quantile(0.95, rate(cc_lite_queue_wait_duration_seconds_bucket[5m])) > 300
+        for: 5m
+        labels:
+          severity: warning
+          service: queue
+        annotations:
+          summary: "High queue wait time"
+          description: "95th percentile queue wait time is {{ $value }}s"
+
+  - name: voice-kraliki-security
+    rules:
+      # Security Alerts
+      - alert: CCLiteHighFailedLogins
+        expr: increase(cc_lite_auth_failed_total[5m]) > 10
+        for: 0s
+        labels:
+          severity: warning
+          service: authentication
+        annotations:
+          summary: "High number of failed login attempts"
+          description: "{{ $value }} failed login attempts in 5 minutes"
+
+      - alert: CCLiteRateLimitHit
+        expr: increase(cc_lite_rate_limit_exceeded_total[5m]) > 50
+        for: 1m
+        labels:
+          severity: warning
+          service: security
+        annotations:
+          summary: "Rate limit exceeded frequently"
+          description: "Rate limit exceeded {{ $value }} times in 5 minutes"
+
+      - alert: CCLiteUnauthorizedAccess
+        expr: increase(cc_lite_unauthorized_access_total[5m]) > 5
+        for: 0s
+        labels:
+          severity: critical
+          service: security
+        annotations:
+          summary: "Unauthorized access attempts detected"
+          description: "{{ $value }} unauthorized access attempts in 5 minutes"
+
+  - name: voice-kraliki-ssl
+    rules:
+      # SSL Certificate Monitoring
+      - alert: CCLiteSSLCertExpiring
+        expr: probe_ssl_earliest_cert_expiry{job="blackbox-ssl"} - time() < 86400 * 7
+        for: 0s
+        labels:
+          severity: warning
+          service: ssl
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "SSL certificate expires in {{ $value | humanizeDuration }}"
+
+      - alert: CCLiteSSLCertExpired
+        expr: probe_ssl_earliest_cert_expiry{job="blackbox-ssl"} - time() < 0
+        for: 0s
+        labels:
+          severity: critical
+          service: ssl
+        annotations:
+          summary: "SSL certificate has expired"
+          description: "SSL certificate expired {{ $value | humanizeDuration }} ago"
+
+  - name: voice-kraliki-backup
+    rules:
+      # Backup Monitoring
+      - alert: CCLiteBackupFailed
+        expr: time() - cc_lite_last_successful_backup_timestamp > 86400 * 2
+        for: 0s
+        labels:
+          severity: warning
+          service: backup
+        annotations:
+          summary: "Backup has not run successfully"
+          description: "Last successful backup was {{ $value | humanizeDuration }} ago"
+
+      - alert: CCLiteBackupTooOld
+        expr: time() - cc_lite_last_successful_backup_timestamp > 86400 * 7
+        for: 0s
+        labels:
+          severity: critical
+          service: backup
+        annotations:
+          summary: "Backup is critically old"
+          description: "Last successful backup was {{ $value | humanizeDuration }} ago"

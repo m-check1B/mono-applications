@@ -1,0 +1,103 @@
+# TL;DR Bot - Production Docker Compose
+# Telegram GroupChat Summarization Bot
+#
+# Usage:
+#   docker compose up -d           # Start services
+#   docker compose logs -f         # Follow all logs
+#   docker compose logs -f bot     # Follow bot logs only
+#   docker compose ps              # Check status
+#   docker compose down            # Stop services
+#
+# Prerequisites:
+#   1. Copy .env.example to .env and configure:
+#      - TELEGRAM_BOT_TOKEN (from @BotFather)
+#      - TELEGRAM_WEBHOOK_URL (public HTTPS URL, e.g., https://bot.verduona.com)
+#      - TELEGRAM_WEBHOOK_SECRET (random string for webhook security)
+#      - GEMINI_API_KEY (from https://aistudio.google.com/apikey)
+#      - STRIPE_API_KEY/STRIPE_WEBHOOK_SECRET/STRIPE_PRICE_* (optional, for card payments)
+#
+# Security:
+#   - Bot exposed via Traefik reverse proxy only
+#   - No direct port exposure to host
+#   - See /github/CLAUDE.md for security policy
+
+services:
+  # ============================================================
+  # BOT - FastAPI application with aiogram
+  # ============================================================
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tldr-bot
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      # Override Redis to use internal Docker network
+      - REDIS_URL=redis://redis:6379/0
+      # Production mode (disable debug logging)
+      - DEBUG=false
+    labels:
+      - "traefik.enable=true"
+      # Production (HTTPS + HTTP redirect)
+      - "traefik.http.routers.tldr-bot.rule=Host(`bot.verduona.com`)"
+      - "traefik.http.routers.tldr-bot.entrypoints=websecure"
+      - "traefik.http.routers.tldr-bot.tls=true"
+      - "traefik.http.routers.tldr-bot.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.tldr-bot-http.rule=Host(`bot.verduona.com`)"
+      - "traefik.http.routers.tldr-bot-http.entrypoints=web"
+      - "traefik.http.routers.tldr-bot-http.middlewares=redirect-to-https"
+      - "traefik.http.services.tldr-bot.loadbalancer.server.port=8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    networks:
+      - tldr-network
+      - websites_default
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+  # ============================================================
+  # REDIS - Message buffer and usage tracking
+  # ============================================================
+  redis:
+    image: redis:7-alpine
+    container_name: tldr-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 100mb --maxmemory-policy allkeys-lru
+    volumes:
+      - tldr-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - tldr-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  tldr-network:
+    name: tldr-network
+    driver: bridge
+  websites_default:
+    external: true
+
+volumes:
+  tldr-redis-data:
+    name: tldr-redis-data

@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "events-core"
+version = "0.1.0"
+description = "Event bus abstraction with RabbitMQ and in-memory backends"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+    { name = "Platform 2026", email = "platform@example.com" }
+]
+keywords = ["events", "rabbitmq", "pub-sub", "message-queue", "async"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+rabbitmq = ["aio-pika>=9.0.0"]
+all = ["aio-pika>=9.0.0"]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/m-check1B/voice-kraliki"
+"Bug Tracker" = "https://github.com/m-check1B/voice-kraliki/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/events_core"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

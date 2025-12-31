@@ -1,0 +1,263 @@
+version: '3.8'
+
+# ============================================================================
+# Traefik Reverse Proxy Configuration
+# ============================================================================
+# This docker-compose file sets up Traefik as a reverse proxy with SSL/TLS
+# support for all services in the Voice by Kraliki project.
+#
+# Usage:
+#   Development: docker-compose -f docker-compose.yml -f docker-compose.traefik.yml up
+#   Production:  docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.prod.yml up
+#
+# Subdomains:
+#   - voice.kraliki.com → Frontend (SvelteKit)
+#   - api.voice.kraliki.com → Backend API (FastAPI)
+#   - docs.voice.kraliki.com → API Documentation
+#   - traefik.voice.kraliki.com → Traefik Dashboard
+#   - pgadmin.voice.kraliki.com → PostgreSQL Admin (optional)
+#   - redis.voice.kraliki.com → Redis Commander (optional)
+# ============================================================================
+
+services:
+  # ==========================================================================
+  # Traefik Reverse Proxy
+  # ==========================================================================
+  traefik:
+    image: traefik:v3.2
+    container_name: operator-traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      # HTTP
+      - "80:80"
+      # HTTPS
+      - "443:443"
+      # HTTP/3
+      - "443:443/udp"
+      # Traefik Dashboard (only exposed locally in dev)
+      - "127.0.0.1:8080:8080"
+    environment:
+      # Cloudflare API credentials (for DNS challenge)
+      # Only needed if using Let's Encrypt with DNS challenge
+      CF_API_EMAIL: ${CF_API_EMAIL:-}
+      CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN:-}
+      CF_API_KEY: ${CF_API_KEY:-}
+      # Set to 'production' to use real Let's Encrypt certificates
+      TRAEFIK_ENV: ${TRAEFIK_ENV:-development}
+    volumes:
+      # Docker socket for auto-discovery
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Static configuration
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      # Dynamic configuration
+      - ./traefik/config:/etc/traefik/config:ro
+      # SSL certificates (development self-signed certs)
+      - ./traefik/certs:/etc/traefik/certs:ro
+      # Let's Encrypt certificates storage
+      - traefik-letsencrypt:/letsencrypt
+      # Logs
+      - traefik-logs:/var/log/traefik
+    labels:
+      # Enable Traefik for this container
+      - "traefik.enable=true"
+
+      # Traefik Dashboard (internal API)
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.voice.kraliki.com`)"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard.tls=true"
+      - "traefik.http.routers.traefik-dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik-dashboard.middlewares=dashboard-auth@file,security-headers@file"
+    networks:
+      - websites_default
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ==========================================================================
+  # Backend API (FastAPI) - Override with Traefik labels
+  # ==========================================================================
+  backend:
+    labels:
+      # Enable Traefik
+      - "traefik.enable=true"
+
+      # Main API route (api.voice.kraliki.com)
+      - "traefik.http.routers.backend-api.rule=Host(`api.voice.kraliki.com`)"
+      - "traefik.http.routers.backend-api.entrypoints=websecure"
+      - "traefik.http.routers.backend-api.tls=true"
+      - "traefik.http.routers.backend-api.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.backend-api.service=backend-api"
+      - "traefik.http.services.backend-api.loadbalancer.server.port=8000"
+      - "traefik.http.routers.backend-api.middlewares=cors-headers@file,compression@file,rate-limit-api@file"
+
+      # API Documentation route (docs.voice.kraliki.com → /docs)
+      - "traefik.http.routers.backend-docs.rule=Host(`docs.voice.kraliki.com`)"
+      - "traefik.http.routers.backend-docs.entrypoints=websecure"
+      - "traefik.http.routers.backend-docs.tls=true"
+      - "traefik.http.routers.backend-docs.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.backend-docs.service=backend-docs"
+      - "traefik.http.services.backend-docs.loadbalancer.server.port=8000"
+      - "traefik.http.routers.backend-docs.middlewares=security-headers@file"
+
+      # WebSocket support for streaming endpoints
+      - "traefik.http.routers.backend-api.priority=100"
+      - "traefik.http.services.backend-api.loadbalancer.sticky.cookie=true"
+      - "traefik.http.services.backend-api.loadbalancer.sticky.cookie.name=backend_session"
+      - "traefik.http.services.backend-api.loadbalancer.sticky.cookie.httponly=true"
+      - "traefik.http.services.backend-api.loadbalancer.sticky.cookie.secure=true"
+
+      # Health check
+      - "traefik.http.services.backend-api.loadbalancer.healthcheck.path=/health"
+      - "traefik.http.services.backend-api.loadbalancer.healthcheck.interval=10s"
+      - "traefik.http.services.backend-api.loadbalancer.healthcheck.timeout=5s"
+      # Dedicated router for realtime streaming subdomain
+      - "traefik.http.routers.backend-stream.rule=Host(`bridge.voice.kraliki.com`)"
+      - "traefik.http.routers.backend-stream.entrypoints=websecure"
+      - "traefik.http.routers.backend-stream.tls=true"
+      - "traefik.http.routers.backend-stream.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.backend-stream.service=backend-api"
+      - "traefik.http.routers.backend-stream.middlewares=cors-headers@file,compression@file,rate-limit-api@file"
+    environment:
+      # Update CORS to include Traefik domains
+      CORS_ORIGINS: '["https://voice.kraliki.com", "https://api.voice.kraliki.com", "https://docs.voice.kraliki.com", "http://localhost:3000", "http://localhost:5173"]'
+    # Remove exposed ports (Traefik handles routing)
+    ports: []
+
+  # ==========================================================================
+  # Frontend (SvelteKit) - Override with Traefik labels
+  # ==========================================================================
+  frontend:
+    labels:
+      # Enable Traefik
+      - "traefik.enable=true"
+
+      # Main frontend route (voice.kraliki.com)
+      - "traefik.http.routers.frontend.rule=Host(`voice.kraliki.com`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls=true"
+      - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.frontend.service=frontend"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.frontend.middlewares=security-headers@file,compression@file"
+
+      # Health check
+      - "traefik.http.services.frontend.loadbalancer.healthcheck.path=/"
+      - "traefik.http.services.frontend.loadbalancer.healthcheck.interval=30s"
+      - "traefik.http.services.frontend.loadbalancer.healthcheck.timeout=5s"
+    environment:
+      # Update API URLs to use Traefik domains
+      PUBLIC_API_BASE_URL: https://api.voice.kraliki.com
+      PUBLIC_EXTERNAL_API_BASE_URL: https://api.voice.kraliki.com
+      PRIVATE_API_BASE_URL: http://backend:8000
+      VITE_WS_URL: bridge.voice.kraliki.com
+    # Remove exposed ports (Traefik handles routing)
+    ports: []
+
+  # ==========================================================================
+  # PostgreSQL Admin (pgAdmin) - Optional
+  # ==========================================================================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: operator-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@verduona.dev}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'True'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    labels:
+      # Enable Traefik
+      - "traefik.enable=true"
+
+      # pgAdmin route (pgadmin.voice.kraliki.com)
+      - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.voice.kraliki.com`)"
+      - "traefik.http.routers.pgadmin.entrypoints=websecure"
+      - "traefik.http.routers.pgadmin.tls=true"
+      - "traefik.http.routers.pgadmin.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.pgadmin.service=pgadmin"
+      - "traefik.http.services.pgadmin.loadbalancer.server.port=80"
+      - "traefik.http.routers.pgadmin.middlewares=security-headers@file"
+    networks:
+      - websites_default
+      - cc-internal
+    depends_on:
+      - postgres
+    profiles:
+      - admin-tools  # Only start with --profile admin-tools
+
+  # ==========================================================================
+  # Redis Commander - Optional
+  # ==========================================================================
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: operator-redis-commander
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: local:redis:6379
+      HTTP_USER: ${REDIS_COMMANDER_USER:-admin}
+      HTTP_PASSWORD: ${REDIS_COMMANDER_PASSWORD:-admin}
+    labels:
+      # Enable Traefik
+      - "traefik.enable=true"
+
+      # Redis Commander route (redis.voice.kraliki.com)
+      - "traefik.http.routers.redis-commander.rule=Host(`redis.voice.kraliki.com`)"
+      - "traefik.http.routers.redis-commander.entrypoints=websecure"
+      - "traefik.http.routers.redis-commander.tls=true"
+      - "traefik.http.routers.redis-commander.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.redis-commander.service=redis-commander"
+      - "traefik.http.services.redis-commander.loadbalancer.server.port=8081"
+      - "traefik.http.routers.redis-commander.middlewares=security-headers@file"
+    networks:
+      - websites_default
+      - cc-internal
+    depends_on:
+      - redis
+    profiles:
+      - admin-tools  # Only start with --profile admin-tools
+
+  # ==========================================================================
+  # Postgres, Redis, Qdrant - Keep original configuration
+  # ==========================================================================
+  postgres:
+    labels:
+      - "traefik.enable=false"
+
+  redis:
+    labels:
+      - "traefik.enable=false"
+
+  qdrant:
+    labels:
+      - "traefik.enable=false"
+
+# ============================================================================
+# Networks
+# ============================================================================
+networks:
+  websites_default:
+    external: true
+  cc-internal:
+    driver: bridge
+
+# ============================================================================
+# Volumes
+# ============================================================================
+volumes:
+  # Traefik volumes
+  traefik-letsencrypt:
+    driver: local
+  traefik-logs:
+    driver: local
+
+  # Admin tool volumes
+  pgadmin_data:
+    driver: local

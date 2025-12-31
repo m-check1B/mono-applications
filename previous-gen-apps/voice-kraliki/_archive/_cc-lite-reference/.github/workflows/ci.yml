@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Enable pnpm
+        run: corepack enable && corepack prepare pnpm@9 --activate
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Smoke tests
+        run: pnpm test
+
+      - name: Build frontend
+        run: pnpm vite build
+
+      - name: Truth score (fast)
+        run: TRUTH_FAST=true pnpm truth-score:json || true
+

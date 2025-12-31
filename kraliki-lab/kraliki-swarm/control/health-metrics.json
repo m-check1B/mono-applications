@@ -1,0 +1,19 @@
+{
+  "linear": {
+    "last_success": "2025-12-31T06:57:58.649072",
+    "updated_at": "2025-12-31T06:57:58.649130"
+  },
+  "self_healing": {
+    "last_ticket_created": {
+      "timestamp": "2025-12-30T17:45:41.630785",
+      "source": "circuit_breaker_linear_api",
+      "error_type": "circuit_open",
+      "linear_id": "VD-653"
+    },
+    "updated_at": "2025-12-30T17:45:41.630802"
+  },
+  "test": {
+    "test_metric": 42,
+    "updated_at": "2025-12-28T17:19:48.383947"
+  }
+}

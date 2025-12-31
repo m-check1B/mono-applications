@@ -1,0 +1,131 @@
+{
+  "slug": "ai-architecture",
+  "title": "AI-First Founder: The Business Guru Path",
+  "description": "Level 4 of the AI Academy. Build a one-person AI-first company with predictable revenue, automated operations, and a repeatable growth engine. The Ocelot Model for lean, high-margin businesses.",
+  "level": "advanced",
+  "duration_minutes": 720,
+  "is_free": false,
+  "price_eur": 3000,
+  "lessons": [
+    {
+      "id": "01-ocelot-model-intro",
+      "title": "The Ocelot Model Introduction",
+      "order": 1,
+      "module": 0,
+      "module_name": "Introduction",
+      "is_preview": true
+    },
+    {
+      "id": "02-offer-dna",
+      "title": "O1: Offer DNA",
+      "order": 2,
+      "module": 1,
+      "module_name": "Phase 1: Foundation"
+    },
+    {
+      "id": "03-audience-capture",
+      "title": "O2: Audience Capture",
+      "order": 3,
+      "module": 1,
+      "module_name": "Phase 1: Foundation"
+    },
+    {
+      "id": "04-conversion-loop",
+      "title": "O3: Conversion Loop",
+      "order": 4,
+      "module": 1,
+      "module_name": "Phase 1: Foundation"
+    },
+    {
+      "id": "05-operations-engine",
+      "title": "O4: Operations Engine",
+      "order": 5,
+      "module": 2,
+      "module_name": "Phase 2: Build"
+    },
+    {
+      "id": "06-ai-workflow-design",
+      "title": "AI Workflow Design",
+      "order": 6,
+      "module": 2,
+      "module_name": "Phase 2: Build"
+    },
+    {
+      "id": "07-sop-buildout",
+      "title": "SOP Buildout",
+      "order": 7,
+      "module": 2,
+      "module_name": "Phase 2: Build"
+    },
+    {
+      "id": "08-compounding-assets",
+      "title": "O5: Compounding Assets",
+      "order": 8,
+      "module": 2,
+      "module_name": "Phase 2: Build"
+    },
+    {
+      "id": "09-pricing-optimization",
+      "title": "Pricing Optimization",
+      "order": 9,
+      "module": 3,
+      "module_name": "Phase 3: Scale"
+    },
+    {
+      "id": "10-partner-channels",
+      "title": "Partner and Referral Channels",
+      "order": 10,
+      "module": 3,
+      "module_name": "Phase 3: Scale"
+    },
+    {
+      "id": "11-delegation-paths",
+      "title": "Teaming and Delegation",
+      "order": 11,
+      "module": 3,
+      "module_name": "Phase 3: Scale"
+    },
+    {
+      "id": "12-scale-roadmap",
+      "title": "90-Day Scale Roadmap",
+      "order": 12,
+      "module": 3,
+      "module_name": "Phase 3: Scale"
+    }
+  ],
+  "author": "AI Academy Team",
+  "tags": ["ai", "business", "academy", "L4", "advanced", "founder", "solopreneur", "ocelot"],
+  "academy_level": "L4",
+  "preview_lessons": ["01-ocelot-model-intro"],
+  "prerequisites": ["ai-fundamentals", "prompt-engineering"],
+  "format": {
+    "type": "mentorship",
+    "duration_weeks": 12,
+    "includes": [
+      "Weekly 90-min live mastermind sessions",
+      "1 async review per week",
+      "Hot seat rotation (1 founder per week)",
+      "Tactical review (KPIs, funnel, ops)",
+      "Guided implementation blocks"
+    ],
+    "group_size": "6-10 founders"
+  },
+  "learning_outcomes": [
+    "Define a premium transformation promise and price for outcomes",
+    "Build a single-channel lead engine with measurable results",
+    "Create a conversion loop: Audit -> Strategy -> Paid pilot",
+    "Automate delivery with AI workflows and SOPs",
+    "Build reusable templates, playbooks, and productized assets"
+  ],
+  "deliverables": [
+    "Personal Ocelot Model map (O1-O5)",
+    "1-page offer page + ROI calculator",
+    "Outreach kit (message tests, scripts, objection handling)",
+    "Delivery SOP stack + automation map",
+    "90-day scale plan with KPI dashboard"
+  ],
+  "certification": "AI-First Founder",
+  "status": "application_required",
+  "launch_date": "2026-03-01",
+  "application_url": "verduona.com/academy/apply"
+}

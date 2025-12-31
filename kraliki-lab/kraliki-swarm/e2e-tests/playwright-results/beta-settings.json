@@ -1,0 +1,10 @@
+{
+  "test": "beta-settings",
+  "url": "https://beta.kraliki.com/settings",
+  "timestamp": "2025-12-30T02:31:50.046461",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/e2e-tests/playwright-results/beta-settings.png",
+  "page_title": "Kraliki Swarm",
+  "errors": []
+}

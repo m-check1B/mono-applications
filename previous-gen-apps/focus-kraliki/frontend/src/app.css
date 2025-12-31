@@ -1,0 +1,429 @@
+@import "tailwindcss";
+
+/*
+  Style 2026: Modern Brutalism Theme
+  Unified Design System (Applied to focus-kraliki)
+*/
+
+@theme {
+  /* Core Shape: Sharp */
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --radius-sm: 0px;
+  --radius: 0px; /* Force override default */
+
+  /* Fonts */
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Archivo Black", "Impact", "Arial Black", sans-serif;
+
+  /* Specific "System Raw" Colors */
+  --color-void: #050505;
+  --color-concrete: #F0F0F0;
+  --color-terminal-green: #33FF00;
+  --color-system-red: #FF3333;
+  --color-cyan-data: #00FFFF;
+
+  /* Mapped Colors */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  /* Shadow variables */
+  --shadow-brutal: 4px 4px 0px 0px hsl(var(--foreground));
+  --shadow-brutal-subtle: 2px 2px 0px 0px hsl(var(--foreground));
+
+  /* Animations */
+  --animate-scan-line: scan-line 3s linear infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-glitch: glitch 0.3s ease-in-out infinite;
+  --animate-cursor: cursor-blink 1s step-end infinite;
+  --animate-fade-in: fade-in 0.3s ease-out forwards;
+}
+
+/* Dark mode support */
+@variant dark (&:where(.dark, .dark *));
+
+/* Keyframes */
+@keyframes scan-line {
+  0% { transform: translateY(-50vh); }
+  100% { transform: translateY(50vh); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 2px 2px 0px 0px currentColor; }
+  50% { box-shadow: 6px 6px 0px 0px currentColor; }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Root Variables */
+@layer base {
+  :root {
+    /* Light Mode: Concrete */
+    --background: 0 0% 94%;
+    --foreground: 0 0% 5%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+    --primary: 230 90% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 5%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 50 95% 50%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 85% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 5%;
+    --input: 0 0% 10%;
+    --ring: 230 90% 48%;
+    --radius: 0px;
+  }
+
+  .dark {
+    /* Dark Mode: Void */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 94%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 94%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 94%;
+    --primary: 230 85% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 94%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 50 92% 52%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 80% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 95%;
+    --input: 0 0% 90%;
+    --ring: 230 85% 58%;
+  }
+}
+
+/* Global Styles */
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-mono);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+/* Enforce Sharpness on legacy rounded utility users */
+[class*="rounded-"] {
+  border-radius: 0px !important;
+}
+
+/* Brutalist defaults & helpers */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+  @apply border-border;
+}
+
+.backdrop-blur,
+[style*="backdrop-filter"] {
+  backdrop-filter: none !important;
+}
+
+.shadow-card {
+  box-shadow: var(--shadow-brutal);
+}
+
+/* Brutalist utility classes - using regular CSS for dark/hover/active variants */
+.brutal-border {
+	border-width: 2px;
+	border-color: hsl(var(--border));
+}
+
+.brutal-shadow {
+	box-shadow: var(--shadow-brutal);
+}
+
+.brutal-shadow-sm {
+	box-shadow: var(--shadow-brutal-subtle);
+}
+
+.brutal-card {
+	background-color: hsl(var(--card));
+	color: hsl(var(--card-foreground));
+	border-width: 2px;
+	border-color: hsl(var(--border));
+	box-shadow: var(--shadow-brutal);
+}
+
+.brutal-btn {
+	padding: 0.5rem 1rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	border-width: 2px;
+	border-color: hsl(var(--border));
+	background-color: hsl(var(--primary));
+	color: hsl(var(--primary-foreground));
+	transition: all 150ms;
+	box-shadow: var(--shadow-brutal);
+}
+
+.brutal-btn:hover {
+	transform: translate(2px, 2px);
+	box-shadow: var(--shadow-brutal-subtle);
+	background: var(--color-terminal-green);
+	color: #000;
+}
+
+.brutal-btn:active {
+	transform: translate(4px, 4px);
+	box-shadow: none;
+}
+
+.brutal-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-width: 2px;
+  border-color: hsl(var(--border));
+  background-color: hsl(var(--card));
+  color: hsl(var(--foreground));
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  transition: all 150ms;
+}
+
+.brutal-input:focus {
+  outline: none;
+  border-color: var(--color-terminal-green);
+  box-shadow: var(--shadow-brutal);
+}
+
+.brutal-input::placeholder {
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+}
+
+/* Cards */
+.card {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 2px solid hsl(var(--border));
+  box-shadow: var(--shadow-brutal);
+  padding: 1.25rem;
+}
+
+.card-header {
+  border-bottom: 2px solid hsl(var(--border));
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid currentColor;
+  background: transparent;
+  color: hsl(var(--foreground));
+  box-shadow: var(--shadow-brutal);
+  transition: transform 60ms linear, box-shadow 60ms linear, background-color 60ms linear, color 60ms linear;
+}
+
+.btn:hover {
+  background: var(--color-terminal-green);
+  color: #000;
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-brutal-subtle);
+}
+
+.btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.btn-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.btn-primary:hover {
+  background: var(--color-terminal-green);
+  color: #000;
+}
+
+.btn-secondary {
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+
+.btn-ghost {
+  background: transparent;
+  color: hsl(var(--foreground));
+}
+
+.btn-sm {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* Pills/Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border: 2px solid hsl(var(--border));
+  background: hsl(var(--card));
+  box-shadow: var(--shadow-brutal-subtle);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: hsl(var(--foreground));
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  border: 2px solid hsl(var(--border));
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  padding: 0.65rem 0.75rem;
+  font-family: var(--font-mono);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid hsl(var(--border));
+}
+
+th,
+td {
+  border: 2px solid hsl(var(--border));
+  padding: 0.75rem;
+}
+
+th {
+  background: hsl(var(--secondary));
+  color: hsl(var(--foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+}
+
+/*
+   Focus States (Style 2026 Compliance)
+   Unified focus treatment for all interactive elements.
+   Uses :focus-visible for keyboard navigation only (not mouse clicks).
+   Hard Terminal Green outline with brutalist offset shadow.
+*/
+:where(
+  button,
+  input,
+  textarea,
+  select,
+  option,
+  a,
+  summary,
+  [role="button"],
+  [role="link"],
+  [role="option"],
+  [tabindex]:not([tabindex="-1"])
+):focus {
+  outline: none;
+}
+
+:where(
+  button,
+  input,
+  textarea,
+  select,
+  option,
+  a,
+  summary,
+  [role="button"],
+  [role="link"],
+  [role="option"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 2px solid var(--color-terminal-green);
+  outline-offset: 0px;
+  box-shadow:
+    4px 4px 0px 0px currentColor,
+    0 0 0 2px var(--color-terminal-green);
+}
+
+/* Grid Pattern Background */
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, hsl(var(--border) / 0.15) 1px, transparent 1px),
+                    linear-gradient(to bottom, hsl(var(--border) / 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-terminal-green);
+  opacity: 0.1;
+  z-index: 100;
+  pointer-events: none;
+  animation: scan-line 4s linear infinite;
+}

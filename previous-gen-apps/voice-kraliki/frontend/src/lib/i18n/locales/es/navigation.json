@@ -1,0 +1,20 @@
+{
+	"dashboard": "Panel",
+	"outbound": "Salientes",
+	"incoming": "Entrantes",
+	"companies": "Empresas",
+	"campaigns": "Campañas",
+	"ivr": "IVR",
+	"routing": "Enrutamiento",
+	"recordings": "Grabaciones",
+	"voicemail": "Buzón de Voz",
+	"analytics": "Analítica",
+	"settings": "Configuración",
+	"teams": "Equipos",
+	"agents": "Agentes",
+	"supervisor": "Supervisor",
+	"reports": "Informes",
+	"metrics": "Métricas",
+	"templates": "Plantillas",
+	"alerts": "Alertas"
+}

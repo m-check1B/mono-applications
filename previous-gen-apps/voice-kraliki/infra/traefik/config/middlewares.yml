@@ -1,0 +1,76 @@
+# Traefik Dynamic Configuration - Middlewares
+
+http:
+  middlewares:
+    # Security Headers
+    security-headers:
+      headers:
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
+        customResponseHeaders:
+          X-Content-Type-Options: "nosniff"
+          X-Frame-Options: "DENY"
+          X-XSS-Protection: "1; mode=block"
+          Referrer-Policy: "strict-origin-when-cross-origin"
+          Permissions-Policy: "camera=(), microphone=(), geolocation=()"
+          Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+          Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' wss: https:;"
+
+    # CORS Headers for API
+    cors-headers:
+      headers:
+        accessControlAllowCredentials: true
+        accessControlAllowHeaders:
+          - "Content-Type"
+          - "Authorization"
+          - "X-Requested-With"
+          - "Accept"
+          - "Origin"
+        accessControlAllowMethods:
+          - "GET"
+          - "POST"
+          - "PUT"
+          - "DELETE"
+          - "OPTIONS"
+          - "PATCH"
+        accessControlAllowOriginList:
+          - "https://operator.verduona.dev"
+          - "https://api.verduona.dev"
+          - "https://docs.verduona.dev"
+          - "https://bridge.verduona.dev"
+
+    # Compression
+    compression:
+      compress:
+        excludedContentTypes:
+          - "text/event-stream"
+          - "application/grpc"
+
+    # Rate Limiting for API
+    rate-limit-api:
+      rateLimit:
+        average: 100
+        period: "1m"
+        burst: 200
+
+    # Rate Limiting for more sensitive endpoints
+    rate-limit-strict:
+      rateLimit:
+        average: 20
+        period: "1m"
+        burst: 50
+
+    # Dashboard Authentication (Basic Auth)
+    dashboard-auth:
+      basicAuth:
+        users:
+          - "admin:$apr1$cV6nW2v2$R1VsZyZkXrZvZxZxZxZxZ1"  # admin:admin (change in production)
+
+    # IP Whitelist for admin endpoints
+    ip-whitelist:
+      ipWhiteList:
+        sourceRange:
+          - "127.0.0.1/32"
+          - "10.0.0.0/8"
+          - "172.16.0.0/12"
+          - "192.168.0.0/16"

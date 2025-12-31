@@ -1,0 +1,202 @@
+{
+  "id": "manufacturing-ai-track",
+  "slug": "industrial-ai-automation",
+  "title": "Industrial AI & Automation",
+  "subtitle": "Predictive Maintenance, Quality Control, and Smart Supply Chain",
+  "version": "1.0",
+  "status": "development",
+  "industry": "manufacturing",
+
+  "description": "Transform manufacturing operations with AI-powered predictive maintenance, automated quality control, and intelligent supply chain management. This practical track equips operations teams with skills to implement Industry 4.0 AI solutions on the factory floor.",
+
+  "target_audience": [
+    "Manufacturing engineers",
+    "Operations managers",
+    "Quality assurance professionals",
+    "Supply chain managers",
+    "Maintenance supervisors",
+    "Plant managers",
+    "Industrial IoT specialists"
+  ],
+
+  "prerequisites": [
+    "Experience in manufacturing or industrial operations",
+    "Basic understanding of production processes",
+    "Familiarity with industrial equipment and sensors (helpful)",
+    "No prior AI experience required"
+  ],
+
+  "learning_objectives": [
+    "Implement predictive maintenance systems that reduce unplanned downtime by 30-50%",
+    "Deploy AI-powered quality control for defect detection and process optimization",
+    "Optimize supply chain operations using demand forecasting and inventory AI",
+    "Integrate AI solutions with existing manufacturing systems (MES, ERP, SCADA)",
+    "Build a business case and ROI model for manufacturing AI investments"
+  ],
+
+  "modules": [
+    {
+      "id": "manufacturing-m1",
+      "order": 1,
+      "title": "AI in Manufacturing: The Industry 4.0 Foundation",
+      "description": "Understanding AI's role in smart manufacturing transformation",
+      "duration_hours": 5,
+      "lessons": [
+        "Industry 4.0 and the AI Manufacturing Revolution",
+        "AI vs. Traditional Automation: Understanding the Difference",
+        "Data Infrastructure for Manufacturing AI (IoT, Sensors, Edge)",
+        "Building the Business Case: ROI of Manufacturing AI"
+      ]
+    },
+    {
+      "id": "manufacturing-m2",
+      "order": 2,
+      "title": "Predictive Maintenance",
+      "description": "AI-powered equipment health monitoring and failure prediction",
+      "duration_hours": 7,
+      "lessons": [
+        "From Reactive to Predictive: The Maintenance Maturity Model",
+        "Sensor Data Collection and Feature Engineering",
+        "Anomaly Detection Algorithms for Equipment Monitoring",
+        "Failure Prediction Models: Classification and Time-to-Failure",
+        "Integration with CMMS and Maintenance Workflows",
+        "Case Study: Reducing Downtime in CNC Operations"
+      ]
+    },
+    {
+      "id": "manufacturing-m3",
+      "order": 3,
+      "title": "AI-Powered Quality Control",
+      "description": "Automated inspection and defect detection systems",
+      "duration_hours": 6,
+      "lessons": [
+        "Computer Vision for Defect Detection",
+        "Surface Inspection and Dimensional Analysis",
+        "Statistical Process Control Enhanced by AI",
+        "Root Cause Analysis with Machine Learning",
+        "Case Study: Automated Visual Inspection in Electronics Assembly"
+      ]
+    },
+    {
+      "id": "manufacturing-m4",
+      "order": 4,
+      "title": "Supply Chain Optimization",
+      "description": "AI for demand forecasting, inventory, and logistics",
+      "duration_hours": 6,
+      "lessons": [
+        "Demand Forecasting with Machine Learning",
+        "Inventory Optimization: Safety Stock and Reorder Points",
+        "Supplier Risk Assessment and Alternative Sourcing",
+        "Production Scheduling Optimization",
+        "Logistics and Route Optimization"
+      ]
+    },
+    {
+      "id": "manufacturing-m5",
+      "order": 5,
+      "title": "Process Optimization and Digital Twins",
+      "description": "Advanced AI applications for manufacturing excellence",
+      "duration_hours": 4,
+      "lessons": [
+        "Process Parameter Optimization with AI",
+        "Digital Twin Concepts for Manufacturing",
+        "Energy Optimization in Manufacturing",
+        "Generative AI for Design and Engineering"
+      ]
+    },
+    {
+      "id": "manufacturing-m6",
+      "order": 6,
+      "title": "Implementation and Integration",
+      "description": "Practical deployment of manufacturing AI solutions",
+      "duration_hours": 2,
+      "lessons": [
+        "Integration with MES, ERP, and SCADA Systems",
+        "Edge AI vs. Cloud: Choosing the Right Architecture",
+        "Change Management on the Factory Floor",
+        "Scaling from Pilot to Plant-Wide Deployment"
+      ]
+    }
+  ],
+
+  "duration": {
+    "total_hours": 30,
+    "recommended_weeks": 6,
+    "hours_per_week": 5
+  },
+
+  "format": {
+    "delivery": ["self-paced", "instructor-led", "blended"],
+    "content_types": ["video_lessons", "hands_on_labs", "case_studies", "simulation_exercises"],
+    "live_components": ["factory_virtual_tours", "expert_panels", "project_reviews"]
+  },
+
+  "certification": {
+    "name": "Certified Industrial AI Specialist (CIAIS)",
+    "requirements": [
+      "Complete all 6 modules with minimum 75% assessment score",
+      "Submit capstone project: Predictive Maintenance Implementation Plan",
+      "Pass final practical examination with simulation scenarios",
+      "Complete sensor data analysis exercise"
+    ],
+    "validity_years": 3,
+    "renewal": "15 continuing education hours or recertification exam",
+    "digital_badge": true,
+    "verification_url": "learn.verduona.dev/verify"
+  },
+
+  "pricing": {
+    "tier": "Professional",
+    "individual_price_eur": 1800,
+    "corporate_per_seat_eur": 1200,
+    "minimum_corporate_seats": 5,
+    "includes": [
+      "Full course access for 12 months",
+      "All assessments and certification exam",
+      "Access to simulation environment",
+      "ROI calculator and business case templates",
+      "Access to manufacturing AI community"
+    ]
+  },
+
+  "resources": {
+    "templates": [
+      "Predictive Maintenance Business Case Template",
+      "Sensor Data Quality Assessment Checklist",
+      "AI Vendor Evaluation for Manufacturing",
+      "Pilot Project Planning Worksheet"
+    ],
+    "tools": [
+      "Equipment Criticality Assessment Matrix",
+      "Maintenance Strategy Selection Guide",
+      "Quality Control AI ROI Calculator"
+    ]
+  },
+
+  "technology_partners": [
+    "Compatible with major SCADA platforms",
+    "MES integration guidance (SAP, Siemens, Rockwell)",
+    "IoT platform agnostic (Azure IoT, AWS IoT, PTC ThingWorx)"
+  ],
+
+  "authors": [
+    {
+      "name": "AI Academy Team",
+      "role": "Content Development",
+      "organization": "Verduona"
+    }
+  ],
+
+  "tags": [
+    "manufacturing",
+    "predictive-maintenance",
+    "quality-control",
+    "supply-chain",
+    "industry-4.0",
+    "IoT",
+    "automation"
+  ],
+
+  "created_date": "2025-12-28",
+  "last_updated": "2025-12-28"
+}

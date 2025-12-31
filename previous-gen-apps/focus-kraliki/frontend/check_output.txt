@@ -1,0 +1,427 @@
+
+> focus-kraliki-sveltekit@2.0.0 check
+> svelte-kit sync && svelte-check --tsconfig ./tsconfig.json
+
+
+====================================
+Loading svelte-check in workspace: /home/adminmatej/github/applications/focus-kraliki/frontend
+Getting Svelte diagnostics...
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/lib/stores/workflow.ts:148:41
+Error: Spread types may only be created from object types. 
+                });
+                return { success: true, ...response };
+            } catch (error: any) {
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/lib/components/dashboard/SettingsView.svelte:277:21
+Warn: A11y: A form label must be associated with a control. (svelte)
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase">Start Date</label>
+                    <input
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/lib/components/dashboard/SettingsView.svelte:285:21
+Warn: A11y: A form label must be associated with a control. (svelte)
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase">End Date</label>
+                    <input
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/lib/components/dashboard/SettingsView.svelte:169:37
+Error: Property 'isValid' does not exist on type 'SettingsState'. (ts)
+                
+                {#if $settingsStore.isValid === true}
+                    <div class="p-3 bg-green-100 border-2 border-green-500 text-green-700 text-sm font-bold">
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/lib/components/dashboard/SettingsView.svelte:203:99
+Error: Property 'total_cost' does not exist on type 'UsageStats'. (ts)
+                        <p class="text-xs font-bold uppercase text-muted-foreground">Est. Cost</p>
+                        <p class="text-2xl font-black font-mono mt-1">${$settingsStore.usageStats.total_cost?.toFixed(4) || '0.0000'}</p>
+                    </div>
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/lib/components/dashboard/TimeTrackingView.svelte:126:21
+Warn: A11y: A form label must be associated with a control. (svelte)
+                <div class="flex-1 w-full space-y-2">
+                    <label class="text-xs font-bold uppercase">Description</label>
+                    <input
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/lib/components/dashboard/TimeTrackingView.svelte:136:21
+Warn: A11y: A form label must be associated with a control. (svelte)
+                <div class="w-full md:w-64 space-y-2">
+                    <label class="text-xs font-bold uppercase">Project</label>
+                    <select
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/lib/components/dashboard/WorkflowTemplatesView.svelte:175:17
+Warn: A11y: A form label must be associated with a control. (svelte)
+            <div class="space-y-2">
+                <label class="text-sm font-bold uppercase">Description</label>
+                <textarea
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/routes/dashboard/+page.svelte:1135:5
+Warn: A11y: visible, non-interactive elements with an on:click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as <button type="button"> or <a> might be more appropriate. See https://svelte.dev/docs/accessibility-warnings#a11y-click-events-have-key-events for more details. (svelte)
+  >
+    <div
+      class="brutal-card w-full max-w-lg p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+      role="dialog"
+      aria-modal="true"
+      on:click|stopPropagation
+    >
+      <div class="flex items-center justify-between mb-6 border-b-2 border-black dark:border-white pb-4">
+        <div>
+          <p class="text-xs font-black uppercase tracking-wide text-muted-foreground">{selectedEntry.typeLabel || selectedEntry.type}</p>
+          <h3 class="text-2xl font-black uppercase tracking-tighter">{selectedEntry.title}</h3>
+        </div>
+        <button class="brutal-btn text-xs h-8 flex items-center" on:click={closeEntryDrawer}>Close</button>
+      </div>
+      {#if entryDetailLoading}
+        <div class="flex items-center gap-2 text-sm font-bold uppercase">
+          <Loader2 class="w-4 h-4 animate-spin" />
+          Loading details…
+        </div>
+      {:else}
+        {#if selectedEntry.type === 'task' && entryDetail}
+          <div class="space-y-4 text-sm font-medium">
+            <p>Status: <span class="font-bold uppercase bg-secondary px-2 py-0.5 border border-black dark:border-white">{entryDetail.status}</span></p>
+            {#if entryDetail.description}
+              <div class="p-3 border-2 border-black dark:border-white bg-secondary/20">
+                <p class="whitespace-pre-wrap">{entryDetail.description}</p>
+              </div>
+            {/if}
+            {#if entryDetail.due_date}
+              <p class="font-mono">Due: {new Date(entryDetail.due_date).toLocaleString()}</p>
+            {/if}
+          </div>
+          {#if isEditingTask}
+            <form class="mt-6 space-y-4 border-t-2 border-black dark:border-white pt-4" on:submit|preventDefault={saveTaskEdit}>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={taskTitleId}>Title</label>
+                <input
+                  id={taskTitleId}
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  bind:value={taskEditForm.title}
+                  placeholder="Task title"
+                  required
+                />
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={taskDescriptionId}>Description</label>
+                <textarea
+                  id={taskDescriptionId}
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  rows="3"
+                  bind:value={taskEditForm.description}
+                  placeholder="Add more context"
+                ></textarea>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={taskDueDateId}>Due date</label>
+                <input
+                  id={taskDueDateId}
+                  type="datetime-local"
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  bind:value={taskEditForm.due_date}
+                />
+              </div>
+              <div class="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  class="brutal-btn text-xs bg-white text-black"
+                  on:click={cancelTaskEdit}
+                  disabled={drawerPending}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="brutal-btn text-xs"
+                  disabled={drawerPending}
+                >
+                  Save changes
+                </button>
+              </div>
+            </form>
+          {/if}
+        {:else if selectedEntry.type === 'knowledge' && entryDetail}
+          <div class="space-y-4 text-sm">
+            <p class="font-bold text-lg border-b-2 border-black dark:border-white pb-2">{entryDetail.title}</p>
+            <div class="p-4 border-2 border-black dark:border-white bg-secondary/20 font-mono text-xs">
+              <p class="whitespace-pre-wrap">{entryDetail.content}</p>
+            </div>
+          </div>
+          {#if isEditingKnowledge}
+            <form class="mt-6 space-y-4 border-t-2 border-black dark:border-white pt-4" on:submit|preventDefault={saveKnowledgeEdit}>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={knowledgeTitleId}>Title</label>
+                <input
+                  id={knowledgeTitleId}
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  bind:value={knowledgeEditForm.title}
+                  required
+                />
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={knowledgeContentId}>Content</label>
+                <textarea
+                  id={knowledgeContentId}
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  rows="4"
+                  bind:value={knowledgeEditForm.content}
+                  required
+                ></textarea>
+              </div>
+              <div class="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  class="brutal-btn text-xs bg-white text-black"
+                  on:click={cancelKnowledgeEdit}
+                  disabled={drawerPending}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="brutal-btn text-xs"
+                  disabled={drawerPending}
+                >
+                  Save changes
+                </button>
+              </div>
+            </form>
+          {/if}
+        {/if}
+        {#if drawerStatusMessage}
+          <p class="text-xs font-bold uppercase bg-black text-white dark:bg-white dark:text-black p-2 mt-4 text-center">{drawerStatusMessage}</p>
+        {/if}
+        <div class="mt-6 flex flex-wrap gap-3 border-t-2 border-black dark:border-white pt-4">
+          {#if selectedEntry.type === 'task'}
+            <button
+              class="brutal-btn text-xs bg-white text-black"
+              on:click={toggleTaskStatus}
+              disabled={drawerPending}
+            >
+              {entryDetail?.status === 'COMPLETED' ? 'Reopen task' : 'Mark complete'}
+            </button>
+            <button
+              class="brutal-btn text-xs bg-white text-black"
+              on:click={startTaskEdit}
+              disabled={drawerPending || isEditingTask}
+            >
+              Edit details
+            </button>
+          {:else if selectedEntry.type === 'knowledge'}
+            <button
+              class="brutal-btn text-xs bg-white text-black"
+              on:click={toggleKnowledgeCompletion}
+              disabled={drawerPending}
+            >
+              {entryDetail?.completed ? 'Mark active' : 'Mark done'}
+            </button>
+            <button
+              class="brutal-btn text-xs bg-white text-black"
+              on:click={startKnowledgeEdit}
+              disabled={drawerPending || isEditingKnowledge}
+            >
+              Edit item
+            </button>
+          {/if}
+          <button
+            class="brutal-btn text-xs bg-accent text-accent-foreground"
+            on:click={() => selectedEntry && sendEntryToAssistant(selectedEntry)}
+          >
+            <Sparkles class="w-4 h-4 inline mr-1" />
+            Ask assistant
+          </button>
+        </div>
+      {/if}
+    </div>
+  </div>
+
+
+/home/adminmatej/github/applications/focus-kraliki/frontend/src/routes/dashboard/+page.svelte:1135:5
+Warn: A11y: Non-interactive element <div> should not be assigned mouse or keyboard event listeners. (svelte)
+  >
+    <div
+      class="brutal-card w-full max-w-lg p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+      role="dialog"
+      aria-modal="true"
+      on:click|stopPropagation
+    >
+      <div class="flex items-center justify-between mb-6 border-b-2 border-black dark:border-white pb-4">
+        <div>
+          <p class="text-xs font-black uppercase tracking-wide text-muted-foreground">{selectedEntry.typeLabel || selectedEntry.type}</p>
+          <h3 class="text-2xl font-black uppercase tracking-tighter">{selectedEntry.title}</h3>
+        </div>
+        <button class="brutal-btn text-xs h-8 flex items-center" on:click={closeEntryDrawer}>Close</button>
+      </div>
+      {#if entryDetailLoading}
+        <div class="flex items-center gap-2 text-sm font-bold uppercase">
+          <Loader2 class="w-4 h-4 animate-spin" />
+          Loading details…
+        </div>
+      {:else}
+        {#if selectedEntry.type === 'task' && entryDetail}
+          <div class="space-y-4 text-sm font-medium">
+            <p>Status: <span class="font-bold uppercase bg-secondary px-2 py-0.5 border border-black dark:border-white">{entryDetail.status}</span></p>
+            {#if entryDetail.description}
+              <div class="p-3 border-2 border-black dark:border-white bg-secondary/20">
+                <p class="whitespace-pre-wrap">{entryDetail.description}</p>
+              </div>
+            {/if}
+            {#if entryDetail.due_date}
+              <p class="font-mono">Due: {new Date(entryDetail.due_date).toLocaleString()}</p>
+            {/if}
+          </div>
+          {#if isEditingTask}
+            <form class="mt-6 space-y-4 border-t-2 border-black dark:border-white pt-4" on:submit|preventDefault={saveTaskEdit}>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={taskTitleId}>Title</label>
+                <input
+                  id={taskTitleId}
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  bind:value={taskEditForm.title}
+                  placeholder="Task title"
+                  required
+                />
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={taskDescriptionId}>Description</label>
+                <textarea
+                  id={taskDescriptionId}
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  rows="3"
+                  bind:value={taskEditForm.description}
+                  placeholder="Add more context"
+                ></textarea>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={taskDueDateId}>Due date</label>
+                <input
+                  id={taskDueDateId}
+                  type="datetime-local"
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  bind:value={taskEditForm.due_date}
+                />
+              </div>
+              <div class="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  class="brutal-btn text-xs bg-white text-black"
+                  on:click={cancelTaskEdit}
+                  disabled={drawerPending}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="brutal-btn text-xs"
+                  disabled={drawerPending}
+                >
+                  Save changes
+                </button>
+              </div>
+            </form>
+          {/if}
+        {:else if selectedEntry.type === 'knowledge' && entryDetail}
+          <div class="space-y-4 text-sm">
+            <p class="font-bold text-lg border-b-2 border-black dark:border-white pb-2">{entryDetail.title}</p>
+            <div class="p-4 border-2 border-black dark:border-white bg-secondary/20 font-mono text-xs">
+              <p class="whitespace-pre-wrap">{entryDetail.content}</p>
+            </div>
+          </div>
+          {#if isEditingKnowledge}
+            <form class="mt-6 space-y-4 border-t-2 border-black dark:border-white pt-4" on:submit|preventDefault={saveKnowledgeEdit}>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={knowledgeTitleId}>Title</label>
+                <input
+                  id={knowledgeTitleId}
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  bind:value={knowledgeEditForm.title}
+                  required
+                />
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-black uppercase" for={knowledgeContentId}>Content</label>
+                <textarea
+                  id={knowledgeContentId}
+                  class="w-full border-2 border-black dark:border-white px-3 py-2 text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                  rows="4"
+                  bind:value={knowledgeEditForm.content}
+                  required
+                ></textarea>
+              </div>
+              <div class="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  class="brutal-btn text-xs bg-white text-black"
+                  on:click={cancelKnowledgeEdit}
+                  disabled={drawerPending}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="brutal-btn text-xs"
+                  disabled={drawerPending}
+                >
+                  Save changes
+                </button>
+              </div>
+            </form>
+          {/if}
+        {/if}
+        {#if drawerStatusMessage}
+          <p class="text-xs font-bold uppercase bg-black text-white dark:bg-white dark:text-black p-2 mt-4 text-center">{drawerStatusMessage}</p>
+        {/if}
+        <div class="mt-6 flex flex-wrap gap-3 border-t-2 border-black dark:border-white pt-4">
+          {#if selectedEntry.type === 'task'}
+            <button
+              class="brutal-btn text-xs bg-white text-black"
+              on:click={toggleTaskStatus}
+              disabled={drawerPending}
+            >
+              {entryDetail?.status === 'COMPLETED' ? 'Reopen task' : 'Mark complete'}
+            </button>
+            <button
+              class="brutal-btn text-xs bg-white text-black"
+              on:click={startTaskEdit}
+              disabled={drawerPending || isEditingTask}
+            >
+              Edit details
+            </button>
+          {:else if selectedEntry.type === 'knowledge'}
+            <button
+              class="brutal-btn text-xs bg-white text-black"
+              on:click={toggleKnowledgeCompletion}
+              disabled={drawerPending}
+            >
+              {entryDetail?.completed ? 'Mark active' : 'Mark done'}
+            </button>
+            <button
+              class="brutal-btn text-xs bg-white text-black"
+              on:click={startKnowledgeEdit}
+              disabled={drawerPending || isEditingKnowledge}
+            >
+              Edit item
+            </button>
+          {/if}
+          <button
+            class="brutal-btn text-xs bg-accent text-accent-foreground"
+            on:click={() => selectedEntry && sendEntryToAssistant(selectedEntry)}
+          >
+            <Sparkles class="w-4 h-4 inline mr-1" />
+            Ask assistant
+          </button>
+        </div>
+      {/if}
+    </div>
+  </div>
+
+
+====================================
+svelte-check found 3 errors and 7 warnings in 5 files

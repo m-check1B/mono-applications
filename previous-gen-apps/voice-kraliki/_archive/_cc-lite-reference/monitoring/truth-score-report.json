@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-10-04T21:00:18.540Z",
+  "project": "Voice by Kraliki",
+  "truthScore": {
+    "compilationSuccessRate": 95,
+    "testRealityScore": 30,
+    "documentationHonestyIndex": 100,
+    "userTrustCoefficient": 19,
+    "securityComplianceScore": 35,
+    "technicalDebtRatio": 100,
+    "tracingCoverage": 30,
+    "overallTruthScore": 58,
+    "grade": "F",
+    "status": "CRITICAL"
+  },
+  "sacredCodexCompliance": {
+    "principle1_TestCoverage": {
+      "score": 30,
+      "status": "NON_COMPLIANT",
+      "details": "Test coverage approximation: 30%"
+    },
+    "principle2_Metrics": {
+      "score": 40,
+      "status": "NON_COMPLIANT",
+      "details": "Metrics & monitoring signals: 40%"
+    },
+    "principle3_Tracing": {
+      "score": 30,
+      "status": "NON_COMPLIANT",
+      "details": "Tracing coverage estimate: 30%"
+    },
+    "principle4_Persistence": {
+      "score": 100,
+      "status": "COMPLIANT",
+      "details": "Persistence implementation score: 100%"
+    },
+    "principle5_CircuitBreakers": {
+      "score": 100,
+      "status": "COMPLIANT",
+      "details": "Circuit breaker coverage score: 100%"
+    },
+    "principle6_Verification": {
+      "score": 100,
+      "status": "COMPLIANT",
+      "details": "Verification artifacts score: 100%"
+    }
+  },
+  "recommendations": [
+    "🚨 Increase pytest coverage and ensure frontend checks run in CI",
+    "🔒 Audit for hard-coded secrets and enforce env usage",
+    "🛰️ Expand OpenTelemetry instrumentation across API routes"
+  ],
+  "trend": {
+    "direction": "DOWN",
+    "change": 3
+  },
+  "criticalIssues": [
+    "CRITICAL: Sacred Codex Principle 1 violation – insufficient automated tests",
+    "CRITICAL: Security compliance below threshold"
+  ]
+}

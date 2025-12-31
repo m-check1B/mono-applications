@@ -1,0 +1,5 @@
+types-PySocks
+types-PyYAML
+types-gevent
+types-psutil
+types-ujson

@@ -1,0 +1,622 @@
+[
+  {
+    "timestamp": "2025-12-30T11:00:30.043958",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T11:06:46.664176",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:06:47.675050",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:06:49.841523",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:06:54.202166",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:06:54.202664",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T11:21:18.698114",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Variable \\\"$filter\\\" got invalid value { identifier: { in: [Array] } }; Field \\\"identifier\\\" is not defined by type \\\"IssueFilter\\\".\",\"locations\":[{\"line\":2,\"column\":14}],\"extensions\":{\"code\":\"BAD_USER_INPUT\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query Issues($filter: IssueFilter!) {"
+  },
+  {
+    "timestamp": "2025-12-30T11:21:19.830732",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Variable \\\"$filter\\\" got invalid value { identifier: { in: [Array] } }; Field \\\"identifier\\\" is not defined by type \\\"IssueFilter\\\".\",\"locations\":[{\"line\":2,\"column\":14}],\"extensions\":{\"code\":\"BAD_USER_INPUT\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query Issues($filter: IssueFilter!) {"
+  },
+  {
+    "timestamp": "2025-12-30T11:21:21.922858",
+    "source": "circuit_breaker_linear_api",
+    "type": "circuit_open",
+    "message": "Circuit opened after 3 failures"
+  },
+  {
+    "timestamp": "2025-12-30T11:21:21.943709",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Variable \\\"$filter\\\" got invalid value { identifier: { in: [Array] } }; Field \\\"identifier\\\" is not defined by type \\\"IssueFilter\\\".\",\"locations\":[{\"line\":2,\"column\":14}],\"extensions\":{\"code\":\"BAD_USER_INPUT\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query Issues($filter: IssueFilter!) {"
+  },
+  {
+    "timestamp": "2025-12-30T11:21:26.104342",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:21:26.108408",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T11:24:50.039269",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:24:51.111151",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:24:53.273442",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:24:57.377198",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:24:57.377717",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T11:24:57.378128",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:24:58.418602",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:25:00.518668",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:25:04.599307",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T11:25:04.600126",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:40:19.839416",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Variable \\\"$ids\\\" of type \\\"[String!]!\\\" used in position expecting type \\\"[ID!]\\\".\",\"locations\":[{\"line\":2,\"column\":14},{\"line\":3,\"column\":30}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query Issues($ids: [String!]!) {"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:20.995102",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Variable \\\"$ids\\\" of type \\\"[String!]!\\\" used in position expecting type \\\"[ID!]\\\".\",\"locations\":[{\"line\":2,\"column\":14},{\"line\":3,\"column\":30}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query Issues($ids: [String!]!) {"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:23.135559",
+    "source": "circuit_breaker_linear_api",
+    "type": "circuit_open",
+    "message": "Circuit opened after 3 failures"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:23.138743",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:24.161369",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:26.204189",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:30.226193",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:30.228244",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:40:30.229929",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:31.241988",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:33.406471",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:37.508285",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:37.510935",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:40:37.520373",
+    "source": "self_healing",
+    "type": "ticket_creation_failed",
+    "message": "Linear API circuit breaker is open - too many recent failures"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:37.523520",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Variable \\\"$ids\\\" of type \\\"[String!]!\\\" used in position expecting type \\\"[ID!]\\\".\",\"locations\":[{\"line\":2,\"column\":14},{\"line\":3,\"column\":30}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query Issues($ids: [String!]!) {"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:41.845811",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:40:41.846652",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:41:10.007374",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:41:11.028071",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:41:13.089699",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:41:17.219146",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:41:17.240901",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:43:28.006554",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:43:29.047328",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:43:31.129087",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:43:35.409691",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:43:35.413331",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:43:48.072144",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:43:49.133050",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:43:51.187929",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:43:55.402558",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:43:55.405085",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:44:09.909720",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:44:10.950516",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:44:13.133200",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:44:17.454128",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:44:17.475385",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:44:17.477675",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:44:18.549947",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:44:20.651160",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:44:24.913100",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:44:24.935394",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:45:31.647322",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Field \\\"identifier\\\" is not defined by type \\\"IssueFilter\\\".\",\"locations\":[{\"line\":1,\"column\":26}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query { issues(filter: { identifier: { in: [\"VD-528\", \"VD-529\", \"VD-608\"] } }) { nodes { identifier "
+  },
+  {
+    "timestamp": "2025-12-30T17:45:32.787156",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Field \\\"identifier\\\" is not defined by type \\\"IssueFilter\\\".\",\"locations\":[{\"line\":1,\"column\":26}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query { issues(filter: { identifier: { in: [\"VD-528\", \"VD-529\", \"VD-608\"] } }) { nodes { identifier "
+  },
+  {
+    "timestamp": "2025-12-30T17:45:35.092980",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Field \\\"identifier\\\" is not defined by type \\\"IssueFilter\\\".\",\"locations\":[{\"line\":1,\"column\":26}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query { issues(filter: { identifier: { in: [\"VD-528\", \"VD-529\", \"VD-608\"] } }) { nodes { identifier "
+  },
+  {
+    "timestamp": "2025-12-30T17:45:39.490923",
+    "source": "circuit_breaker_linear_api",
+    "type": "circuit_open",
+    "message": "Circuit opened after 4 failures"
+  },
+  {
+    "timestamp": "2025-12-30T17:45:41.638855",
+    "source": "linear_client",
+    "type": "api_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Field \\\"identifier\\\" is not defined by type \\\"IssueFilter\\\".\",\"locations\":[{\"line\":1,\"column\":26}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n | Query: query { issues(filter: { identifier: { in: [\"VD-528\", \"VD-529\", \"VD-608\"] } }) { nodes { identifier "
+  },
+  {
+    "timestamp": "2025-12-30T17:45:41.639475",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API error: 400 - {\"errors\":[{\"message\":\"Field \\\"identifier\\\" is not defined by type \\\"IssueFilter\\\".\",\"locations\":[{\"line\":1,\"column\":26}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:46:00.335063",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:46:01.335795",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:46:03.496429",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:46:07.537048",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:46:07.537825",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:46:10.285150",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:46:11.326066",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:46:13.503299",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:46:17.565446",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:46:17.567929",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:48:52.391873",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:48:53.392740",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:48:55.535860",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:48:59.746816",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:48:59.749286",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:49:10.341947",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:49:11.372739",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:49:13.486823",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:49:17.788292",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:49:17.810040",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T17:50:01.459828",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:50:02.550552",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:50:04.738159",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:50:08.920435",
+    "source": "linear_client",
+    "type": "circuit_open",
+    "message": "Linear API circuit breaker is open"
+  },
+  {
+    "timestamp": "2025-12-30T17:50:08.942308",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API circuit breaker is open - too many recent failures",
+    "attempts": 4
+  },
+  {
+    "timestamp": "2025-12-30T18:25:05.772305",
+    "source": "linear_client",
+    "type": "query_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Unknown argument \\\"key\\\" on field \\\"Query.team\\\".\",\"locations\":[{\"line\":3,\"column\":8}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}},{\"message\":\"Field \\\"team\\\" argument \\\"id\\\" of type \\\"String!\\\" is required, but it was not provided.\",\"locations\":[{\"line\":3,\"column\":3}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}] | Query: query SearchTasks($teamKey: String!) {"
+  },
+  {
+    "timestamp": "2025-12-30T18:25:07.119347",
+    "source": "linear_client",
+    "type": "query_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Unknown argument \\\"key\\\" on field \\\"Query.team\\\".\",\"locations\":[{\"line\":3,\"column\":8}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}},{\"message\":\"Field \\\"team\\\" argument \\\"id\\\" of type \\\"String!\\\" is required, but it was not provided.\",\"locations\":[{\"line\":3,\"column\":3}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}] | Query: query SearchTasks($teamKey: String!) {"
+  },
+  {
+    "timestamp": "2025-12-30T18:25:09.263028",
+    "source": "linear_client",
+    "type": "query_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Unknown argument \\\"key\\\" on field \\\"Query.team\\\".\",\"locations\":[{\"line\":3,\"column\":8}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}},{\"message\":\"Field \\\"team\\\" argument \\\"id\\\" of type \\\"String!\\\" is required, but it was not provided.\",\"locations\":[{\"line\":3,\"column\":3}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}] | Query: query SearchTasks($teamKey: String!) {"
+  },
+  {
+    "timestamp": "2025-12-30T18:25:13.703072",
+    "source": "linear_client",
+    "type": "query_error",
+    "message": "HTTP 400: {\"errors\":[{\"message\":\"Unknown argument \\\"key\\\" on field \\\"Query.team\\\".\",\"locations\":[{\"line\":3,\"column\":8}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}},{\"message\":\"Field \\\"team\\\" argument \\\"id\\\" of type \\\"String!\\\" is required, but it was not provided.\",\"locations\":[{\"line\":3,\"column\":3}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}] | Query: query SearchTasks($teamKey: String!) {"
+  },
+  {
+    "timestamp": "2025-12-30T18:25:13.706312",
+    "source": "graphql",
+    "type": "max_retries_exceeded",
+    "message": "Linear API error: 400 - {\"errors\":[{\"message\":\"Unknown argument \\\"key\\\" on field \\\"Query.team\\\".\",\"locations\":[{\"line\":3,\"column\":8}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}},{\"message\":\"Field \\\"team\\\" argument \\\"id\\\" of type \\\"String!\\\" is required, but it was not provided.\",\"locations\":[{\"line\":3,\"column\":3}],\"extensions\":{\"http\":{\"status\":400,\"headers\":{}},\"code\":\"GRAPHQL_VALIDATION_FAILED\",\"type\":\"graphql error\",\"userError\":true}}]}\n",
+    "attempts": 4
+  }
+]

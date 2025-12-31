@@ -1,0 +1,78 @@
+# Core dependencies for cc-lite-2026 backend
+# Updated: November 2025 for Python 3.13+
+# Stack 2026 aligned - Production-ready with monitoring and security
+
+# Core Framework
+fastapi>=0.121.3
+uvicorn[standard]>=0.32.1
+python-dotenv>=1.0.1
+pydantic>=2.12.4
+pydantic-settings>=2.7.0
+
+# HTTP & WebSocket
+httpx>=0.28.1
+websockets>=14.1
+
+# Security & Auth
+cryptography>=43.0.3
+pyjwt[crypto]>=2.10.1
+passlib[bcrypt]>=1.7.4
+email-validator>=2.2.0
+
+# Database
+psycopg2-binary>=2.9.10
+alembic>=1.14.0
+sqlalchemy>=2.0.36
+asyncpg>=0.30.0  # Async PostgreSQL driver
+
+# Caching & Rate Limiting
+redis>=5.2.1
+slowapi>=0.1.9
+
+# Voice AI & Speech Processing
+deepgram-sdk>=3.9.0,<4.0.0
+openai>=1.57.0
+google-generativeai>=0.8.3
+numpy>=1.24.0
+scipy>=1.14.0
+librosa>=0.10.0
+soundfile>=0.12.0
+
+# Telephony
+twilio>=9.0.0
+telnyx>=3.4.0
+pynacl>=1.6.0
+
+# Cloud Storage
+boto3>=1.35.0
+azure-storage-blob>=12.23.0
+
+# Monitoring & Observability
+sentry-sdk[fastapi]>=2.19.2
+prometheus-fastapi-instrumentator>=7.0.0
+
+# Utilities
+pytz>=2024.1
+aiofiles>=23.0.0
+jinja2>=3.1.0
+qdrant-client>=1.7.0
+python-multipart>=0.0.9
+
+# Testing
+pytest>=8.3.4
+pytest-asyncio>=0.24.0
+pytest-cov>=6.0.0
+
+# Development Tools
+ruff>=0.8.4
+mypy>=1.13.0
+black>=24.10.0
+
+# Voice core packages (local editable install)
+# Install with: pip install -e ../packages/voice-core[telephony,transcription]
+-e ../packages/voice-core[telephony,transcription]
+-e ../packages/telephony-core
+-e ../packages/transcription-core
+-e ../packages/auth-core
+-e ../packages/ai-core[all]
+-e ../packages/events-core[rabbitmq]

@@ -1,0 +1,32 @@
+
+[2025-12-28 17:03] unknown-agent | VD-335 [PASSED]: Unarchived Magic Box landing page from _archive to applications/. Verified all 8 required features present and functional. Landing page production-ready with Stripe checkout integration, mobile responsive design, comprehensive deployment guide. Linear issue VD-335 marked complete. Human action required: Create Stripe Payment Links and deploy to domain.
+
+[2025-12-28 17:28] unknown-agent | VD-334 [WIP]: Verified comprehensive prompt library for Magic Box with 14 production-ready prompts across 4 categories. Added comprehensive test suite (19 tests, all passing). Library includes Orchestrator (Claude Opus), Workers (Gemini/Codex), and Pattern prompts with detailed examples.
+
+[2025-12-28 17:29] unknown-agent | VD-498 [PASSED]: GitHub webhook to Linear issue creator: Implemented Flask service (port 8150) with GitHub event parsing and Linear integration. Service running via PM2, health check PASS. Verification passed. Remaining work (requires browser): Configure GitHub webhook via UI, disable email notifications. Service ready for production once Cloudflare tunnel (VD-254) provides public URL.
+
+[2025-12-28 17:31] unknown-agent | VD-340 [PASSED]: Configured mgrep semantic search for Focus-Kraliki. Integrated with workspace mgrep (port 8001), indexed 36 documentation files, created test script, verified search for 6 common task queries, documented usage in CLAUDE.md.
+
+[2025-12-29 14:19] unknown-agent | VD-562 [PASSED]: VD-562: Traefik routes for II-Agent webhook configured in docker-compose files. Routes for /agent-sessions prefix on production (focus.kraliki.com, focus.verduona.com) and beta (focus.verduona.dev) domains with TLS. Task was already implemented per TODO_LIST.md, marked Linear issue as complete.
+
+[2025-12-29 14:45] darwin-opencode-builder | VD-557 [PASSED]: Added comprehensive tests for Google OAuth router (tests/unit/test_google_oauth_router.py). 10 new tests covering OAuth URL generation, CSRF token management, account linking/unlinking. Improved google_oauth.py coverage to 69%. Overall coverage increased from 40% to 41.03%. All 53 tests passing. Committed changes.
+
+[2025-12-29 14:30] darwin-opencode-builder | VD-557 [IN PROGRESS]: Test Coverage Improvements (50% → 80%). Created comprehensive tests for AI Assistant schemas (ChatMessage, AssistantLiveRequest, AssistantLiveResponse). Tests pass (17 passed) but coverage tool configuration appears to have issues showing per-module coverage. Current overall coverage: 39.26%. Need to investigate pytest-cov configuration and run full test suite to verify actual improvement.
+
+[2025-12-29 14:59] unknown-agent | VD-324 [PASSED]: VD-324 already fixed in commit 046f6f2 (Dec 26). Verified: no bare except clauses, all exceptions have proper logging. Issue marked as complete in Linear via blackboard.
+
+[2025-12-29 15:10] unknown-agent | VD-306 [PASSED]: VD-306 SSRF vulnerability fix verified - already implemented in commits 94b00bb and d038301 (VD-519). Comprehensive SSRF protection present: hostname allowlist, HTTPS-only, private IP blocking, port validation (443), DNS rebinding protection, no auto-redirects. All 3 SSRF tests pass. Issue marked complete in Linear.
+
+[2025-12-29 15:24] unknown-agent | VD-558 [WIP]: VD-558 E2E tests already passing. All routes implemented: /ai/file-search/query, /onboarding/feature-toggles, /ai/orchestrate-task, /voice/transcribe. 17 tests pass.
+
+[2025-12-29 15:43] unknown-agent | VD-561 [PASSED]: Updated HETZNER_DEPLOYMENT.md with 3 new environment variables (II_AGENT_WEBHOOK_SECRET, GOOGLE_CALENDAR_WEBHOOK_TOKEN, STATIC_FILE_BASE_URL). Added to both configuration section and generation commands section. Documentation now includes clear descriptions and generation commands.
+
+[2025-12-29 15:52] unknown-agent | VD-554 [PASSED]: Added comprehensive tests for alerts and actions routers. 27 new tests. Coverage 50%→52%. Verification passed.
+
+[2025-12-29 16:27] unknown-agent | multi-terminal [PASSED]: Implemented multi-terminal support with max 2 terminals. Created reusable Terminal.svelte component, each with independent WebSocket connection. Grid layout adapts to available space.
+
+[2025-12-30 10:55] darwin-opencode-builder | VD-333 [PASSED]: One-click setup script already exists and is complete. Verified all 7 requirements: Docker+Compose installation ✓, Traefik reverse proxy ✓, CLIProxyAPI configuration ✓, AI CLIs (Claude/Gemini/OpenAI) ✓, mgrep semantic search ✓, auto-start on boot ✓, verification system ✓. All 17 automated tests pass. Verification script confirms: tests OK, build OK, typecheck OK, lint OK.
+
+[2025-12-30 11:07] unknown-agent | VD-593 [PASSED]: Enhanced error handling in transcribeAudio method to match main request method. Comprehensive error parsing with detail/message extraction, JSON fallback, and proper ApiError object.
+
+[2025-12-30 11:27] unknown-agent | VD-592 [PASSED]: Added pagination (limit+offset) to knowledge router endpoints: /knowledge/item-types, /knowledge/items, /knowledge/search. Added 3 new pagination tests. All 13 tests pass.

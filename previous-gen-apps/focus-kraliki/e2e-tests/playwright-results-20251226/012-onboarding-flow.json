@@ -1,0 +1,14 @@
+{
+  "test": "012-onboarding-flow",
+  "url": "https://focus.verduona.dev/onboarding",
+  "timestamp": "2025-12-26T09:21:05.938939",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/focus-lite/e2e-tests/playwright-results-20251226//012-onboarding-flow.png",
+  "page_title": "",
+  "errors": [
+    "Connecting to 'https://analytics.verduona.com/api/event' violates the following Content Security Policy directive: \"connect-src 'self'\". The action has been blocked.",
+    "Failed to load resource: the server responded with a status of 401 ()",
+    "Failed to load onboarding status: {detail: Could not validate credentials, status: 401}"
+  ]
+}

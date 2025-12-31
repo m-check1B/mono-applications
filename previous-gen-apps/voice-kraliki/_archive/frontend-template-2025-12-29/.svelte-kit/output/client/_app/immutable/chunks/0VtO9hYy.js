@@ -1,0 +1,1 @@
+import{a4 as e,i as l,a5 as t,Y as u,q as a}from"./aQ_ifger.js";function c(n){t===null&&e(),u&&t.l!==null?i(t).m.push(n):l(()=>{const o=a(n);if(typeof o=="function")return o})}function f(n){t===null&&e(),c(()=>()=>a(n))}function i(n){var o=n.l;return o.u??={a:[],b:[],m:[]}}export{f as a,c as o};

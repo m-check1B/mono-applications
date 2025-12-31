@@ -1,0 +1,60 @@
+# FastAPI Core
+fastapi==0.121.2
+uvicorn[standard]==0.38.0
+python-multipart==0.0.20
+
+# Database
+sqlalchemy==2.0.44
+alembic==1.17.1
+asyncpg==0.30.0
+psycopg2-binary==2.9.11
+
+# Authentication
+python-jose[cryptography]==3.5.0
+passlib[bcrypt]==1.7.4
+bcrypt<5.0.0  # Pin to v4.x for passlib compatibility
+python-dotenv==1.2.1
+cryptography==46.0.3
+PyJWT==2.10.1
+
+# Platform 2026 shared packages
+-e ../../../platform-2026/packages/auth-core
+-e ../../../platform-2026/packages/ai-core[all]
+
+# Redis & RabbitMQ (Stack 2026)
+redis==7.0.1
+aio-pika==9.4.0
+
+# AI Services (Updated to latest)
+anthropic==0.72.1
+openai==2.8.0
+google-generativeai==0.8.5
+google-auth==2.43.0
+deepgram-sdk==5.3.0
+
+# Validation
+pydantic==2.12.4
+pydantic-settings==2.12.0
+email-validator==2.3.0
+
+# CORS & Security & Rate Limiting
+slowapi==0.1.9
+limits==5.6.0
+
+# Payments
+stripe==11.5.0
+
+# Utils
+python-dateutil==2.9.0.post0
+twilio==9.8.6
+telnyx==3.12.1
+reportlab==4.2.5  # PDF generation for invoice exports
+pywebpush==2.1.2  # Web Push notifications (VD-384)
+
+# Testing (Stack 2026)
+pytest==9.0.1
+pytest-asyncio==1.3.0
+pytest-cov==7.0.0
+pytest-xdist==3.8.0  # Parallel test execution
+httpx==0.28.1  # Async HTTP client for testing
+numpy>=1.24.0

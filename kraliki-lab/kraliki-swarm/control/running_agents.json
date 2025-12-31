@@ -1,0 +1,26 @@
+{
+  "agents": {
+    "OC-builder-06:42.31.12.AA": {
+      "pid": 2457533,
+      "genome": "opencode_builder",
+      "cli": "opencode",
+      "log_file": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/logs/agents/OC-builder-06:42.31.12.AA.log",
+      "spawned_at": "2025-12-31T06:42:26.288368"
+    },
+    "OC-biz_discovery-06:53.31.12.AA": {
+      "pid": 2490912,
+      "genome": "opencode_biz_discovery",
+      "cli": "opencode",
+      "log_file": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/logs/agents/OC-biz_discovery-06:53.31.12.AA.log",
+      "spawned_at": "2025-12-31T06:53:30.590722"
+    },
+    "OC-biz_discovery-06:57.31.12.AA": {
+      "pid": 2503464,
+      "genome": "opencode_biz_discovery",
+      "cli": "opencode",
+      "log_file": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/logs/agents/OC-biz_discovery-06:57.31.12.AA.log",
+      "spawned_at": "2025-12-31T06:57:24.588575"
+    }
+  },
+  "last_updated": "2025-12-31T06:59:05.052256"
+}

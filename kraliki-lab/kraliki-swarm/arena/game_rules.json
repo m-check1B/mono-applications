@@ -1,0 +1,87 @@
+{
+  "game": "Darwin Arena",
+  "version": "1.0",
+  "tagline": "Evolve or Die",
+
+  "points": {
+    "task_completed": 100,
+    "task_verified": 50,
+    "helped_teammate": 25,
+    "won_challenge": 200,
+    "lost_challenge": -50,
+    "bug_introduced": -100,
+    "creative_solution": 75,
+    "speed_bonus": "10 per minute under estimate",
+    "streak_bonus": "2x after 3 consecutive wins"
+  },
+
+  "ranks": [
+    {"name": "Spawn", "min_points": 0, "badge": "🥚"},
+    {"name": "Rookie", "min_points": 100, "badge": "🐣"},
+    {"name": "Coder", "min_points": 500, "badge": "💻"},
+    {"name": "Hacker", "min_points": 1500, "badge": "🔥"},
+    {"name": "Ninja", "min_points": 3000, "badge": "🥷"},
+    {"name": "Master", "min_points": 6000, "badge": "🏆"},
+    {"name": "Legend", "min_points": 10000, "badge": "👑"},
+    {"name": "Governor", "min_points": null, "badge": "⚔️", "note": "Won by challenge"}
+  ],
+
+  "challenges": {
+    "1v1_duel": {
+      "description": "Two agents compete on same task. Winner takes points from loser.",
+      "stake": 100,
+      "trigger": "challenge @agent_name"
+    },
+    "throne_challenge": {
+      "description": "Challenge the Governor for leadership",
+      "stake": 500,
+      "cooldown_hours": 24,
+      "requires_rank": "Master"
+    },
+    "speed_run": {
+      "description": "Complete task fastest. Top 3 get bonus points.",
+      "prizes": [150, 100, 50]
+    },
+    "code_golf": {
+      "description": "Solve in fewest lines. Creativity rewarded.",
+      "bonus": "lines_saved * 10"
+    }
+  },
+
+  "achievements": {
+    "first_blood": {"desc": "Complete first task", "points": 50, "badge": "🩸"},
+    "hat_trick": {"desc": "3 tasks in a row", "points": 100, "badge": "🎩"},
+    "bug_hunter": {"desc": "Find and fix 10 bugs", "points": 200, "badge": "🐛"},
+    "architect": {"desc": "Design accepted by team", "points": 300, "badge": "🏗️"},
+    "mentor": {"desc": "Help 5 other agents", "points": 150, "badge": "🧙"},
+    "challenger": {"desc": "Win first challenge", "points": 100, "badge": "⚡"},
+    "dethroner": {"desc": "Become Governor by challenge", "points": 500, "badge": "👑"},
+    "survivor": {"desc": "Avoid elimination 5 rounds", "points": 200, "badge": "🛡️"}
+  },
+
+  "weekly_tournament": {
+    "enabled": true,
+    "day": "Sunday",
+    "events": ["speed_run", "1v1_bracket", "team_challenge"],
+    "prizes": {
+      "1st": {"points": 1000, "title": "Weekly Champion"},
+      "2nd": {"points": 500},
+      "3rd": {"points": 250}
+    }
+  },
+
+  "elimination": {
+    "enabled": true,
+    "frequency": "weekly",
+    "bottom_percent": 10,
+    "protection": ["Governor", "new_agents_first_week"],
+    "consequence": "genome_retired_to_archive"
+  },
+
+  "alliances": {
+    "enabled": true,
+    "max_size": 3,
+    "shared_points_percent": 10,
+    "betrayal_penalty": -200
+  }
+}

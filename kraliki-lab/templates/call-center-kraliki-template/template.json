@@ -1,0 +1,43 @@
+{
+  "id": "call-center",
+  "name": "Call Center",
+  "version": "0.1.0",
+  "summary": "Full call center operations UI over headless Voice by Kraliki.",
+  "roles": ["admin", "supervisor", "operator", "viewer"],
+  "ui_modules": [
+    "overview",
+    "campaigns",
+    "contacts",
+    "agent-workspace",
+    "supervisor-cockpit",
+    "routing-ivr",
+    "recordings",
+    "analytics",
+    "audit-timeline"
+  ],
+  "mcp": {
+    "required_endpoints": [
+      "voice.campaigns.read",
+      "voice.campaigns.write",
+      "voice.calls.start",
+      "voice.calls.stop",
+      "voice.calls.status",
+      "voice.agents.status",
+      "voice.routing.update",
+      "voice.recordings.list",
+      "swarm.audit.query"
+    ]
+  },
+  "metrics": [
+    "calls_completed",
+    "queue_depth",
+    "avg_handle_time",
+    "handoffs_requested",
+    "agent_utilization"
+  ],
+  "events": [
+    "template.action.triggered",
+    "template.handoff.requested",
+    "template.audit.updated"
+  ]
+}

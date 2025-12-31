@@ -1,0 +1,216 @@
+{
+  "id": "legal-ai-track",
+  "slug": "ai-legal-professionals",
+  "title": "AI for Legal Professionals",
+  "subtitle": "Document Analysis, Contract Review, and Legal Research Automation",
+  "version": "1.0",
+  "status": "development",
+  "industry": "legal",
+
+  "description": "Empower legal professionals to leverage AI for document analysis, contract review, legal research, and practice management. This track addresses the unique ethical, confidentiality, and professional responsibility considerations of AI in legal practice while demonstrating practical applications that increase efficiency and accuracy.",
+
+  "target_audience": [
+    "Attorneys and partners",
+    "Paralegals and legal assistants",
+    "Legal operations professionals",
+    "In-house counsel teams",
+    "Legal technology specialists",
+    "Compliance professionals",
+    "Law firm administrators"
+  ],
+
+  "prerequisites": [
+    "Legal background or experience in legal services",
+    "Understanding of legal document types and workflows",
+    "No prior AI experience required"
+  ],
+
+  "learning_objectives": [
+    "Implement AI-powered document review that maintains privilege and confidentiality",
+    "Deploy contract analysis tools that accelerate M&A due diligence and review cycles",
+    "Utilize AI for comprehensive legal research while validating accuracy",
+    "Navigate ethical obligations and professional responsibility in AI-assisted practice",
+    "Evaluate and select legal AI tools that meet security and compliance requirements"
+  ],
+
+  "modules": [
+    {
+      "id": "legal-m1",
+      "order": 1,
+      "title": "AI in Legal Practice: Foundations",
+      "description": "Understanding AI capabilities and limitations in legal contexts",
+      "duration_hours": 5,
+      "lessons": [
+        "How AI Works: A Primer for Legal Professionals",
+        "Current AI Applications in Law Firms and Legal Departments",
+        "The AI Value Proposition: Efficiency, Accuracy, Access",
+        "Understanding AI Limitations: Hallucinations and Errors",
+        "Case Studies: AI Success Stories in Legal Practice"
+      ]
+    },
+    {
+      "id": "legal-m2",
+      "order": 2,
+      "title": "Document Analysis and E-Discovery",
+      "description": "AI-powered document review for litigation and investigations",
+      "duration_hours": 6,
+      "lessons": [
+        "Technology-Assisted Review (TAR) and Predictive Coding",
+        "Privilege Review with AI Assistance",
+        "Document Classification and Categorization",
+        "Quality Control and Defensibility in AI Review",
+        "E-Discovery Proportionality and AI",
+        "Case Study: Large-Scale Litigation Document Review"
+      ]
+    },
+    {
+      "id": "legal-m3",
+      "order": 3,
+      "title": "Contract Analysis and Management",
+      "description": "AI for contract review, analysis, and lifecycle management",
+      "duration_hours": 6,
+      "lessons": [
+        "AI-Powered Contract Review: How It Works",
+        "M&A Due Diligence Acceleration",
+        "Clause Extraction and Risk Identification",
+        "Contract Comparison and Playbook Compliance",
+        "Contract Analytics and Portfolio Analysis",
+        "Integration with CLM Systems"
+      ]
+    },
+    {
+      "id": "legal-m4",
+      "order": 4,
+      "title": "Legal Research Automation",
+      "description": "AI tools for comprehensive and efficient legal research",
+      "duration_hours": 5,
+      "lessons": [
+        "AI Legal Research Tools: Capabilities and Comparison",
+        "Prompt Engineering for Legal Research",
+        "Citation Verification and Hallucination Detection",
+        "Brief Analysis and Argument Development",
+        "Staying Current: AI for Legal Monitoring"
+      ]
+    },
+    {
+      "id": "legal-m5",
+      "order": 5,
+      "title": "Ethics and Professional Responsibility",
+      "description": "Navigating ethical obligations in AI-assisted practice",
+      "duration_hours": 5,
+      "lessons": [
+        "ABA Model Rules and AI: Competence, Supervision, Confidentiality",
+        "State Bar Opinions on AI in Legal Practice",
+        "Client Disclosure and Consent Requirements",
+        "Malpractice Considerations and Risk Management",
+        "Billing Ethics for AI-Assisted Work"
+      ]
+    },
+    {
+      "id": "legal-m6",
+      "order": 6,
+      "title": "Implementation and Security",
+      "description": "Practical deployment of legal AI solutions",
+      "duration_hours": 3,
+      "lessons": [
+        "Evaluating Legal AI Vendors: Security and Privacy",
+        "Data Security and Client Confidentiality",
+        "Change Management in Legal Organizations"
+      ]
+    }
+  ],
+
+  "duration": {
+    "total_hours": 30,
+    "recommended_weeks": 6,
+    "hours_per_week": 5
+  },
+
+  "format": {
+    "delivery": ["self-paced", "instructor-led", "blended"],
+    "content_types": ["video_lessons", "document_exercises", "case_studies", "ethics_scenarios"],
+    "live_components": ["practitioner_panels", "ethics_discussions", "tool_demonstrations"]
+  },
+
+  "certification": {
+    "name": "Certified Legal AI Professional (CLAIP)",
+    "requirements": [
+      "Complete all 6 modules with minimum 80% assessment score",
+      "Submit capstone project: AI Implementation Plan for Your Practice",
+      "Pass final examination (75 questions, 75% minimum)",
+      "Complete ethics scenario assessment",
+      "Complete contract review exercise"
+    ],
+    "validity_years": 2,
+    "renewal": "20 continuing education hours including ethics update",
+    "digital_badge": true,
+    "verification_url": "learn.verduona.dev/verify",
+    "cle_credits": "Application submitted for CLE credit in multiple jurisdictions"
+  },
+
+  "pricing": {
+    "tier": "Enterprise",
+    "individual_price_eur": 2200,
+    "corporate_per_seat_eur": 1600,
+    "minimum_corporate_seats": 5,
+    "includes": [
+      "Full course access for 12 months",
+      "All assessments and certification exam",
+      "Sample documents for exercises",
+      "Ethics guidance templates",
+      "Access to legal AI professionals community",
+      "CLE credit documentation (where approved)"
+    ]
+  },
+
+  "resources": {
+    "templates": [
+      "AI Usage Policy for Law Firms",
+      "Client Disclosure Template for AI Usage",
+      "Legal AI Vendor Security Assessment",
+      "AI-Assisted Work Documentation Checklist"
+    ],
+    "tools": [
+      "Legal AI Tool Comparison Matrix",
+      "Ethics Compliance Checklist by Jurisdiction",
+      "AI Research Verification Protocol"
+    ]
+  },
+
+  "ethics_guidance": {
+    "jurisdictions_covered": [
+      "ABA Model Rules",
+      "Major US State Bars (CA, NY, TX, FL, IL)",
+      "UK Solicitors Regulation Authority",
+      "EU Legal Professional Standards"
+    ],
+    "key_rules_addressed": [
+      "Competence (Rule 1.1)",
+      "Confidentiality (Rule 1.6)",
+      "Supervision (Rules 5.1, 5.3)",
+      "Communication (Rule 1.4)",
+      "Fees (Rule 1.5)"
+    ]
+  },
+
+  "authors": [
+    {
+      "name": "AI Academy Team",
+      "role": "Content Development",
+      "organization": "Verduona"
+    }
+  ],
+
+  "tags": [
+    "legal",
+    "contract-review",
+    "document-analysis",
+    "legal-research",
+    "e-discovery",
+    "ethics",
+    "compliance"
+  ],
+
+  "created_date": "2025-12-28",
+  "last_updated": "2025-12-28"
+}

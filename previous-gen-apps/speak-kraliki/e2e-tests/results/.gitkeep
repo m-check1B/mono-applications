@@ -1,0 +1,7 @@
+# This folder contains E2E test results
+
+Results are written with format:
+- YYYY-MM-DD_NNN-testname_PASSED.md
+- YYYY-MM-DD_NNN-testname_FAILED.md
+
+Example: 2025-12-25_001-homepage_PASSED.md

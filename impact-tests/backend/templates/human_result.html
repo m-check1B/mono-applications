@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Human AI Readiness Result{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>Human AI Readiness – Result</h1>
+  <p>Thank you for completing the test.</p>
+
+  <p>
+    <strong>Total score:</strong> {{ total_score }} / 50
+    {% if bucket == "low" %}
+    <span class="badge badge-low">Low readiness</span>
+    {% elif bucket == "medium" %}
+    <span class="badge badge-medium">Medium readiness</span>
+    {% else %}
+    <span class="badge badge-high">High readiness</span>
+    {% endif %}
+  </p>
+
+  <h2>{{ title }}</h2>
+  <p>{{ recommendation }}</p>
+
+  {% if interests %}
+  <p>
+    Your interests are:
+    <strong>{{ ", ".join(interests) }}</strong>.
+  </p>
+  {% endif %}
+
+  <p>
+    We can use these results to assign you to the right training path or real
+    projects (AI operator, implementation, or AI sales support).
+  </p>
+
+  <p><a href="/">Back to tests</a></p>
+</div>
+{% endblock %}
+

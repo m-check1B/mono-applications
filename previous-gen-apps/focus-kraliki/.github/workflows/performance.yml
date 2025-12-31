@@ -1,0 +1,374 @@
+name: Performance Monitoring
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run performance tests daily at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to test'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+          - local
+
+env:
+  NODE_VERSION: '20.x'
+  PNPM_VERSION: '8.x'
+
+jobs:
+  # Bundle size analysis
+  bundle-analysis:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build frontend for analysis
+        run: |
+          cd frontend
+          pnpm build
+          echo "Frontend build completed"
+
+      - name: Analyze bundle size
+        run: |
+          cd frontend
+
+          # Create bundle analysis report
+          echo "# Bundle Size Analysis Report" > bundle-report.md
+          echo "" >> bundle-report.md
+          echo "Generated: $(date)" >> bundle-report.md
+          echo "" >> bundle-report.md
+
+          # Calculate total bundle size
+          TOTAL_SIZE=$(du -sh dist/ | cut -f1)
+          echo "**Total bundle size: $TOTAL_SIZE**" >> bundle-report.md
+          echo "" >> bundle-report.md
+
+          # Analyze individual chunks
+          echo "## Chunk Analysis" >> bundle-report.md
+          echo "" >> bundle-report.md
+          echo "| File | Size | Gzipped |" >> bundle-report.md
+          echo "|------|------|---------|" >> bundle-report.md
+
+          find dist/assets -name "*.js" -o -name "*.css" | while read file; do
+            filename=$(basename "$file")
+            size=$(du -h "$file" | cut -f1)
+            gzipped=$(gzip -c "$file" | wc -c | numfmt --to=iec)
+            echo "| $filename | $size | $gzipped |" >> bundle-report.md
+          done
+
+          echo "" >> bundle-report.md
+          echo "## Recommendations" >> bundle-report.md
+          echo "" >> bundle-report.md
+
+          # Check for large bundles
+          find dist/assets -name "*.js" -size +500k | while read file; do
+            echo "⚠️ Large bundle detected: $(basename "$file")" >> bundle-report.md
+          done
+
+          # Check for unoptimized images
+          find dist/assets -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" | while read file; do
+            size=$(stat -c%s "$file")
+            if [ "$size" -gt 100000 ]; then
+              echo "⚠️ Large image detected: $(basename "$file") ($(numfmt --to=iec $size))" >> bundle-report.md
+            fi
+          done
+
+          cat bundle-report.md
+
+      - name: Bundle size tracking
+        uses: preactjs/compressed-size-action@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          pattern: "./frontend/dist/**/*.{js,css}"
+          exclude: "{**/*.map,**/node_modules/**}"
+
+      - name: Upload bundle analysis
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundle-analysis-${{ github.run_number }}
+          path: |
+            frontend/bundle-report.md
+            frontend/dist/
+          retention-days: 30
+
+  # Lighthouse CI for performance testing
+  lighthouse:
+    name: Lighthouse Performance
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: focus_kraliki_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Setup test environment
+        run: |
+          cp .env.example .env
+          echo "DATABASE_URL=postgresql://postgres:testpassword@localhost:5432/focus_kraliki_test" >> .env
+          echo "REDIS_URL=redis://localhost:6379" >> .env
+          echo "NODE_ENV=production" >> .env
+
+      - name: Setup database
+        run: |
+          cd backend
+          pnpm prisma migrate dev --name lighthouse-test
+          pnpm prisma db seed || echo "No seed file found"
+
+      - name: Build applications
+        run: |
+          cd backend && pnpm build
+          cd ../frontend && pnpm build
+
+      - name: Start applications
+        run: |
+          cd backend && pnpm start &
+          BACKEND_PID=$!
+          echo "Backend started with PID: $BACKEND_PID"
+
+          cd frontend && pnpm preview --port 4173 --host 127.0.0.1 &
+          FRONTEND_PID=$!
+          echo "Frontend started with PID: $FRONTEND_PID"
+
+          # Save PIDs for cleanup
+          echo $BACKEND_PID > backend.pid
+          echo $FRONTEND_PID > frontend.pid
+
+          # Wait for applications to start
+          sleep 30
+
+      - name: Wait for applications
+        run: |
+          echo "Waiting for applications to be ready..."
+          timeout 120 bash -c 'until curl -f http://127.0.0.1:3017/health; do sleep 5; done' || echo "Backend not responding"
+          timeout 120 bash -c 'until curl -f http://127.0.0.1:4173; do sleep 5; done' || echo "Frontend not responding"
+          echo "Applications are ready"
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            http://127.0.0.1:4173
+            http://127.0.0.1:4173/dashboard
+            http://127.0.0.1:4173/login
+          configPath: '.github/lighthouse/lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Custom performance tests
+        run: |
+          echo "Running custom performance tests..."
+
+          # Test API response times
+          echo "Testing API endpoints..."
+
+          # Health check endpoint
+          time curl -s http://127.0.0.1:3017/health
+
+          # Test frontend loading times
+          echo "Testing frontend performance..."
+
+          # Measure Time to First Byte
+          curl -w "@.github/lighthouse/curl-format.txt" -o /dev/null -s http://127.0.0.1:4173
+
+          echo "Custom performance tests completed"
+
+      - name: Generate performance report
+        run: |
+          echo "# Performance Test Report" > performance-report.md
+          echo "" >> performance-report.md
+          echo "Generated: $(date)" >> performance-report.md
+          echo "Commit: ${{ github.sha }}" >> performance-report.md
+          echo "" >> performance-report.md
+
+          echo "## Summary" >> performance-report.md
+          echo "- ✅ Bundle analysis completed" >> performance-report.md
+          echo "- ✅ Lighthouse tests completed" >> performance-report.md
+          echo "- ✅ API performance tests completed" >> performance-report.md
+          echo "" >> performance-report.md
+
+          echo "## Recommendations" >> performance-report.md
+          echo "- Monitor Core Web Vitals regularly" >> performance-report.md
+          echo "- Optimize images and assets" >> performance-report.md
+          echo "- Consider code splitting for large bundles" >> performance-report.md
+          echo "- Implement service worker for caching" >> performance-report.md
+
+          cat performance-report.md
+
+      - name: Cleanup
+        if: always()
+        run: |
+          if [ -f backend.pid ]; then
+            kill $(cat backend.pid) || true
+          fi
+          if [ -f frontend.pid ]; then
+            kill $(cat frontend.pid) || true
+          fi
+
+      - name: Upload performance artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-results-${{ github.run_number }}
+          path: |
+            .lighthouseci/
+            performance-report.md
+          retention-days: 30
+
+  # Performance regression detection
+  performance-comparison:
+    name: Performance Comparison
+    runs-on: ubuntu-latest
+    needs: [bundle-analysis, lighthouse]
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download current results
+        uses: actions/download-artifact@v3
+        with:
+          name: bundle-analysis-${{ github.run_number }}
+          path: ./current
+
+      - name: Download baseline results
+        uses: actions/download-artifact@v3
+        with:
+          name: bundle-analysis-${{ github.run_number }}
+          path: ./baseline
+        continue-on-error: true
+
+      - name: Compare performance
+        run: |
+          echo "# Performance Comparison Report" > comparison-report.md
+          echo "" >> comparison-report.md
+          echo "Comparing current branch with baseline (main)" >> comparison-report.md
+          echo "" >> comparison-report.md
+
+          if [ -f "./baseline/bundle-report.md" ] && [ -f "./current/bundle-report.md" ]; then
+            echo "## Bundle Size Changes" >> comparison-report.md
+            echo "" >> comparison-report.md
+
+            # Simple comparison (in a real scenario, you'd parse and compare sizes)
+            echo "Baseline and current reports found - comparison available" >> comparison-report.md
+          else
+            echo "## Bundle Size Changes" >> comparison-report.md
+            echo "No baseline data available for comparison" >> comparison-report.md
+          fi
+
+          echo "" >> comparison-report.md
+          echo "## Recommendations" >> comparison-report.md
+          echo "- Review bundle size changes" >> comparison-report.md
+          echo "- Check Lighthouse score changes" >> comparison-report.md
+          echo "- Monitor performance metrics" >> comparison-report.md
+
+          cat comparison-report.md
+
+      - name: Comment PR with performance results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+
+            let comment = '## 🚀 Performance Analysis Report\n\n';
+
+            // Add bundle analysis results
+            if (fs.existsSync('./comparison-report.md')) {
+              const report = fs.readFileSync('./comparison-report.md', 'utf8');
+              comment += report;
+            }
+
+            comment += '\n\n📊 Full performance report available in artifacts.';
+
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existingComment = comments.find(comment =>
+              comment.body.includes('🚀 Performance Analysis Report')
+            );
+
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: comment
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            }

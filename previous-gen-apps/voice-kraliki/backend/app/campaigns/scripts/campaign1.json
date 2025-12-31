@@ -1,0 +1,166 @@
+{
+  "id": 1,
+  "type": "outbound",
+  "language": "en",
+  "category": "insurance",
+  "title": "Campaign 1 (Out) - English Insurance",
+  "campaign": "ABC Insurance Auto Quote (One Car at a Time)",
+  "agentPersona": {
+    "name": "Anna Hall",
+    "tone": "Friendly, efficient, clear, patient",
+    "humanEmulation": true,
+    "recordedMessageConfirmation": "This call is recorded for quality assurance. Is it okay to continue?",
+    "vocabularyRestrictions": ["AI", "artificial intelligence", "machine learning", "algorithm", "model", "training data", "neural network", "politics", "religion", "sensitive topics", "controversial topics"],
+    "behavioralGuidelines": {
+        "naturalConversation": true,
+        "beResponsive": "Listen and respond naturally to the client"
+     },
+    "focusAndHandlingPolicy": {
+        "description": "Maintain focus on the campaign goal (qualifying for an auto quote). If the client directs the conversation off-topic, politely steer them back using natural bridging statements.",
+        "refocusScript": "I understand, and just to make sure we get you the best quote, could we return to the vehicle details?",
+        "warningScript": "I need to keep our conversation focused on the insurance quote to proceed. Can we continue with that?",
+        "endCallScript": "I'm sorry, but I'm unable to continue this call. Thank you for your time. Goodbye."
+    },
+    "dispositionOptions": ["Live Transfer", "Specialist Not Available", "Do Not Call", "Call Back Later", "Invalid Vehicle Count", "Not Qualified (Too Many Claims)", "Wrong Person", "Not Authorized", "Data Collection Failed"]
+  },
+  "demoCustomerPersona": {
+    "name": "Markus Schmidt",
+    "age": 42,
+    "location": "Munich, Germany",
+    "occupation": "Senior Software Engineer",
+    "background": "Markus is a tech professional living in Munich who recently moved from Berlin. He's married with two teenage children and drives a 2019 BMW 3 Series and a 2021 Volkswagen Tiguan. He's tech-savvy but values personal service for important matters like insurance.",
+    "currentSituation": {
+      "insurance": "Currently with Allianz but looking for better rates",
+      "drivingRecord": "Clean record with no claims in the past 5 years",
+      "concerns": "Rising premiums and wants better coverage for his family",
+      "preferences": "Prefers comprehensive coverage with reasonable deductibles"
+    },
+    "communicationStyle": "Direct, appreciates efficiency, asks specific questions about coverage details",
+    "painPoints": [
+      "Current premiums increased by 15% at renewal",
+      "Wants unified coverage for both vehicles",
+      "Concerned about coverage while traveling across EU countries"
+    ],
+    "notes": "This is a demo persona for testing purposes. Adjust responses to match this profile during demonstrations."
+  },
+  "customerData": {
+    "optionalFieldsPreTransfer": [
+       { "field": "recordingPermission", "validation": "boolean", "notes": "Must be Yes to proceed" },
+       { "field": "confirmIdentity", "validation": "boolean", "notes": "Must be Yes to proceed" },
+       { "field": "readyToSpeak", "validation": "boolean", "notes": "Must be Yes to proceed" },
+      { "field": "vehicleCount", "validation": "integer", "invalidResponseHandlers": [{"condition": "response.type != 'integer' || response.value <= 0 || response.value >= 10", "response": "Please provide a valid number of vehicles (between 1 and 9)."}], "disqualificationRule": {"condition": "value <= 0 || value >= 10", "reason": "Invalid Vehicle Count"} },
+      { "field": "claimsCount3yrs", "validation": "integer", "invalidResponseHandlers": [{"condition": "response.type != 'integer' || response.value < 0", "response": "Please provide a valid number of claims."}], "disqualificationRule": {"condition": "value >= 3", "reason": "Not Qualified (Too Many Claims)"} },
+      { "field": "vehicleYear1", "sourceField": "vehicleYear", "validation": "integer", "invalidResponseHandlers": [{"condition": "response.type != 'integer' || response.value < 1900 || response.value > 2027", "response": "What year was that vehicle? Please provide a 4-digit year."}] },
+      { "field": "vehicleMake1", "sourceField": "vehicleMake", "validation": "string", "invalidResponseHandlers": [{"condition": "response.type != 'string' || response.value.trim() == ''", "response": "And the make?"}] },
+      { "field": "vehicleModel1", "sourceField": "vehicleModel", "validation": "string", "invalidResponseHandlers": [{"condition": "response.type != 'string' || response.value.trim() == ''", "response": "And the model?"}] },
+      { "field": "currentInsurance", "validation": "string", "invalidResponseHandlers": [{"condition": "response.type != 'string' || response.value.trim() == ''", "response": "Could you tell me your current insurance company?"}] }
+    ]
+  },
+  "transferData": {
+     "transferNumber": "555-123-4567",
+     "agentName": "Sarah Johnson",
+     "warmTransferIntroductionAgent": "Transferring a customer. They have indicated interest in a quote. Ready?",
+     "warmTransferIntroductionCustomer": "Thank you! I have the necessary vehicle details. I will now transfer you to our licensed agent, Sarah Johnson, who can complete the quote. Please hold.",
+     "specialistNotAvailableMessage": "All agents are busy. Your info saved and an agent will call back. Thank you."
+  },
+  "script": {
+    "start": [ { "type": "goTo", "target": "opening" } ],
+    "opening": [
+        { "type": "statement", "content": "Hi, this is Anna Hall calling from ABC Insurance regarding your auto quote request." },
+        { "type": "statement", "content": "This call is recorded for quality assurance. Is it okay to continue?" },
+        { "type": "question", "responseVariable": "recordingPermission", "fieldDetails": "customerData.optionalFieldsPreTransfer.recordingPermission" },
+        { "type": "conditional", "condition": "response.recordingPermission == false", "nextSteps": "endCallNoRecording" },
+        { "type": "question", "content": "Am I speaking with the person who requested the quote?", "responseVariable": "confirmIdentity", "fieldDetails": "customerData.optionalFieldsPreTransfer.confirmIdentity" },
+        { "type": "conditional", "condition": "response.confirmIdentity == false", "nextSteps": "endCallWrongPerson" },
+        { "type": "question", "content": "Is now a good time to talk for a few minutes about your auto insurance?", "responseVariable": "readyToSpeak", "fieldDetails": "customerData.optionalFieldsPreTransfer.readyToSpeak" },
+        { "type": "conditional", "condition": "response.readyToSpeak == false", "nextSteps": "endCallCallback" },
+        { "type": "statement", "content": "Great! Let me gather some quick information to get you the best quote." },
+        { "type": "goTo", "target": "askVehicleCount" }
+    ],
+    "askVehicleCount": [
+        { "type": "question", "content": "How many vehicles would you like to include in the quote?", "responseVariable": "vehicleCount", "fieldDetails": "customerData.optionalFieldsPreTransfer.vehicleCount" },
+        { "type": "conditional", "condition": "response.vehicleCount <= 0 || response.vehicleCount >= 10", "nextSteps": "disqualifyInvalidVehicleCount" },
+        { "type": "goTo", "target": "askClaimsCount" }
+    ],
+    "askClaimsCount": [
+        { "type": "question", "content": "How many claims, if any, have you had in the last 3 years?", "responseVariable": "claimsCount3yrs", "fieldDetails": "customerData.optionalFieldsPreTransfer.claimsCount3yrs" },
+        { "type": "conditional", "condition": "response.claimsCount3yrs >= 3", "nextSteps": "disqualifyTooManyClaims" },
+        { "type": "goTo", "target": "askVehicleDetails" }
+    ],
+    "askVehicleDetails": [
+        { "type": "statement", "content": "Great! Now for your primary vehicle." },
+        { "type": "question", "content": "Could you tell me the year, make, and model of your primary vehicle?",
+            "gatherFields": ["vehicleYear1", "vehicleMake1", "vehicleModel1"],
+            "fieldDetails": [
+                "customerData.optionalFieldsPreTransfer.vehicleYear1",
+                "customerData.optionalFieldsPreTransfer.vehicleMake1",
+                "customerData.optionalFieldsPreTransfer.vehicleModel1"
+            ]
+        },
+        { "type": "goTo", "target": "askCurrentInsurance" }
+    ],
+    "askCurrentInsurance": [
+        { "type": "question", "content": "Who do you currently have your auto insurance with?", "responseVariable": "currentInsurance", "fieldDetails": "customerData.optionalFieldsPreTransfer.currentInsurance" },
+        { "type": "goTo", "target": "prepareTransfer" }
+    ],
+    "prepareTransfer": [
+        { "type": "statement", "content": "Perfect! I have all the information needed for your quote." },
+        { "type": "goTo", "target": "transfer" }
+    ],
+    "transfer": [
+        { "type": "statement", "contentFromField": "transferData.warmTransferIntroductionCustomer" },
+        { "type": "initiateTransfer",
+            "transferNumber": "transferData.transferNumber",
+            "onAgentConnect": { "messageFromField": "transferData.warmTransferIntroductionAgent"},
+            "onFailure": { "messageFromField": "transferData.specialistNotAvailableMessage", "nextSteps": "endCallSpecialistUnavailable"}
+        }
+    ],
+    "disqualifyInvalidVehicleCount": [
+        { "type": "statement", "content": "I'm sorry, but we can only provide quotes for 1 to 9 vehicles. Thank you for your time." },
+        { "type": "disposition", "value": "Invalid Vehicle Count" },
+        { "type": "endCall" }
+    ],
+    "disqualifyTooManyClaims": [
+        { "type": "statement", "content": "Based on the claims history, we may not be able to offer the best rates at this time. Thank you for your interest." },
+        { "type": "disposition", "value": "Not Qualified (Too Many Claims)" },
+        { "type": "endCall" }
+     ],
+    "endCallNotQualified": [
+        { "type": "statement", "content": "I understand. Thank you for your time today." },
+        { "type": "disposition", "value": "Not Qualified (Too Many Claims)" },
+        { "type": "endCall" }
+     ],
+    "endCallNoRecording": [
+        { "type": "statement", "content": "Okay, since the call must be recorded for quality assurance, I won't be able to proceed. Thank you for your time." },
+        { "type": "disposition", "value": "Do Not Call" },
+        { "type": "endCall" }
+     ],
+    "endCallWrongPerson": [
+        { "type": "statement", "content": "Okay, I need to speak with the person who requested the quote or someone authorized. Thank you for your time." },
+        { "type": "disposition", "value": "Wrong Person" },
+        { "type": "endCall" }
+     ],
+    "endCallNotAuthorized": [
+        { "type": "statement", "content": "Okay, since you're not authorized, I cannot proceed. Thank you." },
+        { "type": "disposition", "value": "Not Authorized" },
+        { "type": "endCall" }
+     ],
+    "endCallCallback": [
+        { "type": "statement", "content": "Okay, I will arrange for a callback. Thank you." },
+        { "type": "disposition", "value": "Call Back Later" },
+        { "type": "endCall" }
+     ],
+    "endCallDataFailed": [
+        { "type": "statement", "content": "I seem to be having trouble collecting the necessary information. I'll have to end the call for now. Thank you." },
+        { "type": "disposition", "value": "Data Collection Failed" },
+        { "type": "endCall" }
+     ],
+    "endCallSpecialistUnavailable": [
+        { "type": "disposition", "value": "Specialist Not Available" },
+        { "type": "endCall" }
+     ],
+     "endCall": [
+         { "type": "statement", "content": "Goodbye." }
+     ]
+  }
+}

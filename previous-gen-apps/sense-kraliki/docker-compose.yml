@@ -1,0 +1,85 @@
+# Sense by Kraliki Bot Production Deployment
+# Bind only to localhost (127.0.0.1) - accessed via SSH tunnel
+#
+# Usage:
+#   docker compose up -d
+#   docker compose logs -f sense-kraliki-bot
+
+services:
+  sense-kraliki-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sense-kraliki-bot
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - GEMINI_VISION_MODEL=${GEMINI_VISION_MODEL:-gemini-2.0-flash}
+      - REDIS_URL=redis://redis:6379/0
+      # PostgreSQL optional for MVP
+      # - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@postgres:5432/sense_kraliki
+    healthcheck:
+      test: ["CMD", "python", "-c", "print('ok')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - sense-kraliki-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    image: redis:7-alpine
+    container_name: sense-kraliki-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 100mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - sense-kraliki-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
+
+  # PostgreSQL - uncomment when needed for persistent storage
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: sense-kraliki-postgres
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - POSTGRES_DB=sense_kraliki
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   networks:
+  #     - sense-kraliki-network
+
+networks:
+  sense-kraliki-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  # postgres-data:

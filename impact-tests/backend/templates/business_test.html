@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Business AI Readiness Test{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>Business AI Readiness Test</h1>
+  <p>
+    5–10 minute test for companies. Answer honestly on a scale from
+    <strong>1 (not true at all)</strong> to <strong>5 (completely true)</strong
+    >.
+  </p>
+</div>
+
+<form method="post" class="card">
+  <h2>1. Company Info</h2>
+  <div class="field">
+    <label for="company_name">Company name *</label>
+    <input id="company_name" name="company_name" type="text" required />
+  </div>
+  <div class="field">
+    <label for="website">Website</label>
+    <input id="website" name="website" type="text" />
+  </div>
+  <div class="field">
+    <label for="country">Country</label>
+    <input id="country" name="country" type="text" />
+  </div>
+  <div class="field">
+    <label for="industry">Industry</label>
+    <input id="industry" name="industry" type="text" />
+  </div>
+  <div class="field">
+    <label for="employees">Number of employees (range)</label>
+    <select id="employees" name="employees">
+      <option value="">Select...</option>
+      <option value="1-9">1–9</option>
+      <option value="10-49">10–49</option>
+      <option value="50-199">50–199</option>
+      <option value="200-499">200–499</option>
+      <option value="500+">500+</option>
+    </select>
+  </div>
+
+  <h2>2. Contact Person</h2>
+  <div class="field">
+    <label for="contact_name">Name *</label>
+    <input id="contact_name" name="contact_name" type="text" required />
+  </div>
+  <div class="field">
+    <label for="contact_role">Role</label>
+    <input id="contact_role" name="contact_role" type="text" />
+  </div>
+  <div class="field">
+    <label for="email">Work email *</label>
+    <input id="email" name="email" type="email" required />
+  </div>
+
+  <h2>3. Priorities</h2>
+  <div class="field">
+    <label>Where do you feel the biggest pressure today?</label>
+    <div>
+      <label><input type="checkbox" name="priority_sales" /> Sales</label>
+      <label><input type="checkbox" name="priority_support" /> Support</label>
+      <label><input type="checkbox" name="priority_operations" /> Operations</label>
+      <label><input type="checkbox" name="priority_finance" /> Finance</label>
+      <label><input type="checkbox" name="priority_hr" /> HR</label>
+    </div>
+  </div>
+
+  <h2>4. Processes &amp; Data</h2>
+  {% for idx, text in [
+    (1, "Our core processes (sales, support, operations, finance) are clearly documented and followed."),
+    (2, "Most of our core processes already run through digital tools (CRM, ERP, ticketing, spreadsheets, etc.)."),
+    (3, "We have central, reasonably clean data about customers, deals and operations."),
+    (4, "We can export or access our data from current systems without major obstacles.")
+  ] %}
+  <div class="question">
+    <p>Q{{ idx }}. {{ text }}</p>
+    <div class="scale">
+      {% for i in range(1, 6) %}
+      <label>
+        <input type="radio" name="q{{ idx }}" value="{{ i }}" required />
+        {{ i }}
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <h2>5. People &amp; Tools</h2>
+  {% for idx, text in [
+    (5, "People in our company use tools like ChatGPT/Claude/Perplexity at least weekly for their work."),
+    (6, "At least one team has already built internal “AI workflows” (prompts, templates, automations)."),
+    (7, "We have someone internally who acts as an “AI champion” or go‑to person for AI questions."),
+    (8, "Our team is generally positive and curious about using AI at work.")
+  ] %}
+  <div class="question">
+    <p>Q{{ idx }}. {{ text }}</p>
+    <div class="scale">
+      {% for i in range(1, 6) %}
+      <label>
+        <input type="radio" name="q{{ idx }}" value="{{ i }}" required />
+        {{ i }}
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <h2>6. Leadership, Budget &amp; Risk</h2>
+  {% for idx, text in [
+    (9, "Leadership sees AI as strategically important for the company."),
+    (10, "There is at least a small budget allocated for AI/automation experiments in the next 12 months."),
+    (11, "We have basic rules/policies for safe and compliant use of AI tools (even if simple)."),
+    (12, "We are willing to change processes, not just add tools, if the ROI is clear.")
+  ] %}
+  <div class="question">
+    <p>Q{{ idx }}. {{ text }}</p>
+    <div class="scale">
+      {% for i in range(1, 6) %}
+      <label>
+        <input type="radio" name="q{{ idx }}" value="{{ i }}" required />
+        {{ i }}
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="field">
+    <label>
+      <input type="checkbox" name="consent_marketing" required />
+      I agree to be contacted about my results and related AI offers.
+    </label>
+  </div>
+
+  <button type="submit" class="btn-primary">See my readiness score</button>
+</form>
+{% endblock %}
+

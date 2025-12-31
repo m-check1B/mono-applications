@@ -1,0 +1,22 @@
+{
+	"home": "Home",
+	"dashboard": "Dashboard",
+	"outbound": "Outbound",
+	"incoming": "Incoming",
+	"chat": "Chat",
+	"companies": "Companies",
+	"campaigns": "Campaigns",
+	"ivr": "IVR",
+	"routing": "Routing",
+	"recordings": "Recordings",
+	"voicemail": "Voicemail",
+	"analytics": "Analytics",
+	"settings": "Settings",
+	"teams": "Teams",
+	"agents": "Agents",
+	"supervisor": "Supervisor",
+	"reports": "Reports",
+	"metrics": "Metrics",
+	"templates": "Templates",
+	"alerts": "Alerts"
+}

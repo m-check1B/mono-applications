@@ -1,0 +1,4 @@
+Persona,Metric,Value_Seconds,Target_Seconds,Status,Timestamp
+Solo Developer,Onboarding Time,36,180,PASS,2025-11-16 16:12:46
+Freelancer,Onboarding Time,10,180,PASS,2025-11-16 16:12:38
+Freelancer,Persistence Test,2,5,PASS,2025-11-16 16:12:40

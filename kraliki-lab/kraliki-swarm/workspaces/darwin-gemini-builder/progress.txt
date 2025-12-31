@@ -1,0 +1,4 @@
+
+[2025-12-29 11:04] unknown-agent | VD-FOCUS-WS [PASSED]: Implemented real-time WebSocket updates in Focus and fixed dashboard TS error
+
+[2025-12-30 17:54] unknown-agent | VD-625 [PASSED]: Reordered apps on dashboard to match production priority: Focus, Voice, Speak, Lab, Learn, Sense. Verified via Svelte check.

@@ -1,0 +1,18 @@
+{
+  "course_id": "academy-l1-cs",
+  "slug": "ai-fundamentals-cs",
+  "title": "AI Academy Level 1: Student (Česky)",
+  "subtitle": "Od strachu z AI k kompetenci během 120 minut",
+  "level": "beginner",
+  "duration_minutes": 120,
+  "price_eur": 99,
+  "early_bird_price_eur": 49,
+  "lessons_count": 13,
+  "modules_count": 4,
+  "bonuses_count": 4,
+  "certification": true,
+  "prerequisites": "none",
+  "language": "czech",
+  "launch_date": "2026-01-01",
+  "status": "ready_for_launch"
+}

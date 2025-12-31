@@ -1,0 +1,43 @@
+FROM python:3.12-slim
+
+# Security: Run as non-root user
+RUN useradd -m -u 1000 -s /bin/bash kraliki
+
+# Install dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    curl \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+# Copy swarm CLI code
+COPY --chown=kraliki:kraliki integrations/ /workspace/integrations/
+COPY --chown=kraliki:kraliki agents/ /workspace/agents/
+COPY --chown=kraliki:kraliki control/ /workspace/control/
+COPY --chown=kraliki:kraliki instruments/ /workspace/instruments/
+COPY --chown=kraliki:kraliki CLAUDE.md /workspace/
+COPY --chown=kraliki:kraliki ecosystem.config.js /workspace/
+
+# Create necessary directories with proper permissions
+RUN mkdir -p /workspace/data /workspace/arena /workspace/logs && \
+    chown -R kraliki:kraliki /workspace
+
+# Security: Remove unnecessary tools
+RUN apt-get purge -y git gnupg curl && \
+    apt-get autoremove -y && \
+    apt-get clean
+
+# Switch to non-root user
+USER kraliki
+
+# Default workspace
+WORKDIR /workspace
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python3 -c "import sys; sys.exit(0)" || exit 1
+
+# Default command (can be overridden)
+CMD ["python3", "-u", "integrations/swarm_orchestrator.py"]

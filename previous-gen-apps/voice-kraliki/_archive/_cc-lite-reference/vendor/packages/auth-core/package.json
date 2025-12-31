@@ -1,0 +1,64 @@
+{
+  "name": "@unified/auth-core",
+  "version": "0.0.1",
+  "description": "Shared authentication logic for all apps",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./schemas": {
+      "types": "./dist/schemas.d.ts",
+      "import": "./dist/schemas.js",
+      "require": "./dist/schemas.js"
+    },
+    "./middleware": {
+      "types": "./dist/middleware.d.ts",
+      "import": "./dist/middleware.js",
+      "require": "./dist/middleware.js"
+    },
+    "./jwt": {
+      "types": "./dist/jwt.d.ts",
+      "import": "./dist/jwt.js",
+      "require": "./dist/jwt.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks.d.ts",
+      "import": "./dist/hooks.js",
+      "require": "./dist/hooks.js"
+    },
+    "./hooks/client": {
+      "types": "./dist/hooks.client.d.ts",
+      "import": "./dist/hooks.client.js",
+      "require": "./dist/hooks.client.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.js",
+      "require": "./dist/types.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cookie": "^1.0.2",
+    "jose": "^5.10.0",
+    "zod": "^3.25.76"
+  },
+  "peerDependencies": {
+    "fastify": "^5.0.0",
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "^18.3.23",
+    "fastify": "^5.2.1",
+    "typescript": "^5.7.2"
+  }
+}

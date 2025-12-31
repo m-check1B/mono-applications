@@ -1,0 +1,147 @@
+# Caddyfile for Focus by Kraliki - Automatic HTTPS with Caddy
+# Caddy automatically handles SSL certificates via Let's Encrypt
+
+# Frontend
+{$DOMAIN:localhost} {
+    # Enable compression
+    encode gzip zstd
+
+    # Security headers
+    header {
+        X-Frame-Options DENY
+        X-Content-Type-Options nosniff
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+        -Server
+    }
+
+    # Rate limiting
+    rate_limit {
+        zone frontend {
+            key {remote_host}
+            events 200
+            window 1m
+        }
+    }
+
+    # Proxy to frontend container
+    reverse_proxy frontend:5175 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+
+        # Health check
+        health_uri /
+        health_interval 30s
+        health_timeout 5s
+        health_status 2xx
+    }
+
+    # Logs
+    log {
+        output file /var/log/caddy/frontend.log
+        format json
+    }
+}
+
+# Backend API
+{$API_DOMAIN:localhost} {
+    # Enable compression
+    encode gzip zstd
+
+    # Security headers (CORS handled by backend)
+    header {
+        X-Frame-Options DENY
+        X-Content-Type-Options nosniff
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        -Server
+    }
+
+    # Rate limiting for API
+    rate_limit {
+        zone api {
+            key {remote_host}
+            events 100
+            window 1m
+        }
+    }
+
+    # Proxy to backend container
+    reverse_proxy backend:3017 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+
+        # Timeouts
+        transport http {
+            dial_timeout 30s
+            response_header_timeout 30s
+            read_timeout 60s
+        }
+
+        # Health check
+        health_uri /health
+        health_interval 30s
+        health_timeout 5s
+        health_status 2xx
+    }
+
+    # Logs
+    log {
+        output file /var/log/caddy/api.log
+        format json
+    }
+
+    # Webhook endpoints - Calendar sync webhook
+    # NOTE: Using 'handle' (not 'handle_path') to preserve the full path when proxying
+    # handle_path strips the matched path, causing 404s on the backend (VD-405)
+    handle /calendar-sync/webhook {
+        reverse_proxy backend:3017 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+
+        # Security headers for webhooks
+        header {
+            X-Webhook-Source "Google-Calendar"
+        }
+
+        # Rate limiting for webhooks
+        rate_limit {
+            zone webhooks {
+                key {remote_host}
+                events 300
+                window 1m
+            }
+        }
+    }
+
+    # Webhook endpoints - II-Agent webhook
+    # NOTE: Using 'handle' (not 'handle_path') to preserve the full path when proxying
+    handle /agent/sessions/webhook/callback {
+        reverse_proxy backend:3017 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+
+        # Security headers for webhooks
+        header {
+            X-Webhook-Source "II-Agent"
+        }
+
+        # Rate limiting for webhooks
+        rate_limit {
+            zone webhooks {
+                key {remote_host}
+                events 300
+                window 1m
+            }
+        }
+    }
+}

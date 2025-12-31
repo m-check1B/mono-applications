@@ -1,0 +1,158 @@
+// @stack-2025/byok-core Prisma Schema
+// Database schema for BYOK key management
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// BYOK API Keys
+model BYOKKey {
+  id              String    @id @default(uuid())
+  userId          String
+  provider        String
+  keyName         String
+  encryptedKey    String    @db.Text
+  keyHash         String
+  status          String    @default("active")
+  lastValidated   DateTime?
+  validationScore Float?
+  expiresAt       DateTime?
+  metadata        Json      @default("{}")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  usage           BYOKUsage[]
+  fallbackChains  FallbackChain[] @relation("PrimaryKey")
+  fallbackFor     FallbackChain[] @relation("FallbackKeys")
+
+  @@unique([userId, provider, keyHash])
+  @@index([userId, provider, status])
+  @@index([status])
+  @@map("byok_keys")
+}
+
+// BYOK Usage Tracking
+model BYOKUsage {
+  id            String   @id @default(uuid())
+  keyId         String
+  userId        String
+  provider      String
+  operation     String
+  success       Boolean
+  tokensUsed    Int?
+  cost          Float?
+  errorMessage  String?
+  metadata      Json     @default("{}")
+  timestamp     DateTime @default(now())
+
+  // Relations
+  key           BYOKKey  @relation(fields: [keyId], references: [id], onDelete: Cascade)
+
+  @@index([userId, timestamp])
+  @@index([keyId, timestamp])
+  @@index([provider, operation])
+  @@map("byok_usage")
+}
+
+// Fallback Chains
+model FallbackChain {
+  id             String   @id @default(uuid())
+  userId         String
+  provider       String
+  primaryKeyId   String
+  fallbackKeyIds String[]
+  strategy       String   @default("sequential")
+  enabled        Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  primaryKey     BYOKKey  @relation("PrimaryKey", fields: [primaryKeyId], references: [id], onDelete: Cascade)
+  fallbackKeys   BYOKKey[] @relation("FallbackKeys")
+
+  @@unique([userId, provider])
+  @@index([userId, enabled])
+  @@map("fallback_chains")
+}
+
+// Audit Logs
+model AuditLog {
+  id           String   @id @default(uuid())
+  userId       String
+  action       String
+  resource     String
+  resourceId   String
+  ipAddress    String?
+  userAgent    String?
+  success      Boolean
+  errorMessage String?
+  metadata     Json     @default("{}")
+  timestamp    DateTime @default(now())
+
+  @@index([userId, timestamp])
+  @@index([action, resource])
+  @@index([timestamp])
+  @@map("audit_logs")
+}
+
+// Key Validations (cached results)
+model KeyValidation {
+  id           String   @id @default(uuid())
+  keyId        String   @unique
+  isValid      Boolean
+  status       String
+  score        Float
+  capabilities String[]
+  limits       Json?
+  message      String?
+  validatedAt  DateTime @default(now())
+  expiresAt    DateTime
+
+  @@index([keyId, validatedAt])
+  @@map("key_validations")
+}
+
+// User Subscription Tiers
+model UserSubscription {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  tier             String   // mini, standard, pro, corporate
+  stripeCustomerId String?
+  stripePriceId    String?
+  status           String   @default("active")
+  startDate        DateTime @default(now())
+  endDate          DateTime?
+  trialEndsAt      DateTime?
+  features         Json     @default("{}")
+  limits           Json     @default("{}")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([tier, status])
+  @@index([userId, status])
+  @@map("user_subscriptions")
+}
+
+// Subscription Usage
+model SubscriptionUsage {
+  id           String   @id @default(uuid())
+  userId       String
+  tier         String
+  feature      String
+  usage        Int
+  limit        Int?
+  period       String   // daily, weekly, monthly
+  periodStart  DateTime
+  periodEnd    DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([userId, period, periodStart])
+  @@index([feature, period])
+  @@map("subscription_usage")
+}

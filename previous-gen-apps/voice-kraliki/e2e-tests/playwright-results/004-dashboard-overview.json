@@ -1,0 +1,13 @@
+{
+  "test": "004-dashboard-overview",
+  "url": "https://cc.verduona.dev/dashboard",
+  "timestamp": "2025-12-25T12:17:22.988560",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/cc-lite-2026/e2e-tests/playwright-results//004-dashboard-overview.png",
+  "page_title": "Operator Demo - CC-Lite Voice Calling Platform",
+  "errors": [
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+  ]
+}

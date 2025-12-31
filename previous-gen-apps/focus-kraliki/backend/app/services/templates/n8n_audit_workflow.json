@@ -1,0 +1,86 @@
+{
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "audit-request",
+                "options": {}
+            },
+            "id": "webhook-trigger",
+            "name": "Focus by Kraliki Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "http://127.0.0.1:8198/agent/spawn",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "genome",
+                            "value": "claude_tester"
+                        },
+                        {
+                            "name": "context",
+                            "value": "={{$json[\"body\"]}}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "spawn-agent",
+            "name": "Spawn Darwin2 Auditor",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "channel": "general",
+                "text": "Audit Started: {{$json[\"body\"][\"data\"][\"title\"]}}",
+                "otherOptions": {}
+            },
+            "id": "slack-notify",
+            "name": "Slack Notification",
+            "type": "n8n-nodes-base.slack",
+            "typeVersion": 2,
+            "position": [
+                650,
+                200
+            ]
+        }
+    ],
+    "connections": {
+        "webhook-trigger": {
+            "main": [
+                [
+                    {
+                        "node": "spawn-agent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "spawn-agent": {
+            "main": [
+                [
+                    {
+                        "node": "slack-notify",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

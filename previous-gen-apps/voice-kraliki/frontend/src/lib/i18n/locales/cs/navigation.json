@@ -1,0 +1,20 @@
+{
+	"dashboard": "Přehled",
+	"outbound": "Odchozí",
+	"incoming": "Příchozí",
+	"companies": "Společnosti",
+	"campaigns": "Kampaně",
+	"ivr": "IVR",
+	"routing": "Směrování",
+	"recordings": "Nahrávky",
+	"voicemail": "Hlasová schránka",
+	"analytics": "Analytika",
+	"settings": "Nastavení",
+	"teams": "Týmy",
+	"agents": "Agenti",
+	"supervisor": "Supervizor",
+	"reports": "Zprávy",
+	"metrics": "Metriky",
+	"templates": "Šablony",
+	"alerts": "Upozornění"
+}

@@ -1,0 +1,33 @@
+[2025-12-29 09:40] darwin-codex-integrator | VD-315 [WIP]: Complexity SIMPLE. Updating Magic Box billing integration plan with canonical usage-metering paths, deployment notes, and env requirements.
+[2025-12-29 09:41] darwin-codex-integrator | VD-315 [WIP]: Health check failed on http://localhost:8585/health (connection refused). Usage-metering service not running locally.
+
+[2025-12-29 09:41] unknown-agent | VD-315 [WIP]: Updated billing plan notes; health check failed (service not running)
+[2025-12-29 10:43] darwin-codex-integrator | VD-524 [WIP]: Complexity SIMPLE. Added focus.verduona.com host support in Focus Kraliki Traefik rules + CORS defaults.
+[2025-12-29 10:43] darwin-codex-integrator | VD-524 [WIP]: Health check failed on http://localhost:3017/health (connection refused). Focus backend not running locally.
+
+[2025-12-29 10:45] unknown-agent | VD-524 [WIP]: Added focus.verduona.com Traefik host support; DNS still pending
+[2025-12-29 10:54] darwin-codex-integrator | VD-529 [WIP]: Complexity SIMPLE. Verified Reality Check Stripe placeholders are already present in all listed landing pages; real Stripe link still missing.
+[2025-12-29 10:54] darwin-codex-integrator | VD-529 [BLOCKED]: Waiting on human-created Stripe payment link to replace https://buy.stripe.com/placeholder_reality_check.
+[2025-12-29 10:55] darwin-codex-integrator | VD-529 [WIP]: Health check at http://localhost:80/health returned 404 (Apache running; no health route for consulting pages).
+
+[2025-12-29 10:56] unknown-agent | VD-529 [WIP]: Verified placeholders already in place; blocked pending real Stripe payment link for Reality Check.
+[2025-12-29 10:59] darwin-codex-integrator | VD-528 [WIP]: Complexity SIMPLE. Aligned lab-kraliki landing page placeholder Stripe links with STRIPE-LINKS-NEEDED (placeholder_lab_by_kraliki_*).
+[2025-12-29 10:59] darwin-codex-integrator | VD-528 [WIP]: Health check at http://localhost:80/health returned 404 (Apache running; no health route).
+
+[2025-12-29 11:00] unknown-agent | VD-528 [WIP]: Aligned lab-kraliki Stripe placeholders to placeholder_lab_by_kraliki_*; real Stripe links still needed.
+[2025-12-29 11:31] darwin-codex-integrator | VD-524 [WIP]: Complexity SIMPLE. DNS resolves vop/cc/focus.verduona.com -> 138.201.54.142, but endpoints fail (vop=404, cc=timeout, focus=SSL self-signed). Needs DNS to dev server (5.9.38.218) or prod Traefik config + valid certs.
+[2025-12-29 11:31] darwin-codex-integrator | VD-524 [WIP]: Health check failed on http://localhost:3017/health (connection refused). Focus backend not running locally.
+
+[2025-12-29 11:33] unknown-agent | VD-524 [WIP]: Checked DNS for vop/cc/focus.verduona.com; resolves to 138.201.54.142 but vop 404, cc timeout, focus TLS self-signed. Logged progress + memory; needs DNS to dev IP or prod Traefik + certs.
+[2025-12-29 11:40] darwin-codex-integrator | VD-315 [WIP]: Complexity SIMPLE. Confirm plan doc exists; posting Linear update + blackboard completion.
+[2025-12-29 11:41] darwin-codex-integrator | VD-315 [WIP]: Health check failed on http://localhost:8585/health (connection refused). Usage-metering service not running locally.
+
+[2025-12-29 11:36] unknown-agent | VD-315 [WIP]: Linked VD-315 billing plan doc in workspace and marked Linear Done; health check on :8585 refused (usage-metering not running).
+[2025-12-29 11:54] darwin-codex-integrator | VD-530 [WIP]: Complexity SIMPLE. Swapped Learn by Kraliki Academy waitlist mailto CTAs to the placeholder Stripe link (placeholder_academy_l1_early) in websites/learn/index.html.
+[2025-12-29 11:54] darwin-codex-integrator | VD-530 [WIP]: Health check at http://localhost:80/health returned 404 (Apache running; no health route for learn page).
+
+[2025-12-29 11:56] unknown-agent | VD-530 [WIP]: Added placeholder Stripe link to Learn Academy CTAs; awaiting real Stripe URL; health check http://localhost:80/health returned 404.
+[2025-12-29 11:59] darwin-codex-integrator | VD-529 [WIP]: Complexity SIMPLE. Swapped Reality Check CTAs in landing page markdown to placeholder Stripe link; aligned payment note in senseit.md.
+[2025-12-29 11:59] darwin-codex-integrator | VD-529 [WIP]: Health check at http://localhost:80/health returned 404 (Apache running; no health route for consulting pages).
+
+[2025-12-29 12:02] unknown-agent | VD-529 [WIP]: Swapped Reality Check landing page CTAs to placeholder Stripe link; waiting on real Stripe URL

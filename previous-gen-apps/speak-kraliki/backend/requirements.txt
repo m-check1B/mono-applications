@@ -1,0 +1,50 @@
+# Stack 2026 - Python Backend
+# FastAPI + SQLAlchemy + PostgreSQL
+
+# Core
+fastapi>=0.121.0
+uvicorn[standard]>=0.34.0
+python-dotenv>=1.0.0
+pydantic>=2.12.0
+pydantic-settings>=2.8.0
+
+# Database
+sqlalchemy>=2.0.44
+asyncpg>=0.30.0
+alembic>=1.15.0
+psycopg2-binary>=2.9.10
+
+# Auth
+pyjwt>=2.10.0
+cryptography>=44.0.0
+bcrypt>=4.3.0
+python-multipart>=0.0.20
+
+# Rate Limiting
+slowapi>=0.1.9
+
+# Platform 2026 shared packages
+-e ../../../platform-2026/packages/auth-core
+-e ../../../platform-2026/packages/ai-core[gemini]
+
+# AI & Voice
+google-generativeai>=0.8.0
+websockets>=14.0
+pynacl>=1.5.0
+
+# Utilities
+httpx>=0.28.0
+resend>=2.5.0
+stripe>=11.0.0
+
+# Development & Testing
+pytest>=8.4.0
+pytest-asyncio>=0.25.0
+pytest-cov>=6.0.0
+aiosqlite>=0.20.0
+httpx>=0.28.0
+
+# Platform 2026 shared modules (real-time voice)
+# Install with: pip install -e ../../../platform-2026/packages/voice-core[telephony,gemini]
+-e ../../../platform-2026/packages/voice-core[telephony,gemini]
+-e ../../../platform-2026/packages/events-core[rabbitmq]

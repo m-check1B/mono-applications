@@ -1,0 +1,32 @@
+{
+  "id": "vibecoder",
+  "name": "Vibecoder",
+  "version": "0.1.0",
+  "summary": "Creative coding workflow with AI operator handoff and review.",
+  "roles": ["admin", "operator", "viewer"],
+  "ui_modules": [
+    "overview",
+    "prompt-brief",
+    "code-runbook",
+    "review-panel",
+    "handoff-queue"
+  ],
+  "mcp": {
+    "required_endpoints": [
+      "swarm.coding.plan",
+      "swarm.coding.execute",
+      "swarm.coding.review",
+      "swarm.audit.query"
+    ]
+  },
+  "metrics": [
+    "sessions_started",
+    "handoffs_requested",
+    "review_cycles"
+  ],
+  "events": [
+    "template.action.triggered",
+    "template.handoff.requested",
+    "template.audit.updated"
+  ]
+}

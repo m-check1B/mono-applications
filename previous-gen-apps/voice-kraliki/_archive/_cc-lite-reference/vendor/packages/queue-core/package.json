@@ -1,0 +1,29 @@
+{
+  "name": "@stack-2025/queue-core",
+  "version": "2.0.0",
+  "description": "RabbitMQ-based enterprise queue system - Bull removed, RabbitMQ is the only implementation",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "dev": "tsc -w -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.4",
+    "eventemitter3": "^5.0.1",
+    "uuid": "^10.0.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.5",
+    "@types/node": "^20.0.0",
+    "@types/uuid": "^10.0.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.4"
+  }
+}

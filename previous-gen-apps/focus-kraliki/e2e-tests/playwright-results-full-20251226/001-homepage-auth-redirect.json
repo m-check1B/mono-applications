@@ -1,0 +1,12 @@
+{
+  "test": "001-homepage-auth-redirect",
+  "url": "https://focus.verduona.dev",
+  "timestamp": "2025-12-26T14:28:46.348846",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "playwright-results-full-20251226//001-homepage-auth-redirect.png",
+  "page_title": "",
+  "errors": [
+    "Connecting to 'https://analytics.verduona.com/api/event' violates the following Content Security Policy directive: \"connect-src 'self'\". The action has been blocked."
+  ]
+}

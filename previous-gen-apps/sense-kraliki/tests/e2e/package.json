@@ -1,0 +1,33 @@
+{
+  "name": "sense-kraliki-e2e-tests",
+  "version": "1.0.0",
+  "description": "Playwright E2E tests for Sense by Kraliki sensitivity tracking application",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project=mobile-chrome --project=mobile-safari",
+    "test:landing": "playwright test landing-page.spec.ts",
+    "test:dashboard": "playwright test sensor-dashboard.spec.ts",
+    "test:alerts": "playwright test alerts.spec.ts",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  },
+  "keywords": [
+    "playwright",
+    "e2e",
+    "testing",
+    "sense-kraliki",
+    "sensitivity",
+    "hsp"
+  ],
+  "author": "Verduona",
+  "license": "UNLICENSED"
+}

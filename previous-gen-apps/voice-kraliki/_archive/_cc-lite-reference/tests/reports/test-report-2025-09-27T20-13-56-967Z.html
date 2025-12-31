@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice by Kraliki Test Report - 9/27/2025</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+        .metric {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .metric.success { border-left: 4px solid #28a745; }
+        .metric.danger { border-left: 4px solid #dc3545; }
+        .metric.warning { border-left: 4px solid #ffc107; }
+        .metric.info { border-left: 4px solid #17a2b8; }
+        .metric h3 {
+            margin: 0 0 10px 0;
+            color: #495057;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .metric .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #212529;
+        }
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px;
+        }
+        .coverage-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 6px;
+            background: #e9ecef;
+        }
+        .coverage-bar {
+            width: 100%;
+            height: 8px;
+            background: #dee2e6;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .coverage-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        .coverage-excellent { background: #28a745; }
+        .coverage-good { background: #ffc107; }
+        .coverage-poor { background: #dc3545; }
+        .suites {
+            margin: 30px;
+        }
+        .suite {
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .suite-header {
+            background: #f8f9fa;
+            padding: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .suite-stats {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .suite-content {
+            padding: 15px;
+        }
+        .performance, .security {
+            margin: 30px;
+            padding: 20px;
+            border-radius: 6px;
+            background: #f8f9fa;
+        }
+        .performance h2, .security h2 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .status-pass { color: #28a745; }
+        .status-fail { color: #dc3545; }
+        .status-skip { color: #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🧪 Voice by Kraliki Test Report</h1>
+            <p>Generated on 9/27/2025, 10:13:56 PM</p>
+        </header>
+
+        <section class="summary">
+            <div class="metric success">
+                <h3>Total Tests</h3>
+                <div class="value">389</div>
+            </div>
+            <div class="metric danger">
+                <h3>Passing</h3>
+                <div class="value">375</div>
+            </div>
+            <div class="metric danger">
+                <h3>Failing</h3>
+                <div class="value">4</div>
+            </div>
+            <div class="metric warning">
+                <h3>Skipped</h3>
+                <div class="value">10</div>
+            </div>
+            <div class="metric info">
+                <h3>Duration</h3>
+                <div class="value">52.3s</div>
+            </div>
+            <div class="metric success">
+                <h3>Coverage</h3>
+                <div class="value">81.5%</div>
+            </div>
+        </section>
+
+        <section class="coverage-grid">
+            
+                <div class="coverage-item">
+                    <h4>Lines</h4>
+                    <div class="coverage-bar">
+                        <div class="coverage-fill coverage-excellent"
+                             style="width: 81.47999999999999%"></div>
+                    </div>
+                    <strong>81.5%</strong>
+                </div>
+            
+                <div class="coverage-item">
+                    <h4>Functions</h4>
+                    <div class="coverage-bar">
+                        <div class="coverage-fill coverage-excellent"
+                             style="width: 85.55399999999999%"></div>
+                    </div>
+                    <strong>85.6%</strong>
+                </div>
+            
+                <div class="coverage-item">
+                    <h4>Branches</h4>
+                    <div class="coverage-bar">
+                        <div class="coverage-fill coverage-good"
+                             style="width: 77.40599999999999%"></div>
+                    </div>
+                    <strong>77.4%</strong>
+                </div>
+            
+                <div class="coverage-item">
+                    <h4>Statements</h4>
+                    <div class="coverage-bar">
+                        <div class="coverage-fill coverage-excellent"
+                             style="width: 83.10959999999999%"></div>
+                    </div>
+                    <strong>83.1%</strong>
+                </div>
+            
+        </section>
+
+        <section class="suites">
+            <h2>📋 Test Suites</h2>
+            
+                <div class="suite">
+                    <div class="suite-header">
+                        <span>Service Layer Unit Tests</span>
+                        <span class="suite-stats">
+                            <span class="status-pass">141 passed</span>
+                            <span class="status-fail">2 failed</span>
+                            <span class="status-skip">2 skipped</span>
+                        </span>
+                    </div>
+                    <div class="suite-content">
+                        <p><strong>Duration:</strong> 15.7s</p>
+                        <p><strong>Coverage:</strong> 91.2% lines</p>
+                    </div>
+                </div>
+            
+                <div class="suite">
+                    <div class="suite-header">
+                        <span>tRPC Router Integration Tests</span>
+                        <span class="suite-stats">
+                            <span class="status-pass">87 passed</span>
+                            <span class="status-fail">1 failed</span>
+                            <span class="status-skip">1 skipped</span>
+                        </span>
+                    </div>
+                    <div class="suite-content">
+                        <p><strong>Duration:</strong> 12.5s</p>
+                        <p><strong>Coverage:</strong> 85.3% lines</p>
+                    </div>
+                </div>
+            
+                <div class="suite">
+                    <div class="suite-header">
+                        <span>Security Tests</span>
+                        <span class="suite-stats">
+                            <span class="status-pass">67 passed</span>
+                            
+                            
+                        </span>
+                    </div>
+                    <div class="suite-content">
+                        <p><strong>Duration:</strong> 8.9s</p>
+                        <p><strong>Coverage:</strong> 89.8% lines</p>
+                    </div>
+                </div>
+            
+                <div class="suite">
+                    <div class="suite-header">
+                        <span>Performance Benchmarks</span>
+                        <span class="suite-stats">
+                            <span class="status-pass">31 passed</span>
+                            
+                            <span class="status-skip">3 skipped</span>
+                        </span>
+                    </div>
+                    <div class="suite-content">
+                        <p><strong>Duration:</strong> 18.2s</p>
+                        <p><strong>Coverage:</strong> 75.4% lines</p>
+                    </div>
+                </div>
+            
+                <div class="suite">
+                    <div class="suite-header">
+                        <span>E2E Critical Flows</span>
+                        <span class="suite-stats">
+                            <span class="status-pass">26 passed</span>
+                            <span class="status-fail">1 failed</span>
+                            <span class="status-skip">1 skipped</span>
+                        </span>
+                    </div>
+                    <div class="suite-content">
+                        <p><strong>Duration:</strong> 45.1s</p>
+                        <p><strong>Coverage:</strong> 68.9% lines</p>
+                    </div>
+                </div>
+            
+                <div class="suite">
+                    <div class="suite-header">
+                        <span>Component Tests (Existing)</span>
+                        <span class="suite-stats">
+                            <span class="status-pass">13 passed</span>
+                            
+                            <span class="status-skip">3 skipped</span>
+                        </span>
+                    </div>
+                    <div class="suite-content">
+                        <p><strong>Duration:</strong> 2.9s</p>
+                        <p><strong>Coverage:</strong> 66.5% lines</p>
+                    </div>
+                </div>
+            
+                <div class="suite">
+                    <div class="suite-header">
+                        <span>API Integration Tests</span>
+                        <span class="suite-stats">
+                            <span class="status-pass">10 passed</span>
+                            
+                            
+                        </span>
+                    </div>
+                    <div class="suite-content">
+                        <p><strong>Duration:</strong> 2.0s</p>
+                        <p><strong>Coverage:</strong> 82.1% lines</p>
+                    </div>
+                </div>
+            
+        </section>
+
+        <section class="performance">
+            <h2>⚡ Performance Metrics</h2>
+            <div class="summary">
+                <div class="metric info">
+                    <h3>Avg Response Time</h3>
+                    <div class="value">165ms</div>
+                </div>
+                <div class="metric info">
+                    <h3>Max Response Time</h3>
+                    <div class="value">1203ms</div>
+                </div>
+                <div class="metric info">
+                    <h3>Throughput</h3>
+                    <div class="value">52.3/s</div>
+                </div>
+                <div class="metric info">
+                    <h3>Memory Usage</h3>
+                    <div class="value">298.7MB</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="security">
+            <h2>🔒 Security Tests</h2>
+            <div class="summary">
+                <div class="metric success">
+                    <h3>Total Tests</h3>
+                    <div class="value">67</div>
+                </div>
+                <div class="metric success">
+                    <h3>Passed</h3>
+                    <div class="value">67</div>
+                </div>
+                <div class="metric success">
+                    <h3>Failed</h3>
+                    <div class="value">0</div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; color: #28a745;"><strong>✅ No security vulnerabilities found</strong></div>
+        </section>
+
+        <footer class="footer">
+            <p>Generated by Voice by Kraliki Test Suite • 2025-09-27T20:13:56.976Z</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+{
+  "slug": "ai-fundamentals-course",
+  "title": "AI Fundamentals: A Complete Beginner's Guide",
+  "description": "Master the fundamentals of Artificial Intelligence from the ground up. This comprehensive course covers AI history, machine learning concepts, business applications, hands-on tool usage, ethics and governance, and your personal AI roadmap. Perfect for beginners, business professionals, and anyone looking to understand AI beyond the hype.",
+  "level": "beginner",
+  "duration_minutes": 480,
+  "is_free": false,
+  "price_eur": 79,
+  "lessons": [
+    {
+      "id": "00-course-overview",
+      "title": "Course Overview and Learning Objectives",
+      "order": 0,
+      "module": 0,
+      "module_name": "Introduction"
+    },
+    {
+      "id": "01-what-is-ai",
+      "title": "What is Artificial Intelligence?",
+      "order": 1,
+      "module": 1,
+      "module_name": "What is AI?"
+    },
+    {
+      "id": "02-history-of-ai",
+      "title": "The History of AI: From Turing to Today",
+      "order": 2,
+      "module": 1,
+      "module_name": "What is AI?"
+    },
+    {
+      "id": "03-types-of-ai",
+      "title": "Types of AI: Narrow, General, and Super",
+      "order": 3,
+      "module": 1,
+      "module_name": "What is AI?"
+    },
+    {
+      "id": "04-current-state",
+      "title": "The Current State of AI in 2025",
+      "order": 4,
+      "module": 1,
+      "module_name": "What is AI?"
+    },
+    {
+      "id": "05-ml-introduction",
+      "title": "Introduction to Machine Learning",
+      "order": 5,
+      "module": 2,
+      "module_name": "Machine Learning Basics"
+    },
+    {
+      "id": "06-supervised-learning",
+      "title": "Supervised Learning: Learning from Examples",
+      "order": 6,
+      "module": 2,
+      "module_name": "Machine Learning Basics"
+    },
+    {
+      "id": "07-unsupervised-learning",
+      "title": "Unsupervised Learning: Finding Hidden Patterns",
+      "order": 7,
+      "module": 2,
+      "module_name": "Machine Learning Basics"
+    },
+    {
+      "id": "08-reinforcement-learning",
+      "title": "Reinforcement Learning: Learning by Doing",
+      "order": 8,
+      "module": 2,
+      "module_name": "Machine Learning Basics"
+    },
+    {
+      "id": "09-neural-networks",
+      "title": "Neural Networks and Deep Learning",
+      "order": 9,
+      "module": 2,
+      "module_name": "Machine Learning Basics"
+    },
+    {
+      "id": "10-ai-business-overview",
+      "title": "AI in Business: The Transformation",
+      "order": 10,
+      "module": 3,
+      "module_name": "AI in Business"
+    },
+    {
+      "id": "11-use-cases",
+      "title": "AI Use Cases Across Industries",
+      "order": 11,
+      "module": 3,
+      "module_name": "AI in Business"
+    },
+    {
+      "id": "12-roi-metrics",
+      "title": "Measuring AI ROI and Success",
+      "order": 12,
+      "module": 3,
+      "module_name": "AI in Business"
+    },
+    {
+      "id": "13-implementation",
+      "title": "Implementing AI in Your Organization",
+      "order": 13,
+      "module": 3,
+      "module_name": "AI in Business"
+    },
+    {
+      "id": "14-prompting-fundamentals",
+      "title": "Prompting Fundamentals",
+      "order": 14,
+      "module": 4,
+      "module_name": "Working with AI Tools"
+    },
+    {
+      "id": "15-chatgpt-claude",
+      "title": "Mastering ChatGPT and Claude",
+      "order": 15,
+      "module": 4,
+      "module_name": "Working with AI Tools"
+    },
+    {
+      "id": "16-image-generation",
+      "title": "AI Image Generation: DALL-E, Midjourney, and Beyond",
+      "order": 16,
+      "module": 4,
+      "module_name": "Working with AI Tools"
+    },
+    {
+      "id": "17-other-tools",
+      "title": "The AI Tool Ecosystem",
+      "order": 17,
+      "module": 4,
+      "module_name": "Working with AI Tools"
+    },
+    {
+      "id": "18-ethics-overview",
+      "title": "AI Ethics: Core Principles",
+      "order": 18,
+      "module": 5,
+      "module_name": "AI Ethics and Governance"
+    },
+    {
+      "id": "19-bias-fairness",
+      "title": "Bias and Fairness in AI Systems",
+      "order": 19,
+      "module": 5,
+      "module_name": "AI Ethics and Governance"
+    },
+    {
+      "id": "20-privacy-security",
+      "title": "Privacy and Security Considerations",
+      "order": 20,
+      "module": 5,
+      "module_name": "AI Ethics and Governance"
+    },
+    {
+      "id": "21-eu-ai-act",
+      "title": "The EU AI Act: What You Need to Know",
+      "order": 21,
+      "module": 5,
+      "module_name": "AI Ethics and Governance"
+    },
+    {
+      "id": "22-self-assessment",
+      "title": "AI Readiness Self-Assessment",
+      "order": 22,
+      "module": 6,
+      "module_name": "Your AI Roadmap"
+    },
+    {
+      "id": "23-planning",
+      "title": "Building Your AI Learning Path",
+      "order": 23,
+      "module": 6,
+      "module_name": "Your AI Roadmap"
+    },
+    {
+      "id": "24-next-steps",
+      "title": "Next Steps and Resources",
+      "order": 24,
+      "module": 6,
+      "module_name": "Your AI Roadmap"
+    }
+  ],
+  "author": "AI Academy Team",
+  "tags": ["ai", "fundamentals", "machine-learning", "business", "ethics", "beginner"],
+  "academy_level": "L1",
+  "preview_lessons": ["00-course-overview", "01-what-is-ai"],
+  "bonuses": [
+    "AI Terminology Glossary (PDF)",
+    "Machine Learning Algorithm Cheat Sheet",
+    "AI Tool Comparison Guide",
+    "EU AI Act Quick Reference",
+    "Personal AI Roadmap Template"
+  ],
+  "learning_outcomes": [
+    "Understand what AI is, its history, and current capabilities",
+    "Explain the three main types of machine learning and when each applies",
+    "Identify AI opportunities and calculate ROI for business applications",
+    "Use ChatGPT, Claude, and image generation tools effectively",
+    "Navigate AI ethics, bias, privacy, and regulatory requirements",
+    "Create a personalized AI learning and implementation roadmap"
+  ],
+  "certification": "AI Fundamentals Certificate",
+  "quizzes_per_module": 5
+}

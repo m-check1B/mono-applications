@@ -1,0 +1,20 @@
+{
+  "status": "failure",
+  "coverage": 81.47999999999999,
+  "tests": {
+    "total": 389,
+    "passed": 375,
+    "failed": 4,
+    "skipped": 10
+  },
+  "performance": {
+    "avgResponseTime": 165,
+    "maxResponseTime": 1203
+  },
+  "security": {
+    "passed": 67,
+    "failed": 0,
+    "vulnerabilities": 0
+  },
+  "timestamp": "2025-09-27T20:13:56.966Z"
+}

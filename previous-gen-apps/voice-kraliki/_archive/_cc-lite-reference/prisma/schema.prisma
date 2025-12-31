@@ -1,0 +1,784 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id          String   @id @default(cuid())
+  name        String
+  domain      String?  @unique
+  settings    Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  users       User[]
+  teams       Team[]
+  campaigns   Campaign[]
+  calls       Call[]
+  ivrInteractions IvrInteraction[]
+  callQueues  CallQueue[]
+
+  @@map("organizations")
+}
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  username        String?   @unique
+  // Removed clerkUserId - migrated to Stack 2025 authentication
+  firstName       String    @map("first_name")
+  lastName        String    @map("last_name")
+  passwordHash    String?   @map("password_hash")
+  role            UserRole
+  status          UserStatus @default(ACTIVE)
+  authProvider    AuthProvider @default(LOCAL) @map("auth_provider")
+  googleId        String?   @unique @map("google_id")
+  googleProfile   Json?     @map("google_profile")
+  emailVerified   Boolean   @default(false) @map("email_verified")
+  skills          String[]
+  department      String?
+  phoneExtension  String?   @map("phone_extension")
+  avatar          String?
+  preferences     Json?
+  organizationId  String?   @map("organization_id")
+  // Payment fields
+  polarCustomerId     String?   @map("polar_customer_id")
+  subscriptionId      String?   @map("subscription_id")
+  subscriptionStatus  String?   @map("subscription_status")
+  subscribedAt        DateTime? @map("subscribed_at")
+  subscriptionEndDate DateTime? @map("subscription_end_date")
+  // BYOK API Keys (encrypted in production)
+  apiKeys             Json?     @map("api_keys")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  lastLoginAt     DateTime? @map("last_login_at")
+  lastActivityAt  DateTime? @map("last_activity_at")
+
+  // Relations
+  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  teamMembers     TeamMember[]
+  sessions        UserSession[]
+  agentCalls      Call[] @relation("AgentCalls")
+  supervisorCalls Call[] @relation("SupervisorCalls")
+  agentSessions   ContactSession[] @relation("AgentSessions")
+  tokenUsage      TokenUsage[]
+  agent           Agent?
+  auditLogs       AuditLog[]
+  recordingAudits RecordingAuditLog[]
+
+  @@map("users")
+}
+
+model Team {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  organizationId  String   @map("organization_id")
+  settings        Json?
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  members         TeamMember[]
+
+  @@map("teams")
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  teamId    String   @map("team_id")
+  role      TeamRole @default(MEMBER)
+  joinedAt  DateTime @default(now()) @map("joined_at")
+
+  // Relations
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team      Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, teamId])
+  @@map("team_members")
+}
+
+model UserSession {
+  id               String    @id @default(cuid())
+  userId           String    @map("user_id")
+  sessionToken     String    @unique @map("session_token")
+  refreshTokenHash String    @unique @map("refresh_token_hash") // Stores SHA-256 hash of refresh token
+  createdAt        DateTime  @default(now()) @map("created_at")
+  expiresAt        DateTime  @map("expires_at")
+  lastActivity     DateTime  @default(now()) @map("last_activity")
+  ipAddress        String?   @map("ip_address")
+  userAgent        String?   @map("user_agent")
+  // Security tracking
+  refreshCount     Int       @default(0) @map("refresh_count") // Track token rotations
+  lastRefreshAt    DateTime? @map("last_refresh_at") // Track last refresh time
+  revokedAt        DateTime? @map("revoked_at") // Manual revocation timestamp
+
+  // Relations
+  user             User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Performance indexes
+  @@index([userId, expiresAt])
+  @@index([userId, createdAt])
+  @@index([expiresAt])
+  @@index([revokedAt])
+
+  @@map("user_sessions")
+}
+
+model Campaign {
+  id              String      @id @default(cuid())
+  name            String
+  description     String?
+  type            CampaignType
+  language        String      @default("en")
+  version         String      @default("1.0.0")
+  active          Boolean     @default(false)
+  organizationId  String      @map("organization_id")
+  instructions    Json        // Campaign script and instructions
+  tools           Json?       // Available tools for this campaign
+  voice           Json?       // Voice settings
+  analytics       Json?       // Analytics configuration
+  metadata        Json?       // Additional campaign metadata
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  sessions        ContactSession[]
+  metrics         CampaignMetric[]
+  calls           Call[]
+  contacts        Contact[]
+
+  @@map("campaigns")
+}
+
+model CampaignMetric {
+  id                    String   @id @default(cuid())
+  campaignId            String   @unique @map("campaign_id")
+  callsHandled          Int      @default(0) @map("calls_handled")
+  successfulCompletions Int      @default(0) @map("successful_completions")
+  averageHandleTime     Float    @default(0) @map("average_handle_time")
+  customerSatisfaction  Float?   @map("customer_satisfaction")
+  toolsUsed             Json     @default("{}") @map("tools_used")
+  errorRate             Float    @default(0) @map("error_rate")
+  lastUsed              DateTime @map("last_used")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  campaign              Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@map("campaign_metrics")
+}
+
+model Call {
+  id               String              @id @default(cuid())
+  providerCallId   String?             @unique @map("twilio_call_sid")
+  fromNumber       String              @map("from_number")
+  toNumber         String              @map("to_number")
+  status           CallStatus          @default(QUEUED)
+  direction        CallDirection
+  provider         TelephonyProvider   @default(TWILIO)
+  organizationId   String     @map("organization_id")
+  agentId          String?    @map("agent_id")
+  supervisorId     String?    @map("supervisor_id")
+  campaignId       String?    @map("campaign_id")
+  contactId        String?    @map("contact_id")
+  startTime        DateTime   @default(now()) @map("start_time")
+  endTime          DateTime?  @map("end_time")
+  duration         Int?       // in seconds
+  recordingUrl     String?    @map("recording_url")
+  disposition      String?    // call outcome
+  notes            String?
+  metadata         Json?
+  createdAt        DateTime   @default(now()) @map("created_at")
+
+  // Relations
+  organization     Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  agent            User?        @relation("AgentCalls", fields: [agentId], references: [id])
+  supervisor       User?        @relation("SupervisorCalls", fields: [supervisorId], references: [id])
+  campaign         Campaign?    @relation(fields: [campaignId], references: [id])
+  contact          Contact?     @relation(fields: [contactId], references: [id])
+  sessions         ContactSession[]
+  transcripts      CallTranscript[]
+  recordings       Recording[]
+  sentimentAnalyses SentimentAnalysis[]
+  conversationSentiment ConversationSentiment?
+  realtimeSentiments RealTimeSentiment[]
+
+  // Performance indexes
+  @@index([organizationId, status])
+  @@index([organizationId, agentId])
+  @@index([organizationId, startTime])
+  @@index([agentId, startTime])
+  @@index([status, startTime])
+  @@map("calls")
+}
+
+enum TelephonyProvider {
+  TWILIO
+  TELNYX
+}
+
+model ContactSession {
+  id                String    @id @default(cuid())
+  callId            String?   @map("call_id")
+  agentId           String    @map("agent_id")
+  campaignId        String?   @map("campaign_id")
+  status            SessionStatus @default(ACTIVE)
+  startTime         DateTime  @default(now()) @map("start_time")
+  endTime           DateTime? @map("end_time")
+  conversationHistory Json    @default("[]") @map("conversation_history")
+  context           Json      @default("{}")
+  metrics           Json      @default("{}") // Session performance metrics
+  recoveryAttempts  Int       @default(0) @map("recovery_attempts")
+  lastRecoveryTime  DateTime? @map("last_recovery_time")
+
+  // Relations
+  call              Call?     @relation(fields: [callId], references: [id])
+  agent             User      @relation("AgentSessions", fields: [agentId], references: [id])
+  campaign          Campaign? @relation(fields: [campaignId], references: [id])
+
+  // Performance indexes
+  @@index([agentId, status])
+  @@index([agentId, startTime])
+  @@index([campaignId, status])
+  @@index([status, startTime])
+
+  @@map("contact_sessions")
+}
+
+model CallTranscript {
+  id        String   @id @default(cuid())
+  callId    String   @map("call_id")
+  role      TranscriptRole
+  content   String
+  timestamp DateTime @default(now())
+  confidence Float?  // Transcription confidence score
+  speakerId  String? @map("speaker_id") // For speaker identification
+  metadata  Json?
+
+  // Relations
+  call      Call @relation(fields: [callId], references: [id], onDelete: Cascade)
+  sentimentAnalyses SentimentAnalysis[]
+
+  @@map("call_transcripts")
+}
+
+// Enums
+enum UserRole {
+  AGENT
+  SUPERVISOR
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  AVAILABLE
+  BREAK
+  OFFLINE
+}
+
+enum TeamRole {
+  MEMBER
+  LEAD
+  SUPERVISOR
+}
+
+enum CampaignType {
+  INBOUND
+  OUTBOUND
+  TRANSFER
+  ESCALATION
+}
+
+enum CallStatus {
+  QUEUED
+  RINGING
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  NO_ANSWER
+  BUSY
+  FAILED
+  CANCELED
+}
+
+enum CallDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum SessionStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ERROR
+}
+
+enum TranscriptRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+model TokenUsage {
+  id           String   @id @default(cuid())
+  userId       String   @map("user_id")
+  provider     String
+  model        String
+  inputTokens  Int      @map("input_tokens")
+  outputTokens Int      @map("output_tokens")
+  credits      Float
+  isByok       Boolean  @default(false) @map("is_byok")
+  timestamp    DateTime @default(now())
+  
+  // Relations
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, timestamp])
+  @@map("token_usage")
+}
+
+model Recording {
+  id                   String           @id @default(cuid())
+  twilioRecordingSid   String?          @unique @map("twilio_recording_sid")
+  url                  String?
+  s3Bucket             String?          @map("s3_bucket")
+  s3Key                String?          @map("s3_key")
+  s3Url                String?          @map("s3_url")
+  duration             Int?             // duration in seconds
+  callId               String           @map("call_id")
+  status               RecordingStatus  @default(PENDING)
+  provider             TelephonyProvider @default(TWILIO)
+
+  // Compliance fields
+  consentGiven         Boolean          @default(false) @map("consent_given")
+  consentTimestamp     DateTime?        @map("consent_timestamp")
+  consentMethod        ConsentMethod?   @map("consent_method")
+  retentionDays        Int              @default(90) @map("retention_days")
+  scheduledDeletion    DateTime?        @map("scheduled_deletion")
+  isEncrypted          Boolean          @default(true) @map("is_encrypted")
+  encryptionKey        String?          @map("encryption_key") // Encrypted key reference
+
+  // PII and compliance
+  containsPii          Boolean          @default(true) @map("contains_pii")
+  complianceFlags      Json?            @map("compliance_flags")
+  auditTrail           Json?            @map("audit_trail")
+
+  // Recording metadata
+  fileSize             Int?             @map("file_size") // in bytes
+  format               String?          @default("wav")
+  sampleRate           Int?             @map("sample_rate") // Hz
+  channels             Int?             @default(1)
+  quality              RecordingQuality? @default(STANDARD)
+
+  createdAt            DateTime         @default(now()) @map("created_at")
+  updatedAt            DateTime         @updatedAt @map("updated_at")
+  deletedAt            DateTime?        @map("deleted_at")
+
+  // Relations
+  call                 Call             @relation(fields: [callId], references: [id], onDelete: Cascade)
+  transcriptions       Transcription[]
+  auditLogs            RecordingAuditLog[]
+
+  // Indexes for compliance queries
+  @@index([callId, status])
+  @@index([scheduledDeletion])
+  @@index([consentGiven, createdAt])
+  @@index([provider, status])
+
+  @@map("recordings")
+}
+
+model Transcription {
+  id                        String    @id @default(cuid())
+  twilioTranscriptionSid    String?   @unique @map("twilio_transcription_sid")
+  text                      String
+  recordingId               String    @map("recording_id")
+  callId                    String    @map("call_id")
+  timestamp                 DateTime  @default(now())
+  createdAt                 DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  recording                 Recording @relation(fields: [recordingId], references: [id])
+  
+  @@map("transcriptions")
+}
+
+model IvrInteraction {
+  id              String    @id @default(cuid())
+  callId          String    @map("call_id")
+  organizationId  String?   @map("organization_id")
+  input           String    // digits or speech result
+  action          String    // the action taken
+  target          String?   // target for redirect/transfer
+  timestamp       DateTime  @default(now())
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  organization    Organization? @relation(fields: [organizationId], references: [id])
+  
+  @@map("ivr_interactions")
+}
+
+model ConferenceEvent {
+  id              String    @id @default(cuid())
+  conferenceSid   String    @map("conference_sid")
+  name            String    // friendly name
+  event           String    // status callback event
+  timestamp       DateTime
+  metadata        Json?
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  @@map("conference_events")
+}
+
+model SmsMessage {
+  id                 String    @id @default(cuid())
+  twilioMessageSid   String    @unique @map("twilio_message_sid")
+  from               String
+  to                 String
+  body               String
+  direction          SmsDirection
+  status             SmsStatus
+  timestamp          DateTime  @default(now())
+  createdAt          DateTime  @default(now()) @map("created_at")
+  
+  @@map("sms_messages")
+}
+
+// Additional enums
+enum SmsDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum SmsStatus {
+  RECEIVED
+  SENT
+  DELIVERED
+  FAILED
+}
+
+enum AuthProvider {
+  LOCAL
+  GOOGLE
+}
+
+// Missing models for TypeScript compilation compatibility
+
+model Agent {
+  id              String    @id @default(cuid())
+  userId          String    @unique @map("user_id")
+  status          AgentStatus @default(OFFLINE)
+  capacity        Int       @default(1) @map("max_capacity")
+  currentLoad     Int       @default(0) @map("current_load")
+  skills          String[]
+  language        String    @default("en")
+  metadata        Json?
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("agents")
+}
+
+model AuditLog {
+  id              String    @id @default(cuid())
+  userId          String?   @map("user_id")
+  action          String
+  resourceType    String    @map("resource_type")
+  resourceId      String    @map("resource_id")
+  details         Json?
+  ipAddress       String?   @map("ip_address")
+  userAgent       String?   @map("user_agent")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  user            User?     @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model CallQueue {
+  id              String    @id @default(cuid())
+  organizationId  String?   @map("organization_id")
+  name            String
+  priority        QueuePriority @default(MEDIUM)
+  status          QueueStatus @default(ACTIVE)
+  maxWaitTime     Int       @default(300) @map("max_wait_time") // seconds
+  estimatedWait   Int?      @map("estimated_wait") // seconds
+  metadata        Json?
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("call_queues")
+}
+
+// Additional enums for the new models
+enum AgentStatus {
+  OFFLINE
+  AVAILABLE
+  BUSY
+  BREAK
+  TRAINING
+}
+
+enum QueuePriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum QueueStatus {
+  ACTIVE
+  PAUSED
+  CLOSED
+}
+
+model Contact {
+  id              String    @id @default(cuid())
+  campaignId      String    @map("campaign_id")
+  phoneNumber     String    @map("phone_number")
+  name            String?
+  email           String?
+  status          ContactStatus @default(PENDING)
+  attempts        Int       @default(0)
+  lastAttempt     DateTime? @map("last_attempt")
+  nextAttempt     DateTime? @map("next_attempt")
+  outcome         String?
+  notes           String?
+  metadata        Json?
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  campaign        Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  calls           Call[]
+
+  // Indexes
+  @@index([campaignId, status])
+  @@index([campaignId, phoneNumber])
+  @@index([phoneNumber])
+  @@map("contacts")
+}
+
+enum ContactStatus {
+  PENDING
+  DIALING
+  CONNECTED
+  COMPLETED
+  FAILED
+  SCHEDULED
+  DO_NOT_CALL
+}
+
+// New enums for recording functionality
+enum RecordingStatus {
+  PENDING
+  RECORDING
+  PAUSED
+  COMPLETED
+  PROCESSING
+  UPLOADED
+  FAILED
+  DELETED
+  ARCHIVED
+}
+
+enum ConsentMethod {
+  VERBAL
+  WRITTEN
+  DIGITAL
+  IMPLIED
+  OPT_IN
+  OPT_OUT
+}
+
+enum RecordingQuality {
+  LOW        // 8kHz mono
+  STANDARD   // 16kHz mono
+  HIGH       // 44.1kHz stereo
+  LOSSLESS   // Uncompressed
+}
+
+// New model for recording audit trail
+model RecordingAuditLog {
+  id            String    @id @default(cuid())
+  recordingId   String    @map("recording_id")
+  userId        String?   @map("user_id")
+  action        RecordingAction
+  details       Json?
+  ipAddress     String?   @map("ip_address")
+  userAgent     String?   @map("user_agent")
+  timestamp     DateTime  @default(now())
+
+  // Relations
+  recording     Recording @relation(fields: [recordingId], references: [id], onDelete: Cascade)
+  user          User?     @relation(fields: [userId], references: [id])
+
+  @@index([recordingId, timestamp])
+  @@index([action, timestamp])
+  @@map("recording_audit_logs")
+}
+
+enum RecordingAction {
+  STARTED
+  PAUSED
+  RESUMED
+  STOPPED
+  UPLOADED
+  DOWNLOADED
+  ACCESSED
+  SHARED
+  DELETED
+  CONSENT_GIVEN
+  CONSENT_REVOKED
+  RETENTION_UPDATED
+  ENCRYPTION_APPLIED
+}
+
+// Sentiment Analysis Models
+model SentimentAnalysis {
+  id              String    @id @default(cuid())
+  callId          String    @map("call_id")
+  transcriptId    String?   @map("transcript_id")
+  sessionId       String?   @map("session_id")
+  overall         SentimentType
+  confidence      Float     // 0.0 to 1.0
+  intensity       Float     // 0.0 to 1.0
+  trend           SentimentTrend
+  context         Json?     // conversation context
+  metadata        Json?     // processing metadata
+  timestamp       DateTime  @default(now())
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  call            Call      @relation(fields: [callId], references: [id], onDelete: Cascade)
+  transcript      CallTranscript? @relation(fields: [transcriptId], references: [id])
+  emotions        EmotionDetection[]
+  triggers        SentimentTrigger[]
+
+  @@index([callId, timestamp])
+  @@index([overall, confidence])
+  @@index([sessionId, timestamp])
+  @@map("sentiment_analyses")
+}
+
+model EmotionDetection {
+  id                  String    @id @default(cuid())
+  sentimentAnalysisId String    @map("sentiment_analysis_id")
+  emotion             EmotionType
+  intensity           Float     // 0.0 to 1.0
+  confidence          Float     // 0.0 to 1.0
+  indicators          String[]  // words/phrases that triggered this emotion
+  duration            Int?      // in seconds
+  timestamp           DateTime  @default(now())
+
+  // Relations
+  sentimentAnalysis   SentimentAnalysis @relation(fields: [sentimentAnalysisId], references: [id], onDelete: Cascade)
+
+  @@map("emotion_detections")
+}
+
+model SentimentTrigger {
+  id                  String    @id @default(cuid())
+  sentimentAnalysisId String    @map("sentiment_analysis_id")
+  type                SentimentType
+  trigger             String    // the word/phrase that triggered sentiment
+  impact              Float     // -1.0 to 1.0
+  context             String?   // surrounding context
+  timestamp           DateTime  @default(now())
+
+  // Relations
+  sentimentAnalysis   SentimentAnalysis @relation(fields: [sentimentAnalysisId], references: [id], onDelete: Cascade)
+
+  @@map("sentiment_triggers")
+}
+
+model ConversationSentiment {
+  id                String    @id @default(cuid())
+  callId            String    @unique @map("call_id")
+  sessionId         String?   @map("session_id")
+  overallSentiment  SentimentType
+  sentimentScore    Float     // aggregate sentiment score
+  emotionalJourney  Json      // sentiment progression over time
+  criticalMoments   Json      // moments of significant sentiment change
+  recommendations   String[]  // generated coaching recommendations
+  summary           String?   // AI-generated sentiment summary
+  processingVersion String    @default("1.0") @map("processing_version")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  call              Call      @relation(fields: [callId], references: [id], onDelete: Cascade)
+
+  @@map("conversation_sentiments")
+}
+
+model RealTimeSentiment {
+  id                  String    @id @default(cuid())
+  sessionId           String    @unique @map("session_id")
+  callId              String?   @map("call_id")
+  currentSentiment    SentimentType @map("current_sentiment")
+  sentimentHistory    Json      @default("[]") @map("sentiment_history")
+  emotionalState      Json      @default("{}") @map("emotional_state")
+  alerts              Json      @default("[]") // active alerts
+  recommendations     String[]  // real-time recommendations
+  lastUpdate          DateTime  @default(now()) @map("last_update")
+  isActive            Boolean   @default(true) @map("is_active")
+
+  // Relations
+  call                Call?     @relation(fields: [callId], references: [id])
+
+  @@index([sessionId, isActive])
+  @@index([callId, isActive])
+  @@map("realtime_sentiments")
+}
+
+// Sentiment Enums
+enum SentimentType {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+}
+
+enum SentimentTrend {
+  IMPROVING
+  DECLINING
+  STABLE
+}
+
+enum EmotionType {
+  JOY
+  SADNESS
+  ANGER
+  FEAR
+  SURPRISE
+  DISGUST
+  TRUST
+  ANTICIPATION
+  FRUSTRATION
+  SATISFACTION
+  CONFUSION
+  EXCITEMENT
+}

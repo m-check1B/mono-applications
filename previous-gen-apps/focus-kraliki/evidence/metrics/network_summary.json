@@ -1,0 +1,80 @@
+{
+  "testing_date": "2025-11-16",
+  "testing_agent": "Testing Agent 2",
+  "personas_tested": [
+    {
+      "persona": "Operations Lead (Calendar Power User)",
+      "user_account": "sim.ops.lead@example.com",
+      "external_api_calls": {
+        "google_oauth": {
+          "attempted": true,
+          "result": "503 Service Unavailable",
+          "reason": "Google OAuth credentials not configured in backend/.env",
+          "evidence": "Expected gap - testing environment limitation"
+        },
+        "ai_services": {
+          "gemini": false,
+          "openai": false,
+          "anthropic": false,
+          "note": "No AI features enabled for this persona test"
+        }
+      },
+      "backend_api_calls": {
+        "total_requests": 8,
+        "successful": 5,
+        "failed": 3,
+        "average_response_time_ms": 150,
+        "endpoints_tested": [
+          "/onboarding/personas",
+          "/onboarding/select-persona",
+          "/onboarding/privacy-preferences",
+          "/onboarding/complete",
+          "/calendar-sync/oauth/init",
+          "/calendar-sync/status",
+          "/calendar-sync/sync",
+          "/auth/me"
+        ]
+      }
+    },
+    {
+      "persona": "Offline-First Analyst",
+      "user_account": "sim.offline.analyst@example.com",
+      "external_api_calls": {
+        "ai_services": {
+          "gemini": false,
+          "openai": false,
+          "anthropic": false,
+          "ii_agent": {
+            "enabled_in_preferences": true,
+            "session_started": false,
+            "reason": "WebSocket testing requires browser environment"
+          }
+        }
+      },
+      "backend_api_calls": {
+        "total_requests": 5,
+        "successful": 4,
+        "failed": 1,
+        "average_response_time_ms": 120,
+        "endpoints_tested": [
+          "/onboarding/select-persona",
+          "/onboarding/privacy-preferences",
+          "/onboarding/complete",
+          "/agent/sessions",
+          "/auth/me"
+        ]
+      },
+      "websocket_connections": {
+        "attempted": false,
+        "reason": "Requires browser environment for offline simulation"
+      }
+    }
+  ],
+  "summary": {
+    "total_backend_requests": 13,
+    "total_external_api_calls": 0,
+    "google_oauth_configured": false,
+    "ai_services_used": false,
+    "privacy_validation": "PASS - No unintended external API calls detected"
+  }
+}

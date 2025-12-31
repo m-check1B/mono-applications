@@ -1,0 +1,12 @@
+{
+  "test": "004-google-oauth-flow",
+  "url": "https://focus.verduona.dev/login",
+  "timestamp": "2025-12-26T14:28:49.152203",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "playwright-results-full-20251226//004-google-oauth-flow.png",
+  "page_title": "",
+  "errors": [
+    "Connecting to 'https://analytics.verduona.com/api/event' violates the following Content Security Policy directive: \"connect-src 'self'\". The action has been blocked."
+  ]
+}

@@ -1,0 +1,602 @@
+name: Test Automation Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  # Unit and Integration Tests
+  test-unit:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: cc_light_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - name: Setup pnpm cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Setup test environment
+      run: |
+        cp .env.example .env.test
+        echo "DATABASE_URL=postgresql://test_user:test_password@localhost:5432/cc_light_test" >> .env.test
+        echo "REDIS_URL=redis://localhost:6379" >> .env.test
+        echo "NODE_ENV=test" >> .env.test
+
+    - name: Run database migrations
+      run: pnpm prisma migrate deploy
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+
+    - name: Generate Prisma client
+      run: pnpm prisma generate
+
+    - name: Run TypeScript check
+      run: pnpm typecheck
+
+    - name: Run ESLint
+      run: pnpm lint
+
+    - name: Run unit tests
+      run: pnpm test:unit:security:coverage
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+        REDIS_URL: redis://localhost:6379
+
+    - name: Run integration tests
+      run: pnpm test:integration
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+        REDIS_URL: redis://localhost:6379
+
+    - name: Run component tests
+      run: pnpm test:components
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+
+    - name: Run hooks tests
+      run: pnpm test:hooks
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+
+    - name: Generate coverage report
+      run: pnpm test:coverage:all
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+        REDIS_URL: redis://localhost:6379
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage/lcov.info
+        fail_ci_if_error: true
+
+    - name: Archive test artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: |
+          coverage/
+          test-results.json
+
+  # End-to-End Tests
+  test-e2e:
+    name: End-to-End Tests
+    runs-on: ubuntu-latest
+    needs: test-unit
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: cc_light_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Setup test environment
+      run: |
+        cp .env.example .env.test
+        echo "DATABASE_URL=postgresql://test_user:test_password@localhost:5432/cc_light_test" >> .env.test
+        echo "REDIS_URL=redis://localhost:6379" >> .env.test
+        echo "NODE_ENV=test" >> .env.test
+
+    - name: Run database migrations
+      run: pnpm prisma migrate deploy
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+
+    - name: Build application
+      run: pnpm build
+
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps
+
+    - name: Start application for E2E tests
+      run: |
+        pnpm start:server &
+        pnpm preview &
+        sleep 30
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+        REDIS_URL: redis://localhost:6379
+        PORT: 3007
+
+    - name: Run E2E tests
+      run: pnpm test:e2e
+      env:
+        CI: true
+
+    - name: Run accessibility tests
+      run: pnpm test:accessibility
+
+    - name: Run visual regression tests
+      run: pnpm test:visual
+
+    - name: Run mobile responsive tests
+      run: pnpm test:e2e:mobile
+
+    - name: Archive E2E artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: e2e-results
+        path: |
+          playwright-report/
+          test-results/
+          screenshots/
+
+  # Performance Tests
+  test-performance:
+    name: Performance Tests
+    runs-on: ubuntu-latest
+    needs: test-unit
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: cc_light_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Setup test environment
+      run: |
+        cp .env.example .env.test
+        echo "DATABASE_URL=postgresql://test_user:test_password@localhost:5432/cc_light_test" >> .env.test
+        echo "REDIS_URL=redis://localhost:6379" >> .env.test
+        echo "NODE_ENV=test" >> .env.test
+
+    - name: Run database migrations
+      run: pnpm prisma migrate deploy
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+
+    - name: Build application
+      run: pnpm build
+
+    - name: Start application for performance tests
+      run: |
+        pnpm start:server &
+        sleep 30
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+        REDIS_URL: redis://localhost:6379
+        PORT: 3010
+
+    - name: Install k6
+      run: |
+        sudo gpg -k
+        sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+        echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+        sudo apt-get update
+        sudo apt-get install k6
+
+    - name: Run performance tests
+      run: |
+        k6 run tests/performance/k6-load-testing.js
+      env:
+        BASE_URL: http://127.0.0.1:3010
+        WS_URL: ws://127.0.0.1:3010/ws
+
+    - name: Run lighthouse audit
+      run: pnpm perf:lighthouse
+
+    - name: Archive performance artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: performance-results
+        path: |
+          performance-report.json
+          performance-summary.txt
+          lighthouse-report.html
+
+  # Security Tests
+  test-security:
+    name: Security Tests
+    runs-on: ubuntu-latest
+    needs: test-unit
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: cc_light_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Setup test environment
+      run: |
+        cp .env.example .env.test
+        echo "DATABASE_URL=postgresql://test_user:test_password@localhost:5432/cc_light_test" >> .env.test
+        echo "REDIS_URL=redis://localhost:6379" >> .env.test
+        echo "NODE_ENV=test" >> .env.test
+
+    - name: Run database migrations
+      run: pnpm prisma migrate deploy
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+
+    - name: Run security tests
+      run: pnpm test:security:coverage
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/cc_light_test
+        REDIS_URL: redis://localhost:6379
+
+    - name: Run dependency audit
+      run: pnpm audit --audit-level high
+
+    - name: Run SAST with Semgrep
+      uses: returntocorp/semgrep-action@v1
+      with:
+        config: >-
+          p/security-audit
+          p/secrets
+          p/javascript
+          p/typescript
+
+    - name: Archive security artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-results
+        path: |
+          security-test-results.json
+          semgrep-report.json
+
+  # Code Quality
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Run SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    - name: Run CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        languages: javascript
+
+  # Deployment Checks
+  deployment-checks:
+    name: Deployment Readiness
+    runs-on: ubuntu-latest
+    needs: [test-unit, test-e2e, test-performance, test-security]
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Validate environment configuration
+      run: pnpm env:validate:production
+
+    - name: Check production build
+      run: pnpm build:production
+
+    - name: Validate startup
+      run: pnpm startup:validate:quick
+
+    - name: Security hardening check
+      run: |
+        # Check for production security configurations
+        if [ ! -f "nginx/voice-kraliki-optimized.conf" ]; then
+          echo "Missing production nginx configuration"
+          exit 1
+        fi
+
+    - name: Generate deployment artifact
+      run: |
+        tar -czf voice-kraliki-deployment.tar.gz \
+          dist/ \
+          server/ \
+          prisma/ \
+          package.json \
+          pnpm-lock.yaml \
+          ecosystem.config.cjs \
+          docker-compose.production.yml
+
+    - name: Upload deployment artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: deployment-package
+        path: voice-kraliki-deployment.tar.gz
+
+  # Truth Score Calculation
+  truth-score:
+    name: Calculate Truth Score
+    runs-on: ubuntu-latest
+    needs: [test-unit, test-e2e, test-performance, test-security]
+    if: always()
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Download test artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: ./test-artifacts/
+
+    - name: Calculate Truth Score
+      run: pnpm truth-score:calculate --json > truth-score.json
+
+    - name: Generate Truth Dashboard
+      run: pnpm truth-dashboard
+
+    - name: Upload Truth Score
+      uses: actions/upload-artifact@v3
+      with:
+        name: truth-score
+        path: |
+          truth-score.json
+          truth-dashboard.html
+
+    - name: Comment Truth Score on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const truthScore = JSON.parse(fs.readFileSync('truth-score.json', 'utf8'));
+
+          const comment = `## 🎯 Truth Score: ${truthScore.overall}%
+
+          | Category | Score | Status |
+          |----------|-------|--------|
+          | Tests | ${truthScore.tests}% | ${truthScore.tests >= 90 ? '✅' : '❌'} |
+          | Coverage | ${truthScore.coverage}% | ${truthScore.coverage >= 85 ? '✅' : '❌'} |
+          | Performance | ${truthScore.performance}% | ${truthScore.performance >= 90 ? '✅' : '❌'} |
+          | Security | ${truthScore.security}% | ${truthScore.security >= 95 ? '✅' : '❌'} |
+
+          ${truthScore.overall >= 90 ? '🎉 Excellent truth score!' : '⚠️ Truth score needs improvement'}
+          `;
+
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+
+# Notification on test failures
+  notify-failures:
+    name: Notify Test Failures
+    runs-on: ubuntu-latest
+    needs: [test-unit, test-e2e, test-performance, test-security]
+    if: failure()
+
+    steps:
+    - name: Send notification
+      uses: 8398a7/action-slack@v3
+      with:
+        status: failure
+        text: 'Voice by Kraliki test suite failed! Check the workflow for details.'
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

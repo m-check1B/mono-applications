@@ -1,0 +1,10 @@
+{
+  "test": "beta-linear-after-origin",
+  "url": "https://beta.kraliki.com/linear",
+  "timestamp": "2025-12-29T22:39:19.139209",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/e2e-tests/playwright-results/beta-2025-12-29/beta-linear-after-origin.png",
+  "page_title": "Kraliki Swarm",
+  "errors": []
+}

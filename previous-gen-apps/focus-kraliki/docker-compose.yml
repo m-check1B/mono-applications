@@ -1,0 +1,221 @@
+# Focus by Kraliki - Docker Compose with Traefik Beta Integration
+# Beta URL: focus.verduona.dev
+
+networks:
+  websites_default:
+    external: true
+  focus_kraliki-network:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: focus-kraliki-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: focus_kraliki
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    # No external port exposure for security
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    user: postgres
+    networks:
+      - focus_kraliki-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: focus-kraliki-redis
+    restart: unless-stopped
+    command: >
+      redis-server
+      --requirepass ${REDIS_PASSWORD}
+      --rename-command FLUSHALL ""
+      --rename-command FLUSHDB ""
+      --rename-command KEYS ""
+      --rename-command CONFIG ""
+    # NO ports exposed - Redis is internal only (German authorities compliance)
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "auth", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    security_opt:
+      - no-new-privileges:true
+    user: redis
+    read_only: true
+    networks:
+      - focus_kraliki-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: focus-kraliki-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD}@postgres:5432/focus_kraliki
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      DEEPGRAM_API_KEY: ${DEEPGRAM_API_KEY:-}
+      DEEPGRAM_MODEL: ${DEEPGRAM_MODEL:-nova-2-general}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_AUDIO_MODEL: ${GEMINI_AUDIO_MODEL:-gemini-2.5-flash-native-audio-preview-09-2025}
+      OPENAI_REALTIME_API_KEY: ${OPENAI_REALTIME_API_KEY:-}
+      OPENAI_REALTIME_MODEL: ${OPENAI_REALTIME_MODEL:-gpt-4o-realtime-preview-2024-12-17}
+      OPENAI_TTS_MODEL: ${OPENAI_TTS_MODEL:-gpt-4o-mini-tts}
+      JWT_SECRET: ${JWT_SECRET}
+      SESSION_SECRET: ${JWT_SECRET}
+      # Stripe configuration
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      STRIPE_PRICE_ID_MONTHLY: ${STRIPE_PRICE_ID_MONTHLY:-}
+      STRIPE_PRICE_ID_YEARLY: ${STRIPE_PRICE_ID_YEARLY:-}
+      FRONTEND_URL: ${FRONTEND_URL:-https://focus.kraliki.com}
+      PORT: 3017
+      HOST: 0.0.0.0
+      DEBUG: ${DEBUG:-false}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:5175,http://127.0.0.1:5175,https://focus.kraliki.com,https://focus.verduona.dev,https://focus.verduona.com}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - websites_default
+      - focus_kraliki-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3017/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=websites_default"
+      # Strip /api prefix middleware
+      - "traefik.http.middlewares.focus-strip-api.stripprefix.prefixes=/api"
+      # Production API routes (focus.kraliki.com, focus.verduona.com)
+      - "traefik.http.routers.focus-api.rule=Host(`focus.kraliki.com`,`focus.verduona.com`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.focus-api.entrypoints=websecure"
+      - "traefik.http.routers.focus-api.tls=true"
+      - "traefik.http.routers.focus-api.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-api.priority=100"
+      - "traefik.http.routers.focus-api.middlewares=focus-strip-api"
+      # Production Health route
+      - "traefik.http.routers.focus-health.rule=Host(`focus.kraliki.com`,`focus.verduona.com`) && PathPrefix(`/health`)"
+      - "traefik.http.routers.focus-health.entrypoints=websecure"
+      - "traefik.http.routers.focus-health.tls=true"
+      - "traefik.http.routers.focus-health.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-health.priority=100"
+      # Beta API routes (focus.verduona.dev)
+      - "traefik.http.routers.focus-api-beta.rule=Host(`focus.verduona.dev`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.focus-api-beta.entrypoints=websecure"
+      - "traefik.http.routers.focus-api-beta.tls=true"
+      - "traefik.http.routers.focus-api-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-api-beta.priority=100"
+      - "traefik.http.routers.focus-api-beta.middlewares=focus-strip-api"
+      # Beta Health route
+      - "traefik.http.routers.focus-health-beta.rule=Host(`focus.verduona.dev`) && PathPrefix(`/health`)"
+      - "traefik.http.routers.focus-health-beta.entrypoints=websecure"
+      - "traefik.http.routers.focus-health-beta.tls=true"
+      - "traefik.http.routers.focus-health-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-health-beta.priority=100"
+      # Production Webhook routes (focus.kraliki.com, focus.verduona.com) - VD-405 fix
+      - "traefik.http.routers.focus-webhooks.rule=Host(`focus.kraliki.com`,`focus.verduona.com`) && PathPrefix(`/webhooks`)"
+      - "traefik.http.routers.focus-webhooks.entrypoints=websecure"
+      - "traefik.http.routers.focus-webhooks.tls=true"
+      - "traefik.http.routers.focus-webhooks.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-webhooks.priority=100"
+      # Production Calendar-sync webhook (focus.kraliki.com, focus.verduona.com)
+      - "traefik.http.routers.focus-calendar-webhook.rule=Host(`focus.kraliki.com`,`focus.verduona.com`) && PathPrefix(`/calendar-sync`)"
+      - "traefik.http.routers.focus-calendar-webhook.entrypoints=websecure"
+      - "traefik.http.routers.focus-calendar-webhook.tls=true"
+      - "traefik.http.routers.focus-calendar-webhook.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-calendar-webhook.priority=100"
+      # Beta Webhook routes (focus.verduona.dev) - VD-405 fix
+      - "traefik.http.routers.focus-webhooks-beta.rule=Host(`focus.verduona.dev`) && PathPrefix(`/webhooks`)"
+      - "traefik.http.routers.focus-webhooks-beta.entrypoints=websecure"
+      - "traefik.http.routers.focus-webhooks-beta.tls=true"
+      - "traefik.http.routers.focus-webhooks-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-webhooks-beta.priority=100"
+      # Beta Calendar-sync webhook (focus.verduona.dev)
+      - "traefik.http.routers.focus-calendar-webhook-beta.rule=Host(`focus.verduona.dev`) && PathPrefix(`/calendar-sync`)"
+      - "traefik.http.routers.focus-calendar-webhook-beta.entrypoints=websecure"
+      - "traefik.http.routers.focus-calendar-webhook-beta.tls=true"
+      - "traefik.http.routers.focus-calendar-webhook-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-calendar-webhook-beta.priority=100"
+      # Production II-Agent webhook (focus.kraliki.com, focus.verduona.com) - VD-562
+      - "traefik.http.routers.focus-agent-webhook.rule=Host(`focus.kraliki.com`,`focus.verduona.com`) && PathPrefix(`/agent-sessions`)"
+      - "traefik.http.routers.focus-agent-webhook.entrypoints=websecure"
+      - "traefik.http.routers.focus-agent-webhook.tls=true"
+      - "traefik.http.routers.focus-agent-webhook.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-agent-webhook.priority=100"
+      # Beta II-Agent webhook (focus.verduona.dev) - VD-562
+      - "traefik.http.routers.focus-agent-webhook-beta.rule=Host(`focus.verduona.dev`) && PathPrefix(`/agent-sessions`)"
+      - "traefik.http.routers.focus-agent-webhook-beta.entrypoints=websecure"
+      - "traefik.http.routers.focus-agent-webhook-beta.tls=true"
+      - "traefik.http.routers.focus-agent-webhook-beta.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.focus-agent-webhook-beta.priority=100"
+      - "traefik.http.services.focus-backend.loadbalancer.server.port=3017"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: focus-kraliki-frontend
+    restart: unless-stopped
+    environment:
+      PUBLIC_API_URL: ${PUBLIC_API_URL?PUBLIC_API_URL required}
+      NODE_ENV: production
+    depends_on:
+      - backend
+    networks:
+      - websites_default
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:5175/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      # Production (focus.kraliki.com, focus.verduona.com)
+      - "traefik.http.routers.focus-frontend.rule=Host(`focus.kraliki.com`,`focus.verduona.com`)"
+      - "traefik.http.routers.focus-frontend.entrypoints=websecure"
+      - "traefik.http.routers.focus-frontend.tls=true"
+      - "traefik.http.routers.focus-frontend.tls.certresolver=letsencrypt"
+      # Production HTTP redirect
+      - "traefik.http.routers.focus-frontend-http.rule=Host(`focus.kraliki.com`,`focus.verduona.com`)"
+      - "traefik.http.routers.focus-frontend-http.entrypoints=web"
+      - "traefik.http.routers.focus-frontend-http.middlewares=redirect-to-https@docker"
+      # Beta (focus.verduona.dev)
+      - "traefik.http.routers.focus-frontend-beta.rule=Host(`focus.verduona.dev`)"
+      - "traefik.http.routers.focus-frontend-beta.entrypoints=websecure"
+      - "traefik.http.routers.focus-frontend-beta.tls=true"
+      - "traefik.http.routers.focus-frontend-beta.tls.certresolver=letsencrypt"
+      # Beta HTTP redirect
+      - "traefik.http.routers.focus-frontend-beta-http.rule=Host(`focus.verduona.dev`)"
+      - "traefik.http.routers.focus-frontend-beta-http.entrypoints=web"
+      - "traefik.http.routers.focus-frontend-beta-http.middlewares=redirect-to-https@docker"
+      - "traefik.http.services.focus-frontend.loadbalancer.server.port=5175"
+
+volumes:
+  postgres_data:
+  redis_data:

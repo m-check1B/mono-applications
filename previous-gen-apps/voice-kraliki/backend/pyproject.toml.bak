@@ -1,0 +1,83 @@
+[project]
+name = "operator-demo-2026-backend"
+version = "1.0.0"
+description = "Consolidated backend for operator-demo-2026 with newest October 11, 2025 evening version"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.6.0",
+    "httpx>=0.27.0",
+    "websockets>=13.0",
+    "cryptography>=41.0.0",
+    "pyjwt[crypto]>=2.8.0",
+    "passlib[bcrypt]>=1.7.4",
+    "psycopg2-binary>=2.9.0",
+    "email-validator>=2.1.0",
+    "sqlalchemy>=2.0.0",
+    "boto3>=1.34.0",
+    "botocore>=1.34.0",
+    "azure-storage-blob>=12.20.0",
+    # Voice core packages (install via: pip install -e ../packages/voice-core)
+    # "voice-core",  # Uncomment when installed
+    "slowapi>=0.1.9",
+    "redis>=7.1.0",
+    "prometheus-client>=0.23.1",
+    "deepgram-sdk>=3.0.0,<4.0.0",
+    "python-multipart>=0.0.21",
+    "pytz>=2025.2",
+    "stripe>=14.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "coverage[toml]>=7.6.0",
+    "httpx>=0.27.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "-v",
+    "--strict-markers",
+]
+asyncio_mode = "auto"
+markers = [
+    "unit: Unit tests for isolated components",
+    "integration: Integration tests for component interactions",
+    "e2e: End-to-end tests for complete workflows",
+    "slow: Tests that take a long time to run",
+    "requires_external: Tests that require external services",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__init__.py",
+    "*/conftest.py",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+    "@abc.abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"

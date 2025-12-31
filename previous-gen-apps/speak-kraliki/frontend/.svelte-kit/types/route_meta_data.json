@@ -1,0 +1,19 @@
+{
+	"/": [],
+	"/auth/sso": [
+		"src/routes/auth/sso/+server.ts"
+	],
+	"/auth/sso/callback": [
+		"src/routes/auth/sso/callback/+server.ts"
+	],
+	"/dashboard": [],
+	"/dashboard/actions": [],
+	"/dashboard/alerts": [],
+	"/dashboard/employees": [],
+	"/dashboard/settings": [],
+	"/dashboard/surveys": [],
+	"/login": [],
+	"/register": [],
+	"/v/[token]": [],
+	"/v/[token]/transcript": []
+}

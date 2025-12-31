@@ -1,0 +1,10 @@
+{
+  "test": "001-landing-page-core",
+  "url": "http://127.0.0.1:3099/landing-page.html",
+  "timestamp": "2025-12-25T12:20:12.547955",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/magic-box/e2e-tests/playwright-results//001-landing-page-core.png",
+  "page_title": "Magic Box Pro - 16\u00d7 Productivity, Packaged",
+  "errors": []
+}

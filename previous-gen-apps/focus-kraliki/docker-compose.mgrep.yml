@@ -1,0 +1,48 @@
+services:
+  # Infinity inference server running Mixedbread embedding + reranking models (CPU mode)
+  infinity:
+    image: michaelf34/infinity:latest
+    container_name: focus-kraliki-infinity
+    ports:
+      - "127.0.0.1:7998:7997"
+    volumes:
+      - ./data/mgrep-infinity-cache:/app/.cache
+    command: >
+      v2
+      --model-id mixedbread-ai/mxbai-embed-large-v1
+      --model-id mixedbread-ai/mxbai-rerank-large-v1
+      --engine torch
+      --device cpu
+      --port 7997
+      --host 0.0.0.0
+    environment:
+      - HF_HOME=/app/.cache
+    restart: unless-stopped
+
+  # Local vector store using Qdrant
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: focus-kraliki-qdrant
+    ports:
+      - "127.0.0.1:6339:6333"
+      - "127.0.0.1:6340:6334"
+    volumes:
+      - ./data/qdrant-storage:/qdrant/storage
+    restart: unless-stopped
+
+  # Simple API wrapper that implements Mixedbread-like API
+  mgrep-backend:
+    build:
+      context: /home/adminmatej/github/tools/mgrep-selfhosted/backend
+      dockerfile: Dockerfile
+    container_name: focus-kraliki-mgrep-backend
+    ports:
+      - "127.0.0.1:8002:8000"
+    environment:
+      - INFINITY_URL=http://infinity:7997
+      - QDRANT_URL=http://qdrant:6333
+      - NODE_ENV=production
+    depends_on:
+      - infinity
+      - qdrant
+    restart: unless-stopped

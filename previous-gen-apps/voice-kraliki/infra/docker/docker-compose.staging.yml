@@ -1,0 +1,142 @@
+services:
+  # PostgreSQL database for session persistence
+  postgres:
+    image: postgres:16-alpine
+    container_name: operator-demo-postgres-staging
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: operator_demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: staging-db-123
+    volumes:
+      - postgres_staging_data:/var/lib/postgresql/data
+      - ./backups:/backups
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - operator-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Redis for caching and pub/sub
+  redis:
+    image: redis:7-alpine
+    container_name: operator-demo-redis-staging
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass staging-redis-123
+    volumes:
+      - redis_staging_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - operator-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: operator-demo-backend-staging
+    restart: unless-stopped
+    env_file:
+      - .env.staging
+    environment:
+      # Override with staging-specific values
+      DATABASE_URL: postgresql://postgres:staging-db-123@postgres:5432/operator_demo
+      REDIS_URL: redis://:staging-redis-123@redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - operator-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # SvelteKit Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        PUBLIC_API_BASE_URL: https://staging-api.operator-demo-2026.com
+        PRIVATE_API_BASE_URL: http://backend:8000
+        VITE_WS_URL: wss://staging-api.operator-demo-2026.com
+    container_name: operator-demo-frontend-staging
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      PUBLIC_API_BASE_URL: https://staging-api.operator-demo-2026.com
+      PUBLIC_EXTERNAL_API_BASE_URL: https://staging-api.operator-demo-2026.com
+      PRIVATE_API_BASE_URL: http://backend:8000
+      VITE_WS_URL: wss://staging-api.operator-demo-2026.com
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/', (r) => {process.exit(r.statusCode >= 200 && r.statusCode < 400 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - operator-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Qdrant vector database
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: operator-demo-qdrant-staging
+    restart: unless-stopped
+    volumes:
+      - qdrant_staging_storage:/qdrant/storage
+    healthcheck:
+      disable: true
+    networks:
+      - operator-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  operator-network:
+    driver: bridge
+
+volumes:
+  postgres_staging_data:
+    driver: local
+  redis_staging_data:
+    driver: local
+  qdrant_staging_storage:
+    driver: local

@@ -1,0 +1,102 @@
+# Docker ignore file
+# SECURITY: Prevents sensitive files from being included in Docker build context
+
+# === CRITICAL: Environment & Secrets ===
+.env
+.env.*
+*.env
+secrets/
+*.pem
+*.key
+*.crt
+
+# === Git & Version Control ===
+.git/
+.gitignore
+.gitattributes
+
+# === Python Virtual Environment ===
+.venv/
+venv/
+env/
+ENV/
+
+# === Python Build Artifacts ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# === Testing ===
+tests/
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.coverage
+test_*.py
+conftest.py
+
+# === IDE & Editor ===
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.vim/
+*.sublime-*
+
+# === Linting & Type Checking ===
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+
+# === Documentation (not needed in production) ===
+*.md
+docs/
+README*
+CHANGELOG*
+CONTRIBUTING*
+LICENSE*
+
+# === Development & CI/CD ===
+docker-compose*.yml
+Makefile
+*.sh
+!docker-entrypoint.sh
+.github/
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+*.log
+logs/
+
+# === Misc ===
+*.bak
+*.tmp
+*.temp
+*.old
+.cache/

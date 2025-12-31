@@ -1,0 +1,14 @@
+{
+  "test": "008-tasks-panel",
+  "url": "https://focus.verduona.dev/dashboard",
+  "timestamp": "2025-12-26T14:28:25.617718",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "playwright-results-full-20251226//008-tasks-panel.png",
+  "page_title": "",
+  "errors": [
+    "Connecting to 'https://analytics.verduona.com/api/event' violates the following Content Security Policy directive: \"connect-src 'self'\". The action has been blocked.",
+    "Failed to load resource: the server responded with a status of 401 ()",
+    "[Voice] Failed to check providers: {detail: Could not validate credentials, status: 401}"
+  ]
+}

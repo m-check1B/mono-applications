@@ -1,0 +1,231 @@
+# Provider Configuration for Multi-Provider AI Backend
+# This file defines available AI providers, models, and telephony adapters
+
+providers:
+  # OpenAI Realtime API Configuration
+  openai:
+    enabled: true
+    name: "OpenAI Realtime API"
+    description: "End-to-end realtime voice AI with function calling"
+
+    models:
+      mini:
+        id: "gpt-4o-mini-realtime-preview-2024-12-17"
+        name: "GPT-4o Mini Realtime"
+        default: true
+        cost_tier: "standard"
+        description: "Fast, cost-effective realtime model"
+        capabilities:
+          - audio
+          - text
+          - function_calling
+          - streaming
+        max_session_duration: 1800  # 30 minutes
+        audio_format: "pcm16"
+        sample_rate: 24000
+
+      full:
+        id: "gpt-4o-realtime-preview-2024-12-17"
+        name: "GPT-4o Realtime"
+        cost_tier: "premium"
+        description: "High-quality realtime model with enhanced capabilities"
+        capabilities:
+          - audio
+          - text
+          - function_calling
+          - streaming
+        max_session_duration: 1800  # 30 minutes
+        audio_format: "pcm16"
+        sample_rate: 24000
+
+  # Google Gemini Live Configuration
+  gemini:
+    enabled: true
+    name: "Google Gemini Live"
+    description: "Multimodal AI with real-time voice via bidiGenerateContent"
+
+    model:
+      id: "models/gemini-2.0-flash-exp"
+      name: "Gemini 2.0 Flash Experimental"
+      cost_tier: "standard"
+      description: "Real-time voice model supporting bidiGenerateContent WebSocket streaming"
+      capabilities:
+        - audio
+        - text
+        - multimodal
+        - function_calling
+        - streaming
+      max_session_duration: 3600  # 60 minutes
+      audio_format: "pcm16"
+      sample_rate: 24000
+      voices:
+        - "Aoede"  # Default voice
+        - "Charon"
+        - "Fenrir"
+        - "Kore"
+        - "Puck"
+
+  # Deepgram Segmented Pipeline Configuration
+  deepgram:
+    enabled: true
+    name: "Deepgram Segmented Pipeline"
+    description: "STT + LLM + TTS pipeline with Deepgram and Gemini"
+
+    stt:
+      model: "nova-2"
+      alternatives:
+        - "nova-2"
+        - "whisper"
+        - "enhanced"
+      features:
+        punctuate: true
+        interim_results: false
+        utterance_end_ms: 1000
+        vad_events: true
+
+    llm:
+      provider: "gemini"
+      model: "gemini-2.5-flash"
+      temperature: 0.7
+      max_tokens: 1024
+
+    tts:
+      model: "aura-asteria-en"
+      alternatives:
+        - "aura-asteria-en"
+        - "aura-luna-en"
+        - "aura-stella-en"
+        - "aura-athena-en"
+        - "aura-hera-en"
+      sample_rate: 24000
+      encoding: "linear16"
+
+    capabilities:
+      - audio
+      - text
+      - streaming
+    audio_formats:
+      - "pcm16"
+      - "ulaw"
+
+# Telephony Provider Configuration
+telephony:
+  # Twilio Configuration
+  twilio:
+    enabled: true
+    primary: false
+    name: "Twilio"
+    description: "Industry-standard telephony with MediaStream"
+
+    features:
+      mediastream: true
+      recording: true
+      transcription: false
+      call_control: true
+
+    audio:
+      format: "ulaw"
+      sample_rate: 8000
+      channels: 1
+      codec: "PCMU"
+
+    webhook_validation:
+      method: "hmac_sha1"
+      header: "X-Twilio-Signature"
+
+    limits:
+      max_call_duration: 14400  # 4 hours
+      max_concurrent_streams: 100
+
+  # Telnyx Configuration
+  telnyx:
+    enabled: true
+    primary: true
+    name: "Telnyx"
+    description: "Developer-friendly telephony with Call Control"
+
+    features:
+      call_control: true
+      media_streaming: true
+      recording: true
+      transcription: false
+
+    audio:
+      format: "pcm16"
+      sample_rate: 8000
+      channels: 1
+      codec: "L16"
+
+    webhook_validation:
+      method: "ed25519"
+      header: "Telnyx-Signature-Ed25519"
+
+    limits:
+      max_call_duration: null  # No hard limit
+      max_concurrent_streams: 100
+
+# Strategy Configuration
+strategies:
+  # Provider selection strategy
+  provider_selection:
+    mode: "auto"  # auto, manual, cost_optimized, quality_first
+    fallback_enabled: true
+
+    auto_rules:
+      - condition: "multimodal_required"
+        provider: "gemini"
+      - condition: "function_calling_required"
+        provider: "openai"
+      - condition: "cost_optimized"
+        provider: "openai_mini"
+      - condition: "default"
+        provider: "gemini"
+
+  # Load balancing
+  load_balancing:
+    enabled: false
+    method: "round_robin"  # round_robin, least_connections, weighted
+    health_check_interval: 30
+
+  # Retry and failover
+  retry:
+    max_attempts: 3
+    backoff_multiplier: 2
+    initial_delay_ms: 100
+    max_delay_ms: 5000
+
+# Cost Tiers
+cost_tiers:
+  standard:
+    description: "Standard pricing tier"
+    providers:
+      - "openai_mini"
+      - "gemini"
+      - "deepgram"
+
+  premium:
+    description: "Premium pricing tier"
+    providers:
+      - "openai_full"
+
+# Feature Flags
+features:
+  multimodal_support: true
+  function_calling: true
+  streaming: true
+  telephony_integration: true
+  cost_tracking: true
+  analytics: true
+
+# Logging and Monitoring
+monitoring:
+  log_level: "info"  # debug, info, warning, error
+  enable_metrics: true
+  enable_tracing: false
+
+  metrics:
+    - "request_count"
+    - "latency"
+    - "error_rate"
+    - "token_usage"
+    - "audio_duration"

@@ -1,0 +1,39 @@
+services:
+  usage-metering:
+    build: ./usage-metering
+    container_name: magic-box-usage
+    restart: unless-stopped
+    ports:
+      - "8585:8585"
+    volumes:
+      - usage-data:/data
+    networks:
+      - magic-box-net
+    environment:
+      - TZ=UTC
+
+  # Usage metrics collector (runs every 5 minutes)
+  usage-collector:
+    build: ./usage-metering
+    container_name: magic-box-usage-collector
+    restart: unless-stopped
+    volumes:
+      - usage-data:/data
+      - /proc:/host/proc:ro
+      - /:/host:ro
+    networks:
+      - magic-box-net
+    command: >
+      sh -c "
+      while true; do
+        python usage_tracker.py --collect --db /data/usage.db
+        sleep 300
+      done
+      "
+
+volumes:
+  usage-data:
+
+networks:
+  magic-box-net:
+    external: true

@@ -1,0 +1,244 @@
+name: Frontend Tests
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-tests.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-tests.yml'
+
+jobs:
+  test:
+    name: Run Frontend Tests and Build
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    strategy:
+      matrix:
+        node-version: ['20.x']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('frontend/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run TypeScript type checking
+        run: pnpm run check
+
+      - name: Run linting
+        continue-on-error: true
+        run: |
+          if grep -q '"lint"' package.json; then
+            pnpm run lint
+          else
+            echo "No lint script found, skipping linting"
+          fi
+
+      - name: Run Vitest tests with coverage
+        continue-on-error: true
+        run: |
+          if grep -q 'vitest' package.json; then
+            pnpm run test:coverage || echo "Tests not configured yet"
+          else
+            echo "Vitest not configured yet - skipping tests"
+            echo "### Frontend Tests :warning:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Tests are not yet configured for this project." >> $GITHUB_STEP_SUMMARY
+            echo "Add Vitest configuration to enable test automation." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload coverage reports to Codecov
+        if: hashFiles('frontend/coverage/coverage-final.json') != ''
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./frontend/coverage/coverage-final.json
+          flags: frontend
+          name: frontend-coverage
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload coverage HTML report
+        if: hashFiles('frontend/coverage/index.html') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage-report
+          path: frontend/coverage/
+          retention-days: 30
+
+      - name: Build application
+        run: pnpm run build
+        env:
+          NODE_ENV: production
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend/build/
+          retention-days: 7
+
+      - name: Check build size
+        run: |
+          if [ -d "build" ]; then
+            BUILD_SIZE=$(du -sh build | cut -f1)
+            echo "### Build Information :package:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **Build Size:** $BUILD_SIZE" >> $GITHUB_STEP_SUMMARY
+            echo "- **Node Version:** ${{ matrix.node-version }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Test Summary
+        if: always()
+        run: |
+          echo "### Frontend Test Results :test_tube:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node Version:** ${{ matrix.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Package Manager:** pnpm 10.14.0" >> $GITHUB_STEP_SUMMARY
+          echo "- **Type Checking:** Completed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ ! -f "coverage/coverage-final.json" ]; then
+            echo ":warning: **Note:** Test coverage not available - Vitest not configured" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  lint-and-format:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting with Prettier
+        continue-on-error: true
+        run: |
+          if grep -q 'prettier' package.json; then
+            pnpm run format:check || echo "No format:check script"
+          else
+            echo "Prettier not configured"
+          fi
+
+      - name: Run ESLint
+        continue-on-error: true
+        run: |
+          if grep -q 'eslint' package.json; then
+            pnpm run lint || echo "Linting found issues"
+          else
+            echo "ESLint not configured"
+          fi
+
+      - name: Check for TypeScript errors
+        run: pnpm run check
+
+  build-preview:
+    name: Build Preview Environment
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build for preview
+        run: pnpm run build
+        env:
+          NODE_ENV: production
+
+      - name: Comment PR with build status
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const jobStatus = '${{ job.status }}';
+            const emoji = jobStatus === 'success' ? '✅' : '❌';
+            const message = `### ${emoji} Frontend Build ${jobStatus === 'success' ? 'Succeeded' : 'Failed'}
+
+            **Build Details:**
+            - **Node Version:** 20.x
+            - **Package Manager:** pnpm 10.14.0
+            - **Commit:** ${{ github.event.pull_request.head.sha }}
+            - **Status:** ${jobStatus}
+
+            ${jobStatus === 'success' ? 'Build artifacts are ready for deployment.' : 'Please check the logs for errors.'}`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });

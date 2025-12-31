@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Human Tasks Execution Guide - GIN System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f8f9fa;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            font-size: 32px;
+            margin-bottom: 8px;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        .toc {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .toc h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: #374151;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #3b82f6;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .priority-high { color: #ef4444; font-weight: 600; }
+        .priority-medium { color: #f59e0b; font-weight: 600; }
+        .done { color: #10b981; font-weight: 600; }
+
+        .task {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+            page-break-inside: avoid;
+        }
+
+        .task h2 {
+            color: #1a1a2e;
+            font-size: 22px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-high { background: #fef2f2; color: #ef4444; }
+        .badge-medium { background: #fffbeb; color: #f59e0b; }
+        .badge-done { background: #ecfdf5; color: #10b981; }
+        .badge-time { background: #eff6ff; color: #3b82f6; }
+
+        .task h3 {
+            color: #374151;
+            font-size: 16px;
+            margin: 20px 0 12px 0;
+            padding-top: 16px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .task h3:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        ol, ul {
+            margin-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+        }
+
+        pre {
+            background: #1a1a2e;
+            color: #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        a {
+            color: #3b82f6;
+        }
+
+        .important {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media print {
+            body { background: white; }
+            .task { box-shadow: none; border: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Human Tasks Execution Guide</h1>
+    <p class="subtitle">GIN System - Step-by-step instructions for completing human-required tasks<br>
+    Generated: December 20, 2025</p>
+
+    <div class="toc">
+        <h2>Tasks Overview (10 Total - 1 Done, 9 Pending)</h2>
+        <ul>
+            <li><a href="#hw-001"><span>HW-001: Create Telegram Bot Token</span> <span class="priority-high">HIGH - 5 min</span></a></li>
+            <li><a href="#hw-002"><span>HW-002: Create Cal.com Account</span> <span class="priority-high">HIGH - 10 min</span></a></li>
+            <li><a href="#hw-003"><span>HW-003: Production Server Check</span> <span class="priority-high">HIGH - 15 min</span></a></li>
+            <li><a href="#hw-004"><span>HW-004: EspoCRM Web-to-Lead Form</span> <span class="priority-medium">MEDIUM - 15 min</span></a></li>
+            <li><a href="#hw-005"><span>HW-005: Contact Form Backend</span> <span class="priority-medium">MEDIUM - 10 min</span></a></li>
+            <li><a href="#hw-006"><span>HW-006: DNS Configuration</span> <span class="priority-high">HIGH - 20 min</span></a></li>
+            <li><a href="#hw-007"><span>HW-007: Stripe Payment Link</span> <span class="priority-high">HIGH - 10 min</span></a></li>
+            <li><a href="#hw-008"><span>HW-008: LinkedIn Post</span> <span class="priority-medium">MEDIUM - 5 min</span></a></li>
+            <li><a href="#hw-009"><span>HW-009: Storage Box SSH Key</span> <span class="priority-medium">MEDIUM - 5 min</span></a></li>
+            <li><a href="#hw-010"><span>HW-010: Gemini API Access</span> <span class="priority-high">HIGH - 30 min</span></a></li>
+            <li><a href="#hw-011"><span>HW-011: Redis Setup</span> <span class="done">DONE</span></a></li>
+        </ul>
+    </div>
+
+    <!-- HW-001 -->
+    <div class="task" id="hw-001">
+        <h2>HW-001: Create SenseIt Telegram Bot</h2>
+        <div class="task-meta">
+            <span class="badge badge-high">HIGH PRIORITY</span>
+            <span class="badge badge-time">~5 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Creates a Telegram bot for the SenseIt sentiment analysis application. The bot will analyze sentiment in Telegram groups.</p>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>Open <strong>Telegram</strong> on your phone or desktop</li>
+            <li>Search for and open: <a href="https://t.me/BotFather" target="_blank">@BotFather</a></li>
+            <li>Send the command: <code>/newbot</code></li>
+            <li>When asked for a name, type: <code>SenseIt</code></li>
+            <li>When asked for a username, type: <code>senseit_bot</code>
+                <br><em>(If taken, try: senseit_ai_bot, senseit_sentiment_bot, etc.)</em></li>
+            <li>BotFather will give you a token that looks like:<br>
+                <code>1234567890:ABCdefGHIjklMNOpqrsTUVwxyz</code></li>
+            <li><strong>Copy this token</strong> - you'll need it for the next step</li>
+        </ol>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-001_senseit-bot-token.md</code></li>
+            <li>Paste the token in the <strong>Result</strong> section</li>
+            <li>Change <code>**Status:** PENDING</code> to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+
+        <div class="success">
+            <strong>What happens next:</strong> The AI agent will automatically update the .env file, start the bot, and verify it works.
+        </div>
+    </div>
+
+    <!-- HW-002 -->
+    <div class="task" id="hw-002">
+        <h2>HW-002: Create Cal.com Account</h2>
+        <div class="task-meta">
+            <span class="badge badge-high">HIGH PRIORITY</span>
+            <span class="badge badge-time">~10 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Creates a booking calendar that will be embedded on business websites for scheduling discovery calls and consultations.</p>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>Go to: <a href="https://cal.com" target="_blank">https://cal.com</a></li>
+            <li>Click <strong>Sign Up</strong> (free account)</li>
+            <li>Recommended email: <code>hello@verduona.com</code></li>
+            <li>Complete the onboarding wizard</li>
+            <li>Create an event type:
+                <ul>
+                    <li>Click <strong>Event Types</strong> in sidebar</li>
+                    <li>Click <strong>+ New</strong></li>
+                    <li>Name: <code>Discovery Call</code></li>
+                    <li>Duration: <code>30 minutes</code></li>
+                    <li>Set your available hours</li>
+                    <li>Save</li>
+                </ul>
+            </li>
+            <li>Get the embed code:
+                <ul>
+                    <li>Click on your event type</li>
+                    <li>Go to <strong>Embed</strong> tab</li>
+                    <li>Copy the <strong>Inline Embed</strong> code</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>What to Copy</h3>
+        <p>You need three things:</p>
+        <pre><code>Cal.com Username: verduona (or whatever you chose)
+Event Slug: discovery-call
+Embed Code:
+&lt;cal-inline calLink="verduona/discovery-call"&gt;&lt;/cal-inline&gt;
+&lt;script src="https://cal.com/embed.js"&gt;&lt;/script&gt;</code></pre>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-002_cal-com-account.md</code></li>
+            <li>Paste all three items in the <strong>Result</strong> section</li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-003 -->
+    <div class="task" id="hw-003">
+        <h2>HW-003: Production Server Status Check</h2>
+        <div class="task-meta">
+            <span class="badge badge-high">HIGH PRIORITY</span>
+            <span class="badge badge-time">~15 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Checks if the production server (5.75.129.12) is set up and ready for website deployment.</p>
+
+        <h3>Background</h3>
+        <ul>
+            <li>Domain <code>verduona.com</code> DNS points to: <code>5.75.129.12</code></li>
+            <li>Dev server (where we work) is: <code>5.9.38.218</code></li>
+            <li>Currently https://verduona.com doesn't load</li>
+        </ul>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>Open terminal</li>
+            <li>Try to SSH into production server:
+                <pre><code>ssh adminmatej@5.75.129.12</code></pre>
+            </li>
+            <li>If you can connect, check:
+                <pre><code># What's running?
+docker ps
+pm2 list
+systemctl list-units --type=service --state=running
+
+# Is there a web server?
+which nginx caddy traefik
+
+# What's on port 80/443?
+ss -tlnp | grep -E ':80|:443'</code></pre>
+            </li>
+        </ol>
+
+        <h3>Decision Required</h3>
+        <p>Based on what you find, decide:</p>
+        <table>
+            <tr>
+                <th>Situation</th>
+                <th>Recommendation</th>
+            </tr>
+            <tr>
+                <td>Server works, has web server</td>
+                <td>Configure it for our sites</td>
+            </tr>
+            <tr>
+                <td>Server works, no web server</td>
+                <td>Install Traefik or use dev server</td>
+            </tr>
+            <tr>
+                <td>Can't connect / doesn't exist</td>
+                <td>Point DNS to dev server (5.9.38.218)</td>
+            </tr>
+        </table>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-003_production-server-check.md</code></li>
+            <li>Fill in what you found</li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-004 -->
+    <div class="task" id="hw-004">
+        <h2>HW-004: Configure EspoCRM Web-to-Lead Form</h2>
+        <div class="task-meta">
+            <span class="badge badge-medium">MEDIUM PRIORITY</span>
+            <span class="badge badge-time">~15 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Sets up a lead capture form in our CRM system so website contact forms create leads automatically.</p>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>In VS Code, make sure port 8080 is forwarded (check PORTS panel)</li>
+            <li>Open browser: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a></li>
+            <li>Login credentials are in: <code>/github/secrets/espocrm_creds.txt</code></li>
+            <li>Navigate to: <strong>Administration</strong> (gear icon top right)</li>
+            <li>Click <strong>Lead Capture</strong></li>
+            <li>Click <strong>Create Lead Capture</strong>:
+                <ul>
+                    <li>Name: <code>Website Contact</code></li>
+                    <li>Entity Type: <code>Lead</code></li>
+                    <li>Enable required fields: Name, Email</li>
+                    <li>Optional: Company, Message</li>
+                </ul>
+            </li>
+            <li>Save and copy the <strong>API endpoint URL</strong></li>
+        </ol>
+
+        <h3>What to Copy</h3>
+        <pre><code>Endpoint URL: http://localhost:8080/api/v1/LeadCapture/xxxxx
+API Key: (if shown)
+Available Fields: name, email, company, message</code></pre>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-004_espocrm-web-to-lead.md</code></li>
+            <li>Paste the endpoint details</li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-005 -->
+    <div class="task" id="hw-005">
+        <h2>HW-005: Setup Contact Form Backend (Formspree)</h2>
+        <div class="task-meta">
+            <span class="badge badge-medium">MEDIUM PRIORITY</span>
+            <span class="badge badge-time">~10 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Sets up a simple backend for website contact forms using Formspree (easiest option).</p>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>Go to: <a href="https://formspree.io/" target="_blank">https://formspree.io/</a></li>
+            <li>Click <strong>Get Started</strong> (free tier: 50 submissions/month)</li>
+            <li>Sign up with: <code>hello@verduona.com</code> (or your email)</li>
+            <li>Click <strong>+ New Form</strong></li>
+            <li>Give it a name: <code>Verduona Contact</code></li>
+            <li>Copy the form endpoint - looks like:
+                <pre><code>https://formspree.io/f/xyzabc123</code></pre>
+            </li>
+        </ol>
+
+        <div class="important">
+            <strong>Note:</strong> Free tier allows 50 submissions/month. For more, paid plans start at $8/month.
+        </div>
+
+        <h3>What to Copy</h3>
+        <pre><code>Formspree Endpoint: https://formspree.io/f/YOUR-FORM-ID</code></pre>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-005_form-backend.md</code></li>
+            <li>Paste the Formspree endpoint</li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-006 -->
+    <div class="task" id="hw-006">
+        <h2>HW-006: Configure DNS Records</h2>
+        <div class="task-meta">
+            <span class="badge badge-high">HIGH PRIORITY</span>
+            <span class="badge badge-time">~20 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Points the verduona.com domain and subdomains to our server so websites become publicly accessible.</p>
+
+        <div class="important">
+            <strong>Prerequisite:</strong> Complete HW-003 first to decide which server to use (5.75.129.12 or 5.9.38.218).
+        </div>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>Login to your DNS provider (likely <a href="https://dash.cloudflare.com" target="_blank">Cloudflare</a>)</li>
+            <li>Select the <code>verduona.com</code> domain</li>
+            <li>Go to <strong>DNS</strong> settings</li>
+            <li>Add/update these <strong>A records</strong>:</li>
+        </ol>
+
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Value (IP)</th>
+                <th>TTL</th>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>@</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>www</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>business</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>consulting</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>family</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>company</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>tldr</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>magicbox</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>inzenyring</td>
+                <td>5.9.38.218</td>
+                <td>Auto</td>
+            </tr>
+        </table>
+
+        <p><em>Note: Use 5.9.38.218 (dev server) unless HW-003 determined production server is ready.</em></p>
+
+        <h3>Verification</h3>
+        <p>After 5-10 minutes, test with:</p>
+        <pre><code># Check DNS propagation
+dig verduona.com +short
+# Should return: 5.9.38.218
+
+# Test website loads
+curl -I https://verduona.com</code></pre>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-006_dns-pointing.md</code></li>
+            <li>Note which records were updated</li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-007 -->
+    <div class="task" id="hw-007">
+        <h2>HW-007: Create Stripe Payment Link</h2>
+        <div class="task-meta">
+            <span class="badge badge-high">HIGH PRIORITY</span>
+            <span class="badge badge-time">~10 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Creates a Stripe payment link for TL;DR Bot Pro subscription ($5/month).</p>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>Go to: <a href="https://dashboard.stripe.com" target="_blank">https://dashboard.stripe.com</a></li>
+            <li>Login or create account</li>
+            <li><strong>Create a Product:</strong>
+                <ul>
+                    <li>Go to <strong>Products</strong> tab</li>
+                    <li>Click <strong>+ Add product</strong></li>
+                    <li>Name: <code>TL;DR Bot Pro</code></li>
+                    <li>Description: <code>Unlimited Telegram chat summaries, extended lookback, priority processing</code></li>
+                    <li>Price: <code>$5.00</code> per month (recurring)</li>
+                    <li>Click <strong>Save product</strong></li>
+                </ul>
+            </li>
+            <li><strong>Create Payment Link:</strong>
+                <ul>
+                    <li>Go to <strong>Payment Links</strong> tab</li>
+                    <li>Click <strong>+ New</strong></li>
+                    <li>Select <code>TL;DR Bot Pro</code></li>
+                    <li>Settings:
+                        <ul>
+                            <li>Allow quantity adjustment: <strong>No</strong></li>
+                            <li>Collect email: <strong>Yes</strong></li>
+                            <li>After payment redirect: <code>https://t.me/sumarium_bot?start=paid</code></li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>Create link</strong></li>
+                </ul>
+            </li>
+            <li>Copy the payment link URL (looks like: <code>https://buy.stripe.com/xxx</code>)</li>
+        </ol>
+
+        <div class="important">
+            <strong>Test Mode First:</strong> Toggle "Test mode" in top-right of Stripe dashboard. Use test card: <code>4242 4242 4242 4242</code> with any future date and CVC.
+        </div>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-007_stripe-payment-link.md</code></li>
+            <li>Paste the payment link URL</li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-008 -->
+    <div class="task" id="hw-008">
+        <h2>HW-008: Post TL;DR Bot to LinkedIn</h2>
+        <div class="task-meta">
+            <span class="badge badge-medium">MEDIUM PRIORITY</span>
+            <span class="badge badge-time">~5 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Announces the TL;DR Telegram bot on LinkedIn to drive initial users.</p>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>Go to: <a href="https://linkedin.com" target="_blank">https://linkedin.com</a></li>
+            <li>Click <strong>Start a post</strong></li>
+            <li>Copy and paste this content:</li>
+        </ol>
+
+        <pre><code>500+ Telegram messages waiting for you after a meeting.
+
+We've all been there.
+
+So I built @sumarium_bot - a Telegram bot that summarizes your group chats with AI.
+
+How it works:
+1. Add the bot to your group
+2. Type /summary when you need to catch up
+3. Get the key points in seconds, not hours
+
+No scrolling through hundreds of messages.
+No missing important decisions.
+Just the context you need.
+
+Free tier: 3 summaries/month
+Pro: $5/mo or 250 Telegram Stars for unlimited
+
+Try it: t.me/sumarium_bot
+
+#telegram #ai #productivity #chatbot #buildinpublic</code></pre>
+
+        <ol start="4">
+            <li>Click <strong>Post</strong></li>
+        </ol>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-008_linkedin-post-tldr.md</code></li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-009 -->
+    <div class="task" id="hw-009">
+        <h2>HW-009: Configure Storage Box SSH Key</h2>
+        <div class="task-meta">
+            <span class="badge badge-medium">MEDIUM PRIORITY</span>
+            <span class="badge badge-time">~5 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Sets up SSH key access to Hetzner Storage Box for remote PostgreSQL backups.</p>
+
+        <h3>Step-by-Step Instructions</h3>
+        <ol>
+            <li>Open terminal on the server</li>
+            <li>Run this command:
+                <pre><code>cat ~/.ssh/id_ed25519.pub | ssh -p 23 u496928@u496928.your-storagebox.de install-ssh-key</code></pre>
+            </li>
+            <li>When prompted for password, enter:
+                <pre><code>gdjak172981389LLLAHdas796982394dalUUHKD!</code></pre>
+            </li>
+            <li>Verify it works:
+                <pre><code>ssh -p 23 u496928@u496928.your-storagebox.de "ls -la backups/"</code></pre>
+                <p><em>Should list files without asking for password</em></p>
+            </li>
+        </ol>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-009_storagebox-ssh-key.md</code></li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-010 -->
+    <div class="task" id="hw-010">
+        <h2>HW-010: Enable Gemini Native Audio API</h2>
+        <div class="task-meta">
+            <span class="badge badge-high">HIGH PRIORITY</span>
+            <span class="badge badge-time">~30 minutes</span>
+        </div>
+
+        <h3>What This Does</h3>
+        <p>Enables access to Gemini's native audio models for voice AI features in CC-Lite and Voice of People apps.</p>
+
+        <h3>Step-by-Step Instructions (Vertex AI Method)</h3>
+        <ol>
+            <li>Go to: <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a></li>
+            <li>Select or create a project</li>
+            <li>Enable <strong>Vertex AI API</strong>:
+                <ul>
+                    <li>Go to <strong>APIs & Services</strong> > <strong>Library</strong></li>
+                    <li>Search for "Vertex AI API"</li>
+                    <li>Click <strong>Enable</strong></li>
+                </ul>
+            </li>
+            <li>Create a service account:
+                <ul>
+                    <li>Go to <strong>IAM & Admin</strong> > <strong>Service Accounts</strong></li>
+                    <li>Click <strong>+ Create Service Account</strong></li>
+                    <li>Name: <code>gemini-audio-access</code></li>
+                    <li>Grant role: <code>Vertex AI User</code></li>
+                </ul>
+            </li>
+            <li>Create and download key:
+                <ul>
+                    <li>Click on the service account</li>
+                    <li>Go to <strong>Keys</strong> tab</li>
+                    <li>Click <strong>Add Key</strong> > <strong>Create new key</strong></li>
+                    <li>Choose JSON format</li>
+                    <li>Download the file</li>
+                </ul>
+            </li>
+            <li>Save the JSON file to: <code>/github/secrets/google-vertex-ai.json</code></li>
+        </ol>
+
+        <h3>After Completion</h3>
+        <ol>
+            <li>Open file: <code>/github/ai-automation/humans-work-needed/HW-010_gemini-api-key.md</code></li>
+            <li>Note the project ID and confirm key is saved</li>
+            <li>Change Status to <code>**Status:** DONE</code></li>
+            <li>Save the file</li>
+        </ol>
+    </div>
+
+    <!-- HW-011 -->
+    <div class="task" id="hw-011">
+        <h2>HW-011: Redis Setup</h2>
+        <div class="task-meta">
+            <span class="badge badge-done">DONE</span>
+        </div>
+
+        <div class="success">
+            <strong>Completed:</strong> Redis was set up via Docker on December 20, 2025.
+            <pre><code>docker run -d --name redis-bots --restart unless-stopped -p 127.0.0.1:6380:6379 redis:alpine</code></pre>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>GIN System - Human Tasks Guide</strong><br>
+        Generated by AI Automation System<br>
+        December 20, 2025</p>
+        <p style="margin-top: 12px;">After completing each task, remember to:<br>
+        1. Update the Result section in the task file<br>
+        2. Change Status to DONE<br>
+        3. Save the file</p>
+    </div>
+</body>
+</html>

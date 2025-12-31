@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-12-31T07:00:13.520914",
+  "overall": "healthy",
+  "endpoints": [
+    {
+      "name": "Kraliki Swarm",
+      "url": "http://127.0.0.1:8099/health",
+      "timestamp": "2025-12-31T07:00:13.400122",
+      "status": "healthy",
+      "error": null,
+      "status_code": 200
+    }
+  ],
+  "pm2_issues": []
+}

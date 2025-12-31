@@ -1,0 +1,16 @@
+# Grafana Dashboard Provisioning
+# Automatically loads dashboards from the grafana-dashboards directory
+
+apiVersion: 1
+
+providers:
+  - name: "CC-Lite Dashboards"
+    orgId: 1
+    folder: "CC-Lite"
+    folderUid: "cc-lite"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards

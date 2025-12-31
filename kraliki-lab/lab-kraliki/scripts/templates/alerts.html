@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts - Lab by Kraliki Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117; color: #c9d1d9; line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; border-bottom: 1px solid #30363d; margin-bottom: 30px;
+        }
+        h1 { color: #58a6ff; font-size: 24px; }
+        nav a {
+            color: #8b949e; text-decoration: none; margin-left: 20px; font-size: 14px;
+        }
+        nav a:hover { color: #58a6ff; }
+        table {
+            width: 100%; border-collapse: collapse; background: #161b22;
+            border: 1px solid #30363d; border-radius: 8px; overflow: hidden;
+        }
+        th {
+            text-align: left; padding: 12px; font-size: 12px;
+            color: #8b949e; text-transform: uppercase; border-bottom: 1px solid #30363d;
+        }
+        td {
+            padding: 12px; font-size: 13px; border-bottom: 1px solid #21262d;
+        }
+        .severity-high { color: #f85149; font-weight: 600; }
+        .severity-medium { color: #d29922; font-weight: 600; }
+        .severity-low { color: #3fb950; font-weight: 600; }
+        .btn {
+            background: #238636; color: #c9d1d9; border: none;
+            padding: 8px 16px; border-radius: 6px; font-size: 13px;
+            cursor: pointer; text-decoration: none; display: inline-block;
+        }
+        .btn:hover { background: #2ea043; }
+        .btn-sm { padding: 4px 8px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Alerts ({{ alerts|length }})</h1>
+            <nav>
+                <a href="/">Dashboard</a>
+                <a href="/vms">VMs</a>
+                <a href="/customers">Customers</a>
+                <a href="/tickets">Tickets</a>
+            </nav>
+        </header>
+
+        {% if alerts %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>VM</th>
+                    <th>Type</th>
+                    <th>Severity</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in alerts %}
+                <tr>
+                    <td>{{ alert.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td><a href="/vms/{{ alert.vm_id }}">{{ alert.vm_id }}</a></td>
+                    <td>{{ alert.alert_type }}</td>
+                    <td class="severity-{{ alert.severity }}">{{ alert.severity }}</td>
+                    <td>{{ alert.message }}</td>
+                    <td>
+                        <form method="POST" action="/alerts/{{ alert.id }}/resolve" style="display:inline;">
+                            <button type="submit" class="btn btn-sm">Resolve</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="color: #8b949e; padding: 40px; text-align: center;">No active alerts</p>
+        {% endif %}
+    </div>
+</body>
+</html>

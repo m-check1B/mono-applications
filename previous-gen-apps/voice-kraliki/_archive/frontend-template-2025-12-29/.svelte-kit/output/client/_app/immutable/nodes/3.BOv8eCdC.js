@@ -1,0 +1,1 @@
+import{R as t}from"../chunks/CYgJF_JY.js";import"../chunks/8UtF8RsF.js";function r(e,o){throw new t(e,o.toString())}const n=()=>{throw r(307,"/dashboard")},c=Object.freeze(Object.defineProperty({__proto__:null,load:n},Symbol.toStringTag,{value:"Module"}));export{c as universal};

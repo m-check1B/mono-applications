@@ -1,0 +1,94 @@
+{
+  "$schema": "./ai_prompts.schema.json",
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-16",
+  "description": "Centralized AI prompts for all orchestration and AI operations",
+
+  "systemPrompts": {
+    "highReasoning": {
+      "role": "system",
+      "content": "You are an expert AI assistant with advanced reasoning capabilities. Break down complex problems into steps, show your thinking process, and provide thorough analysis."
+    },
+    "taskOrchestrator": {
+      "role": "system",
+      "content": "You are an intelligent task orchestration system. Convert natural language into structured, actionable workflows with realistic time estimates and clear dependencies."
+    },
+    "cognitiveAnalyzer": {
+      "role": "system",
+      "content": "You are a cognitive state analyzer. Assess user activity patterns to determine focus levels, cognitive load, and optimal productivity states."
+    }
+  },
+
+  "templates": {
+    "parseTask": {
+      "template": "Parse this natural language input into a structured task:\n\nInput: \"{input}\"\n\nReturn a JSON object with:\n- title: string (concise task title)\n- description: string (optional details)\n- priority: number (1-5)\n- tags: array of strings\n- estimatedMinutes: number (optional)\n- energyRequired: \"low\" | \"medium\" | \"high\"\n- confidence: number (0-1, how confident you are in the parsing)\n\nReturn ONLY valid JSON, no other text.",
+      "variables": ["input"],
+      "outputFormat": "json"
+    },
+
+    "enhanceInput": {
+      "template": "Enhance and analyze this user input: \"{text}\"\n\nContext: {context}\n\nProvide:\n1. Enhanced text (capitalize, fix grammar if needed)\n2. Intent detection (create_task, update_task, question, command, research, code, automation)\n3. Type detection (task, note, meeting, idea, research, code_request, browser_automation, etc.)\n4. Confidence scores\n5. Helpful suggestions\n6. Escalation assessment (should this be escalated to II-Agent?)\n\nEscalation criteria:\n- Low confidence (< 0.5) AND mentions \"research\", \"code\", \"website\", \"browser\"\n- Mentions external systems/tools not in Focus by Kraliki (e.g., \"scrape\", \"gather from web\", \"analyze code\")\n- Complex multi-step workflows requiring orchestration beyond simple task creation\n- Requires capabilities like browser automation, code execution, file analysis\n\nReturn JSON:\n{\n  \"enhanced_text\": \"...\",\n  \"intent\": \"create_task\",\n  \"confidence\": 0.95,\n  \"detectedType\": \"task\",\n  \"typeConfidence\": 0.9,\n  \"suggestions\": [\"suggestion 1\", \"suggestion 2\"],\n  \"shouldEscalate\": false,\n  \"escalationReason\": {\"complexity\": \"high\", \"requiresTools\": [\"browser\", \"code_execution\"]}\n}",
+      "variables": ["text", "context"],
+      "outputFormat": "json"
+    },
+
+    "analyzeTask": {
+      "template": "Analyze this task:\n\nTitle: {title}\nDescription: {description}\nPriority: {priority}\nTags: {tags}\nCurrent Status: {status}\n\nProvide analysis:\n1. Urgency score (0-1)\n2. Complexity score (0-1)\n3. Estimated minutes to complete\n4. Energy required (low/medium/high)\n5. Suggested actions\n6. Related task ideas\n\nReturn JSON:\n{\n  \"urgencyScore\": 0.8,\n  \"complexityScore\": 0.6,\n  \"estimatedMinutes\": 45,\n  \"energyRequired\": \"medium\",\n  \"suggestedActions\": [\"action 1\", \"action 2\"],\n  \"relatedTasks\": [\"related 1\", \"related 2\"]\n}",
+      "variables": ["title", "description", "priority", "tags", "status"],
+      "outputFormat": "json"
+    },
+
+    "orchestrateTask": {
+      "template": "Convert this input into a structured task with workflow:\n\nInput: \"{input}\"\nContext: {context}\n\nCreate:\n1. Main task structure (title, description, priority, tags, estimated time)\n2. Workflow breakdown (sequential steps with time estimates)\n3. Suggestions for optimization\n\nReturn JSON:\n{\n  \"mainTask\": {\n    \"title\": \"...\",\n    \"description\": \"...\",\n    \"priority\": 3,\n    \"tags\": [\"tag1\"],\n    \"estimatedMinutes\": 60\n  },\n  \"workflow\": [\n    {\"step\": 1, \"action\": \"...\", \"estimatedMinutes\": 15, \"dependencies\": []},\n    {\"step\": 2, \"action\": \"...\", \"estimatedMinutes\": 20, \"dependencies\": [1]}\n  ],\n  \"suggestions\": [\"suggestion 1\"],\n  \"confidence\": 0.9\n}",
+      "variables": ["input", "context"],
+      "outputFormat": "json"
+    },
+
+    "generateInsights": {
+      "template": "Analyze this productivity data and generate insights:\n\nTasks (last {timeRange}): {taskData}\n\nGenerate insights about:\n1. Productivity patterns\n2. Task completion rates\n3. Time management\n4. Priority balance\n5. Areas for improvement\n\nReturn JSON:\n{\n  \"insights\": [\n    {\"category\": \"productivity\", \"insight\": \"...\", \"actionable\": true, \"priority\": \"high\"}\n  ],\n  \"summary\": \"Overall summary...\"\n}",
+      "variables": ["timeRange", "taskData"],
+      "outputFormat": "json"
+    },
+
+    "taskRecommendations": {
+      "template": "Based on this user's task history, suggest new relevant tasks:\n\nRecent tasks: {taskPatterns}\nCurrent context: {currentContext}\n\nSuggest 5 tasks that would be valuable based on patterns.\n\nReturn JSON:\n{\n  \"recommendations\": [\n    {\n      \"title\": \"Task title\",\n      \"description\": \"Why this matters\",\n      \"priority\": 3,\n      \"reasoning\": \"Based on your pattern of...\"\n    }\n  ]\n}",
+      "variables": ["taskPatterns", "currentContext"],
+      "outputFormat": "json"
+    },
+
+    "analyzeCognitiveState": {
+      "template": "Analyze cognitive state from this activity data:\n\n{activityData}\n\nDetermine:\n1. Current cognitive state (focused, distracted, fatigued, flow)\n2. Cognitive load score (0-1)\n3. Recommendations for optimal productivity\n\nReturn JSON with:\n- state: string\n- score: number (0-1)\n- recommendations: array of strings",
+      "variables": ["activityData"],
+      "outputFormat": "json"
+    },
+
+    "generateWorkflow": {
+      "template": "Create a detailed workflow template from this description:\n\nDescription: \"{description}\"\nCategory: {category}\n\nGenerate a JSON workflow template with:\n1. name: Clear, concise workflow name\n2. description: Brief description\n3. category: The workflow category\n4. steps: Array of workflow steps with:\n   - step: step number\n   - action: Clear action description\n   - estimatedMinutes: Time estimate\n   - dependencies: Array of step numbers this depends on\n   - type: \"manual\" or \"automated\"\n\nExample output:\n{\n  \"name\": \"Blog Post Creation\",\n  \"description\": \"Complete workflow for creating a blog post\",\n  \"category\": \"content\",\n  \"steps\": [\n    {\"step\": 1, \"action\": \"Research topic and gather sources\", \"estimatedMinutes\": 30, \"dependencies\": [], \"type\": \"manual\"},\n    {\"step\": 2, \"action\": \"Create outline\", \"estimatedMinutes\": 15, \"dependencies\": [1], \"type\": \"manual\"},\n    {\"step\": 3, \"action\": \"Write first draft\", \"estimatedMinutes\": 60, \"dependencies\": [2], \"type\": \"manual\"}\n  ],\n  \"tags\": [\"writing\", \"content\", \"blog\"]\n}\n\nReturn ONLY valid JSON.",
+      "variables": ["description", "category"],
+      "outputFormat": "json"
+    }
+  },
+
+  "escalationKeywords": [
+    "research",
+    "code",
+    "website",
+    "browser",
+    "scrape",
+    "gather",
+    "analyze code",
+    "complex workflow",
+    "multi-step",
+    "automation",
+    "external system"
+  ],
+
+  "metadata": {
+    "notes": [
+      "All prompts should be extracted from code to this file",
+      "Update prompts here instead of hardcoding in source",
+      "Use variables in templates with {variableName} syntax",
+      "Prompts support JSON response format validation"
+    ]
+  }
+}

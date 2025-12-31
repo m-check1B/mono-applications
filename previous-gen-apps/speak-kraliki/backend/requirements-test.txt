@@ -1,0 +1,34 @@
+# Test dependencies only - for CI/CD and quick testing
+# Does not include platform-2026 editable installs
+
+# Core
+fastapi>=0.121.0
+uvicorn[standard]>=0.34.0
+python-dotenv>=1.0.0
+pydantic[email]>=2.12.0
+pydantic-settings>=2.8.0
+
+# Database
+sqlalchemy>=2.0.44
+asyncpg>=0.30.0
+aiosqlite>=0.20.0
+
+# Auth
+pyjwt>=2.10.0
+cryptography>=44.0.0
+bcrypt>=4.3.0
+python-multipart>=0.0.20
+
+# Rate Limiting
+slowapi>=0.1.9
+
+# Utilities
+httpx>=0.28.0
+resend>=2.5.0
+stripe>=11.0.0
+pyyaml>=6.0.0
+
+# Testing
+pytest>=8.4.0
+pytest-asyncio>=0.25.0
+pytest-cov>=6.0.0

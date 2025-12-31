@@ -1,0 +1,13 @@
+{
+  "test": "004-dashboard-overview",
+  "url": "https://vop.verduona.dev/dashboard",
+  "timestamp": "2025-12-25T12:17:06.258683",
+  "status": "PASS",
+  "details": "HTTP 200 OK",
+  "screenshot": "/home/adminmatej/github/applications/voice-of-people/e2e-tests/playwright-results//004-dashboard-overview.png",
+  "page_title": "Sign In - Voice of People",
+  "errors": [
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+  ]
+}

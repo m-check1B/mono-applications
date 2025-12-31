@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-08-26T17:01:45.920Z",
+  "status": "BETA_READY",
+  "homepage": "CC-Light - AI Agent Supervisor",
+  "loginPage": "WORKING",
+  "api": "HEALTHY",
+  "performance": {
+    "domContentLoaded": 63,
+    "loadComplete": 63
+  },
+  "screenshotCount": 7,
+  "features": {
+    "commandCenter": "DEPLOYED",
+    "aiAnalytics": "DEPLOYED",
+    "supervisorDashboard": "ACCESSIBLE"
+  }
+}

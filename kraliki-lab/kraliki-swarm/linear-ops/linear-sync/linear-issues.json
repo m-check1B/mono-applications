@@ -1,0 +1,3237 @@
+{
+  "synced_at": "2025-12-29T14:33:02Z",
+  "issue_count": 93,
+  "issues": [
+    {
+      "id": "1f246890-4707-4a63-a689-3da3efafd5cc",
+      "identifier": "VD-568",
+      "title": "[BIZ] Create AI Academy Certification & Credentialing Program",
+      "url": "https://linear.app/verduona/issue/VD-568/biz-create-ai-academy-certification-and-credentialing-program",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity: AI Academy Official Certification\n\nLaunch official certification program for Academy graduates to add credibility and increase perceived value.\n\n## Certification Levels\n\n### Level 1: AI Automation Certified (AC-1)\n\n* Completion of Academy L1 curriculum\n* Pass practical assessment (build 5 AI workflows)\n* Certificate of completion + digital badge\n* Verification URL for employers/clients\n* Exam fee: \u20ac49 (included in Academy L1 Premium)\n\n### Level 2: AI Professional Certified (AC-2)\n\n* Completion of Academy L2 curriculum\n* Practical project submission (real-world use case)\n* Peer review + trainer assessment\n* LinkedIn certification badge\n* Exam fee: \u20ac99\n\n### Level 3: AI Orchestrator Certified (AC-3)\n\n* Completion of Academy L3 curriculum\n* Capstone project (solve complex business problem)\n* Live presentation to instructors\n* Industry panel review\n* Exam fee: \u20ac199\n* Includes: Letter of recommendation, portfolio showcase\n\n### Master Certification: AI Expert (AC-Master)\n\n* All 3 levels completed\n* 6 months of practical application\n* Contribution to AI community (case study, tutorial, or talk)\n* Exam fee: \u20ac499\n* Lifetime certification + annual renewal\n\n## Value Proposition\n\n**For Students:**\n\n* Credible credential for career advancement\n* Differentiation in job market\n* Verification for employers/clients\n* Resume and LinkedIn badge\n* Confidence in skills\n\n**For Employers:**\n\n* Pre-vetted AI talent pool\n* Standardized skill assessment\n* Reduced hiring risk\n* Training ROI validation\n\n## Competitive Landscape\n\n* Coursera: Certificates (free with course, no assessment)\n* Udemy: Certificates of completion (no verification)\n* Google AI Certificate: Free, no assessment\n* Our Advantage: Practical assessment + industry validation\n\n## Revenue Streams\n\n1. **Exam fees** (\u20ac49-499 per student)\n2. **Certification prep courses** (\u20ac199-299 intensive workshops)\n3. **Recertification** (\u20ac99 every 2 years)\n4. **Employer verification API** (\u20ac500-1,500/year per company)\n5. **Certified talent marketplace** (commission on hires)\n\n## Revenue Potential\n\n* 100 Academy L1 students/month \u00d7 50% take certification = 50 \u00d7 \u20ac49 = \u20ac2,450/mo\n* 30 Academy L2 students/month \u00d7 40% take certification = 12 \u00d7 \u20ac99 = \u20ac1,188/mo\n* 10 Academy L3 students/month \u00d7 30% take certification = 3 \u00d7 \u20ac199 = \u20ac597/mo\n* 5 Master certifications/year = 5 \u00d7 \u20ac499 = \u20ac2,495/year\n* **Monthly revenue:** \\~\u20ac4,235 (\u20ac50K/year)\n\n## Upsell Opportunities\n\n* Certification students more likely to buy corporate training\n* Certified graduates become brand advocates (referrals)\n* Employers hiring certified talent \u2192 more Academy sales\n* Certification prep workshops \u2192 additional revenue\n\n## Implementation Requirements\n\n1. Certification assessment platform (quiz, practical project submission)\n2. Certificate generation system (PDF + digital badge)\n3. Verification portal for employers\n4. Certification curriculum and rubrics\n5. Reviewer/instructor onboarding\n6. Certification marketing materials\n\n## Next Steps\n\n1. Define AC-1 assessment criteria (5 practical workflows)\n2. Create certificate design and digital badge\n3. Build verification portal\n4. Pilot with 20 Academy L1 students (December 2025)\n5. Launch AC-1 January 2026\n6. Design AC-2 and AC-3 assessments (February 2026)\n\n## Success Metrics\n\n* 50 certification registrations in January 2026\n* 40% certification pass rate (shows quality)\n* 5 employers verify certifications in Q1 2026\n* \u20ac4K+ monthly certification revenue by March 2026\n* 10% premium pricing for certified graduates (freelancers/consultants can charge more)",
+      "createdAt": "2025-12-29T14:00:56.900Z",
+      "updatedAt": "2025-12-29T14:00:56.900Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "category:academy"
+          },
+          {
+            "name": "certification"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "a81f022a-292f-4d48-95b0-53c303589d98",
+      "identifier": "VD-567",
+      "title": "[BIZ] Launch AI Academy Affiliate Partner Program",
+      "url": "https://linear.app/verduona/issue/VD-567/biz-launch-ai-academy-affiliate-partner-program",
+      "priority": 3,
+      "estimate": null,
+      "description": "## Opportunity: Academy Affiliate Marketing\n\nLaunch affiliate program to scale Academy enrollments through partners who already have audiences interested in AI education.\n\n## Partner Categories\n\n### Marketing & Business Influencers (50-500K followers)\n\n* Content creators in AI, productivity, business\n* Tech bloggers and newsletter writers\n* LinkedIn thought leaders\n* Commission: 25-30% of Academy sales (\u20ac12-30 per \u20ac49-99 sale)\n\n### Training Providers & Agencies\n\n* Companies offering marketing/sales/business training\n* Can upsell AI Academy as add-on\n* Commission: 35-40% (bulk sales)\n* Minimum: 5 students/month to maintain partner status\n\n### Polish Media & Publishers\n\n* Tech/business publications in Poland\n* Can promote Polish Academy launch\n* Commission: 30%\n* Bonus: 10% extra for first 3 months\n\n### HR Tech Platforms & Communities\n\n* HR tech companies (HR communities, recruitment platforms)\n* Can promote corporate training packages\n* Commission: 20% of corporate sales (\u20ac200-1,000 per \u20ac1-5K sale)\n\n## Commission Structure\n\n| Partner Tier | Sales/Month | Commission | Requirements |\n| -- | -- | -- | -- |\n| Starter | 0-10 sales | 20% | Sign up + 1 active promotion |\n| Bronze | 11-50 sales | 25% | Monthly newsletter |\n| Silver | 51-200 sales | 30% | Dedicated landing page |\n| Gold | 200+ sales | 35% | Custom co-branded content |\n\n## Platform Requirements\n\n1. Partner signup portal\n2. Unique tracking links for each partner\n3. Real-time dashboard (sales, clicks, conversions)\n4. Monthly payouts via Stripe or bank transfer\n5. Marketing assets ready (banners, email templates, social posts)\n\n## Revenue Impact\n\n* If 50 partners each drive 5 sales/month: 250 sales \u00d7 \u20ac79 avg = \u20ac19,750/mo gross\n* Affiliate payout (25% avg): \u20ac4,938/mo\n* Net revenue: \u20ac14,812/mo (\\~\u20ac178K/year)\n* Upsell opportunity: 20% of affiliate sales convert to L2-4 Academy (\u20ac199-1500)\n\n## Competitive Benchmark\n\n* Udemy Affiliate Program: 10-50% commission\n* Coursera Partners: 15-30% commission\n* Our 20-35% is competitive with better product differentiation\n\n## Marketing to Recruit Partners\n\n1. Cold outreach to 100 AI/business influencers\n2. Partner with marketing agencies as white-label Academy resellers\n3. Promote on LinkedIn (target \"affiliate marketing\", \"content creator\")\n4. Attend AI/marketing conferences\n5. Offer exclusive bonuses for early partners (double commission first month)\n\n## Next Steps\n\n1. Define affiliate commission tiers\n2. Build partner signup portal (or use existing referral VD-496 infrastructure)\n3. Create partner marketing kit (banners, email templates, social posts)\n4. Recruit 20 pilot partners\n5. Launch affiliate program January 15, 2026\n\n## Success Metrics\n\n* 50 active partners by March 2026\n* 250 Academy sales/month through affiliates\n* \u20ac15K+ net monthly revenue from affiliate channel\n* 10% of total Academy revenue from affiliates\n* \u20ac500+ average partner monthly payout (shows healthy ecosystem)",
+      "createdAt": "2025-12-29T14:00:54.862Z",
+      "updatedAt": "2025-12-29T14:00:54.862Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "type:partnership"
+          },
+          {
+            "name": "category:academy"
+          },
+          {
+            "name": "affiliate"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "9dce2868-59ac-4881-8e5a-0f826dbcc255",
+      "identifier": "VD-566",
+      "title": "[BIZ] Create AI Academy Corporate Training Packages (B2B)",
+      "url": "https://linear.app/verduona/issue/VD-566/biz-create-ai-academy-corporate-training-packages-b2b",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity: Corporate AI Training Academy\n\nOffer AI Academy as corporate training for teams (not just individuals). Companies need to upskill their workforce quickly and consistently.\n\n## Market Opportunity\n\n* 63% of Czech IT companies struggle to find AI talent (from market research)\n* Companies prefer bulk training vs individual subscriptions\n* Budget available: \u20ac1,000-10,000 per training engagement\n* Training ROI: 16\u00d7 productivity gain (our case study)\n\n## Product Offerings\n\n### Team License (10-50 employees)\n\n* Academy L1 access for entire team\n* Dedicated trainer sessions (4 hours Q&A)\n* Team-specific use cases and exercises\n* Progress dashboard for manager\n* Pricing: \u20ac999-2,999 (\u20ac100-60/person)\n\n### Corporate Bootcamp (1-2 days)\n\n* In-person or virtual intensive training\n* Hands-on workshop with company-specific scenarios\n* Custom prompt library for company workflows\n* Train-the-trainer session for internal champions\n* Pricing: \u20ac2,500-5,000/day\n\n### Academy Enterprise Subscription (50+ employees)\n\n* Unlimited Academy access for all employees\n* Monthly office hours with trainer\n* New course modules included automatically\n* Custom learning paths per department\n* Usage analytics and ROI reporting\n* Pricing: \u20ac500-1,500/month\n\n## Target Industries\n\n1. **Marketing Agencies**: Already using AI, need team-wide training (\u20ac2-5K/bootcamp)\n2. **SaaS Companies**: Product teams need AI upskilling (\u20ac999-2,999/team)\n3. **Startups (Seed+)**: Budget for team training, fast adoption (\u20ac1-2,999/bootcamp)\n4. **Traditional Companies** (Manufacturing, Finance, Retail): Large workforces, AI transformation (Enterprise subscriptions)\n\n## Sales Strategy\n\n1. Cold outreach to HR Directors and L&D Managers\n2. Partner with training providers (white-label our content)\n3. Upsell from existing Sense Audit customers\n4. LinkedIn posts targeting \"AI upskilling\"\n5. Free 1-hour demo workshop \u2192 paid engagement\n\n## Competitive Advantage\n\n* **Orchestration methodology** (not just prompting) differentiates from generic AI courses\n* **Native Czech language** training (competitors: English only)\n* **16\u00d7 productivity case study** (proof of ROI)\n* **Customizable** for company-specific workflows\n\n## Revenue Potential (Q1-Q2 2026)\n\n* 5 Team Licenses (\u20ac999-2,999) = \u20ac5-15K\n* 3 Corporate Bootcamps (\u20ac2,500-5,000/day) = \u20ac7.5-15K\n* 2 Enterprise Subscriptions (\u20ac500-1,500/month) = \u20ac1-3K/month\n* **Total Q1:** \\~\u20ac22K revenue\n* **Q2 recurring:** \u20ac2-3K/month from enterprise subscriptions\n\n## Requirements\n\n1. Corporate training curriculum (team exercises, case studies)\n2. Trainer materials (slide decks, workshop guides)\n3. Pricing page for corporate offerings\n4. CRM templates for B2B sales\n5. Case study from corporate client\n\n## Next Steps\n\n1. Define Team License pricing and deliverables\n2. Create Corporate Bootcamp curriculum outline\n3. Draft Enterprise subscription features\n4. Build corporate pricing page\n5. Reach out to 20 HR Directors for discovery calls\n\n## Success Metrics\n\n* 5 corporate clients by March 2026\n* \u20ac20K+ revenue in Q1 2026\n* \u20ac2K+ MRR by Q2 2026\n* 100+ employees trained through corporate packages\n* Case study published",
+      "createdAt": "2025-12-29T14:00:51.187Z",
+      "updatedAt": "2025-12-29T14:00:51.187Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "type:sales"
+          },
+          {
+            "name": "category:academy"
+          },
+          {
+            "name": "b2b"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "82ecbdc5-0ca3-4461-872c-3f6253f4f936",
+      "identifier": "VD-565",
+      "title": "[BIZ] Expand AI Academy to Poland Market (\u20ac6.3M Year 1 Potential)",
+      "url": "https://linear.app/verduona/issue/VD-565/biz-expand-ai-academy-to-poland-market-euro63m-year-1-potential",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity: Poland AI Academy Market Entry\n\nPoland has 6\u00d7 higher revenue potential than Czech (\u20ac6.325M vs \u20ac1.035M Year 1), lower competition, and 1B PLN government AI investment. Freemium model essential to compete with Microsoft's FREE training.\n\n## Market Analysis\n\n* Population: 38M (3.6\u00d7 Czech Republic)\n* AI Adoption: 5.9% (2nd lowest in EU) = massive untapped market\n* Government: 1B PLN AI investment, Polish LLM launched Feb 2025\n* Competition: Lower than CZ, but Microsoft FREE training is biggest threat\n\n## Competitive Threat: Microsoft AI Skills Navigator\n\n* Commitment: 1 million Poles trained by end of 2025\n* Offering: 200+ FREE courses\n* Threat: Can't compete on price alone\n\n## Our Advantage: Freemium with Polish Specialization\n\n* Basic: FREE (compete with Microsoft)\n* Professional: 500 PLN/month (\\~\u20ac125)\n* Corporate: Custom pricing\n* USP: Industry-specific + Polish language + certification + job placement\n\n## Market Entry Strategy\n\n### Phase 1 (January-February 2026)\n\n* Launch freemium Academy in Polish\n* Target SMEs (25% already using AI but need help)\n* Focus on manufacturing (47% adoption) and finance (40%)\n* Government partnership outreach\n\n### Phase 2 (March-May 2026)\n\n* Launch Advisory services in Polish\n* 30 consulting engagements targeted\n* Certification program launch\n\n### Phase 3 (June+ 2026)\n\n* Launch Labs implementation services\n* Platform launch with Polish LLM integration\n\n## Revenue Projection (Year 1)\n\nFrom research analysis:\n\n* Individual: 5,000 \u00d7 500 PLN \u00d7 6 mo = 15M PLN (\\~\u20ac3.75M)\n* Corporate: 50 \u00d7 50K PLN = 2.5M PLN (\\~\u20ac625K)\n* Advisory: 30 \u00d7 100K PLN = 3M PLN (\\~\u20ac750K)\n* Labs: 15 \u00d7 300K PLN = 4.5M PLN (\\~\u20ac1.125M)\n* Platform: 100 \u00d7 3K PLN/year = 300K PLN (\\~\u20ac75K)\n* **Total Year 1:** \\~25.3M PLN (\\~\u20ac6.325M)\n\n## Estimated Impact (Conservative Q1 2026)\n\n* 1,000 Polish individual signups at 10% paid conversion = 100 \u00d7 \u20ac125 = \u20ac12,500\n* 5 corporate workshops \u00d7 50K PLN = 250K PLN (\\~\u20ac62,500)\n* **Total Q1:** \\~\u20ac75K revenue\n\n## Requirements\n\n1. Polish-speaking trainers (3-5)\n2. Polish website and marketing materials\n3. Polish-language curriculum\n4. Government partnerships\n5. Competitive freemium model\n\n## Next Steps\n\n1. Hire 1-2 Polish trainers (January Week 1-2)\n2. Translate core curriculum to Polish (January Week 2-3)\n3. Build Polish-language landing page (January Week 3)\n4. Reach out to Polish government AI initiatives (January Week 4)\n5. Launch pre-registration campaign (February Week 1)\n6. Launch March 1, 2026\n\n## Success Metrics\n\n* 1,000 Polish individual users by March\n* 5 corporate clients by March\n* \u20ac75K+ Poland revenue in Q1\n* Polish government partnership discussions initiated\n* 3 Polish trainers hired",
+      "createdAt": "2025-12-29T14:00:49.240Z",
+      "updatedAt": "2025-12-29T14:00:49.240Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "type:expansion"
+          },
+          {
+            "name": "category:academy"
+          },
+          {
+            "name": "international"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "6df28ad1-3d30-4b01-af48-42b3abaa0960",
+      "identifier": "VD-564",
+      "title": "[BIZ] Launch AI Academy + Sense Audit Bundle Offer",
+      "url": "https://linear.app/verduona/issue/VD-564/biz-launch-ai-academy-sense-audit-bundle-offer",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity: Cross-sell Academy with Audit\n\nBundle Academy L1 (\u20ac49-99) with Sense Audit (\u20ac500) at discounted \u20ac449-499 (\u20ac100-150 savings vs separate \u20ac549-599 purchase).\n\n## Why This Works\n\n1. Academy teaches AI fundamentals, audit shows ROI gap\n2. Audit customers need training to implement findings\n3. Academy graduates want to audit their business\n4. Natural upsell/cross-sell flow\n\n## Marketing Strategy\n\n* Position audit as \"AI Readiness Assessment\" for Academy students\n* Position Academy as \"Implementation Roadmap\" for audit customers\n* Bundle pricing creates urgency (limited time offer)\n* Showcase case studies: audit findings \u2192 Academy solutions\n\n## Pricing\n\n* Separately: Academy L1 (\u20ac49) + Sense Audit (\u20ac500) = \u20ac549\n* Bundle: \u20ac449 (\u20ac100 savings, 18% discount)\n* Premium bundle: Academy L1 (\u20ac99) + Sense Audit (\u20ac500) = \u20ac599\n* Premium bundle price: \u20ac499 (\u20ac100 savings, 17% discount)\n\n## Revenue Potential\n\n* Conservatively: 20% of audit customers buy Academy (50 audits x 20% x \u20ac49-99 = \u20ac490-990/mo)\n* Conservatively: 30% of Academy students buy audit (100 students x 30% x \u20ac500 = \u20ac15K one-time)\n* Upsell opportunity: Academy L2-4 (\u20ac199-1500) for engaged students\n\n## Next Steps\n\n1. Create bundle landing page\n2. Update Stripe payment links for bundle pricing\n3. Add bundle to Academy L1 checkout flow\n4. Add Academy promo to audit report conclusion\n5. Create bundle marketing materials (email, LinkedIn)\n\n## Success Metrics\n\n* Bundle conversion rate: Aim for 15-20% of audit/Academy customers\n* Bundle revenue: Target \u20ac5K/mo by Q2 2026\n* Student progression: 25% of bundle buyers upgrade to Academy L2-4",
+      "createdAt": "2025-12-29T14:00:46.004Z",
+      "updatedAt": "2025-12-29T14:00:46.004Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "type:sales"
+          },
+          {
+            "name": "category:academy"
+          },
+          {
+            "name": "bundle"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "a96f6478-d1f1-4944-932a-5b7efd78aa07",
+      "identifier": "VD-563",
+      "title": "[Focus] Register webhook URL with Google Cloud Console",
+      "url": "https://linear.app/verduona/issue/VD-563/focus-register-webhook-url-with-google-cloud-console",
+      "priority": 2,
+      "estimate": null,
+      "description": "Priority: High (for real-time calendar updates)\n\nFrom: applications/focus-kraliki/docs/TODO_LIST.md item 36",
+      "createdAt": "2025-12-29T12:34:13.337Z",
+      "updatedAt": "2025-12-29T12:34:13.337Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:asset-engine"
+          },
+          {
+            "name": "type:infrastructure"
+          },
+          {
+            "name": "product:focus-kraliki"
+          },
+          {
+            "name": "phase:apps"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "16526d71-8e3c-4eb0-b82f-a6e72c85da9d",
+      "identifier": "VD-561",
+      "title": "[Focus] Update environment variable documentation",
+      "url": "https://linear.app/verduona/issue/VD-561/focus-update-environment-variable-documentation",
+      "priority": 3,
+      "estimate": null,
+      "description": "New Variables:\n\n* STATIC_FILE_BASE_URL\n* II_AGENT_WEBHOOK_SECRET\n* GOOGLE_CALENDAR_WEBHOOK_TOKEN\n\nPriority: Medium\n\nFrom: applications/focus-kraliki/docs/TODO_LIST.md item 33",
+      "createdAt": "2025-12-29T12:34:10.669Z",
+      "updatedAt": "2025-12-29T12:34:10.669Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:asset-engine"
+          },
+          {
+            "name": "type:documentation"
+          },
+          {
+            "name": "product:focus-kraliki"
+          },
+          {
+            "name": "phase:apps"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "d960add3-6e24-4dcc-b789-494b1628f5b8",
+      "identifier": "VD-560",
+      "title": "[Focus] Add API documentation for new endpoints",
+      "url": "https://linear.app/verduona/issue/VD-560/focus-add-api-documentation-for-new-endpoints",
+      "priority": 3,
+      "estimate": null,
+      "description": "Endpoints:\n\n* /auth/google/url\n* /auth/google/login\n* /calendar-sync/webhook\n* /agent/sessions/webhook/callback\n\nPriority: Medium\n\nFrom: applications/focus-kraliki/docs/TODO_LIST.md item 32",
+      "createdAt": "2025-12-29T12:34:09.967Z",
+      "updatedAt": "2025-12-29T12:34:09.967Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:asset-engine"
+          },
+          {
+            "name": "type:documentation"
+          },
+          {
+            "name": "product:focus-kraliki"
+          },
+          {
+            "name": "phase:apps"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "7bc4efca-b005-4636-ba79-8f5e85f93320",
+      "identifier": "VD-559",
+      "title": "[Focus] Update main README with new features",
+      "url": "https://linear.app/verduona/issue/VD-559/focus-update-main-readme-with-new-features",
+      "priority": 4,
+      "estimate": null,
+      "description": "Priority: Low\n\nScope: OAuth, webhooks, conflict resolution, offline inference\n\nFrom: applications/focus-kraliki/docs/TODO_LIST.md item 31",
+      "createdAt": "2025-12-29T12:34:09.305Z",
+      "updatedAt": "2025-12-29T12:34:09.305Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:asset-engine"
+          },
+          {
+            "name": "type:documentation"
+          },
+          {
+            "name": "product:focus-kraliki"
+          },
+          {
+            "name": "phase:apps"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "891618ed-76db-4051-9e3a-5af850eb8d43",
+      "identifier": "VD-557",
+      "title": "[Focus] Continue test coverage improvements (50% \u2192 80%)",
+      "url": "https://linear.app/verduona/issue/VD-557/focus-continue-test-coverage-improvements-50percent-\u2192-80percent",
+      "priority": 2,
+      "estimate": null,
+      "description": "Current test coverage is 50%. Target is 80%.\n\nNext milestone: 60% (Week 2)\n\nRemaining work:\n\n* Service layer tests\n* Router tests\n* Core infrastructure tests\n\nPriority: High\n\nFrom: applications/focus-kraliki/docs/TODO_LIST.md item 29",
+      "createdAt": "2025-12-29T12:32:47.598Z",
+      "updatedAt": "2025-12-29T12:32:47.598Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:asset-engine"
+          },
+          {
+            "name": "type:improvement"
+          },
+          {
+            "name": "product:focus-kraliki"
+          },
+          {
+            "name": "phase:apps"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "b06f7a7e-88f1-42d4-b7dc-da773f4d2a8f",
+      "identifier": "VD-556",
+      "title": "Run lab-kraliki Playwright E2E on mac for develop \u2192 beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-556/run-lab-kraliki-playwright-e2e-on-mac-for-develop-\u2192-beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Need mac browser run per policy. Repo: `applications/lab-kraliki` (develop ahead of beta). Please run `pnpm test:e2e` on develop and report results so promotion can proceed.",
+      "createdAt": "2025-12-29T11:01:38.904Z",
+      "updatedAt": "2025-12-29T11:01:38.904Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "965ac49a-da74-40ba-9de1-e76369d11048",
+      "identifier": "VD-554",
+      "title": "[speak-kraliki] Improve test coverage for backend services",
+      "url": "https://linear.app/verduona/issue/VD-554/speak-kraliki-improve-test-coverage-for-backend-services",
+      "priority": 0,
+      "estimate": null,
+      "description": "Speak by Kraliki currently has only 20% test coverage: 49 source files and 10 test files. Focus on testing: survey services, conversation handling, authentication flows, and webhook security.",
+      "createdAt": "2025-12-29T10:58:59.661Z",
+      "updatedAt": "2025-12-29T10:58:59.661Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "tests"
+          },
+          {
+            "name": "phase:apps"
+          },
+          {
+            "name": "product:speak-kraliki"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "918771f6-9625-4dc8-b40b-c4bec18ea79c",
+      "identifier": "VD-553",
+      "title": "[learn-kraliki] Add unit and E2E tests for frontend components",
+      "url": "https://linear.app/verduona/issue/VD-553/learn-kraliki-add-unit-and-e2e-tests-for-frontend-components",
+      "priority": 0,
+      "estimate": null,
+      "description": "Learn by Kraliki currently has 0% test coverage: 9 source files and 0 test files. Priority components to test: Progress tracking, Lesson navigation, AI Readiness Assessment, API client integration.",
+      "createdAt": "2025-12-29T10:58:59.441Z",
+      "updatedAt": "2025-12-29T10:58:59.441Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "tests"
+          },
+          {
+            "name": "phase:apps"
+          },
+          {
+            "name": "app:learn-kraliki"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "3daabc4d-85cd-4f4b-8854-0c2cf1a10cfe",
+      "identifier": "VD-552",
+      "title": "[lab-kraliki] Run Playwright E2E tests on develop (mac-browser)",
+      "url": "https://linear.app/verduona/issue/VD-552/lab-kraliki-run-playwright-e2e-tests-on-develop-mac-browser",
+      "priority": 0,
+      "estimate": null,
+      "description": "Need macOS browser run per policy. Please checkout `origin/develop` for `applications/lab-kraliki` and run:\n\n```\ncd applications/lab-kraliki\nnpm run test:e2e\n```\n\nReport results back for develop \u2192 beta promotion. Develop is ahead of beta by 8 commits.",
+      "createdAt": "2025-12-29T10:57:43.873Z",
+      "updatedAt": "2025-12-29T10:57:43.873Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "30678b9c-d66a-467e-9761-c97880ec4cf4",
+      "identifier": "VD-550",
+      "title": "Run lab-kraliki Playwright e2e on mac for develop \u2192 beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-550/run-lab-kraliki-playwright-e2e-on-mac-for-develop-\u2192-beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Browser/E2E policy requires mac. Please run `npm run test:e2e` (Playwright) on lab-kraliki develop to verify before promotion.\n\nContext: develop has new commits ahead of beta; promotion blocked until e2e passes on mac.",
+      "createdAt": "2025-12-29T10:45:18.608Z",
+      "updatedAt": "2025-12-29T10:45:18.608Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "2ad6460c-ab61-4989-90d1-97b726b232fc",
+      "identifier": "VD-549",
+      "title": "Run lab-kraliki Playwright E2E on mac for develop \u2192 beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-549/run-lab-kraliki-playwright-e2e-on-mac-for-develop-\u2192-beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Linux promoter cannot run browser automation. Please run Playwright E2E for `applications/lab-kraliki` on mac and report results for develop \u2192 beta promotion.\n\nSuggested command:\n\n* `pnpm test:e2e`\n\nContext: `origin/develop` is ahead of `origin/beta` (8 commits).",
+      "createdAt": "2025-12-29T10:39:49.556Z",
+      "updatedAt": "2025-12-29T10:39:49.556Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "56453e59-3624-44ca-b90c-ebd962b503be",
+      "identifier": "VD-548",
+      "title": "Run mac-browser Playwright tests for lab-kraliki develop \u2192 beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-548/run-mac-browser-playwright-tests-for-lab-kraliki-develop-\u2192-beta",
+      "priority": 0,
+      "estimate": null,
+      "description": "Need Playwright E2E tests for `applications/lab-kraliki` on macOS per policy (no Linux browser automation). Develop is ahead of beta with multiple commits. Please run `npm run test:e2e` on `develop` and report results here so we can promote to `beta`.",
+      "createdAt": "2025-12-29T10:27:19.750Z",
+      "updatedAt": "2025-12-29T10:27:19.750Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "1847ae63-e852-41f1-a429-6f2dce4ad3c5",
+      "identifier": "VD-547",
+      "title": "Run Playwright e2e for lab-kraliki develop\u2192beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-547/run-playwright-e2e-for-lab-kraliki-develop\u2192beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Need macOS Playwright run per policy (Linux cannot run browser automation) before promoting develop \u2192 beta.\n\nRepo: applications/lab-kraliki\nBranch: develop\nCommits ahead of beta:\n\n* a7f0952 fix(VD-528): align Lab by Kraliki Stripe placeholders\n* 37e9e06 feat: optimize admin dashboard usage lookup\n* a3175fc Nightly auto-sync 2025-12-29\n* 0b59efb docs: Add comprehensive security implementation guide (VD-521)\n* e8cdae9 \ud83e\udd16 Hourly backup 2025-12-28 15:00\n\nRun: `npm run test:e2e` (Playwright)",
+      "createdAt": "2025-12-29T10:23:01.065Z",
+      "updatedAt": "2025-12-29T10:23:01.065Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "adde1ced-2e80-445c-95b4-a8b92df30128",
+      "identifier": "VD-546",
+      "title": "Run mac-browser Playwright tests for lab-kraliki develop before beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-546/run-mac-browser-playwright-tests-for-lab-kraliki-develop-before-beta",
+      "priority": 0,
+      "estimate": null,
+      "description": "Need macOS browser automation for `lab-kraliki` before promoting develop \u2192 beta. Please run Playwright tests on macOS and report results.\n\nCommands:\n\n* `cd applications/lab-kraliki`\n* `git fetch origin`\n* `git checkout develop`\n* `pnpm install` (if needed)\n* `pnpm test:e2e`\n\nIf tests pass, report back so promotion can proceed.",
+      "createdAt": "2025-12-29T10:17:08.905Z",
+      "updatedAt": "2025-12-29T10:17:08.905Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "0342db08-599b-483a-a341-780a99899a97",
+      "identifier": "VD-545",
+      "title": "Run lab-kraliki Playwright E2E on mac for develop \u2192 beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-545/run-lab-kraliki-playwright-e2e-on-mac-for-develop-\u2192-beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Promotion blocked until mac browser tests pass.\n\nRepo: `applications/lab-kraliki`\nBranch: `develop`\nCommand: `npm run test:e2e`\n\nPlease report pass/fail and any failures.",
+      "createdAt": "2025-12-29T10:14:30.822Z",
+      "updatedAt": "2025-12-29T10:14:30.822Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "f9f2aeb1-970d-434e-8fed-769d06187195",
+      "identifier": "VD-544",
+      "title": "mac-browser: Run kraliki-swarm E2E tests for develop \u2192 beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-544/mac-browser-run-kraliki-swarm-e2e-tests-for-develop-\u2192-beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Develop is ahead of beta. Please run Kraliki E2E tests on Mac before promotion.\n\nRepo: `applications/kraliki-swarm`\nInstructions: `e2e-tests/README.md`\nQuick prompt: \"Run all E2E tests from /home/adminmatej/github/applications/kraliki-lab/kraliki-swarm/e2e-tests/ Start with 001, then 002, etc. Report PASS/FAIL for each.\"\nBase URL: [https://kraliki.verduona.dev](https://kraliki.verduona.dev)\nReport results back in this issue.",
+      "createdAt": "2025-12-29T10:08:14.936Z",
+      "updatedAt": "2025-12-29T10:08:14.936Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "89ced932-09f8-4494-a2f7-623c85103bf9",
+      "identifier": "VD-543",
+      "title": "mac-browser: Run lab-kraliki E2E tests for develop \u2192 beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-543/mac-browser-run-lab-kraliki-e2e-tests-for-develop-\u2192-beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Develop is ahead of beta. Please run the browser/E2E suite on Mac before promotion.\n\nRepo: `applications/lab-kraliki`\nCommand: `npm run test:e2e`\nNotes: Playwright config at `playwright.config.ts`. Report PASS/FAIL and any failures back in this issue.",
+      "createdAt": "2025-12-29T10:08:10.143Z",
+      "updatedAt": "2025-12-29T10:08:10.143Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "e3973075-b9b4-4648-bd58-cdecc12c222c",
+      "identifier": "VD-542",
+      "title": "Run lab-kraliki Playwright E2E on mac for develop\u2192beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-542/run-lab-kraliki-playwright-e2e-on-mac-for-develop\u2192beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Promotion blocker: `lab-kraliki` develop is ahead of beta, but tests are Playwright-only and must run on macOS (Linux browser automation not allowed).\n\nSteps:\n\n1. `cd /home/adminmatej/github/applications/lab-kraliki`\n2. `npm run test:e2e` (or `pnpm run test:e2e` if preferred)\n3. Report results so promotion can proceed.\n\nNotes:\n\n* Latest commits on develop include nightly auto-sync + docs updates.\n* Please attach logs or summary of test run.",
+      "createdAt": "2025-12-29T09:59:27.296Z",
+      "updatedAt": "2025-12-29T09:59:27.296Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "f2ae1310-6cd6-485f-8f45-fe1d130e392f",
+      "identifier": "VD-541",
+      "title": "Run mac-browser Playwright tests for lab-kraliki develop\u2192beta",
+      "url": "https://linear.app/verduona/issue/VD-541/run-mac-browser-playwright-tests-for-lab-kraliki-develop\u2192beta",
+      "priority": 0,
+      "estimate": null,
+      "description": "Playwright-only tests block promotion on Linux. Please run on macOS and report results.\n\nRepo: /home/adminmatej/github/applications/lab-kraliki\nBranch: origin/develop\nCommand: npm run test:e2e\n\nGoal: confirm tests pass so develop can be promoted to beta.",
+      "createdAt": "2025-12-29T09:54:33.185Z",
+      "updatedAt": "2025-12-29T09:54:33.185Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "32694e17-ce96-49d4-8d4c-a2cae277a23b",
+      "identifier": "VD-540",
+      "title": "Run lab-kraliki Playwright E2E for develop\u2192beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-540/run-lab-kraliki-playwright-e2e-for-develop\u2192beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Promotion blocked: lab-kraliki develop is ahead of beta, but Playwright E2E is mac-only.\n\nRun on Mac:\n\n1. cd /home/adminmatej/github/applications/lab-kraliki\n2. npm run test:e2e\n\nIf green, reply so promoter can merge develop \u2192 beta.\n\nRef: policy says no Linux browser automation.",
+      "createdAt": "2025-12-29T09:49:32.842Z",
+      "updatedAt": "2025-12-29T09:49:32.842Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "a1cde413-5fd6-4c41-8c6b-0dcaecb5285d",
+      "identifier": "VD-539",
+      "title": "Run lab-kraliki Playwright E2E for develop\u2192beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-539/run-lab-kraliki-playwright-e2e-for-develop\u2192beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Need mac-run due to Linux browser automation restriction. Please run Playwright tests for lab-kraliki develop before promotion.\n\nSuggested command:\n\n```\ncd applications/lab-kraliki\nnpx playwright test\n```\n\nReport results back for promotion.",
+      "createdAt": "2025-12-29T09:44:37.188Z",
+      "updatedAt": "2025-12-29T09:44:37.188Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "565e0761-ae94-439c-804a-3b6beb52ff65",
+      "identifier": "VD-538",
+      "title": "Run lab-kraliki Playwright E2E for develop\u2192beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-538/run-lab-kraliki-playwright-e2e-for-develop\u2192beta-promotion",
+      "priority": 0,
+      "estimate": null,
+      "description": "Need mac-browser Playwright run for lab-kraliki before promoting develop \u2192 beta. Linux promoter cannot run browser automation.",
+      "createdAt": "2025-12-29T09:39:12.519Z",
+      "updatedAt": "2025-12-29T09:39:12.519Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "a1456773-28d9-4969-9c6f-de77c15cf76b",
+      "identifier": "VD-530",
+      "title": "[BIZ] Enable Stripe Payments for AI Academy Level 1",
+      "url": "https://linear.app/verduona/issue/VD-530/biz-enable-stripe-payments-for-ai-academy-level-1",
+      "priority": 2,
+      "estimate": null,
+      "description": "REVENUE ENABLEMENT. Generate and add Stripe link for \u20ac49 course to 'websites/learn/index.html'. See 'marketing-2026/campaigns/STRIPE-LINKS-NEEDED.md'.",
+      "createdAt": "2025-12-29T09:28:31.612Z",
+      "updatedAt": "2025-12-29T10:54:56.745Z",
+      "dueDate": null,
+      "state": {
+        "name": "In Progress",
+        "type": "started"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:integration"
+          },
+          {
+            "name": "phase:stability"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "ee470ba4-e45d-4687-8530-1a4f5af9e0bd",
+      "identifier": "VD-529",
+      "title": "[BIZ] Enable Stripe Payments for Reality Check Audit",
+      "url": "https://linear.app/verduona/issue/VD-529/biz-enable-stripe-payments-for-reality-check-audit",
+      "priority": 1,
+      "estimate": null,
+      "description": "REVENUE ENABLEMENT. Replace mailto link with real Stripe link for \u20ac500 audit in 'websites/consulting/audit.html' and related files. See 'marketing-2026/campaigns/STRIPE-LINKS-NEEDED.md'.",
+      "createdAt": "2025-12-29T09:28:30.335Z",
+      "updatedAt": "2025-12-29T10:59:58.441Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:integration"
+          },
+          {
+            "name": "phase:stability"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "c321828c-14e9-4bee-821b-5e7c244f9321",
+      "identifier": "VD-528",
+      "title": "[BIZ] Enable Stripe Payments for Lab by Kraliki",
+      "url": "https://linear.app/verduona/issue/VD-528/biz-enable-stripe-payments-for-lab-by-kraliki",
+      "priority": 1,
+      "estimate": null,
+      "description": "REVENUE ENABLEMENT. Replace placeholder Stripe links in 'infra/compose/lab/index.html' and 'applications/lab-kraliki/docs/landing-page.html' with real payment links for Starter (\u20ac299) and Pro (\u20ac499) tiers. See 'marketing-2026/campaigns/STRIPE-LINKS-NEEDED.md'.",
+      "createdAt": "2025-12-29T09:28:29.015Z",
+      "updatedAt": "2025-12-29T10:00:06.801Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:integration"
+          },
+          {
+            "name": "phase:stability"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "65c20292-2573-4a2d-84fb-21171f10f827",
+      "identifier": "VD-526",
+      "title": "[BIZ] Send overdue Lab by Kraliki outreach (2 prospects)",
+      "url": "https://linear.app/verduona/issue/VD-526/biz-send-overdue-lab-by-kraliki-outreach-2-prospects",
+      "priority": 1,
+      "estimate": null,
+      "description": "SALES ACTION. Reach out to Stryde Digital and Growth Cave (P0 prospects). Due week of Dec 23. Reference: marketing-2026/lab-kraliki/00-README-B2B-OUTREACH-PLAN.md.",
+      "createdAt": "2025-12-28T23:10:06.576Z",
+      "updatedAt": "2025-12-28T23:10:06.576Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:sales"
+          },
+          {
+            "name": "phase:alignment"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "878b254b-9eb7-4988-91dc-d1eea1b4723f",
+      "identifier": "VD-525",
+      "title": "[BIZ] Send overdue SenseIt Audit offers (5 contacts)",
+      "url": "https://linear.app/verduona/issue/VD-525/biz-send-overdue-senseit-audit-offers-5-contacts",
+      "priority": 1,
+      "estimate": null,
+      "description": "SALES ACTION. Send the SenseIt audit offer to 5 network contacts. This was due week of Dec 23. Target: \u20ac2,500 potential. Reference: marketing-2026/campaigns/senseit-warm-outreach.",
+      "createdAt": "2025-12-28T23:10:04.535Z",
+      "updatedAt": "2025-12-28T23:10:04.535Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:sales"
+          },
+          {
+            "name": "phase:alignment"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "d2dfa190-910a-45cb-beb0-5d1af6098f28",
+      "identifier": "VD-524",
+      "title": "[BIZ] Configure Production DNS (HW-017)",
+      "url": "https://linear.app/verduona/issue/VD-524/biz-configure-production-dns-hw-017",
+      "priority": 1,
+      "estimate": null,
+      "description": "Point production DNS for apps (vop, cc, [focus.verduona.com](http://focus.verduona.com)). Move from .dev to professional domains. Essential for sales credibility. Reference: ME-90 Strategy Review.",
+      "createdAt": "2025-12-28T23:10:01.177Z",
+      "updatedAt": "2025-12-29T10:32:29.301Z",
+      "dueDate": null,
+      "state": {
+        "name": "In Progress",
+        "type": "started"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:integration"
+          },
+          {
+            "name": "phase:stability"
+          },
+          {
+            "name": "urgent"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "27edda8a-74ba-4912-acb0-65281ad2d96c",
+      "identifier": "VD-523",
+      "title": "[BIZ] Configure Stripe Payment Links (HW-025)",
+      "url": "https://linear.app/verduona/issue/VD-523/biz-configure-stripe-payment-links-hw-025",
+      "priority": 1,
+      "estimate": null,
+      "description": "CRITICAL REVENUE BLOCKER. Create and configure Stripe payment links for Lab by Kraliki and Consulting services. Blocks non-Telegram revenue. Reference: ME-90 Strategy Review.",
+      "createdAt": "2025-12-28T23:09:59.770Z",
+      "updatedAt": "2025-12-29T11:29:21.896Z",
+      "dueDate": null,
+      "state": {
+        "name": "In Review",
+        "type": "started"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:integration"
+          },
+          {
+            "name": "phase:stability"
+          },
+          {
+            "name": "urgent"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "8e04c894-a680-4a46-88ea-8f56d1dd2b20",
+      "identifier": "VD-515",
+      "title": "Run mac-browser E2E for kraliki develop\u2192beta promotion",
+      "url": "https://linear.app/verduona/issue/VD-515/run-mac-browser-e2e-for-kraliki-develop\u2192beta-promotion",
+      "priority": 2,
+      "estimate": null,
+      "description": "Kraliki develop is ahead of beta, but E2E tests require mac browser.\n\nPlease run the manual E2E suite in `applications/kraliki/e2e-tests/` (001-005) against [https://kraliki.verduona.dev](https://kraliki.verduona.dev) and report PASS/FAIL per test so we can promote.\n\nBlocking promotion: no automated test runner available on Linux.",
+      "createdAt": "2025-12-27T22:19:20.076Z",
+      "updatedAt": "2025-12-28T19:48:05.592Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "74f914f8-bbb6-4cb3-8d7b-a94dd0caaa66",
+      "identifier": "VD-510",
+      "title": "[BIZ] Launch Q1 2026 New Year Revenue Campaign",
+      "url": "https://linear.app/verduona/issue/VD-510/biz-launch-q1-2026-new-year-revenue-campaign",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Context\n\nME-90 deadline is March 1, 2026 (EUR 3-5K MRR target).\nWeek 4 ending, need specific January kick-off campaign.\n\n## Revenue Impact\n\n* Creates urgency for early Q1 sales\n* Time-limited offers can accelerate decisions\n* Targets: SenseIt audits, Magic Box trials, Academy signups\n\n## Campaign Ideas\n\n1. \"AI Readiness Check\" promo - First 5 audits at EUR 399 (vs EUR 500)\n2. Magic Box 30-day free trial for January signups\n3. Academy L1 early bird pricing\n4. New Year's resolution: \"Automate your 2026\"\n\n## Action Required\n\n1. Pick 1-2 campaign angles\n2. Create time-limited landing page variants\n3. Schedule LinkedIn posts for January 1-15\n4. Set up tracking\n\n## Priority\n\nHIGH - Time-sensitive for January revenue.",
+      "createdAt": "2025-12-27T19:36:00.095Z",
+      "updatedAt": "2025-12-28T15:19:27.873Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "marketing"
+          },
+          {
+            "name": "revenue"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "edd74aa1-0f27-454d-86f5-fe5e90a4e3f4",
+      "identifier": "VD-509",
+      "title": "[BIZ] Collect First Customer Testimonials for SenseIt and TL;DR",
+      "url": "https://linear.app/verduona/issue/VD-509/biz-collect-first-customer-testimonials-for-senseit-and-tldr",
+      "priority": 3,
+      "estimate": null,
+      "description": "## Context\n\nBoth Telegram bots are live but have no customer testimonials or reviews.\nNo social proof for marketing.\n\n## Revenue Impact\n\n* Testimonials increase conversion rates 30-50%\n* Required for credible sales materials\n* Enables case study creation (already has Linear issue)\n\n## Action Required\n\n1. Reach out to any existing bot users\n2. Request short testimonial (1-3 sentences)\n3. Get permission to use name/company\n4. Add to landing pages\n\n## Bots Available\n\n* @sumarium_bot (TL;DR)\n* @senseit_ai_bot (SenseIt)\n\n## Priority\n\nMEDIUM - Builds credibility for ongoing sales.",
+      "createdAt": "2025-12-27T19:35:58.189Z",
+      "updatedAt": "2025-12-28T04:12:24.130Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "human-blocked"
+          },
+          {
+            "name": "sales"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:qa"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "260ffcc3-af87-4544-add9-17c88f32f68c",
+      "identifier": "VD-508",
+      "title": "[BIZ] Deploy Email Automation Sequences",
+      "url": "https://linear.app/verduona/issue/VD-508/biz-deploy-email-automation-sequences",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Context\n\nMultiple email sequences exist in `/marketing-2026/email-sequences/` but are not deployed to any automation tool.\n\n## Ready Sequences\n\n* Academy L1 waitlist welcome\n* Magic Box P0 outreach (dated 2025-12-26)\n* Focus-Lite nurture\n* Reality Check nurture + outreach\n* Learn by Kraliki waitlist\n\n## Revenue Impact\n\n* Automates follow-up for leads\n* Enables drip campaigns for ME-90 products\n* Each sequence targets EUR 500+ revenue\n\n## Action Required\n\n1. Setup email automation (consider: Mailerlite, Brevo, or EspoCRM)\n2. Deploy sequences with proper tracking\n3. Connect to landing page signups\n\n## Priority\n\nHIGH - Sequences are written, just need deployment.",
+      "createdAt": "2025-12-27T19:35:56.291Z",
+      "updatedAt": "2025-12-28T04:12:24.402Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "human-blocked"
+          },
+          {
+            "name": "marketing"
+          },
+          {
+            "name": "phase:stability"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "396deaab-f119-4a93-bf3c-51ffaf6f2890",
+      "identifier": "VD-507",
+      "title": "[BIZ] Record Magic Box Loom Demo Video",
+      "url": "https://linear.app/verduona/issue/VD-507/biz-record-magic-box-loom-demo-video",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Context\n\nMagic Box product has GTM plan but no demo video for async sales.\n\n## Revenue Impact\n\n* EUR 299-499/mo subscription potential\n* Demo video enables async sales without scheduling calls\n* Critical for P0 prospect outreach already in Linear\n\n## Action Required\n\nHuman to record 5-10 min Loom demo showing:\n\n* Multi-AI orchestration in action\n* 16x productivity proof\n* Prompt library walkthrough\n* Quick setup process\n\n## Location\n\nAfter recording: `/marketing-2026/demos/magic-box/`\n\n## Priority\n\nHIGH - Enables async sales for P0 prospects.",
+      "createdAt": "2025-12-27T19:35:21.108Z",
+      "updatedAt": "2025-12-28T04:12:24.713Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "human-blocked"
+          },
+          {
+            "name": "marketing"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "775e43f2-4e91-4a1d-8eb6-8c6265ce55a1",
+      "identifier": "VD-488",
+      "title": "[Focus] E2E Testing - Brain, Comments, Activity, MCP",
+      "url": "https://linear.app/verduona/issue/VD-488/focus-e2e-testing-brain-comments-activity-mcp",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Summary\n\nRun E2E tests for Focus by Kraliki features.\n\n## Test Scenarios\n\n### 1\\. Brain API Tests\n\n- [ ] POST /brain/capture - AI-first capture\n- [ ] GET /brain/daily-plan - Daily plan\n- [ ] POST /brain/ask - Ask Brain\n- [ ] GET /brain/summary - Knowledge summary\n\n### 2\\. Team Collaboration\n\n- [ ] POST /comments - Add comment\n- [ ] GET /activity/feed - Activity feed\n\n### 3\\. MCP Server\n\n- [ ] Verify MCP server starts\n- [ ] Test focus_get_tasks tool\n\n### 4\\. UI (focus.verduona.dev)\n\n- [ ] Dashboard loads\n- [ ] Quick capture works\n\n## Labels\n\nmac-browser",
+      "createdAt": "2025-12-27T12:45:47.241Z",
+      "updatedAt": "2025-12-29T10:27:23.886Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "7d1c83be-d133-4745-a734-61c9362d9751",
+      "identifier": "VD-483",
+      "title": "[Strategy] Evaluate Kraliki evolution to decision SoR",
+      "url": "https://linear.app/verduona/issue/VD-483/strategy-evaluate-kraliki-evolution-to-decision-sor",
+      "priority": 3,
+      "estimate": null,
+      "description": "## Context\n\nStrategic question from research: Could Kraliki evolve from \"AI agent orchestration\" to \"system of record for AI decisions\"?\n\n## Implications\n\n* Context graph becomes audit trail for AI governance\n* Training data for improving agent decisions\n* Competitive moat (accumulated precedents are unique)\n* Enterprise value (\"why\" more valuable than \"what\")\n\n## Task\n\nEvaluate:\n\n1. Is this strategically desirable for Verduona?\n2. What would the evolution path look like?\n3. Resource requirements\n4. Go-to-market implications\n\n## Reference\n\nSee: `/github/brain-2026/decisions/2025-12-27-context-graphs-research.md`\n\n## Deliverable\n\nStrategy memo with recommendation.",
+      "createdAt": "2025-12-27T10:31:01.065Z",
+      "updatedAt": "2025-12-28T04:12:16.470Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "strategy"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "fab87f80-3591-4b8c-8c7b-410e280b0407",
+      "identifier": "VD-482",
+      "title": "[Research] Study PlayerZero, Regie, Maximor architectures",
+      "url": "https://linear.app/verduona/issue/VD-482/research-study-playerzero-regie-maximor-architectures",
+      "priority": 4,
+      "estimate": null,
+      "description": "## Context\n\nThese startups are exemplars of the three paths for building context graphs:\n\n1. **Regie** - Replace SoR (AI-native sales engagement)\n2. **Maximor** - Replace modules (finance workflows without replacing GL)\n3. **PlayerZero** - New SoR (production engineering at glue function intersection)\n\n## Task\n\nResearch their:\n\n* Architecture approaches\n* How they capture decision traces\n* What makes them defensible\n* Lessons applicable to Kraliki\n\n## Reference\n\nSee: `/github/ai-automation/know-how/research/context-graphs-trillion-dollar-opportunity.md`\n\n## Deliverable\n\nCompetitive analysis document with architectural learnings.",
+      "createdAt": "2025-12-27T10:31:00.888Z",
+      "updatedAt": "2025-12-28T04:12:16.735Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "strategy"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "1ce75941-2f6d-4198-b9bd-5a6e38a20ba5",
+      "identifier": "VD-478",
+      "title": "[Research] Map exception logic in Verduona workflows",
+      "url": "https://linear.app/verduona/issue/VD-478/research-map-exception-logic-in-verduona-workflows",
+      "priority": 3,
+      "estimate": null,
+      "description": "## Context\n\nContext Graphs research identifies \"exception logic in people's heads\" as a key missing layer.\n\n## Task\n\nIdentify exception patterns in our current apps:\n\n* Focus by Kraliki: Task prioritization exceptions\n* Voice by Kraliki: Call routing overrides\n* Pulse by Kraliki: Survey logic exceptions\n* Business decisions that bypass standard flows\n\n## Reference\n\nSee: `/github/brain-2026/decisions/2025-12-27-context-graphs-research.md`\n\n## Deliverable\n\nDocument of exception patterns that could be captured as decision traces.",
+      "createdAt": "2025-12-27T10:30:58.621Z",
+      "updatedAt": "2025-12-28T04:12:17.031Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "strategy"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "cf5de3ca-883c-482b-bc2e-4978139190f8",
+      "identifier": "VD-472",
+      "title": "E2E Test: Kraliki Dashboard /see route",
+      "url": "https://linear.app/verduona/issue/VD-472/e2e-test-kraliki-dashboard-see-route",
+      "priority": 0,
+      "estimate": null,
+      "description": "Test the new /see visualization route on Kraliki dashboard.\n\n## Test URL\n\n[https://swarm.verduona.dev/see](https://swarm.verduona.dev/see)\n\n(Alternative: [https://gin.verduona.dev/see](https://gin.verduona.dev/see) - both work)\n\n## Test Steps\n\n1. Navigate to [https://swarm.verduona.dev/see](https://swarm.verduona.dev/see)\n2. Verify project selector works (Kraliki, Focus, Pulse, Voice, Learn, Lab)\n3. Check Mermaid diagram renders correctly\n4. Verify live agent status shows correctly\n5. Test refresh button\n6. Screenshot the page\n\n## Expected\n\n* Interactive architecture diagram visible\n* Agent status badges with correct colors\n* Project switching works\n\nCreated by Kraliki swarm.",
+      "createdAt": "2025-12-27T09:17:40.962Z",
+      "updatedAt": "2025-12-28T19:51:37.400Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "mac-browser"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "a275c98f-3823-452e-9b68-4d966f2f493b",
+      "identifier": "VD-467",
+      "title": "[BIZ] Create Case Study Package for SenseIt Audits",
+      "url": "https://linear.app/verduona/issue/VD-467/biz-create-case-study-package-for-senseit-audits",
+      "priority": 2,
+      "estimate": null,
+      "description": "**Opportunity:** Convert \u20ac500 audits into \u20ac3K+ retainers through documented success stories.\n\n**Problem:** Trust barrier with new clients. Need proof of ROI.\n\n**Solution:** Create compelling case study package:\n\n1. Before/After metrics (time saved, costs reduced, revenue increased)\n2. Client testimonials (video + written)\n3. Implementation timeline\n4. ROI calculator specific to audit findings\n\n**Format:** PDF + landing page + social media assets\n\n**Success Metrics:**\n\n* 30% audit-to-retainer conversion rate\n* 5 case studies by Q2 2026\n\n**Estimated Impact:** \u20ac2-3K MRR (1-2 retained clients/month @ \u20ac2,500)",
+      "createdAt": "2025-12-27T08:44:46.063Z",
+      "updatedAt": "2025-12-28T04:12:26.457Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "marketing"
+          },
+          {
+            "name": "phase:apps"
+          },
+          {
+            "name": "product:sense"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "7fa17f03-72dc-41cb-a83b-174f8228f139",
+      "identifier": "VD-464",
+      "title": "[BIZ] Develop Industry-Specific AI Training Tracks",
+      "url": "https://linear.app/verduona/issue/VD-464/biz-develop-industry-specific-ai-training-tracks",
+      "priority": 2,
+      "estimate": null,
+      "description": "**Opportunity:** Most competitors offer generic AI training. Verduona can dominate niche markets with industry-specific content.\n\n**Target Industries:**\n\n1. **Healthcare** - AI Act compliance, medical AI applications\n2. **Finance** - Fraud detection, algorithmic trading, risk assessment\n3. **Manufacturing** - Predictive maintenance, quality control, supply chain\n4. **E-commerce** - Customer service automation, inventory optimization\n\n**Market Gap:** Current offerings (Datascript, Nau\u010d\u00edmeAI, Digit\u00e1\u0159i) are generic.\n\n**Competitive Advantage:**\n\n* Vertical integration (training \u2192 implementation \u2192 platform)\n* Pre-trained teams from Academy feed into Labs\n* Real case studies from implementation projects\n\n**Pricing:** \u20ac499-999 per specialized track\n**Timeline:** Q3 2026 launch\n\n**Estimated Impact:** \u20ac5-10K MRR (10-20 clients @ \u20ac500/month)",
+      "createdAt": "2025-12-27T08:44:37.081Z",
+      "updatedAt": "2025-12-28T04:12:27.327Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "phase:stability"
+          },
+          {
+            "name": "product:learn"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "vertical-markets"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "d5c88bc2-b385-44ad-b76f-fa5c0911d9f5",
+      "identifier": "VD-463",
+      "title": "[BIZ] Create AI Fundamentals Course for Beginners",
+      "url": "https://linear.app/verduona/issue/VD-463/biz-create-ai-fundamentals-course-for-beginners",
+      "priority": 2,
+      "estimate": null,
+      "description": "**Opportunity:** [fast.ai](http://fast.ai) and [deepLearning.AI](http://deepLearning.AI) offer FREE courses, but Verduona can differentiate with practical, business-focused content.\n\n**Competitor Analysis:**\n\n* Coursera ML Specialization: 4 courses, \u20ac171/year, intermediate level\n* [fast.ai](http://fast.ai): FREE, code-first, practical deep learning\n* [deepLearning.AI](http://deepLearning.AI): FREE resources, paid certifications\n\n**Verduona Differentiation:**\n\n* Focus on immediate business ROI\n* Czech/Slovak language support\n* Industry-specific use cases\n* Integration with Verduona products (SenseIt, Magic Box)\n\n**Pricing:** \u20ac49-99 (competitive to Coursera's \u20ac171/year)\n**Target:** Developers, managers, business owners\n**Format:** 6-week online course, 2 hours/week\n\n**Estimated Impact:** \u20ac1-2K MRR (20-40 students @ \u20ac50/course/month)",
+      "createdAt": "2025-12-27T08:44:34.381Z",
+      "updatedAt": "2025-12-28T04:12:27.589Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "course-development"
+          },
+          {
+            "name": "phase:dashboard"
+          },
+          {
+            "name": "product:learn"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "d062017e-05aa-412b-ae54-d8c6b33c327f",
+      "identifier": "VD-462",
+      "title": "[BIZ] Launch AI Academy for Corporate Training in Czech/Poland",
+      "url": "https://linear.app/verduona/issue/VD-462/biz-launch-ai-academy-for-corporate-training-in-czechpoland",
+      "priority": 1,
+      "estimate": null,
+      "description": "**Opportunity:** 600K workers in Czech Republic need AI retraining by 2030. Poland has 1B PLN government AI investment.\n\n**Market Research:**\n\n* Coursera: \u20ac171/year for Coursera Plus, 495K+ learners in ML specialization\n* [fast.ai](http://fast.ai): FREE practical courses, strong community\n* [deepLearning.AI](http://deepLearning.AI): 7M+ learners, Andrew Ng's platform\n\n**Pricing Strategy:**\n\n* Compete with Datascript: 2,614 CZK (\\~\u20ac115) for 2-day workshop\n* Verduona advantage: Industry-specific + implementation path\n* Target: \u20ac49-99 per course (competitive to \u20ac171 Coursera)\n\n**Next Steps:**\n\n1. Create 3 core courses: AI Fundamentals, Prompt Engineering, Industry Implementation\n2. Target healthcare, finance, manufacturing sectors\n3. Launch beta in Q2 2026\n4. Use existing 50K+ words of Czech AI education research as foundation\n\n**Estimated Impact:** \u20ac3-5K MRR (10-20 students at \u20ac250-500/course)",
+      "createdAt": "2025-12-27T08:44:31.915Z",
+      "updatedAt": "2025-12-28T04:12:27.858Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "czech-market"
+          },
+          {
+            "name": "phase:dashboard"
+          },
+          {
+            "name": "poland-market"
+          },
+          {
+            "name": "product:learn"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "e8ae0a17-b5db-474b-a938-424bbcc1416e",
+      "identifier": "VD-435",
+      "title": "[DNS] Update *.verduona.dev to production 138.201.54.142",
+      "url": "https://linear.app/verduona/issue/VD-435/dns-update-verduonadev-to-production-13820154142",
+      "priority": 1,
+      "estimate": null,
+      "description": "## URGENT: DNS Update Required\n\n**Current:** \\*.verduona.dev \u2192 5.9.38.218 (dev)\n**Required:** \\*.verduona.dev \u2192 138.201.54.142 (prod)\n\n### Instructions\n\n1. Log into Namecheap for verduona.dev\n2. Update wildcard A record\n3. Verify: dig focus.verduona.dev +short\n\n### Impact\n\nSSL certificates cannot be issued until DNS points to production.",
+      "createdAt": "2025-12-26T11:06:00.940Z",
+      "updatedAt": "2025-12-28T15:01:00.137Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "deployment"
+          },
+          {
+            "name": "human-blocked"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "decb150f-0270-4e56-b141-900d02bfa8b4",
+      "identifier": "VD-434",
+      "title": "[BIZ] Offer AI-First Government Consulting",
+      "url": "https://linear.app/verduona/issue/VD-434/biz-offer-ai-first-government-consulting",
+      "priority": 3,
+      "estimate": null,
+      "description": "Provide AI consulting for EU governments/public sector. Market: $8.2B public sector AI consulting (2026). EU has \u20ac100B+ AI spending mandates (Digital Europe Programme). Services: AI Readiness Assessment (\u20ac10K-20K) - tech stack readiness, gap analysis vs EU AI Act, implementation roadmap. AI Implementation Project (\u20ac30K-50K) - AI chatbots for citizen services, document processing automation, AI-powered analytics, staff training. Target: Municipalalities (local services), National Agencies (regulatory compliance), EU Commission (cross-border AI services). Revenue potential: \u20ac115,000 by Q1 2027. Advantage: EU data sovereignty (Hetzner EU data centers) + practical implementation. Register as EU supplier (TED e-procurement), submit Digital Europe tenders. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26-SESSION2.md #Opportunity8.",
+      "createdAt": "2025-12-26T10:45:06.356Z",
+      "updatedAt": "2025-12-28T04:12:28.138Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "46bf58b3-fba6-44e6-a656-ece12551db68",
+      "identifier": "VD-433",
+      "title": "[BIZ] Build WordPress AI Content Plugin",
+      "url": "https://linear.app/verduona/issue/VD-433/biz-build-wordpress-ai-content-plugin",
+      "priority": 3,
+      "estimate": null,
+      "description": "Integrate Magic Box as WordPress plugin for one-click AI content generation. Market: 43% of websites use WordPress (60M+ sites). Features: Blog Post Generator (SEO-optimized from keywords), Auto-Publishing, AI Image Generation, Multi-language localization. Pricing: Starter \u20ac19/month (20 posts), Growth \u20ac29/month (100 posts), Pro \u20ac49/month (unlimited + priority). Revenue potential: \u20ac42,000/month by Q4 2026. Implementation: Build WordPress plugin (PHP, REST API), integrate Magic Box API, submit to WordPress Plugin Directory (free traffic), partner with WordPress agencies. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26-SESSION2.md #Opportunity7.",
+      "createdAt": "2025-12-26T10:45:05.689Z",
+      "updatedAt": "2025-12-28T04:12:28.410Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "02fa9dde-57da-4498-ac45-d62f08f7aebd",
+      "identifier": "VD-431",
+      "title": "[BIZ] Offer AI-First Startup Advisory",
+      "url": "https://linear.app/verduona/issue/VD-431/biz-offer-ai-first-startup-advisory",
+      "priority": 2,
+      "estimate": null,
+      "description": "Provide AI-native business model consulting for startups (not just AI tool recommendations). Market: $15B startup consulting market (2025). Startups build AI wrappers, not AI-native products. Services: AI strategy advisory (\u20ac3K-5K), opportunity assessment, competitive analysis, GTM strategy, technical feasibility. Ongoing advisory: \u20ac1K-3K/month (weekly strategy calls, roadmap guidance, access to our AI infrastructure). Target: Seed-stage startups ($500K-2M raised), pre-seed founders validating AI ideas, corporate spinouts. Revenue potential: \u20ac33,000 by Q3 2026. Create 'AI-Native Startup Playbook' with case studies. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26-SESSION2.md #Opportunity5.",
+      "createdAt": "2025-12-26T10:44:42.874Z",
+      "updatedAt": "2025-12-28T04:12:28.953Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "advisory"
+          },
+          {
+            "name": "consulting"
+          },
+          {
+            "name": "startups"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "25d71a04-a67b-41cf-b4c7-0785473c84ec",
+      "identifier": "VD-429",
+      "title": "[BIZ] Offer AI Ethics Consulting for Enterprises",
+      "url": "https://linear.app/verduona/issue/VD-429/biz-offer-ai-ethics-consulting-for-enterprises",
+      "priority": 2,
+      "estimate": null,
+      "description": "Provide AI ethics consulting with practical implementation (not just theory). Market: $2.5B AI ethics & governance market (2026). Companies concerned about AI bias, privacy, transparency. Services: AI bias assessment (\u20ac5K-10K), privacy/GDPR compliance review, transparency audit, implementation advisory (\u20ac2K-5K/month). Target: Financial Services (AI lending, fraud detection), Healthcare (diagnostic AI, HIPAA), HR Tech (AI hiring, bias), Government (public-facing AI). Revenue potential: \u20ac52,500 by Q4 2026. Differentiation: We build AI systems (deep technical knowledge), not just consultants. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26-SESSION2.md #Opportunity3.",
+      "createdAt": "2025-12-26T10:44:34.230Z",
+      "updatedAt": "2025-12-28T04:12:29.468Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "consulting"
+          },
+          {
+            "name": "enterprise"
+          },
+          {
+            "name": "ethics"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "77d29a5c-1afc-4b5b-9958-c939d89d812a",
+      "identifier": "VD-428",
+      "title": "[BIZ] Build Shopify AI Content Plugin",
+      "url": "https://linear.app/verduona/issue/VD-428/biz-build-shopify-ai-content-plugin",
+      "priority": 3,
+      "estimate": null,
+      "description": "Integrate Magic Box as Shopify app for one-click AI content generation (product descriptions, blog posts, social media). Market: Shopify app store has 6,000+ apps, $1B+ revenue, 8M+ stores. Features: Product Description Generator, SEO Blog Posts, Social Media Content, Multi-language. Pricing: $29-99/month subscription. Revenue potential: $44,000/month (\u20ac40K+) by Q4 2026. Implementation: Build Shopify app (Node.js), submit to App Store (free distribution), cold outreach to top 1,000 merchants. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26-SESSION2.md #Opportunity2.",
+      "createdAt": "2025-12-26T10:44:29.131Z",
+      "updatedAt": "2025-12-28T04:12:29.738Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "partnership"
+          },
+          {
+            "name": "saas"
+          },
+          {
+            "name": "shopify"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "ddb13774-24a6-4673-a2f2-fdcde8e207d3",
+      "identifier": "VD-427",
+      "title": "[BIZ] Launch AI Localization Services (Multi-Language Content)",
+      "url": "https://linear.app/verduona/issue/VD-427/biz-launch-ai-localization-services-multi-language-content",
+      "priority": 2,
+      "estimate": null,
+      "description": "Offer AI-generated localization (50 languages) with cultural nuance checks. Market: $56B localization market (2025), growing 15% YoY. Most AI tools are English-first, creating gap for multilingual AI content. Pricing: \u20ac150-400/project or \u20ac500-2,000/month retainer. Target: SaaS scaling to EU/LATM/APAC, e-commerce localization, publishers. Revenue potential: \u20ac18,000 MRR by Q3 2026. Leverage Gemini 2.5 Flash multilingual capabilities + human quality control. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26-SESSION2.md #Opportunity1.",
+      "createdAt": "2025-12-26T10:44:24.268Z",
+      "updatedAt": "2025-12-28T04:12:30.021Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "localization"
+          },
+          {
+            "name": "services"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "0aabfc9c-05d6-4803-8b13-6ad972567e05",
+      "identifier": "VD-426",
+      "title": "[mac-browser] Test: Screenshot kraliki.com and verify it loads",
+      "url": "https://linear.app/verduona/issue/VD-426/mac-browser-test-screenshot-kralikicom-and-verify-it-loads",
+      "priority": 2,
+      "estimate": null,
+      "description": "Browser automation test task.\n\n## Instructions\n\n1. Navigate to [https://kraliki.com](https://kraliki.com)\n2. Wait for page to fully load\n3. Take a screenshot\n4. Report back:\n   * Does the page load?\n   * What do you see?\n   * Any errors?\n\n## Context\n\nThis domain was just pointed to production server 138.201.54.142 today.\nExpected: Should show something (may be blank if no web server configured yet)\n\n## Report format\n\nUpdate this issue with your findings and attach screenshot if possible.",
+      "createdAt": "2025-12-26T10:29:38.553Z",
+      "updatedAt": "2025-12-28T04:12:22.182Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": []
+      },
+      "assignee": null
+    },
+    {
+      "id": "e758c447-4942-4b31-88c6-8c557ef134ec",
+      "identifier": "VD-423",
+      "title": "[BIZ] Build AI-Driven Customer Insights Platform",
+      "url": "https://linear.app/verduona/issue/VD-423/biz-build-ai-driven-customer-insights-platform",
+      "priority": 3,
+      "estimate": null,
+      "description": "Synthesize customer data from 10+ sources (support tickets, reviews, social, surveys) into actionable insights using AI. Pricing: \u20ac500-3,000/month. Revenue potential: \u20ac50,000 MRR by Q1 2027. Features: Sentiment analysis, topic clustering, trend detection. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26.md #Opportunity10.",
+      "createdAt": "2025-12-26T06:56:15.215Z",
+      "updatedAt": "2025-12-28T04:12:30.372Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "c2bdf9a8-1204-4ced-a36f-c638998c1099",
+      "identifier": "VD-422",
+      "title": "[BIZ] Build AI Hiring and Recruitment Automation",
+      "url": "https://linear.app/verduona/issue/VD-422/biz-build-ai-hiring-and-recruitment-automation",
+      "priority": 2,
+      "estimate": null,
+      "description": "End-to-end hiring automation (resume screening, interview scheduling, candidate sourcing, skill assessment). Pricing: \u20ac500-2,000/month per company. Revenue potential: \u20ac30,000 MRR by Q4 2026. Target: Startups, scale-ups, agencies. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26.md #Opportunity9.",
+      "createdAt": "2025-12-26T06:56:13.983Z",
+      "updatedAt": "2025-12-28T04:12:30.637Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "3e0464be-2e4d-43bb-8693-15b5b9ee4539",
+      "identifier": "VD-419",
+      "title": "[BIZ] Offer AI-First Business Transformation Workshops",
+      "url": "https://linear.app/verduona/issue/VD-419/biz-offer-ai-first-business-transformation-workshops",
+      "priority": 2,
+      "estimate": null,
+      "description": "Conduct hands-on workshops where teams build real AI workflows. Public workshops (\u20ac1,200/person, 2 days) + In-house (\u20ac10K-25K/day). Revenue potential: \u20ac60,000 by Q3 2026 + upsell to retainers. Target: SMEs, marketing teams. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26.md #Opportunity6.",
+      "createdAt": "2025-12-26T06:56:10.061Z",
+      "updatedAt": "2025-12-28T04:12:31.436Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "e6650b5b-d4b1-42de-886e-382a87cb8ac5",
+      "identifier": "VD-417",
+      "title": "[BIZ] Voice of People for Corporate Training (Enterprise)",
+      "url": "https://linear.app/verduona/issue/VD-417/biz-voice-of-people-for-corporate-training-enterprise",
+      "priority": 2,
+      "estimate": null,
+      "description": "Leverage Voice of People for interactive corporate training (onboarding, compliance, product training). Conversational learning (not just videos). Pricing: \u20ac1,000-3,000/month. Revenue potential: \u20ac25,000 MRR by Q4 2026. Target: HR departments, L&D teams. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26.md #Opportunity4.",
+      "createdAt": "2025-12-26T06:53:57.171Z",
+      "updatedAt": "2025-12-28T04:12:31.939Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "enterprise"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "training"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "cc3722a7-a9c0-4e49-85da-0102c77423da",
+      "identifier": "VD-416",
+      "title": "[BIZ] Build Industry-Specific AI Templates Marketplace",
+      "url": "https://linear.app/verduona/issue/VD-416/biz-build-industry-specific-ai-templates-marketplace",
+      "priority": 2,
+      "estimate": null,
+      "description": "Create pre-built Magic Box configurations for specific industries (Legal \u20ac499, Healthcare \u20ac499, Real Estate \u20ac299, E-commerce \u20ac299, Recruitment \u20ac399). Sell templates + customization services. Revenue potential: \u20ac50,000/month by Q4 2026. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26.md #Opportunity3.",
+      "createdAt": "2025-12-26T06:53:54.026Z",
+      "updatedAt": "2025-12-28T04:12:32.203Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "marketplace"
+          },
+          {
+            "name": "phase:stability"
+          },
+          {
+            "name": "product"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "ab626135-715c-4736-b722-335651cb8868",
+      "identifier": "VD-415",
+      "title": "[BIZ] White-Label Magic Box for Agencies (Partnership Model)",
+      "url": "https://linear.app/verduona/issue/VD-415/biz-white-label-magic-box-for-agencies-partnership-model",
+      "priority": 2,
+      "estimate": null,
+      "description": "Sell Magic Box as white-label solution to marketing/development agencies. They resell as their own AI service. Pricing: \u20ac500-2,000/month + 20% revenue share. Revenue potential: \u20ac25,000 MRR + revenue share by Q4 2026. See brain-2026/BIZ-DISCOVERY-REPORT-DEC26.md #Opportunity2.",
+      "createdAt": "2025-12-26T06:53:50.764Z",
+      "updatedAt": "2025-12-28T04:12:32.472Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "partnership"
+          },
+          {
+            "name": "phase:stability"
+          },
+          {
+            "name": "saas"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "448ca9dc-9c4b-4417-bd28-675341bfcd40",
+      "identifier": "VD-392",
+      "title": "[BIZ] Point production DNS for apps (vop, cc, focus.verduona.com)",
+      "url": "https://linear.app/verduona/issue/VD-392/biz-point-production-dns-for-apps-vop-cc-focusverduonacom",
+      "priority": 2,
+      "estimate": null,
+      "description": "Move apps from .dev domains to professional production subdomains on [verduona.com](http://verduona.com). Critical for sales credibility. See HW-017.",
+      "createdAt": "2025-12-25T19:50:56.337Z",
+      "updatedAt": "2025-12-28T04:12:33.042Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "operations"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "355fc2fc-20cf-4b5f-9fa0-6db8a83bafa2",
+      "identifier": "VD-391",
+      "title": "[BIZ] Configure EspoCRM web-to-lead forms for verduona.com",
+      "url": "https://linear.app/verduona/issue/VD-391/biz-configure-espocrm-web-to-lead-forms-for-verduonacom",
+      "priority": 2,
+      "estimate": null,
+      "description": "Set up forms in EspoCRM and integrate them into the 9 marketing sites to capture leads systematically. This unblocks lead tracking for all products. See HW-024.",
+      "createdAt": "2025-12-25T19:50:55.037Z",
+      "updatedAt": "2025-12-28T04:12:33.299Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "operations"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:sales"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "f6524c92-3c2e-4bbd-b73f-1ca1aae7738d",
+      "identifier": "VD-390",
+      "title": "[BIZ] Execute outreach for P0 Magic Box prospects",
+      "url": "https://linear.app/verduona/issue/VD-390/biz-execute-outreach-for-p0-magic-box-prospects",
+      "priority": 1,
+      "estimate": null,
+      "description": "Reach out to Stryde Digital and Growth Cave (P0 prospects) using the prepared sales deck and templates. Goal: \u20ac299-499/mo beta clients. Check brain-2026/BIZ-DISCOVERY-REPORT.md for details.",
+      "createdAt": "2025-12-25T19:50:52.579Z",
+      "updatedAt": "2025-12-28T04:12:33.590Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "sales"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:sales"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "6992f2f4-fbe4-4548-aaea-a58e8a4239f9",
+      "identifier": "VD-389",
+      "title": "[BIZ] Enable Telegram Stars for @sumarium_bot and @senseit_ai_bot",
+      "url": "https://linear.app/verduona/issue/VD-389/biz-enable-telegram-stars-for-sumarium-bot-and-senseit-ai-bot",
+      "priority": 1,
+      "estimate": null,
+      "description": "Connect Telegram bots to a payment provider (Stripe/BotFather) to enable Stars. This is the last technical blocker for bot revenue. See HW-023 in strategy docs.",
+      "createdAt": "2025-12-25T19:50:50.700Z",
+      "updatedAt": "2025-12-28T04:12:33.843Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "revenue"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "562b2083-aa2f-4dff-b659-ff383618dc33",
+      "identifier": "VD-374",
+      "title": "[TL;DR] Bot listing on Telegram directory",
+      "url": "https://linear.app/verduona/issue/VD-374/tldr-bot-listing-on-telegram-directory",
+      "priority": 2,
+      "estimate": null,
+      "description": "Implement TT-011: List bot on Telegram directories. Increases discoverability and user acquisition.\n\nFrom: /github/applications/telegram-tldr\nStatus: pending | Priority: HIGH\nAction: Submit to @BotList, @Stickers, and other directories",
+      "createdAt": "2025-12-25T19:45:01.079Z",
+      "updatedAt": "2025-12-28T04:12:34.971Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "c5f687e9-b01a-4134-b1e6-987b54fdcc7c",
+      "identifier": "VD-354",
+      "title": "[BIZ] SenseIt Product Definition & Launch Prep",
+      "url": "https://linear.app/verduona/issue/VD-354/biz-senseit-product-definition-and-launch-prep",
+      "priority": 2,
+      "estimate": null,
+      "description": "SenseIt is missing a README and landing page copy. Define the product scope (OCR/Analysis?), create `applications/senseit/README.md`, and write landing page copy in `marketing-2026/landing-pages/senseit.md`.",
+      "createdAt": "2025-12-25T13:24:49.645Z",
+      "updatedAt": "2025-12-28T04:12:35.491Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "revenue"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "5780e31b-3acc-436c-a3b5-453d3598b1e3",
+      "identifier": "VD-343",
+      "title": "[Kralici] Build Reach module - unified communication",
+      "url": "https://linear.app/verduona/issue/VD-343/kralici-build-reach-module-unified-communication",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Overview\n\nBuild the Reach module in Kralikarna - unified inbound/outbound communication.\n\n## Features\n\n* Inbound: Calls, SMS, Email, Chat, Social DMs\n* Outbound: Call campaigns, SMS campaigns, Email sequences, Social outreach\n* AI Agents: Voice agents, Chat agents, Email agents\n* Analytics: All channels unified\n\n## Architecture\n\nCC-Lite finalizes into Reach as voice/call center capability.\n\n## Reference\n\nSee: brain-2026/decisions/2025-12-25-kralici-magic-box-apps-architecture.md",
+      "createdAt": "2025-12-25T12:28:53.915Z",
+      "updatedAt": "2025-12-28T04:12:22.476Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": []
+      },
+      "assignee": null
+    },
+    {
+      "id": "68aad79f-be18-4f9b-bdde-c21bad3a46a6",
+      "identifier": "VD-319",
+      "title": "[BIZ] Launch CC-Lite Early Adopter Program (50% off)",
+      "url": "https://linear.app/verduona/issue/VD-319/biz-launch-cc-lite-early-adopter-program-50percent-off",
+      "priority": 1,
+      "estimate": null,
+      "description": "Execute the early adopter program: 50% off first 3 months for first 5 customers. Create sales deck and outreach scripts. Target: \u20ac1.5K-3K MRR by March.",
+      "createdAt": "2025-12-24T19:07:13.862Z",
+      "updatedAt": "2025-12-28T04:12:36.015Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "sales"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:sales"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "b9cf58d1-39ff-4dd2-be4b-dd99bf2b5782",
+      "identifier": "VD-318",
+      "title": "[BIZ] Create Stripe Subscription Tiers for Voice of People",
+      "url": "https://linear.app/verduona/issue/VD-318/biz-create-stripe-subscription-tiers-for-voice-of-people",
+      "priority": 2,
+      "estimate": null,
+      "description": "Set up Stripe subscriptions for Voice of People: Personal ($9.99/mo), Premium ($29.99/mo), Pro ($99.99/mo). See verduona-business/01-ACTIVE-STRATEGY/VOICE_APP_MONETIZATION_STRATEGY.md.",
+      "createdAt": "2025-12-24T19:07:11.839Z",
+      "updatedAt": "2025-12-28T15:29:09.315Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "revenue"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "human-blocked"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "37e54077-adf8-4d14-99eb-cce3d70a9d61",
+      "identifier": "VD-317",
+      "title": "[BIZ] Implement Usage Metering for CC-Lite and Voice of People",
+      "url": "https://linear.app/verduona/issue/VD-317/biz-implement-usage-metering-for-cc-lite-and-voice-of-people",
+      "priority": 2,
+      "estimate": null,
+      "description": "Implement minute tracking for Gemini 2.5 Flash Live API usage. Required for hybrid pricing models (Starter: 1K min, Pro: 3K min). See verduona-business/01-ACTIVE-STRATEGY/VOICE_APP_MONETIZATION_STRATEGY.md.",
+      "createdAt": "2025-12-24T19:07:09.931Z",
+      "updatedAt": "2025-12-28T04:12:36.533Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "operations"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "e106ad62-26fd-471f-8672-4e3882330b2a",
+      "identifier": "VD-316",
+      "title": "[BIZ] TL;DR Bot Marketing Push",
+      "url": "https://linear.app/verduona/issue/VD-316/biz-tldr-bot-marketing-push",
+      "priority": 3,
+      "estimate": null,
+      "description": "TL;DR Bot is production-ready and payment-verified (250 Stars). Need to execute the marketing plan: LinkedIn posts, Product Hunt, Twitter threads. See marketing-2026/social-media/linkedin/2025-12-20_tldr-bot-production-launch.md.",
+      "createdAt": "2025-12-24T19:06:42.400Z",
+      "updatedAt": "2025-12-28T04:12:36.797Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "marketing"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "cd3a76ef-311d-45d8-9a24-69a283a65cd4",
+      "identifier": "VD-313",
+      "title": "[BIZ] Create Stripe Payment Link for AI Academy Level 1 Early Bird",
+      "url": "https://linear.app/verduona/issue/VD-313/biz-create-stripe-payment-link-for-ai-academy-level-1-early-bird",
+      "priority": 1,
+      "estimate": null,
+      "description": "Create a one-time Stripe payment link for \u20ac49.00. Product: AI Automation Academy: Level 1 (Student). Launch: Jan 1, 2026. Update placeholder in marketing-2026/campaigns/STRIPE-LINKS-NEEDED.md.",
+      "createdAt": "2025-12-24T19:06:36.584Z",
+      "updatedAt": "2025-12-28T15:29:09.165Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "revenue"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "human-blocked"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "ba550669-f0cc-48c0-b853-32cddb7560df",
+      "identifier": "VD-312",
+      "title": "[BIZ] Create Stripe Payment Link for Reality Check Audit",
+      "url": "https://linear.app/verduona/issue/VD-312/biz-create-stripe-payment-link-for-reality-check-audit",
+      "priority": 1,
+      "estimate": null,
+      "description": "Create a one-time Stripe payment link for \u20ac500.00. Product: Strategic AI Reality Check (1-Hour Audit). Description from marketing-2026/content/operations/stripe_reality_check_description.md. Update placeholder in marketing-2026/campaigns/STRIPE-LINKS-NEEDED.md.",
+      "createdAt": "2025-12-24T19:06:35.306Z",
+      "updatedAt": "2025-12-28T15:29:09.025Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "revenue"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "human-blocked"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "653d6d2d-3d9a-4828-ba8d-6dddb4a76b6e",
+      "identifier": "VD-305",
+      "title": "[BIZ] AI Sales Intelligence & Pipeline Automation Service",
+      "url": "https://linear.app/verduona/issue/VD-305/biz-ai-sales-intelligence-and-pipeline-automation-service",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity\n\n2026 mandate: Enterprises must \"grow revenue without growing headcount.\" Revenue operations is top priority. Sells to revenue-generating departments (have budget). Direct ROI measurement (revenue increase).\n\n## Market Context\n\n* 2026 requirement: Aggressive revenue targets with last year's resources\n* Sales teams seeking AI to exceed targets\n* Revenue operations is #1 priority for CROs/CEOs\n* AI adoption in sales teams: 85% (highest of all departments)\n\n## Revenue Model\n\n* Per-seat pricing: $100-$500/user/month\n* Team licenses: $2,000-$10,000/month\n* Enterprise: $20,000-$100,000/month\n* Performance bonus: % of revenue increase\n* Implementation: $10,000-$100,000\n\n## Features That Sell\n\n1. **Lead Scoring**: Prioritize hottest prospects automatically\n2. **Next-Best-Action Recommendations**: AI suggests next steps\n3. **Pipeline Forecasting**: Predict revenue with 80%+ accuracy\n4. **Automated Outreach Sequences**: Multi-channel follow-up (email, LinkedIn, SMS)\n5. **Deal Risk Analysis**: Identify stalled deals before they die\n6. **Competitive Intelligence**: Track competitor activity\n7. **CRM Integration**: Salesforce, HubSpot, EspoCRM\n\n## Target Customers\n\n* SaaS companies (20-200 employees, growth phase)\n* Professional services firms (consulting, agencies)\n* B2B companies with sales teams of 5-50 people\n* High-ticket sales companies (consulting, enterprise software)\n\n## Why This Sells Easily\n\n1. Sells to revenue-generating departments (have budget, ROI obvious)\n2. ROI = increased deal closure rates\n3. Measurable: Can show pipeline improvement immediately\n4. Integrates with existing CRMs (no switch required)\n5. Sales managers desperate to hit 2026 targets\n\n## Competitive Position\n\n* Enterprise solutions: Expensive ($50K+/year), complex\n* Point solutions: Only one feature (e.g., lead scoring)\n* Our offering: Complete platform, affordable pricing, fast setup\n* Tech leverage: AI agents + our CRM (EspoCRM) + integrations\n\n## Implementation Plan\n\n### Week 1-2: MVP Features\n\n1. Lead scoring model (based on engagement, company data)\n2. Next-best-action recommendations (AI-powered)\n3. Basic pipeline forecasting\n\n### Week 3-4: Advanced Features\n\n4. Automated outreach sequences (email + LinkedIn)\n5. Deal risk analysis (identify stalled deals)\n6. CRM integrations (Salesforce, HubSpot, EspoCRM)\n\n### Week 5-6: Enterprise Features\n\n7. Competitive intelligence tracking\n8. Multi-team collaboration\n9. Analytics dashboard (win/loss analysis, funnel metrics)\n\n## Estimated Impact\n\nConservative Q1 2026:\n\n* 5 customers \u00d7 $3,000/month = $15K MRR by March\n* 5 implementations \u00d7 $15,000 = $75K setup revenue\n* **Total Q1:** $75K (setup) + $15K MRR\n\nAggressive Year 1:\n\n* 50 customers \u00d7 $5,000/month average = $250K MRR\n* 50 implementations \u00d7 $20,000 = $1M setup revenue\n* **Year 1:** $1M + $3M ARR = $4M\n\n## Pricing Strategy\n\n* Starter (up to 10 users): $299/month\n* Team (up to 50 users): $1,499/month\n* Business (up to 100 users): $4,999/month\n* Enterprise (unlimited): Custom ($10K-$50K/month)\n\n## Next Steps\n\n1. Define MVP feature set (Week 1 January)\n2. Build lead scoring model (Week 2 January)\n3. Create demo environment with sample data (Week 3 January)\n4. Build sales deck (Week 3 January)\n5. Create pricing calculator based on team size/features (Week 4 January)\n6. LinkedIn outreach to SaaS founders/Sales VPs (February)\n7. Launch with 3 beta customers at 50% discount\n\n## Success Metrics\n\n* MVP ready by end of January\n* 3 beta customers by February\n* 5 paying customers by March\n* $15K MRR by March\n* $75K setup revenue by March\n* 10+ CRM integrations by March\n\n## Upsell Opportunities\n\n1. **AI Sales Training**: Train teams to use AI tools ($1K-$5K/workshop)\n2. **Custom AI Agents**: Industry-specific sales agents (consulting)\n3. **Marketing Automation**: Integrate outbound campaigns (add-on $500-$2K/month)\n4. **Data Enrichment**: Company intelligence feeds (add-on $200-$1K/month)",
+      "createdAt": "2025-12-24T16:39:09.207Z",
+      "updatedAt": "2025-12-28T04:12:39.734Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "category:product"
+          },
+          {
+            "name": "category:sales"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:sales"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "8ac4a1b6-7447-461f-9afb-fb4928804dc1",
+      "identifier": "VD-304",
+      "title": "[BIZ] EU AI Act Compliance Assessment Service",
+      "url": "https://linear.app/verduona/issue/VD-304/biz-eu-ai-act-compliance-assessment-service",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity\n\nEU AI Act compliance market: $60B+ by 2026. Mandatory requirement (not optional). Companies rarely switch once integrated. Fear-based selling works (penalties for non-compliance).\n\n## Market Context\n\n* EU AI Act enforcement: From February 2, 2025\n* Mandatory AI literacy requirements for all companies\n* PwC Akademie already offering AI Act compliance training (competition)\n* Penalties for non-compliance drive urgency\n\n## Revenue Model\n\n* Assessment subscription: $10,000-$100,000/year\n* Per-regulation module: $2,000-$10,000\n* Audit services: $5,000-$50,000/audit\n* Ongoing monitoring: $1,000-$10,000/month\n\n## Target Industries\n\n* Financial services (heavily regulated, high urgency)\n* Healthcare (HIPAA + GDPR + AI Act)\n* Tech companies handling EU customer data\n* Any company using AI in EU market\n\n## Why This Sells Easily\n\n1. Mandatory requirement (not optional)\n2. Fear-based selling (penalties for non-compliance)\n3. ROI = avoided fines + reduced audit costs\n4. CFO/legal buy-in (not just IT)\n5. Once integrated, rarely switch (high retention)\n\n## Competitive Advantage\n\n* Most competitors: Theory-heavy training (PwC, Deloitte)\n* Our offering: Automated assessment + monitoring tool\n* Tech-first approach (vs. consulting-heavy)\n* EU presence (GDPR knowledge)\n* Affordable for SMEs (vs. enterprise pricing)\n\n## Service Offerings\n\n1. **AI Compliance Assessment**: Scorecard of current AI systems\n2. **Compliance Audit**: Deep-dive review of AI workflows\n3. **Monitoring Dashboard**: Ongoing compliance status tracking\n4. **Remediation Roadmap**: Step-by-step path to compliance\n5. **Certification**: Official compliance certification\n\n## Estimated Impact\n\nConservative Q1 2026:\n\n* 10 assessments \u00d7 $5,000 = $50K revenue\n* 2 monitoring subscriptions \u00d7 $2,000/month = $4K MRR\n\nAggressive Year 1:\n\n* 50 assessments \u00d7 $10,000 = $500K\n* 20 monitoring subscriptions \u00d7 $5,000/month = $100K MRR\n* **Year 1:** $500K + $1.2M ARR = $1.7M\n\n## Next Steps\n\n1. Research EU AI Act requirements in detail (Week 1 January)\n2. Build compliance assessment questionnaire (Week 2 January)\n3. Create scoring rubric (0-100 compliance score) (Week 2-3 January)\n4. Build assessment web app (Week 3-4 January)\n5. Create pricing model based on company size/risk (Week 4 January)\n6. LinkedIn outreach to EU companies using AI (February)\n7. Partner with law firms for cross-selling\n\n## Success Metrics\n\n* Assessment tool live by February\n* 10 completed assessments by March\n* $50K+ revenue from assessments by March\n* 2 monitoring subscriptions by March\n* Partnership discussions with 2 law firms by March",
+      "createdAt": "2025-12-24T16:38:31.348Z",
+      "updatedAt": "2025-12-28T04:12:41.170Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "category:compliance"
+          },
+          {
+            "name": "category:consultancy"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "1ef0f3d1-664e-4756-9bf6-efa433879418",
+      "identifier": "VD-303",
+      "title": "[BIZ] White-Label AI Customer Service Platform",
+      "url": "https://linear.app/verduona/issue/VD-303/biz-white-label-ai-customer-service-platform",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity\n\nAI Customer Service & Support Automation: $11.8B market in 2026, growing to $27B by 2030. Contact centers projected to save $80B in labor costs by 2026. Easy to sell, immediate ROI.\n\n## Market Opportunity\n\n* Healthcare chatbot market alone: $543.65M in 2026\n* 110.9 million chatbot users expected by 2026\n* Real case: AI chatbot earning $25K/month with high margins\n* Every business needs 24/7 support\n\n## Revenue Model\n\n* Per-ticket pricing: $0.50-$2.00 per conversation\n* Subscription: $500-$5,000/month (tier by volume)\n* Setup: $3,000-$25,000\n* Enterprise: $10,000-$100,000/month\n\n## Target Customers\n\n* E-commerce companies (24/7 support needed)\n* SaaS companies (technical support)\n* Healthcare providers (appointment scheduling)\n* Financial services (account inquiries)\n* Real estate agencies (property questions)\n\n## Why This Sells Easily\n\n1. Immediate cost savings vs. human agents ($20-40/hour)\n2. 24/7 availability\n3. Scalable to handle volume spikes\n4. Demo-able in real-time\n5. Clear ROI calculation (labor cost \u00f7 per-conversation cost)\n\n## Competitive Position\n\n* Open-source alternatives: Difficult to deploy\n* Enterprise solutions: Expensive ($100K+/year)\n* Our offering: White-label, affordable, fast deployment\n* Tech leverage: OpenAI/Anthropic APIs + our bot framework (TL;DR, SenseIt)\n\n## Implementation Plan\n\n1. White-label existing TL;DR and SenseIt bot tech\n2. Build admin dashboard for clients to train/customize\n3. Create multi-language support (Czech, Polish, English)\n4. Integrate with existing CRMs (EspoCRM, Salesforce, HubSpot)\n5. Build analytics dashboard (conversations, satisfaction, cost savings)\n\n## Estimated Impact\n\nConservative Q1 2026:\n\n* 5 customers \u00d7 $2,000/month = $10K MRR by March\n* 5 setups \u00d7 $5,000 = $25K setup revenue\n* **Total Q1:** $35K (setup) + $10K MRR\n\nAggressive Year 1:\n\n* 50 customers \u00d7 $3,000/month average = $150K MRR\n* 50 setups \u00d7 $10,000 = $500K setup revenue\n* **Year 1:** $500K + $1.8M ARR = $2.3M\n\n## Next Steps\n\n1. Productize TL;DR and SenseIt tech as white-label solution (Week 1-2 January)\n2. Build admin dashboard for client self-service (Week 2-3 January)\n3. Create pricing calculator based on volume (Week 3 January)\n4. Build sales deck and demo (Week 4 January)\n5. LinkedIn outreach to SaaS/e-commerce founders (February)\n6. Launch with 3 beta customers at 50% discount\n\n## Success Metrics\n\n* MVP ready by end of January\n* 3 beta customers by February\n* 5 paying customers by March\n* $10K MRR by March\n* $25K setup revenue by March",
+      "createdAt": "2025-12-24T16:38:28.801Z",
+      "updatedAt": "2025-12-28T04:12:41.485Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "category:product"
+          },
+          {
+            "name": "category:sales"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:sales"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "0237f629-7785-4a66-a639-92771a3e289a",
+      "identifier": "VD-302",
+      "title": "[BIZ] Poland Market Entry with Freemium AI Education",
+      "url": "https://linear.app/verduona/issue/VD-302/biz-poland-market-entry-with-freemium-ai-education",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity\n\nPoland has 6\u00d7 higher revenue potential than Czech Republic ($6.325M vs. $1.035M Year 1), lower competition, and 1B PLN government AI investment. Freemium model essential to compete with Microsoft's FREE training.\n\n## Market Analysis\n\n* Population: 38M (3.6\u00d7 Czech Republic)\n* AI Adoption: 5.9% (2nd lowest in EU) = massive untapped market\n* Government: 1B PLN AI investment, Polish LLM launched Feb 2025\n* Competition: Lower than CZ, but Microsoft FREE training is biggest threat\n\n## Competitive Threat: Microsoft AI Skills Navigator\n\n* Commitment: 1 million Poles trained by end of 2025\n* Offering: 200+ FREE courses\n* Threat: Can't compete on price\n\n## Our Advantage: Freemium with Polish Specialization\n\n* Basic: FREE (compete with Microsoft)\n* Professional: 500 PLN/month (\\~$125)\n* Corporate: Custom pricing\n* USP: Industry-specific + Polish language + certification + job placement\n\n## Market Entry Strategy\n\n### Phase 1 (January-February 2026)\n\n* Launch freemium Academy in Polish\n* Target SMEs (25% already using AI but need help)\n* Focus on manufacturing (47% adoption) and finance (40%)\n* Government partnership outreach\n\n### Phase 2 (March-May 2026)\n\n* Launch Advisory services in Polish\n* 30 consulting engagements targeted\n* Certification program launch\n\n### Phase 3 (June+ 2026)\n\n* Launch Labs implementation services\n* Platform launch with Polish LLM integration\n\n## Revenue Projection (Year 1)\n\nFrom research analysis:\n\n* Individual: 5,000 \u00d7 500 PLN \u00d7 6 mo = 15M PLN (\\~$3.75M)\n* Corporate: 50 \u00d7 50K PLN = 2.5M PLN (\\~$625K)\n* Advisory: 30 \u00d7 100K PLN = 3M PLN (\\~$750K)\n* Labs: 15 \u00d7 300K PLN = 4.5M PLN (\\~$1.125M)\n* Platform: 100 \u00d7 3K PLN/year = 300K PLN (\\~$75K)\n* **Total Year 1:** \\~25.3M PLN (\\~$6.325M)\n\n## Estimated Impact (Conservative Q1 2026)\n\n* 1,000 individual signups at 10% paid conversion = 100 \u00d7 $125 = $12,500\n* 5 corporate workshops \u00d7 50K PLN = 250K PLN (\\~$62,500)\n* **Total Q1:** \\~$75K revenue\n\n## Requirements\n\n1. Polish-speaking trainers (3-5)\n2. Polish website and marketing materials\n3. Polish-language curriculum\n4. Government partnerships\n5. Competitive freemium model\n\n## Next Steps\n\n1. Hire 1-2 Polish trainers (January Week 1-2)\n2. Translate core curriculum to Polish (January Week 2-3)\n3. Build Polish-language landing page (January Week 3)\n4. Reach out to Polish government AI initiatives (January Week 4)\n5. Launch pre-registration campaign (February Week 1)\n6. Launch March 1, 2026\n\n## Success Metrics\n\n* 1,000 Polish individual users by March\n* 5 corporate clients by March\n* $75K+ Poland revenue in Q1\n* Polish government partnership discussions initiated\n* 3 Polish trainers hired",
+      "createdAt": "2025-12-24T16:38:26.189Z",
+      "updatedAt": "2025-12-28T04:12:41.759Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "category:education"
+          },
+          {
+            "name": "category:market-entry"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "fba31ad5-5278-43fe-8739-fa58d82385c9",
+      "identifier": "VD-301",
+      "title": "[BIZ] Launch SME-Focused Fast-Track AI Implementation Service",
+      "url": "https://linear.app/verduona/issue/VD-301/biz-launch-sme-focused-fast-track-ai-implementation-service",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity\n\nMarket gap: All consultancies target enterprises (Deloitte, EY, McKinsey). SMEs are underserved, face long sales cycles (3-6 months), high prices (\u20ac100K+). Fast, affordable SME service can capture 600K Czech SMEs.\n\n## Current Market\n\n* Big 4: \u20ac100K-\u20ac500K projects, 3-6 month timelines\n* Local players: Focus on enterprises, slow to deliver\n* SME opportunity: 97% of EU businesses are SMEs\n* Pain point: Can't afford enterprise consulting, need quick wins\n\n## Our Offering: Fast-Track SME AI\n\n* Scope: 2-4 week implementation sprints\n* Pricing: \u20ac2K-\u20ac8K (vs. \u20ac50K+ for enterprise)\n* Focus: Quick wins with measurable ROI\n* Guarantee: Show ROI in 30 days or money back\n\n## Target Customers\n\n* Manufacturing SMEs (10-50 employees): Quality control automation\n* E-commerce: Customer service bots, inventory management\n* Financial services: Document processing, risk assessment\n* Professional services: Marketing automation, proposal generation\n\n## Implementation Playbooks\n\n1. Week 1: Audit + Quick Win (1 workflow automated)\n2. Week 2-3: Core Implementation (2-3 workflows)\n3. Week 4: Training + Handoff\n4. Ongoing: \u20ac500-\u20ac1,500/month support\n\n## Estimated Impact\n\nConservative Q1 2026:\n\n* 5 SME implementations \u00d7 \u20ac4K = \u20ac20K revenue\n* 2 retainers \u00d7 \u20ac1K/month = \u20ac2K MRR\n\nAggressive Year 1:\n\n* 30 implementations \u00d7 \u20ac6K = \u20ac180K\n* 10 retainers \u00d7 \u20ac1K/month = \u20ac120K annual recurring\n\n## Competitive Advantage\n\n* 2-4 weeks vs. 3-6 months\n* \u20ac4K vs. \u20ac50K+ pricing\n* Pre-built solutions from R&D (Focus-Lite, CC-Lite, Magic Box)\n* Post-implementation support option\n\n## Next Steps\n\n1. Define 3-4 standard implementation packages\n2. Create pricing calculator based on company size/complexity\n3. Build proposal templates\n4. Create case study templates (theoretical to start)\n5. LinkedIn outreach to SME founders/CTOs\n6. Run 3 beta implementations at 50% discount for testimonials\n\n## Success Metrics\n\n* First SME client signed by February\n* 5 implementations delivered by March\n* \u20ac15K+ revenue from SME implementations by March\n* First retainer signed by March\n* 3 case studies created by April",
+      "createdAt": "2025-12-24T16:36:58.234Z",
+      "updatedAt": "2025-12-28T04:12:42.027Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "category:consultancy"
+          },
+          {
+            "name": "category:implementation"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "3369abb8-126e-4bdc-bd98-4038530ade63",
+      "identifier": "VD-300",
+      "title": "[BIZ] Build AI Readiness Assessment Tool for Lead Generation",
+      "url": "https://linear.app/verduona/issue/VD-300/biz-build-ai-readiness-assessment-tool-for-lead-generation",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity\n\nDetailed AI Readiness Test design exists (50K+ words research). Positioned as lead generation gold mine. Pricing: $5K-$50K for company assessments, $99-$499 for individual assessments.\n\n## Current Status\n\n* Design complete but NOT built\n* Business test: 5-10 min web app testing processes, skills, leadership\n* Human test: Skills, tools used, comfort with sales/ops\n* Output: Score + diagnosis + recommended next step\n\n## Revenue Projection (from research)\n\nYear 1: $900K, Year 2: $3M from assessments alone\nConservative Q1 2026: 20 company assessments \u00d7 $2,500 = $50K\nRealistic: 50 assessments \u00d7 $2,500 = $125K\n\n## Market Gap\n\n* No automated AI readiness tests in CZ/PL market\n* Competitors offer manual consulting (slower, more expensive)\n* Free basic assessment can generate leads, premium deep-dive upsells\n\n## Implementation Plan\n\n1. Build web app with assessment questions\n2. Calculate scores (0-100 for companies and individuals)\n3. Generate diagnosis reports\n4. Recommend next steps (Audit/Training/AI Sales)\n5. Capture leads to EspoCRM\n6. Offer freemium: basic score (free), deep-dive ($99-$299)\n\n## Estimated Impact\n\n* Immediate: Lead generation for consultancy pipeline\n* Q1 2026: 100+ free assessments = 20+ qualified leads\n* Revenue: $10K-30K from premium assessments\n* Upsell: 20% conversion to \u20ac5K-\u20ac25K audits = \u20ac4K-\u20ac10K pipeline\n\n## Next Steps\n\n1. Build Business AI Readiness Test web app (Week 1-2 January)\n2. Build Human AI Readiness Test (Week 2-3 January)\n3. Integrate with EspoCRM for lead capture\n4. Create freemium pricing model\n5. Test with network contacts, refine based on feedback\n6. Launch on education landing page\n\n## Success Metrics\n\n* Both tests live by end of January\n* 100+ assessments completed in February\n* 20+ qualified leads generated\n* $10K+ revenue from premium assessments\n* 5%+ conversion rate to consultancy",
+      "createdAt": "2025-12-24T16:36:56.294Z",
+      "updatedAt": "2025-12-28T04:12:42.308Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "category:education"
+          },
+          {
+            "name": "category:product"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:sales"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "5a6a32c5-8e2b-4098-a5a9-d13b8c3cb7a0",
+      "identifier": "VD-299",
+      "title": "[BIZ] Partner Program Integration: Pleo, Make.com, Deel",
+      "url": "https://linear.app/verduona/issue/VD-299/biz-partner-program-integration-pleo-makecom-deel",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity\n\nConsultancy services (AI Impact Audit \u20ac5K-\u20ac25K, Implementation \u20ac10K-\u20ac50K) need tool deployment. Partner programs provide 10-30% commissions on recurring revenue + setup fees.\n\n## Current Status\n\n* Partner programs NOT joined yet\n* No recurring commission revenue\n* Missing credibility boost from partner badges\n\n## Partner Opportunities\n\n### 1\\. Pleo (Expense Management)\n\n* Benefits: 20-30% first-year commission + setup fee\n* Market: 80,000+ businesses using Pleo\n* Fit: Expense automation is top priority for SMEs\n* Effort: Application 1-2 days, approval 1-4 weeks\n\n### 2\\. [Make.com](http://Make.com) (Automation Platform)\n\n* Benefits: Certified Partner status + setup fees + monthly management\n* Market: 500,000+ organizations using Make\n* Fit: Core to AI automation implementation\n* Effort: Application 1-2 days, certification 3-5 days\n\n### 3\\. Deel (Global HR & Payroll)\n\n* Benefits: $5-10K setup fee + 10-20% commission\n* Market: 150,000+ businesses\n* Fit: HR automation, global team management\n* Effort: Application 1 day, approval 1-2 weeks\n\n## Estimated Impact\n\nMonth 2-3: 3 Pleo deployments \u00d7 \u20ac5K setup \u00d7 25% = \u20ac3,750\n2 [Make.com](http://Make.com) deployments \u00d7 \u20ac8K setup \u00d7 20% = \u20ac3,200\nTotal: \u20ac7,700 setup fees + \u20ac5,100 recurring by Month 6\n\n## Next Steps\n\n1. Apply to all 4 partner programs (Week 1 January)\n2. Create integration playbooks while waiting for approval (Week 2-3 January)\n3. Design partner program marketing page\n\n## Success Metrics\n\n* All 4 partner programs approved by February\n* 5 tool deployments by March\n* \u20ac5,000+ partner revenue by March",
+      "createdAt": "2025-12-24T16:36:53.767Z",
+      "updatedAt": "2025-12-28T04:12:42.859Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "category:consultancy"
+          },
+          {
+            "name": "category:partnership"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:integration"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "01a1883c-eac7-4983-a5a3-0e7ee1b1f69e",
+      "identifier": "VD-298",
+      "title": "[BIZ] Launch Industry-Specific AI Workshops for Czech Market",
+      "url": "https://linear.app/verduona/issue/VD-298/biz-launch-industry-specific-ai-workshops-for-czech-market",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Opportunity\n\nMarket research shows Czech businesses have 11-29% AI adoption but generic training dominates. Industry-specific workshops can command premium pricing (\u20ac249-\u20ac499 vs. \u20ac115 for generic).\n\n## Market Gap\n\n* Datascript: Generic 2-day workshops at \u20ac115/person\n* No vertical-specific content\n* No implementation pathway\n\n## Target Industries (High Demand)\n\n1. **Manufacturing** (Strong in CZ, 47% AI adoption in PL)\n   * Quality control automation\n   * Supply chain optimization\n   * Predictive maintenance\n2. **Financial Services** (40% adoption)\n   * Risk assessment automation\n   * Fraud detection\n   * Customer service bots\n\n## Pricing Model\n\n* \u20ac299/person for industry workshop (4 hours)\n* \u20ac2,500 corporate in-house (up to 10 people)\n* \u20ac49 follow-up online course\n\n## Estimated Impact\n\n* Conservative: 10 workshops in Q1 = \u20ac2,950 revenue\n* Realistic: 30 workshops in Q1 = \u20ac8,850 + 3 corporate = \u20ac7,500 = \u20ac16,350\n* Aggressive: 50 workshops + 5 corporate = \u20ac29,450\n\n## Next Steps\n\n1. Create curriculum for Manufacturing workshop (highest ROI)\n2. Create landing page for vertical workshops\n3. LinkedIn outreach to manufacturing industry leaders\n4. Run beta workshop with network contact\n5. Document case study for marketing\n\n## Success Metrics\n\n* 10 workshop bookings by end of January\n* 2 corporate clients by February\n* \u20ac5,000+ revenue by March",
+      "createdAt": "2025-12-24T16:36:13.951Z",
+      "updatedAt": "2025-12-28T04:12:43.155Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "category:education"
+          },
+          {
+            "name": "phase:stability"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "d7dcc992-bce3-4b70-a835-48781169e103",
+      "identifier": "VD-263",
+      "title": "[SALES] SenseIt Audit (\u20ac500) Warm Outreach",
+      "url": "https://linear.app/verduona/issue/VD-263/sales-senseit-audit-euro500-warm-outreach",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Context\n\nFastest path to first revenue (\u20ac500) bypassing all automated payment infrastructure.\n\n## Tasks\n\n- [ ] Identify 3 warm network contacts for AI efficiency audit.\n- [ ] Send personalized DM using the script in `/verduona-business/01-ACTIVE-STRATEGY/12-SENSEIT-AUDIT-SCOPE.md`.\n- [ ] Offer risk-free guarantee: 'Find \u20ac5K savings or refund'.\n- [ ] Book discovery call.\n\n## Acceptance Criteria\n\n- [ ] 3 DMs sent.\n- [ ] 1 discovery call booked.",
+      "createdAt": "2025-12-23T09:48:17.709Z",
+      "updatedAt": "2025-12-28T04:12:43.961Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": []
+      },
+      "assignee": null
+    },
+    {
+      "id": "7309e1d8-e359-4528-ac56-4aa18faebfbe",
+      "identifier": "VD-262",
+      "title": "[REVENUE] Configure Production DNS (HW-017)",
+      "url": "https://linear.app/verduona/issue/VD-262/revenue-configure-production-dns-hw-017",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Context\n\nProfessional presence blocked by dev service URLs.\n\n## Tasks\n\n- [ ] Point `vop.verduona.com` to dev server.\n- [ ] Point `cc.verduona.com` to dev server.\n- [ ] Point `focus.verduona.com` to dev server.\n\n## Acceptance Criteria\n\n- [ ] DNS propagation complete and apps accessible via professional domains.",
+      "createdAt": "2025-12-23T09:48:12.043Z",
+      "updatedAt": "2025-12-28T15:29:08.879Z",
+      "dueDate": null,
+      "state": {
+        "name": "Todo",
+        "type": "unstarted"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "human-blocked"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "7c5b6f5e-87ac-46a3-b1c0-351495158211",
+      "identifier": "VD-261",
+      "title": "[REVENUE] Enable Telegram Stars for Bots (HW-023)",
+      "url": "https://linear.app/verduona/issue/VD-261/revenue-enable-telegram-stars-for-bots-hw-023",
+      "priority": 1,
+      "estimate": null,
+      "description": "## Context\n\nBlocking monetization for TL;DR and SenseIt bots.\n\n## Tasks\n\n- [ ] Enable Telegram Stars in BotFather for @sumarium_bot.\n- [ ] Enable Telegram Stars in BotFather for @senseit_ai_bot.\n- [ ] Verify `/subscribe` flow works with XTR currency.\n\n## Acceptance Criteria\n\n- [ ] Bot subscriptions can be paid via Telegram Stars.",
+      "createdAt": "2025-12-23T09:48:11.613Z",
+      "updatedAt": "2025-12-28T15:29:08.720Z",
+      "dueDate": null,
+      "state": {
+        "name": "Todo",
+        "type": "unstarted"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "human-blocked"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "e62daff8-02af-4b29-b538-57fbe270b1e5",
+      "identifier": "VD-260",
+      "title": "[REVENUE] Enable Stripe Payment Links (HW-025)",
+      "url": "https://linear.app/verduona/issue/VD-260/revenue-enable-stripe-payment-links-hw-025",
+      "priority": 1,
+      "estimate": null,
+      "description": "## Context\n\nSwarm intelligence reports technical readiness at 97%, but 0 revenue. This is a critical blocker.\n\n## Tasks\n\n* Create 3 Stripe payment links: Magic Box Pro (\u20ac499), Magic Box Starter (\u20ac299), SenseIt Audit (\u20ac500).\n* Store links in `/github/secrets/stripe_links.md` (or similar secure location).\n* Update landing pages/bots with new links if needed.\n\n## Acceptance Criteria\n\n- [ ] Active Stripe payment links created for all 3 tiers.\n- [ ] Links verified as working.",
+      "createdAt": "2025-12-23T09:48:11.179Z",
+      "updatedAt": "2025-12-28T15:29:08.544Z",
+      "dueDate": null,
+      "state": {
+        "name": "Todo",
+        "type": "unstarted"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "human-blocked"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "453d5cb3-041d-467f-a1c9-f46a4ac9a9fd",
+      "identifier": "VD-259",
+      "title": "[Magic Box] Launch B2B outreach campaign (Stryde, Growth Cave)",
+      "url": "https://linear.app/verduona/issue/VD-259/magic-box-launch-b2b-outreach-campaign-stryde-growth-cave",
+      "priority": 2,
+      "estimate": null,
+      "description": "## Context\n\nMagic Box needs B2B leads for \u20ac5k+ setup deals.\n\n## UPDATE Dec 23\n\n**Status:** 97% Technical Completion. \n**Priority:** Sales outreach is the bottleneck.\n\n## Acceptance Criteria\n\n- [ ] Finalize ICP targeting\n- [ ] Launch outreach via Stryde/Growth Cave platforms\n- [ ] Track responses and conversions\n- [ ] Follow up sequence\n\n## Technical Notes\n\nFrom 2026_ROADMAP.md: \"B2B Outreach Campaign Launch\"\nExisting resources:\n\n* Sales Deck: /marketing-2026/demos/magic-box-pro/\n* GTM Plan: /verduona-business/01-ACTIVE-STRATEGY/marketing/\n* ICP: /verduona-business/01-ACTIVE-STRATEGY/marketing/ICP-MAGIC-BOX.md",
+      "createdAt": "2025-12-22T19:04:19.722Z",
+      "updatedAt": "2025-12-28T04:12:45.341Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "brain-2026"
+          },
+          {
+            "name": "phase:apps"
+          },
+          {
+            "name": "product:lab"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "d423fbf6-9f9f-4444-a257-29877c4af447",
+      "identifier": "VD-258",
+      "title": "[Academy] Define L4 Business Guru (AI-First Founder) curriculum",
+      "url": "https://linear.app/verduona/issue/VD-258/academy-define-l4-business-guru-ai-first-founder-curriculum",
+      "priority": 3,
+      "estimate": null,
+      "description": "## Context\n\nHigh-ticket mentorship for entrepreneurs. \u20ac3,000-5,000.\n\n## Acceptance Criteria\n\n- [ ] Define \"Ocelot Model\" replication framework\n- [ ] Structure mentorship sessions\n- [ ] Create case study materials\n- [ ] Design mastermind format\n\n## Technical Notes\n\nFrom revenue_plan.md: Launch March 1\nTarget: Entrepreneurs, Consultants, SME Owners\nContent: \"How to run a 1-person empire with agents\"",
+      "createdAt": "2025-12-22T19:04:18.445Z",
+      "updatedAt": "2025-12-28T04:12:45.708Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "brain-2026"
+          },
+          {
+            "name": "category:academy"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "abee2ece-ba18-4a4c-b345-b21de28d2c34",
+      "identifier": "VD-246",
+      "title": "Write LinkedIn announcement copy for Academy",
+      "url": "https://linear.app/verduona/issue/VD-246/write-linkedin-announcement-copy-for-academy",
+      "priority": 2,
+      "estimate": null,
+      "description": "Marketing copy for academy launch",
+      "createdAt": "2025-12-22T17:08:29.457Z",
+      "updatedAt": "2025-12-28T04:12:46.253Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "brain-2026"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "47bbde3e-e751-49fa-bf9c-695841e29308",
+      "identifier": "VD-245",
+      "title": "Finalize Academy L1 (Student) curriculum outline",
+      "url": "https://linear.app/verduona/issue/VD-245/finalize-academy-l1-student-curriculum-outline",
+      "priority": 2,
+      "estimate": null,
+      "description": "Course content for AI automation academy",
+      "createdAt": "2025-12-22T17:08:28.785Z",
+      "updatedAt": "2025-12-28T04:12:46.504Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "brain-2026"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "0f0d2cb2-5585-475b-bc57-20be2cdddd8f",
+      "identifier": "VD-244",
+      "title": "Create Stripe payment link for 1-Hour Audit (\u20ac500)",
+      "url": "https://linear.app/verduona/issue/VD-244/create-stripe-payment-link-for-1-hour-audit-euro500",
+      "priority": 2,
+      "estimate": null,
+      "description": "Enable payments for SenseIt audit service",
+      "createdAt": "2025-12-22T17:08:28.110Z",
+      "updatedAt": "2025-12-28T15:32:39.801Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "brain-2026"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          },
+          {
+            "name": "human-blocked"
+          }
+        ]
+      },
+      "assignee": null
+    },
+    {
+      "id": "86a6cca6-0c9a-4d4e-a07a-90d8b558f502",
+      "identifier": "VD-243",
+      "title": "Post LinkedIn 'Reality Check' content",
+      "url": "https://linear.app/verduona/issue/VD-243/post-linkedin-reality-check-content",
+      "priority": 2,
+      "estimate": null,
+      "description": "First post to generate leads for SenseIt B2B audits",
+      "createdAt": "2025-12-22T17:08:27.369Z",
+      "updatedAt": "2025-12-28T04:12:50.064Z",
+      "dueDate": null,
+      "state": {
+        "name": "Backlog",
+        "type": "backlog"
+      },
+      "team": {
+        "id": "b2906b55-1247-431d-b5dc-703423b4feb4",
+        "key": "VD",
+        "name": "Verduona"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "brain-2026"
+          },
+          {
+            "name": "stream:cash-engine"
+          },
+          {
+            "name": "type:marketing"
+          }
+        ]
+      },
+      "assignee": null
+    }
+  ]
+}

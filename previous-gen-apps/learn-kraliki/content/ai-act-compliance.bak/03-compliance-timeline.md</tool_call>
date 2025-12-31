@@ -1,0 +1,150 @@
+# Compliance Timeline & Deadlines
+
+## Implementation Timeline
+
+The AI Act was officially adopted and became **enforceable on February 2, 2025**.
+
+### Key Milestones
+
+| Date | Milestone | Impact |
+|------|-----------|--------|
+| **Feb 2, 2025** | AI Act enters into force | Prohibited AI systems banned immediately |
+| **Feb 2, 2025** | General purpose AI rules apply | Transparency obligations for foundation models |
+| **Feb 2, 2026** | High-risk AI rules fully apply | Full compliance requirements for high-risk systems |
+| **Feb 2, 2027** | Governance rules apply | AI offices, notified bodies fully operational |
+
+## Immediate Actions Required
+
+### For All Companies
+
+1. **Audit your AI systems** - Complete an inventory
+2. **Identify prohibited AI** - Ensure none are in use
+3. **Classify high-risk systems** - Prepare for compliance
+4. **Establish governance** - Appoint AI compliance lead
+
+### For Companies Using Prohibited AI
+
+**STOP IMMEDIATELY**
+- Shut down systems on the prohibited list
+- Document the shutdown process
+- Assess business impact
+- Identify alternatives
+
+### For Companies with High-Risk AI
+
+**12-Month Roadmap**
+
+**Months 1-3: Assessment**
+- ✅ Complete AI inventory
+- ✅ Classify all systems
+- ✅ Identify gaps in current practices
+- ✅ Select conformity assessment body
+
+**Months 4-6: Planning**
+- ✅ Create compliance roadmap
+- ✅ Implement risk management system
+- ✅ Document current processes
+- ✅ Begin data quality assessment
+
+**Months 7-9: Implementation**
+- ✅ Implement required controls
+- ✅ Prepare technical documentation
+- ✅ Set up logging and monitoring
+- ✅ Train staff
+
+**Months 10-12: Certification**
+- ✅ Undergo conformity assessment
+- ✅ Obtain CE marking (if required)
+- ✅ Establish post-market monitoring
+- ✅ Prepare for enforcement
+
+## Transition Periods
+
+### Grandfathered AI Systems
+
+AI systems **already on the market** before February 2, 2025:
+
+- Can continue operating
+- Must comply by February 2, 2026 (for high-risk)
+- Must adapt to new governance requirements
+
+### New AI Systems
+
+AI systems **placed on the market after** February 2, 2025:
+
+- Must comply immediately upon release
+- Requires prior conformity assessment (high-risk)
+- Full documentation required from day one
+
+## Regulatory Deadlines by Category
+
+| System Type | Compliance Deadline | Priority |
+|-------------|---------------------|----------|
+| **Prohibited AI** | Immediate (Feb 2, 2025) | 🔴 Critical |
+| **High-risk AI** | 12 months (Feb 2, 2026) | 🟠 High |
+| **Limited-risk AI** | 6 months (Aug 2, 2025) | 🟡 Medium |
+| **Foundation models** | 12 months (Feb 2, 2026) | 🟠 High |
+| **General purpose AI** | 24 months (Feb 2, 2027) | 🟢 Normal |
+
+## Enforcement Timeline
+
+### Phase 1: Awareness & Education (Feb-Aug 2025)
+- Regulatory guidance published
+- Industry outreach campaigns
+- Voluntary compliance programs
+
+### Phase 2: Proactive Enforcement (Aug 2025 - Feb 2026)
+- Monitoring and inspections begin
+- Warning letters issued
+- Corrective actions required
+
+### Phase 3: Full Enforcement (Feb 2026+)
+- Full inspection regime
+- Fines for non-compliance
+- Product recalls for prohibited systems
+
+## Business Impact Timeline
+
+### Short-Term (0-6 months)
+- Immediate cessation of prohibited AI
+- Initial AI inventory
+- Governance structure setup
+
+### Medium-Term (6-18 months)
+- Compliance implementation
+- Documentation creation
+- Staff training
+- Conformity assessments
+
+### Long-Term (18+ months)
+- Ongoing monitoring
+- Post-market surveillance
+- Continuous improvement
+- Regulatory updates
+
+## Your Action Checklist
+
+**Immediate (This Week):**
+- [ ] Schedule AI inventory meeting
+- [ ] Assign AI compliance lead
+- [ ] Document all AI systems in use
+
+**Next 30 Days:**
+- [ ] Complete risk classification
+- [ ] Identify any prohibited AI
+- [ ] Prioritize high-risk systems
+
+**Next 90 Days:**
+- [ ] Select conformity assessment body
+- [ ] Begin compliance roadmap
+- [ ] Start data quality assessment
+
+**Next 12 Months:**
+- [ ] Implement all high-risk requirements
+- [ ] Complete conformity assessment
+- [ ] Train all relevant staff
+- [ ] Establish ongoing monitoring
+
+---
+
+**Next Lesson:** Prohibited AI Systems

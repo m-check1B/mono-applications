@@ -1,0 +1,34 @@
+# Git
+.git/
+.gitignore
+
+# Dependencies (rebuild in container)
+node_modules/
+.venv/
+venv/
+__pycache__/
+
+# Build artifacts
+.svelte-kit/
+build/
+dist/
+
+# Environment
+.env*
+
+# IDE
+.idea/
+.vscode/
+
+# Tests
+.pytest_cache/
+tests/
+e2e-tests/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Database
+*.db

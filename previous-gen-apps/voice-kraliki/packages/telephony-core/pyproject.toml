@@ -1,0 +1,64 @@
+[project]
+name = "telephony-core"
+version = "0.1.0"
+description = "Telephony adapters for Voice by Kraliki core (Telnyx, Twilio)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Platform Team"}
+]
+keywords = ["telephony", "telnyx", "twilio", "voip", "sip", "calls", "sms"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Communications :: Telephony",
+]
+
+dependencies = [
+    "pydantic>=2.0.0",
+    "httpx>=0.25.0",
+]
+
+[project.optional-dependencies]
+telnyx = [
+    "pynacl>=1.5.0",  # For Ed25519 webhook validation
+]
+twilio = [
+    "twilio>=8.0.0",
+]
+all = [
+    "telephony-core[telnyx,twilio]",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/m-check1B/voice-kraliki"
+Repository = "https://github.com/m-check1B/voice-kraliki"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/telephony_core"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

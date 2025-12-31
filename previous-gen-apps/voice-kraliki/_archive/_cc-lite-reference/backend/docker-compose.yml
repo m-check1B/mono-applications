@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "3010:3010"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://cc_lite:cc_lite_dev@postgres:5432/cc_lite
+      - VOICE_DEBUG=true
+      - HOST=0.0.0.0
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./app:/app/app:ro
+    networks:
+      - voice-kraliki-network
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=cc_lite
+      - POSTGRES_PASSWORD=cc_lite_dev
+      - POSTGRES_DB=cc_lite
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - voice-kraliki-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - voice-kraliki-network
+
+volumes:
+  postgres-data:
+
+networks:
+  voice-kraliki-network:
+    driver: bridge

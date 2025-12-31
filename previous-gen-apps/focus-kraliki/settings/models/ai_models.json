@@ -1,0 +1,133 @@
+{
+  "$schema": "./ai_models.schema.json",
+  "version": "1.0.0",
+  "lastUpdated": "2025-12-28",
+  "description": "AI model configurations aligned with stack-2026 LLM list",
+
+  "providers": {
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "requiresApiKey": true,
+      "models": {
+        "default": "google/gemini-3-flash-preview",
+        "fast": "meta-llama/llama-4-scout",
+        "orchestration": "meta-llama/llama-4-scout",
+        "analysis": "deepseek/deepseek-v3.2",
+        "coding": "z-ai/glm-4.7",
+        "highReasoning": "meta-llama/llama-3.3-70b-instruct",
+        "longContext": "google/gemini-3-flash-preview"
+      }
+    },
+    "openai": {
+      "models": {
+        "realtimeAudio": "gpt-4o-realtime-preview-2024-12-17",
+        "tts": "gpt-4o-audio-preview-2024-12-17",
+        "transcription": "whisper-1",
+        "embeddings": "text-embedding-3-small"
+      }
+    },
+    "google": {
+      "models": {
+        "audio": "gemini-3-flash-preview",
+        "flash": "gemini-3-flash-preview",
+        "pro": "gemini-3-pro-preview",
+        "thinking": "gemini-3-pro-preview"
+      }
+    },
+    "deepseek": {
+      "models": {
+        "reasoning": "deepseek-r1-0528",
+        "chat": "deepseek-chat-v3.1",
+        "v3": "deepseek-v3.2"
+      }
+    }
+  },
+
+  "useCases": {
+    "chat": {
+      "modelProvider": "openrouter",
+      "modelKey": "default",
+      "fallback": "openrouter.coding",
+      "maxTokens": 8192,
+      "temperature": 0.7
+    },
+    "parseTask": {
+      "modelProvider": "openrouter",
+      "modelKey": "fast",
+      "fallback": "openrouter.default",
+      "maxTokens": 8192,
+      "temperature": 0.5
+    },
+    "enhanceInput": {
+      "modelProvider": "openrouter",
+      "modelKey": "fast",
+      "fallback": "openrouter.default",
+      "maxTokens": 8192,
+      "temperature": 0.5
+    },
+    "analyzeTask": {
+      "modelProvider": "openrouter",
+      "modelKey": "analysis",
+      "fallback": "openrouter.default",
+      "maxTokens": 8192,
+      "temperature": 0.6
+    },
+    "orchestrateTask": {
+      "modelProvider": "openrouter",
+      "modelKey": "orchestration",
+      "fallback": "openrouter.default",
+      "maxTokens": 8192,
+      "temperature": 0.5
+    },
+    "highReasoning": {
+      "modelProvider": "openrouter",
+      "modelKey": "highReasoning",
+      "fallback": "openrouter.coding",
+      "maxTokens": 16384,
+      "temperature": 0.3
+    },
+    "insights": {
+      "modelProvider": "openrouter",
+      "modelKey": "analysis",
+      "fallback": "openrouter.default",
+      "maxTokens": 8192,
+      "temperature": 0.6
+    },
+    "taskRecommendations": {
+      "modelProvider": "openrouter",
+      "modelKey": "fast",
+      "fallback": "openrouter.default",
+      "maxTokens": 8192,
+      "temperature": 0.7
+    },
+    "cognitiveState": {
+      "modelProvider": "openrouter",
+      "modelKey": "fast",
+      "fallback": "openrouter.default",
+      "maxTokens": 8192,
+      "temperature": 0.5
+    },
+    "workflowGeneration": {
+      "modelProvider": "openrouter",
+      "modelKey": "coding",
+      "fallback": "openrouter.default",
+      "maxTokens": 2000,
+      "temperature": 0.4
+    }
+  },
+
+  "metadata": {
+    "notes": [
+      "Aligned with stack-2026 LLM list (Dec 2025)",
+      "Gemini 3 Flash for multimodal general use",
+      "GLM-4.7 for coding and math-heavy tasks",
+      "Groq Llama 4 Scout for real-time workflows",
+      "DeepSeek V3.2 for budget bulk processing"
+    ],
+    "references": [
+      "https://openrouter.ai/models",
+      "https://groq.com/pricing",
+      "https://z.ai/subscribe"
+    ]
+  }
+}

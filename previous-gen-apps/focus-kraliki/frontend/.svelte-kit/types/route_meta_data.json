@@ -1,0 +1,74 @@
+{
+	"/": [
+		"src/routes/+page.server.ts",
+		"src/routes/+layout.ts",
+		"src/routes/+layout.ts"
+	],
+	"/auth/google/callback": [
+		"src/routes/+layout.ts"
+	],
+	"/auth/sso": [
+		"src/routes/auth/sso/+server.ts"
+	],
+	"/auth/sso/callback": [
+		"src/routes/auth/sso/callback/+server.ts"
+	],
+	"/dashboard": [
+		"src/routes/+layout.ts",
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/agent": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/analytics": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/calendar": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/chat": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/insights": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/knowledge": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/projects": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/settings": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/shadow": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/subscription": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/tasks": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/team": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/time": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/voice": [
+		"src/routes/+layout.ts"
+	],
+	"/dashboard/work": [
+		"src/routes/+layout.ts"
+	],
+	"/login": [
+		"src/routes/+layout.ts"
+	],
+	"/onboarding": [
+		"src/routes/+layout.ts"
+	],
+	"/register": [
+		"src/routes/+layout.ts"
+	]
+}

@@ -1,0 +1,2 @@
+
+[2025-12-29 09:39] unknown-agent | Add file upload to Comms [PASSED]: Implemented file drop zone and list on Comms page with support for multiple files. File names are appended to messages.

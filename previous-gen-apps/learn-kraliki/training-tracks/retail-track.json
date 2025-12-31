@@ -1,0 +1,200 @@
+{
+  "id": "retail-ai-track",
+  "slug": "ai-powered-retail",
+  "title": "AI-Powered Retail Excellence",
+  "subtitle": "Customer Analytics, Inventory Optimization, and Personalization at Scale",
+  "version": "1.0",
+  "status": "development",
+  "industry": "retail",
+
+  "description": "Master AI applications that drive retail success: customer behavior analytics, intelligent inventory management, personalized recommendations, and dynamic pricing. Learn to implement AI solutions that increase conversion, reduce stockouts, and create exceptional customer experiences.",
+
+  "target_audience": [
+    "Retail operations managers",
+    "E-commerce managers",
+    "Marketing directors",
+    "Merchandising professionals",
+    "Customer experience leaders",
+    "Retail data analysts",
+    "Category managers"
+  ],
+
+  "prerequisites": [
+    "Experience in retail operations or e-commerce",
+    "Basic understanding of retail metrics (conversion, basket size, etc.)",
+    "Familiarity with POS and inventory systems (helpful)",
+    "No prior AI experience required"
+  ],
+
+  "learning_objectives": [
+    "Implement customer segmentation and behavior analytics for targeted marketing",
+    "Deploy AI-powered inventory optimization to reduce stockouts and overstock",
+    "Build personalized recommendation systems that increase average order value",
+    "Apply demand forecasting to improve buying decisions and cash flow",
+    "Create AI-enhanced customer experiences across channels"
+  ],
+
+  "modules": [
+    {
+      "id": "retail-m1",
+      "order": 1,
+      "title": "AI Transformation in Retail",
+      "description": "Understanding AI opportunities across the retail value chain",
+      "duration_hours": 4,
+      "lessons": [
+        "The AI-First Retail Revolution: Winners and Laggards",
+        "AI Applications Map: From Store to Supply Chain",
+        "Data Foundation: What You Need to Get Started",
+        "Building the Business Case for Retail AI"
+      ]
+    },
+    {
+      "id": "retail-m2",
+      "order": 2,
+      "title": "Customer Analytics and Segmentation",
+      "description": "AI-powered customer understanding and targeting",
+      "duration_hours": 5,
+      "lessons": [
+        "Customer 360: Unified Data for AI Insights",
+        "AI-Powered Segmentation Beyond Demographics",
+        "Predictive Customer Lifetime Value (CLV)",
+        "Churn Prediction and Prevention Strategies",
+        "Case Study: Personalized Marketing at Scale"
+      ]
+    },
+    {
+      "id": "retail-m3",
+      "order": 3,
+      "title": "Inventory Optimization",
+      "description": "AI for smarter inventory management",
+      "duration_hours": 5,
+      "lessons": [
+        "Demand Forecasting Fundamentals",
+        "Seasonal and Promotional Demand Patterns",
+        "Multi-Location Inventory Optimization",
+        "Markdown Optimization and End-of-Season Strategy",
+        "New Product Launch Forecasting"
+      ]
+    },
+    {
+      "id": "retail-m4",
+      "order": 4,
+      "title": "Personalization and Recommendations",
+      "description": "Building recommendation engines that convert",
+      "duration_hours": 5,
+      "lessons": [
+        "Recommendation System Fundamentals",
+        "Collaborative Filtering vs. Content-Based Approaches",
+        "Real-Time Personalization Across Channels",
+        "Email and Marketing Personalization",
+        "Measuring Recommendation System Performance"
+      ]
+    },
+    {
+      "id": "retail-m5",
+      "order": 5,
+      "title": "Pricing and Promotions",
+      "description": "AI-driven pricing strategies",
+      "duration_hours": 3,
+      "lessons": [
+        "Dynamic Pricing Fundamentals and Ethics",
+        "Competitive Price Intelligence",
+        "Promotion Optimization and Cannibalization Analysis"
+      ]
+    },
+    {
+      "id": "retail-m6",
+      "order": 6,
+      "title": "In-Store AI and Omnichannel",
+      "description": "AI for physical retail and unified commerce",
+      "duration_hours": 3,
+      "lessons": [
+        "Computer Vision for Store Operations",
+        "Chatbots and Virtual Assistants",
+        "Unified Commerce: Online-Offline AI Integration"
+      ]
+    }
+  ],
+
+  "duration": {
+    "total_hours": 25,
+    "recommended_weeks": 5,
+    "hours_per_week": 5
+  },
+
+  "format": {
+    "delivery": ["self-paced", "instructor-led", "blended"],
+    "content_types": ["video_lessons", "interactive_dashboards", "case_studies", "tool_demos"],
+    "live_components": ["retailer_guest_speakers", "analytics_workshops", "peer_networking"]
+  },
+
+  "certification": {
+    "name": "Certified Retail AI Professional (CRAIP)",
+    "requirements": [
+      "Complete all 6 modules with minimum 75% assessment score",
+      "Submit capstone project: AI Use Case for Your Retail Business",
+      "Pass final examination (60 questions, 70% minimum)",
+      "Complete customer analytics exercise with sample data"
+    ],
+    "validity_years": 2,
+    "renewal": "16 continuing education hours",
+    "digital_badge": true,
+    "verification_url": "learn.verduona.dev/verify"
+  },
+
+  "pricing": {
+    "tier": "Professional",
+    "individual_price_eur": 1500,
+    "corporate_per_seat_eur": 1000,
+    "minimum_corporate_seats": 5,
+    "includes": [
+      "Full course access for 12 months",
+      "All assessments and certification exam",
+      "Sample datasets for practice",
+      "ROI calculators and templates",
+      "Access to retail AI community"
+    ]
+  },
+
+  "resources": {
+    "templates": [
+      "Retail AI Business Case Template",
+      "Customer Segmentation Strategy Worksheet",
+      "Recommendation System Requirements Document",
+      "Vendor Evaluation Scorecard"
+    ],
+    "tools": [
+      "Demand Forecasting Accuracy Calculator",
+      "Personalization ROI Estimator",
+      "Inventory Optimization Assessment"
+    ]
+  },
+
+  "platform_integration": [
+    "Shopify ecosystem compatible",
+    "Salesforce Commerce guidance included",
+    "Magento/Adobe Commerce considerations",
+    "POS integration patterns (multiple vendors)"
+  ],
+
+  "authors": [
+    {
+      "name": "AI Academy Team",
+      "role": "Content Development",
+      "organization": "Verduona"
+    }
+  ],
+
+  "tags": [
+    "retail",
+    "e-commerce",
+    "customer-analytics",
+    "personalization",
+    "inventory",
+    "recommendations",
+    "omnichannel"
+  ],
+
+  "created_date": "2025-12-28",
+  "last_updated": "2025-12-28"
+}

@@ -1,0 +1,19 @@
+{
+  "_description": "Pipeline taxonomy mapping roles and labels to pipeline categories.",
+  "always_allowed_roles": ["orchestrator", "caretaker"],
+  "order": ["biz", "dev", "self_improve"],
+  "pipelines": {
+    "dev": {
+      "roles": ["builder", "patcher", "tester", "integrator", "explorer", "dev_discovery", "reviewer", "promoter", "rnd"],
+      "labels": ["stream:asset-engine", "stream:apps"]
+    },
+    "biz": {
+      "roles": ["business", "biz_discovery", "marketer", "researcher", "researcher_external"],
+      "labels": ["stream:cash-engine"]
+    },
+    "self_improve": {
+      "roles": ["self_improver"],
+      "labels": []
+    }
+  }
+}

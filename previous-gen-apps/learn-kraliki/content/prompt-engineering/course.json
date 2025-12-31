@@ -1,0 +1,102 @@
+{
+  "slug": "prompt-engineering",
+  "title": "AI Pro: Advanced Prompt Engineering",
+  "description": "Level 2 of the AI Academy. Master advanced AI tools: Perplexity for research, Midjourney for visuals, Cursor for coding, and voice mode for productivity. Build your personal knowledge management system with AI.",
+  "level": "intermediate",
+  "duration_minutes": 180,
+  "is_free": false,
+  "price_eur": 199,
+  "lessons": [
+    {
+      "id": "01-the-toolbelt",
+      "title": "The AI Toolbelt",
+      "order": 1,
+      "module": 1,
+      "module_name": "The Toolbelt",
+      "is_preview": true
+    },
+    {
+      "id": "02-perplexity-research",
+      "title": "Perplexity for Research Sprints",
+      "order": 2,
+      "module": 1,
+      "module_name": "The Toolbelt"
+    },
+    {
+      "id": "03-midjourney-visuals",
+      "title": "Midjourney for Visual Thinking",
+      "order": 3,
+      "module": 1,
+      "module_name": "The Toolbelt"
+    },
+    {
+      "id": "04-cursor-basics",
+      "title": "Cursor: AI-Assisted Coding",
+      "order": 4,
+      "module": 2,
+      "module_name": "Cursor Basics"
+    },
+    {
+      "id": "05-cursor-workflows",
+      "title": "Cursor Workflows",
+      "order": 5,
+      "module": 2,
+      "module_name": "Cursor Basics"
+    },
+    {
+      "id": "06-voice-mode",
+      "title": "Voice Mode Mastery",
+      "order": 6,
+      "module": 3,
+      "module_name": "Voice Mode"
+    },
+    {
+      "id": "07-meeting-intelligence",
+      "title": "Meeting Intelligence",
+      "order": 7,
+      "module": 3,
+      "module_name": "Voice Mode"
+    },
+    {
+      "id": "08-pkm-intro",
+      "title": "Building Your AI Brain",
+      "order": 8,
+      "module": 4,
+      "module_name": "Building a Brain (PKM)"
+    },
+    {
+      "id": "09-pkm-workflows",
+      "title": "PKM Workflows",
+      "order": 9,
+      "module": 4,
+      "module_name": "Building a Brain (PKM)"
+    },
+    {
+      "id": "10-final-project",
+      "title": "Final Project",
+      "order": 10,
+      "module": 4,
+      "module_name": "Building a Brain (PKM)"
+    }
+  ],
+  "author": "AI Academy Team",
+  "tags": ["ai", "prompt-engineering", "academy", "L2", "intermediate", "perplexity", "midjourney", "cursor"],
+  "academy_level": "L2",
+  "preview_lessons": ["01-the-toolbelt"],
+  "prerequisites": ["ai-fundamentals"],
+  "learning_outcomes": [
+    "Use the right AI tool for each task (research, visuals, coding)",
+    "Build AI-assisted workflows with Cursor",
+    "Capture and organize information using voice mode",
+    "Create a personal knowledge system that compounds over time"
+  ],
+  "deliverables": [
+    "Toolbelt brief + visual moodboard",
+    "Cursor mini-project (script or landing page)",
+    "Voice-mode action plan",
+    "PKM workspace with weekly review template"
+  ],
+  "certification": "AI Operations Pro",
+  "status": "coming_soon",
+  "launch_date": "2026-02-01"
+}

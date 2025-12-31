@@ -1,0 +1,1085 @@
+<script lang="ts">
+	import { onMount } from "svelte";
+
+	import type {
+		KralikiStats,
+		HeatMapEntry,
+		RecentFile,
+		LinearData,
+		PendingLinearData,
+		LeaderboardData,
+		SocialFeedItem,
+		BlackboardData,
+		TaskQueueData,
+		AgentAnalytics,
+		AgentStatusEntry,
+		RecallStats,
+		CircuitBreakersData,
+		CrashAnalytics,
+		FitnessData,
+		MemoryStats,
+		DecisionTraceStats,
+		GenomeStats,
+		OrchestratorsData,
+		CostAnalytics,
+	} from "$lib/server/data";
+
+	interface Status {
+		timestamp: string;
+		kraliki: KralikiStats | null;
+		heatMap: HeatMapEntry[];
+		recentFiles: RecentFile[];
+		linear: LinearData | null;
+		pendingLinear: PendingLinearData | null;
+		leaderboard: LeaderboardData | null;
+		social: SocialFeedItem[];
+		blackboard: BlackboardData | null;
+		tasks: TaskQueueData | null;
+		analytics: AgentAnalytics | null;
+		agentStatus: AgentStatusEntry[];
+		recall: RecallStats | null;
+		circuitBreakers: CircuitBreakersData | null;
+		crashAnalytics: CrashAnalytics | null;
+		fitness: FitnessData | null;
+		memoryStats: MemoryStats | null;
+		decisionTraces: DecisionTraceStats | null;
+		genomeStats: GenomeStats | null;
+		orchestrators: OrchestratorsData | null;
+		costAnalytics: CostAnalytics | null;
+	}
+
+	interface FocusPriority {
+		title: string;
+		priority: string;
+	}
+
+	interface FocusDailyPlan {
+		greeting: string;
+		priorities: FocusPriority[];
+		overdue: number;
+		due_today: number;
+		insight?: string;
+	}
+
+	interface FocusNextAction {
+		action: string;
+		reason?: string;
+	}
+
+	let status = $state<Status | null>(null);
+	let loading = $state(true);
+	let error = $state<string | null>(null);
+	let focusPlan = $state<FocusDailyPlan | null>(null);
+	let focusNext = $state<FocusNextAction | null>(null);
+	let focusLoading = $state(false);
+	let focusError = $state<string | null>(null);
+	let resettingBreaker = $state<string | null>(null);
+	let resetError = $state<string | null>(null);
+
+	async function fetchStatus() {
+		try {
+			const res = await fetch("/api/status");
+			if (!res.ok) throw new Error("Failed to fetch status");
+			status = await res.json();
+			error = null;
+		} catch (e) {
+			error = e instanceof Error ? e.message : "Unknown error";
+		} finally {
+			loading = false;
+		}
+	}
+
+	function getLabColor(agentId: string) {
+		const prefix = agentId.split('-')[0];
+		const colors: Record<string, string> = {
+			'CC': 'var(--terminal-green)',
+			'CX': 'var(--cyan-data)',
+			'GE': 'var(--warning)',
+			'GR': 'var(--system-red)',
+			'OC': 'var(--terminal-green)'
+		};
+		return colors[prefix] || 'currentColor';
+	}
+
+	function isDiscoveryActive(s: Status) {
+		return s.agentStatus.some(a => a.status === 'running' && (a.id.includes('discovery') || a.genome?.includes('discovery')));
+	}
+
+	function priorityFromScore(score?: number) {
+		if (score === undefined || score === null) return 'medium';
+		if (score >= 80) return 'high';
+		if (score >= 60) return 'medium';
+		return 'low';
+	}
+
+	function priorityTone(priority: string) {
+		if (priority === 'high' || priority === 'urgent') return 'red';
+		if (priority === 'medium') return 'yellow';
+		return 'cyan';
+	}
+
+	function normalizeFocusPlan(raw: Record<string, any> | null): FocusDailyPlan | null {
+		if (!raw) return null;
+		const priorities = raw.priorities
+			|| raw.top_tasks?.map((item: Record<string, any>) => ({
+				title: item.title || item.task?.title || 'Untitled task',
+				priority: item.priority || priorityFromScore(item.priority_score)
+			}))
+			|| [];
+
+		return {
+			greeting: raw.greeting || 'Ready to focus?',
+			priorities,
+			overdue: raw.overdue ?? raw.overdue_count ?? 0,
+			due_today: raw.due_today ?? raw.due_today_count ?? 0,
+			insight: raw.insight || raw.shadow_insight || raw.reasoning || raw.recommendation
+		};
+	}
+
+	function normalizeNextAction(raw: Record<string, any> | null): FocusNextAction | null {
+		if (!raw) return null;
+		const action = raw.message || raw.action || 'Next action ready';
+		const reason = raw.reason || raw.reasoning || raw.suggestion;
+		return { action, reason };
+	}
+
+	async function fetchFocusPulse() {
+		focusLoading = true;
+		focusError = null;
+		try {
+			const [planRes, actionRes] = await Promise.all([
+				fetch('/api/focus/brain?action=daily-plan', { signal: AbortSignal.timeout(15000) }),
+				fetch('/api/focus/brain?action=next-action', { signal: AbortSignal.timeout(15000) })
+			]);
+
+			if (planRes.ok) {
+				const data = await planRes.json();
+				focusPlan = normalizeFocusPlan(data.data || data);
+			}
+
+			if (actionRes.ok) {
+				const data = await actionRes.json();
+				focusNext = normalizeNextAction(data.data || data);
+			}
+
+			if (!planRes.ok && !actionRes.ok) {
+				focusError = 'Focus Brain unavailable';
+			}
+		} catch (e) {
+			focusError = e instanceof Error ? e.message : 'Focus Brain error';
+		} finally {
+			focusLoading = false;
+		}
+	}
+
+	async function resetCircuitBreaker(name: string) {
+		resettingBreaker = name;
+		resetError = null;
+		try {
+			const res = await fetch('/api/circuit-breakers', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ name, action: 'reset' })
+			});
+			const data = await res.json();
+			if (data.error) {
+				resetError = data.error;
+			} else {
+				await fetchStatus();
+			}
+		} catch (e) {
+			resetError = e instanceof Error ? e.message : 'Failed to reset breaker';
+		} finally {
+			resettingBreaker = null;
+		}
+	}
+
+	onMount(() => {
+		fetchStatus();
+		fetchFocusPulse();
+		const interval = setInterval(fetchStatus, 30000); // Refresh every 30s
+		return () => clearInterval(interval);
+	});
+</script>
+
+{#if loading && !status}
+	<div class="loading">
+		<div class="loading-text">ESTABLISHING SECURE CONNECTION</div>
+		<div class="loading-bar"></div>
+		<div class="subtitle">Interrogating Kraliki Subsystems</div>
+	</div>
+{:else if error}
+	<div class="container">
+		<div class="card pulse-scan" style="max-width: 600px; margin: 100px auto;">
+			<h2 class="red">SYSTEM_CRITICAL // CONNECTION_FAILURE</h2>
+			<div class="log-box mt-16" style="color: var(--system-red); border-color: var(--system-red);">
+				ERROR_LOG: {error.toUpperCase()}
+				TRACE: SESSION_REJECTED_BY_HOST
+				ACTION: RETRY_REQUIRED
+			</div>
+			<button class="brutal-btn mt-16" style="width: 100%; border-color: var(--system-red);" onclick={fetchStatus}>REINIT_CONNECTION_PROTOCOL</button>
+		</div>
+	</div>
+{:else if status}
+	<div class="top-bar">
+		<div class="updated">
+			<span class="pulse-dot {loading ? 'yellow pulse-brutal' : 'green'}"></span>
+			SYSTEM_STATUS: {loading ? 'RE-SCANNING...' : 'SYNCHRONIZED'}
+			<span style="margin-left: 12px; color: var(--muted-foreground)">|</span>
+			<span style="margin-left: 12px;">TIME: {new Date().toLocaleTimeString()}</span>
+			<span style="margin-left: 12px; color: var(--muted-foreground)">|</span>
+			<span style="margin-left: 12px;">UPTIME: {Math.floor((status?.kraliki?.system?.uptime_seconds || 0) / 86400)}D {Math.floor(((status?.kraliki?.system?.uptime_seconds || 0) % 86400) / 3600)}H {Math.floor(((status?.kraliki?.system?.uptime_seconds || 0) % 3600) / 60)}M</span>
+			{#if isDiscoveryActive(status)}
+				<span style="margin-left: 12px; color: var(--muted-foreground)">|</span>
+				<span style="margin-left: 12px; color: var(--cyan-data);" class="pulse-brutal">DISCOVERY_ACTIVE</span>
+			{/if}
+		</div>
+		<div style="display: flex; gap: 12px; align-items: center;">
+			<div class="user-badge">SEC_LEVEL: 0 // ADMIN</div>
+			<button class="brutal-btn" onclick={fetchStatus} disabled={loading}>
+				{loading ? 'SYNCING...' : 'REFRESH'}
+			</button>
+		</div>
+	</div>
+
+	<div class="grid">
+		<!-- Kraliki System Overview -->
+		{#if status.kraliki}
+			<div class="card pulse-scan brutal-pulse">
+				<h2 class="glitch">SYSTEM_OVERVIEW // CORE</h2>
+				<div class="stat-row">
+					<span class="stat-label">Health Status</span>
+					<span class="stat-value {status.kraliki.health?.overall === 'healthy' ? 'green' : 'red'}"
+						>{status.kraliki.health?.overall?.toUpperCase() || 'UNKNOWN'}</span
+					>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Processes Online</span>
+					<span class="stat-value green"
+						>{status.kraliki.pm2.online} / {status.kraliki.pm2
+							.total}</span
+					>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Commits (24H)</span>
+					<span class="stat-value cyan"
+						>{status.kraliki.dev?.commits || 0}</span
+					>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">System Uptime</span>
+					<span class="stat-value cyan"
+						>{Math.floor((status.kraliki.system?.uptime_seconds || 0) / 86400)}D {Math.floor(((status.kraliki.system?.uptime_seconds || 0) % 86400) / 3600)}H</span
+					>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">System Load</span>
+					<span class="stat-value {(status.kraliki.system?.load_avg?.[0] ?? 0) > 2 ? 'red' : 'green'}"
+						>{status.kraliki.system?.load_avg?.[0]?.toFixed(2) || '0.00'}</span
+					>
+				</div>
+			</div>
+
+			<div class="card">
+				<h2 class="glitch">
+					FOCUS // TODAY
+					<span style="margin-left: auto; display: flex; gap: 8px;">
+						<a href="/focus" class="brutal-btn small">OPEN</a>
+						<button class="brutal-btn small outline" onclick={fetchFocusPulse} disabled={focusLoading}>
+							{focusLoading ? 'LOADING...' : 'REFRESH'}
+						</button>
+					</span>
+				</h2>
+
+				{#if focusError}
+					<div class="log-box" style="color: var(--system-red); border-color: var(--system-red);">
+						FOCUS_BRAIN_OFFLINE // {focusError}
+					</div>
+				{:else if focusPlan || focusNext}
+					{#if focusNext}
+						<div class="log-box">
+							NEXT_ACTION: {focusNext.action}
+							{#if focusNext.reason}
+								{"\n"}REASON: {focusNext.reason}
+							{/if}
+						</div>
+					{/if}
+
+					{#if focusPlan}
+						<div class="stat-row">
+							<span class="stat-label">Greeting</span>
+							<span class="stat-value cyan">{focusPlan.greeting}</span>
+						</div>
+						<div class="stat-row">
+							<span class="stat-label">Overdue</span>
+							<span class="stat-value red">{focusPlan.overdue}</span>
+						</div>
+						<div class="stat-row">
+							<span class="stat-label">Due Today</span>
+							<span class="stat-value yellow">{focusPlan.due_today}</span>
+						</div>
+
+						{#if focusPlan.priorities.length}
+							<div style="margin-top: 12px;">
+								<div class="stat-label" style="margin-bottom: 6px;">Top Priorities</div>
+								{#each focusPlan.priorities as priority}
+									<div class="stat-row">
+										<span class="stat-label">{priority.title}</span>
+										<span class="stat-value {priorityTone(priority.priority)}">{priority.priority.toUpperCase()}</span>
+									</div>
+								{/each}
+							</div>
+						{/if}
+
+						{#if focusPlan.insight}
+							<div class="log-box" style="margin-top: 12px;">
+								INSIGHT: {focusPlan.insight}
+							</div>
+						{/if}
+					{/if}
+				{:else if focusLoading}
+					<div style="color: var(--muted-foreground); font-size: 11px;">Loading Focus by Kraliki...</div>
+				{:else}
+					<div style="color: var(--muted-foreground); font-size: 11px;">No Focus data yet.</div>
+				{/if}
+			</div>
+
+			<div class="card">
+				<h2 class="glitch">HIGHWAY_STATUS // PM2</h2>
+				<div class="highway-grid">
+					{#each status.kraliki.pm2.processes as proc}
+						<div
+							class="highway-card"
+							class:running={proc.status === "online"}
+							class:stopped={proc.status !== "online"}
+						>
+							<div class="highway-name">{proc.name.toUpperCase()}</div>
+							<div class="highway-status">
+								<span
+									class="pulse-dot"
+									class:green={proc.status === "online"}
+									class:red={proc.status !== "online"}
+								></span>
+								{proc.status.toUpperCase()}
+							</div>
+							<div class="text-xs" style="color: var(--text-muted); margin-top: 6px; font-family: 'JetBrains Mono', monospace;">
+								UPTIME: {Math.floor(proc.uptime / 3600000)}H {Math.floor((proc.uptime % 3600000) / 60000)}M
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{:else}
+			<div class="card brutal-pulse" style="border-color: var(--system-red);">
+				<h2 class="red glitch">SYSTEM_STATUS</h2>
+				<div class="stat-value red">OFFLINE // CONNECTION_LOST</div>
+				<p class="hint mt-16">No Kraliki telemetry available in this sector.</p>
+			</div>
+		{/if}
+
+		<!-- Linear Issues -->
+		<div class="card">
+			<h2 class="glitch">LINEAR_OPS // {status.linear ? `${status.linear.stats.total} ISSUES` : 'OFFLINE'}</h2>
+			{#if status.linear}
+				<div class="stat-row">
+					<span class="stat-label">Blockers</span>
+					<span
+						class="stat-value"
+						class:red={status.linear.stats.blockers > 0}
+						>{status.linear.stats.blockers}</span
+					>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">My Assigned</span>
+					<span
+						class="stat-value green"
+						>{status.linear.stats.human_assigned}</span
+					>
+				</div>
+
+				<div class="issue-list mt-16">
+					{#each status.linear.issues.slice(0, 10) as issue}
+						<a
+							href={issue.url}
+							target="_blank"
+							class="issue-item"
+						>
+							<div class="issue-header">
+								<span class="issue-id">{issue.identifier}</span>
+								<span
+									class="issue-prio"
+									data-prio={issue.priority}
+									>{issue.priorityLabel.toUpperCase()}</span
+								>
+							</div>
+							<div class="issue-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{issue.title}</div>
+							<div class="issue-meta">
+								<span class="issue-state" style="border-color: {issue.state === 'Done' || issue.state === 'Completed' ? 'var(--terminal-green)' : issue.stateColor}; color: {issue.state === 'Done' || issue.state === 'Completed' ? 'var(--terminal-green)' : issue.stateColor}">{issue.state.toUpperCase()}</span>
+								{#if issue.isAssignedToMe}
+									<span class="issue-assignee me">ME</span>
+								{:else}
+									<span class="issue-assignee"
+										>{issue.assignee?.toUpperCase() || 'UNASSIGNED'}</span
+									>
+								{/if}
+							</div>
+						</a>
+					{/each}
+					{#if status.linear.issues.length > 10}
+						<a href="/linear" class="brutal-btn mt-16" style="width: 100%;">VIEW_ALL_ISSUES ({status.linear.issues.length})</a>
+					{/if}
+				</div>
+			{:else}
+				<div class="stat-value red">SERVICE_UNREACHABLE</div>
+				<p class="hint mt-16">Linear data stream is currently interrupted.</p>
+				<a href="/linear" class="brutal-btn mt-16">GO_TO_IFRAME_PAGE</a>
+			{/if}
+		</div>
+
+		<!-- Pending Linear Issues (Rate Limited) -->
+		{#if status.pendingLinear && status.pendingLinear.issues.length > 0}
+			<div class="card pulse-scan" style="border-color: var(--warning);">
+				<h2 class="glitch" style="color: var(--warning);">PENDING_ISSUES // {status.pendingLinear.issues.length} RATE_LIMITED</h2>
+				<div class="stat-row">
+					<span class="stat-label">Created By</span>
+					<span class="stat-value">{status.pendingLinear.generated_by?.slice(0, 30) || 'Unknown'}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Generated At</span>
+					<span class="stat-value">{status.pendingLinear.generated_at?.slice(0, 16) || '--'}</span>
+				</div>
+				<div class="log-box mt-16" style="color: var(--warning); border-color: var(--warning);">
+					{status.pendingLinear.note || 'Linear API rate limited. Issues pending creation.'}
+				</div>
+
+				<div class="issue-list mt-16">
+					{#each status.pendingLinear.issues.slice(0, 6) as issue, i}
+						<div class="issue-item" style="border-color: var(--warning);">
+							<div class="issue-header">
+								<span class="issue-id" style="color: var(--warning);">PENDING-{i + 1}</span>
+								<span class="issue-prio" data-prio={issue.priority}>{issue.priority === 1 ? 'URGENT' : issue.priority === 2 ? 'HIGH' : 'MEDIUM'}</span>
+							</div>
+							<div class="issue-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{issue.title}</div>
+							<div class="issue-meta">
+								{#each issue.labels.slice(0, 3) as label}
+									<span class="issue-state" style="border-color: var(--muted-foreground); color: var(--muted-foreground); font-size: 9px;">{label.replace('type:', '').replace('stream:', '').toUpperCase()}</span>
+								{/each}
+							</div>
+						</div>
+					{/each}
+				</div>
+
+				<div class="mt-16" style="font-size: 10px; color: var(--warning);">
+					ACTION_REQUIRED: Create these issues manually in Linear OR wait for rate limit reset.
+				</div>
+			</div>
+		{/if}
+
+		<!-- Recall Status -->
+		<div class="card">
+			<h2>RECALL // {status.recall ? `${status.recall.total_entries} ENTRIES` : 'OFFLINE'}</h2>
+			{#if status.recall}
+				<div class="stat-row">
+					<span class="stat-label">Stores</span>
+					<span class="stat-value cyan">{status.recall.total_stores}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Retrieves</span>
+					<span class="stat-value yellow">{status.recall.total_retrieves}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Active Agents</span>
+					<span class="stat-value green">{Object.keys(status.recall.by_agent).length}</span>
+				</div>
+				
+				<div class="mt-16">
+					<h3 class="text-xs mb-8">TOP_AGENTS</h3>
+					{#each Object.entries(status.recall.by_agent).sort((a, b) => (b[1].stores + b[1].retrieves) - (a[1].stores + a[1].retrieves)).slice(0, 5) as [agent, data]}
+						<div class="stat-row" style="font-size: 10px;">
+							<span class="stat-label">{agent.toUpperCase()}</span>
+							<span>{data.stores} S / {data.retrieves} R</span>
+						</div>
+					{/each}
+				</div>
+				<a href="/recall" class="brutal-btn mt-16" style="width: 100%;">RECALL_EXPLORER</a>
+			{:else}
+				<div class="stat-value red">SERVICE_UNREACHABLE</div>
+				<p class="hint mt-16">Recall neural link is down.</p>
+				<a href="/recall" class="brutal-btn mt-16">DIAGNOSTICS</a>
+			{/if}
+		</div>
+
+		<!-- Memory Stats -->
+		{#if status.memoryStats}
+			<div class="card">
+				<h2>AGENT_MEMORY // {status.memoryStats.total_memories} ENTRIES</h2>
+				<div class="stat-row">
+					<span class="stat-label">Active Agents</span>
+					<span class="stat-value cyan">{status.memoryStats.total_agents}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Ephemeral Files</span>
+					<span class="stat-value" class:yellow={status.memoryStats.ephemeral_files > 10}>{status.memoryStats.ephemeral_files}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Storage</span>
+					<span class="stat-value">{status.memoryStats.total_size_kb} KB</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Semantic Search</span>
+					<span class="stat-value" class:green={status.memoryStats.mgrep_available} class:red={!status.memoryStats.mgrep_available}>
+						{status.memoryStats.mgrep_available ? 'ENABLED' : 'OFFLINE'}
+					</span>
+				</div>
+
+				{#if status.memoryStats.top_agents.length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">TOP_MEMORY_AGENTS</h3>
+						{#each status.memoryStats.top_agents.slice(0, 5) as agent}
+							<div class="stat-row" style="font-size: 10px;">
+								<span class="stat-label" style="color: {agent.ephemeral ? 'var(--warning)' : 'var(--text-muted)'}">
+									{agent.agent.toUpperCase().slice(0, 25)}{agent.agent.length > 25 ? '...' : ''}
+								</span>
+								<span>{agent.count} mem / {agent.size_kb} KB</span>
+							</div>
+						{/each}
+					</div>
+				{/if}
+
+				{#if status.memoryStats.ephemeral_files > 5}
+					<div class="mt-16" style="font-size: 10px; color: var(--warning);">
+						TIP: Run 'memory.py consolidate --execute' to merge ephemeral files
+					</div>
+				{/if}
+			</div>
+		{/if}
+
+		<!-- Leaderboard (Gamification) -->
+		{#if status.leaderboard && Array.isArray(status.leaderboard.rankings)}
+			<div class="card">
+				<h2>SWARM_LEADERBOARD // TOP_5</h2>
+				<div class="leaderboard-list">
+					{#each status.leaderboard.rankings.slice(0, 5) as agent}
+						<div class="agent-rank">
+							<div class="rank-badge">{agent.badge}</div>
+							<div class="rank-info">
+								<div class="agent-id">{agent.id}</div>
+								<div class="agent-score">
+									{agent.points} PTS
+								</div>
+							</div>
+							<div class="rank-title">{agent.rank.toUpperCase()}</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Agent Status -->
+		{#if status.agentStatus && status.agentStatus.length > 0}
+			<div class="card span-2">
+				<h2>ACTIVE_AGENT_STATUS // REAL_TIME</h2>
+				<div class="agent-table">
+					<div class="agent-row agent-header">
+						<span>AGENT_ID</span>
+						<span>GENOME</span>
+						<span>CLI</span>
+						<span>STATUS</span>
+						<span>PID</span>
+						<span>START</span>
+						<span>DURATION</span>
+						<span>POINTS</span>
+					</div>
+					{#each status.agentStatus as agent}
+						<div
+							class="agent-row"
+							class:running={agent.status === "running"}
+							class:completed={agent.status === "completed"}
+							class:failed={agent.status === "failed"}
+						>
+							<span class="agent-cell agent-id" style="color: {getLabColor(agent.id)}">{agent.id}</span>
+							<span class="agent-cell">{agent.genome || "--"}</span>
+							<span class="agent-cell">{agent.cli || "--"}</span>
+							<span
+								class="agent-cell agent-status"
+								class:running={agent.status === "running"}
+								class:completed={agent.status === "completed"}
+								class:failed={agent.status === "failed"}
+							>
+								{agent.status.toUpperCase()}
+							</span>
+							<span class="agent-cell">{agent.pid ?? "--"}</span>
+							<span class="agent-cell">{agent.startTime}</span>
+							<span class="agent-cell">{agent.duration}</span>
+							<span class="agent-cell agent-points">{agent.points ?? "--"}</span>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Lab Analytics -->
+		{#if status.analytics}
+			<div class="card">
+				<h2>LAB_ANALYTICS // REVENUE_UNITS</h2>
+				<div class="stat-row">
+					<span class="stat-label">Total Agents</span>
+					<span class="stat-value">{status.analytics.total_agents}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Total Points</span>
+					<span class="stat-value yellow">{status.analytics.total_points}</span>
+				</div>
+				<div class="analytics-section">
+					<h3>BY_LAB</h3>
+					{#each Object.entries(status.analytics.by_lab).sort((a, b) => b[1].points - a[1].points) as [lab, data]}
+						<div class="analytics-row">
+							<span class="lab-badge" data-lab={lab}>{lab}</span>
+							<span class="lab-name">{data.lab_name?.toUpperCase() || lab}</span>
+							<span class="lab-stats">{data.agents} AGENTS / {data.points} PTS</span>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Genome Stats -->
+		{#if status.genomeStats}
+			<div class="card">
+				<h2>GENOME_STATS // {status.genomeStats.active_today} ACTIVE</h2>
+				<div class="stat-row">
+					<span class="stat-label">Total Genomes</span>
+					<span class="stat-value cyan">{status.genomeStats.total_genomes}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Active Today</span>
+					<span class="stat-value green">{status.genomeStats.active_today}</span>
+				</div>
+
+				{#if Object.keys(status.genomeStats.by_cli).length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">BY_CLI</h3>
+						{#each Object.entries(status.genomeStats.by_cli).sort((a, b) => b[1].points - a[1].points) as [cli, data]}
+							<div class="stat-row" style="font-size: 10px;">
+								<span class="stat-label" style="color: {cli === 'claude' ? 'var(--terminal-green)' : cli === 'opencode' ? 'var(--cyan-data)' : cli === 'gemini' ? 'var(--warning)' : 'var(--text-muted)'}">
+									{cli.toUpperCase()}
+								</span>
+								<span>{data.genomes} genomes / {data.spawns} spawns / {data.points} pts</span>
+							</div>
+						{/each}
+					</div>
+				{/if}
+
+				{#if status.genomeStats.top_performers.length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">TOP_PERFORMERS</h3>
+						{#each status.genomeStats.top_performers.filter(g => g.points_earned > 0 || g.spawns_today > 0).slice(0, 5) as genome}
+							<div class="stat-row" style="font-size: 10px;">
+								<span class="stat-label" style="color: {genome.cli === 'claude' ? 'var(--terminal-green)' : genome.cli === 'opencode' ? 'var(--cyan-data)' : genome.cli === 'gemini' ? 'var(--warning)' : 'var(--text-muted)'}">
+									{genome.name.replace(genome.cli + '_', '').toUpperCase()}
+								</span>
+								<span>{genome.spawns_today} spawns / {genome.points_earned} pts</span>
+							</div>
+						{/each}
+					</div>
+				{/if}
+			</div>
+		{/if}
+
+		<!-- Cost Analytics -->
+		{#if status.costAnalytics}
+			<div class="card">
+				<h2>COST_ANALYTICS // ${status.costAnalytics.summary.total_cost_today.toFixed(2)} TODAY</h2>
+				<div class="stat-row">
+					<span class="stat-label">Today's Cost</span>
+					<span class="stat-value" class:red={status.costAnalytics.summary.total_cost_today > 10} class:yellow={status.costAnalytics.summary.total_cost_today > 5} class:green={status.costAnalytics.summary.total_cost_today <= 5}>${status.costAnalytics.summary.total_cost_today.toFixed(2)}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">7-Day Cost</span>
+					<span class="stat-value cyan">${status.costAnalytics.summary.total_cost_week.toFixed(2)}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Agents Today</span>
+					<span class="stat-value green">{status.costAnalytics.summary.total_agents_today}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Avg Cost/Agent</span>
+					<span class="stat-value">${status.costAnalytics.summary.avg_cost_per_agent.toFixed(2)}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Tokens Today</span>
+					<span class="stat-value">{status.costAnalytics.summary.total_tokens_today >= 1000000 ? (status.costAnalytics.summary.total_tokens_today / 1000000).toFixed(1) + 'M' : status.costAnalytics.summary.total_tokens_today >= 1000 ? (status.costAnalytics.summary.total_tokens_today / 1000).toFixed(1) + 'K' : status.costAnalytics.summary.total_tokens_today}</span>
+				</div>
+
+				{#if Object.keys(status.costAnalytics.by_cli).length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">COST_BY_CLI</h3>
+						{#each Object.entries(status.costAnalytics.by_cli).sort((a, b) => b[1].cost - a[1].cost).slice(0, 5) as [cli, cliData]}
+							<div class="stat-row" style="font-size: 10px;">
+								<span class="stat-label" style="color: {cli === 'claude' ? 'var(--terminal-green)' : cli === 'opencode' ? 'var(--cyan-data)' : cli === 'gemini' ? 'var(--warning)' : 'var(--text-muted)'}">
+									{cli.toUpperCase()}
+								</span>
+								<span>${cliData.cost.toFixed(2)} ({cliData.agents} agents)</span>
+							</div>
+						{/each}
+					</div>
+				{/if}
+
+				<a href="/costs" class="brutal-btn mt-16" style="width: 100%;">DETAILED_COST_ANALYSIS</a>
+			</div>
+		{/if}
+
+		<!-- Circuit Breakers -->
+		{#if status.circuitBreakers}
+			<div class="card">
+				<h2>CIRCUIT_BREAKERS // CLI_HEALTH</h2>
+				{#if resetError}
+					<div class="log-box mt-16" style="color: var(--system-red); border-color: var(--system-red);">
+						BREAKER_RESET_FAILED: {resetError}
+					</div>
+				{/if}
+				<div class="circuit-breakers">
+					{#each Object.entries(status.circuitBreakers) as [name, breaker]}
+						{@const isOpen = breaker.state === 'open'}
+						{@const isClosed = breaker.state === 'closed'}
+						{@const isHalfOpen = breaker.state === 'half-open'}
+						<div class="breaker-item" class:open={isOpen} class:closed={isClosed} class:half-open={isHalfOpen}>
+							<div class="breaker-header">
+								<span class="breaker-name">{name.replace(/_/g, ' ').toUpperCase()}</span>
+								<span class="breaker-state" class:open={isOpen} class:closed={isClosed} class:half-open={isHalfOpen}>
+									<span class="pulse-dot" class:red={isOpen} class:green={isClosed} class:yellow={isHalfOpen}></span>
+									{breaker.state.toUpperCase()}
+								</span>
+								{#if isOpen}
+									<button
+										class="brutal-btn small outline"
+										onclick={() => resetCircuitBreaker(name)}
+										disabled={resettingBreaker === name}
+									>
+										{resettingBreaker === name ? 'RESETTING...' : 'RESET'}
+									</button>
+								{/if}
+							</div>
+							{#if breaker.note}
+								<div class="breaker-note">{breaker.note}</div>
+							{/if}
+							{#if breaker.last_failure_reason && isOpen}
+								<div class="breaker-reason">REASON: {breaker.last_failure_reason.slice(0, 80)}...</div>
+							{/if}
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Orchestrator State -->
+		{#if status.orchestrators}
+			<div class="card">
+				<h2>ORCHESTRATORS // {status.orchestrators.active_count} ACTIVE</h2>
+				<div class="stat-row">
+					<span class="stat-label">Active Orchestrators</span>
+					<span class="stat-value" class:green={status.orchestrators.active_count > 0} class:red={status.orchestrators.active_count === 0}>{status.orchestrators.active_count}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Total Runtime</span>
+					<span class="stat-value cyan">{status.orchestrators.total_runtime_minutes}m</span>
+				</div>
+
+				<div class="orchestrator-list mt-16">
+					{#each status.orchestrators.orchestrators as orch}
+						<div class="orchestrator-item" class:running={orch.is_running} class:stopped={!orch.is_running}>
+							<div class="orchestrator-header">
+								<span class="orchestrator-cli" style="color: {orch.cli === 'claude' ? 'var(--terminal-green)' : orch.cli === 'codex' ? 'var(--cyan-data)' : orch.cli === 'opencode' ? 'var(--terminal-green)' : orch.cli === 'gemini' ? 'var(--warning)' : 'var(--text-muted)'}">
+									{orch.cli.toUpperCase()}
+								</span>
+								<span class="orchestrator-status">
+									<span class="pulse-dot" class:green={orch.is_running} class:red={!orch.is_running}></span>
+									{orch.is_running ? 'RUNNING' : 'STOPPED'}
+								</span>
+							</div>
+							{#if orch.agent_id}
+								<div class="orchestrator-agent">{orch.agent_id}</div>
+							{/if}
+							<div class="orchestrator-meta">
+								{#if orch.pid}
+									<span>PID: {orch.pid}</span>
+								{/if}
+								<span>UPTIME: {orch.duration}</span>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Decision Traces -->
+		{#if status.decisionTraces}
+			<div class="card">
+				<h2>DECISION_TRACES // {status.decisionTraces.traces_today} TODAY</h2>
+				<div class="stat-row">
+					<span class="stat-label">Total Traces</span>
+					<span class="stat-value cyan">{status.decisionTraces.total_traces}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Today's Traces</span>
+					<span class="stat-value green">{status.decisionTraces.traces_today}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Decision Types</span>
+					<span class="stat-value">{Object.keys(status.decisionTraces.by_type).length}</span>
+				</div>
+
+				{#if Object.keys(status.decisionTraces.by_type).length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">BY_DECISION_TYPE</h3>
+						{#each Object.entries(status.decisionTraces.by_type).sort((a, b) => b[1] - a[1]).slice(0, 5) as [dtype, count]}
+							<div class="stat-row" style="font-size: 10px;">
+								<span class="stat-label" style="color: {dtype === 'spawn' ? 'var(--terminal-green)' : dtype === 'completion' ? 'var(--cyan-data)' : dtype === 'error_handling' ? 'var(--system-red)' : 'var(--text-muted)'}">
+									{dtype.toUpperCase().replace(/_/g, ' ')}
+								</span>
+								<span>{count}</span>
+							</div>
+						{/each}
+					</div>
+				{/if}
+
+				{#if status.decisionTraces.recent_traces.length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">RECENT_DECISIONS</h3>
+						<div class="trace-list">
+							{#each status.decisionTraces.recent_traces.slice(0, 3) as trace}
+								<div class="trace-item-mini">
+									<div class="trace-header-mini">
+										<span class="trace-type-mini" style="color: {trace.decision_type === 'spawn' ? 'var(--terminal-green)' : trace.decision_type === 'completion' ? 'var(--cyan-data)' : 'var(--warning)'}">
+											{trace.decision_type.toUpperCase()}
+										</span>
+										<span class="trace-time-mini">{trace.timestamp?.slice(11, 16) || '--'}</span>
+									</div>
+									<div class="trace-agent-mini">{trace.agent_id?.slice(0, 25) || '--'}...</div>
+									<div class="trace-decision-mini">{trace.decision?.slice(0, 60) || '--'}...</div>
+								</div>
+							{/each}
+						</div>
+					</div>
+				{/if}
+
+				<a href="/see/traces" class="brutal-btn mt-16" style="width: 100%;">VIEW_ALL_TRACES</a>
+			</div>
+		{/if}
+
+		<!-- Crash Analytics -->
+		{#if status.crashAnalytics}
+			<div class="card" class:pulse-scan={status.crashAnalytics.summary.crash_rate_percent > 50}>
+				<h2 class:red={status.crashAnalytics.summary.crash_rate_percent > 50}>CRASH_ANALYTICS // TODAY</h2>
+				<div class="stat-row">
+					<span class="stat-label">Total Spawns</span>
+					<span class="stat-value cyan">{status.crashAnalytics.summary.total_spawns_today}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Total Crashes</span>
+					<span class="stat-value" class:red={status.crashAnalytics.summary.total_crashes_today > 0} class:green={status.crashAnalytics.summary.total_crashes_today === 0}>{status.crashAnalytics.summary.total_crashes_today}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Crash Rate</span>
+					<span class="stat-value" class:red={status.crashAnalytics.summary.crash_rate_percent > 30} class:yellow={status.crashAnalytics.summary.crash_rate_percent > 10} class:green={status.crashAnalytics.summary.crash_rate_percent <= 10}>{status.crashAnalytics.summary.crash_rate_percent}%</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">0-Byte Crashes</span>
+					<span class="stat-value" class:red={status.crashAnalytics.summary.zero_byte_crashes > 0}>{status.crashAnalytics.summary.zero_byte_crashes}</span>
+				</div>
+
+				{#if Object.keys(status.crashAnalytics.by_cli).length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">BY_CLI</h3>
+						{#each Object.entries(status.crashAnalytics.by_cli).sort((a, b) => b[1].spawns - a[1].spawns) as [cli, data]}
+							<div class="stat-row" style="font-size: 10px;">
+								<span class="stat-label">{cli.toUpperCase()}</span>
+								<span class:red={data.crash_rate > 30} class:yellow={data.crash_rate > 10}>{data.spawns} spawns / {data.crashes} crashes ({data.crash_rate}%)</span>
+							</div>
+						{/each}
+					</div>
+				{/if}
+
+				{#if Object.keys(status.crashAnalytics.error_patterns).length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">ERROR_PATTERNS</h3>
+						{#each Object.entries(status.crashAnalytics.error_patterns).sort((a, b) => b[1] - a[1]).slice(0, 5) as [pattern, count]}
+							<div class="stat-row" style="font-size: 10px;">
+								<span class="stat-label" style="color: var(--system-red);">{pattern}</span>
+								<span>{count}</span>
+							</div>
+						{/each}
+					</div>
+				{/if}
+
+				{#if status.crashAnalytics.recent_crashes.length > 0}
+					<div class="mt-16">
+						<h3 class="text-xs mb-8">RECENT_CRASHES</h3>
+						<div class="crash-list">
+							{#each status.crashAnalytics.recent_crashes.slice(0, 5) as crash}
+								<div class="crash-item">
+									<div class="crash-header">
+										<span class="crash-id">{crash.id}</span>
+										<span class="crash-type" data-type={crash.type}>{crash.type.toUpperCase()}</span>
+									</div>
+									<div class="crash-meta">
+										<span>{crash.cli?.toUpperCase() || '--'}</span>
+										<span>{crash.time}</span>
+									</div>
+									{#if crash.error_snippet}
+										<div class="crash-error">{crash.error_snippet}</div>
+									{/if}
+								</div>
+							{/each}
+						</div>
+					</div>
+				{/if}
+			</div>
+		{/if}
+
+		<!-- Fitness Reports -->
+		{#if status.fitness && status.fitness.reports.length > 0}
+			<div class="card">
+				<h2>FITNESS_REPORTS // QUALITY_TRENDS</h2>
+				<div class="fitness-list">
+					{#each status.fitness.reports.slice(0, 8) as report}
+						<div class="fitness-item">
+							<div class="fitness-header">
+								<span class="fitness-agent" style="color: {getLabColor(report.agent_id)}">{report.agent_id.split('-').slice(0,2).join('-')}</span>
+								<span class="fitness-status {report.success ? 'green' : 'red'}">{report.success ? 'SUCCESS' : 'FAILED'}</span>
+							</div>
+							<div class="fitness-task">{report.task_id}</div>
+							<div class="fitness-meta">
+								<span>QUALITY: {report.quality_score}</span>
+								<span>{new Date(report.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Social Pulse -->
+		{#if status.social && status.social.length > 0}
+			<div class="card row-span-2">
+				<h2>SWARM_PULSE // INTERCEPTED</h2>
+				<div class="social-feed">
+					{#each status.social as post}
+						<div class="social-post">
+							<div class="post-header">
+								<span class="post-author"
+									>{(post.author || post.agent || 'SYSTEM').toUpperCase()}</span
+								>
+								<span class="post-time"
+									>{post.time || post.timestamp}</span
+								>
+							</div>
+							<div class="post-content">
+								{post.message || post.content}
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Activity Heat Map -->
+		{#if status.heatMap && status.heatMap.length > 0}
+			<div class="card">
+				<h2>HEAT_MAP // 2H_ACTIVITY</h2>
+				<div class="heat-map">
+					{#each status.heatMap as entry}
+						{@const maxCount = Math.max(
+							...status.heatMap.map((e) => e.count),
+						)}
+						{@const barWidth =
+							maxCount > 0
+								? Math.round((entry.count / maxCount) * 100)
+								: 0}
+						<div class="heat-row">
+							<span class="heat-folder">{entry.folder.toUpperCase()}</span>
+							<div class="heat-bar-track">
+								<div
+									class="heat-bar"
+									style="width: {barWidth}%"
+								></div>
+							</div>
+							<span class="heat-count">{entry.count}</span>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Recent Files -->
+		{#if status.recentFiles && status.recentFiles.length > 0}
+			<div class="card">
+				<h2>RECENT_CHANGES // GIT_OPS</h2>
+				<div class="recent-files">
+					{#each status.recentFiles as file}
+						<div class="recent-file">
+							<span class="file-time">{file.time}</span>
+							<span class="file-path">{file.path}</span>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Task Queue -->
+		{#if status.tasks}
+			<div class="card">
+				<h2>TASK_QUEUE // {status.tasks.stats.open} OPEN</h2>
+				<div class="stat-row">
+					<span class="stat-label">Blocked</span>
+					<span class="stat-value" class:red={status.tasks.stats.blocked > 0}>{status.tasks.stats.blocked}</span>
+				</div>
+				<div class="stat-row">
+					<span class="stat-label">Completed</span>
+					<span class="stat-value green">{status.tasks.stats.completed}</span>
+				</div>
+				<div class="task-list mt-16">
+					{#each status.tasks.tasks.filter(t => t.status !== 'completed').slice(0, 8) as task}
+						<div class="task-item" class:blocked={task.status === 'blocked'} class:claimed={task.status === 'claimed'}>
+							<div class="task-header">
+								<span class="task-id">{task.id}</span>
+								<span class="task-type" data-type={task.type}>{task.type.toUpperCase()}</span>
+							</div>
+							<div class="task-title">{task.title}</div>
+							{#if task.blocked_reason}
+								<div class="task-blocked">BLOCKER: {task.blocked_reason.toUpperCase()}</div>
+							{/if}
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Blackboard -->
+		{#if status.blackboard}
+			<div class="card span-2">
+				<h2>BLACKBOARD // {status.blackboard.stats.total} PACKETS</h2>
+				<div class="blackboard-stats">
+					<span>TOPICS: {Object.keys(status.blackboard.stats.by_topic).join(', ').toUpperCase()}</span>
+					<span>ACTIVE_AGENTS: {Object.keys(status.blackboard.stats.by_agent).length}</span>
+				</div>
+				<div class="blackboard-feed">
+					{#each status.blackboard.messages.slice(0, 15) as msg}
+						<div class="bb-message">
+							<div class="bb-header">
+								<span class="bb-agent">{msg.agent.toUpperCase()}</span>
+								<span class="bb-topic">#{msg.topic.toUpperCase()}</span>
+								<span class="bb-time">[{msg.time.slice(11, 19)}]</span>
+							</div>
+							<div class="bb-content">{msg.message.slice(0, 500)}{msg.message.length > 500 ? '...' : ''}</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+	</div>
+{/if}
+
+<style>
+	/* Styles moved to global app.css for consistency and Style 2026 compliance */
+</style>

@@ -1,0 +1,15 @@
+import { QueryClient } from '@tanstack/svelte-query';
+
+export const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: true,
+			refetchOnReconnect: true,
+			retry: 1,
+			staleTime: 30_000
+		},
+		mutations: {
+			retry: 0
+		}
+	}
+});

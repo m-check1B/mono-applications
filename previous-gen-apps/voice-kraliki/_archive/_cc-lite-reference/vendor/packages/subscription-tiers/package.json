@@ -1,0 +1,25 @@
+{
+  "name": "@stack-2025/subscription-tiers",
+  "version": "1.0.0",
+  "description": "Unified subscription tier management for Stack 2025",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "stripe": "^14.0.0",
+    "zod": "^3.23.8",
+    "@stack-2025/byok-core": "file:../byok-core"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0",
+    "@vitest/coverage-v8": "^1.6.0"
+  }
+}

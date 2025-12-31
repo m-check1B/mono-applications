@@ -1,0 +1,59 @@
+run = "bash scripts/replit-start.sh"
+entrypoint = "server/index.ts"
+modules = ["nodejs-20:v26-20240625-08e859d"]
+hidden = [".config", "package-lock.json", "yarn.lock", ".git"]
+
+[nix]
+channel = "stable-23_11"
+
+[deployment]
+run = ["sh", "-c", "pnpm start:all"]
+build = ["sh", "-c", "pnpm install && pnpm build"]
+ignorePorts = false
+
+[[ports]]
+localPort = 3007
+externalPort = 3007
+exposeLocalhost = false
+
+[[ports]]
+localPort = 3010
+externalPort = 3010
+exposeLocalhost = false
+
+[[ports]]
+localPort = 5432
+externalPort = 5432
+exposeLocalhost = false
+
+[[ports]]
+localPort = 6379
+externalPort = 6379
+exposeLocalhost = false
+
+[env]
+NODE_ENV = "development"
+VITE_API_URL = "https://$REPL_SLUG.$REPL_OWNER.repl.co:3010"
+API_URL = "https://$REPL_SLUG.$REPL_OWNER.repl.co:3010"
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+enabledForHosting = false
+
+[languages]
+[languages.javascript]
+pattern = "**/*.{js,jsx}"
+[languages.javascript.languageServer]
+start = "typescript-language-server --stdio"
+
+[languages.typescript]
+pattern = "**/*.{ts,tsx}"
+[languages.typescript.languageServer]
+start = "typescript-language-server --stdio"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".config"]

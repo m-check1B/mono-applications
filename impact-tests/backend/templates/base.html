@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}AI Readiness Tests{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 1.5rem;
+        line-height: 1.5;
+        background: #0f172a;
+        color: #e5e7eb;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #f9fafb;
+      }
+      a {
+        color: #38bdf8;
+      }
+      label {
+        font-weight: 500;
+      }
+      .card {
+        background: #020617;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid #1e293b;
+      }
+      .field {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      input[type="text"],
+      input[type="email"],
+      select,
+      textarea {
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        border: 1px solid #1e293b;
+        background: #020617;
+        color: #e5e7eb;
+      }
+      .question {
+        margin-bottom: 1rem;
+      }
+      .question p {
+        margin: 0 0 0.25rem 0;
+      }
+      .scale {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .scale label {
+        font-weight: 400;
+        font-size: 0.875rem;
+      }
+      .btn-primary {
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        background: #38bdf8;
+        color: #020617;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .badge {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        background: #1f2937;
+      }
+      .badge-low {
+        background: #7f1d1d;
+      }
+      .badge-medium {
+        background: #78350f;
+      }
+      .badge-high {
+        background: #14532d;
+      }
+    </style>
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>
+

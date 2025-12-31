@@ -1,0 +1,17 @@
+{
+  "_description": "Enable/disable pipeline categories for swarm spawning.",
+  "pipelines": {
+    "dev": {
+      "enabled": true,
+      "reason": "Default"
+    },
+    "biz": {
+      "enabled": true,
+      "reason": "Default"
+    },
+    "self_improve": {
+      "enabled": true,
+      "reason": "Default"
+    }
+  }
+}

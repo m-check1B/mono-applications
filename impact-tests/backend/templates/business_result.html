@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Business AI Readiness Result{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>Business AI Readiness – Result</h1>
+  <p>Thank you for completing the test.</p>
+
+  <p>
+    <strong>Total score:</strong> {{ total_score }} / 60
+    {% if bucket == "low" %}
+    <span class="badge badge-low">Low readiness</span>
+    {% elif bucket == "medium" %}
+    <span class="badge badge-medium">Medium readiness</span>
+    {% else %}
+    <span class="badge badge-high">High readiness</span>
+    {% endif %}
+  </p>
+
+  <h2>{{ title }}</h2>
+  <p>{{ recommendation }}</p>
+
+  {% if priorities %}
+  <p>
+    From your answers, your current pressure seems highest around:
+    <strong>{{ ", ".join(priorities) }}</strong>.
+  </p>
+  {% endif %}
+
+  <p>
+    Next step: we’ll review your answers and can follow up with a short call to
+    walk through the result and a concrete proposal.
+  </p>
+
+  <p>
+    Meanwhile, you can also ask for:
+  </p>
+  <ul>
+    <li><strong>AI Impact Audit</strong> – where to start and what it’s worth</li>
+    <li>
+      <strong>AI Impact Staff Training</strong> – turning your team into confident
+      AI users
+    </li>
+    <li>
+      <strong>AI Sales in Practice</strong> – concrete outbound engine for a real
+      offer
+    </li>
+  </ul>
+
+  <p><a href="/">Back to tests</a></p>
+</div>
+{% endblock %}
+
